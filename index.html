@@ -5,50 +5,190 @@
 <title>Hrishi's Resource Library</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-:root { --bg:#0b0d10; --fg:#e6e9ef; --muted:#9aa4b2; --accent:#4da3ff; --card:#13161a; }
-body { margin:0; font-family:system-ui; background:var(--bg); color:var(--fg); }
-header { padding:16px 20px; border-bottom:1px solid #1d2228; }
+:root {
+  --bg:#0b0d10;
+  --fg:#e6e9ef;
+  --muted:#9aa4b2;
+  --accent:#4da3ff;
+  --card:#13161a;
+  --border:#1d2228;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:var(--bg);
+  color:var(--fg);
+}
+
+header {
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
+}
+
 header h1 { margin:0; }
-#wrap { display:grid; grid-template-columns: 350px 1fr; gap:16px; padding:16px; height:calc(100vh - 70px); }
-#left,#right { background:var(--card); border:1px solid #1d2228; border-radius:14px; overflow:auto; }
-#left { padding:14px; }
-ul { list-style:none; padding-left:15px; }
-li { margin:4px 0; }
-a { color:var(--fg); text-decoration:none; }
-a:hover { color:var(--accent); }
-.folder-title { font-weight:600; margin-top:15px; }
-#viewerBar { display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #1d2228; }
-#viewer { width:100%; height:100%; border:0; }
-.btn { background:#0f1216; border:1px solid #27303a; color:var(--fg); padding:6px 10px; border-radius:8px; text-decoration:none; font-size:13px; }
+
+#wrap {
+  display:grid;
+  grid-template-columns:350px 1fr;
+  gap:16px;
+  padding:16px;
+  height:calc(100vh - 70px);
+}
+
+#left,
+#right {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+#left {
+  overflow:auto;
+  padding:14px;
+}
+
+#right {
+  display:grid;
+  grid-template-rows:auto 1fr;
+}
+
+#viewerBar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border-bottom:1px solid var(--border);
+}
+
+#currentPath {
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+#viewer {
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.btn {
+  background:#0f1216;
+  border:1px solid #27303a;
+  color:var(--fg);
+  padding:6px 10px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.btn:hover {
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.accordion {
+  margin:0 0 10px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#0f1216;
+}
+
+.accordion summary {
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:10px;
+  font-weight:600;
+}
+
+.accordion summary::-webkit-details-marker { display:none; }
+
+.folder-info {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.chevron {
+  color:var(--muted);
+  transition:transform .2s ease;
+}
+
+.accordion[open] .chevron {
+  transform:rotate(90deg);
+}
+
+.file-list {
+  list-style:none;
+  margin:0;
+  padding:0 10px 10px;
+}
+
+.file-list li { margin:6px 0; }
+
+.file-link {
+  color:var(--fg);
+  text-decoration:none;
+  font-size:14px;
+  line-height:1.3;
+}
+
+.file-link:hover,
+.file-link.active {
+  color:var(--accent);
+}
+
+.empty {
+  color:var(--muted);
+  font-size:13px;
+  padding:0 10px 10px;
+}
+
+@media (max-width: 900px) {
+  #wrap {
+    grid-template-columns:1fr;
+    height:auto;
+  }
+
+  #right {
+    min-height:60vh;
+  }
+}
 </style>
 </head>
 
 <body>
-
 <header>
   <h1>📚 Hrishi's Resource Library</h1>
 </header>
 
 <div id="wrap">
-
-<div id="left">
-  <div id="folders"></div>
-</div>
-
-<div id="right">
-  <div id="viewerBar">
-    <div id="currentPath">Select a resource...</div>
-    <a id="openTab" class="btn" target="_blank">Open in new tab</a>
+  <div id="left">
+    <div id="folders"></div>
   </div>
-  <iframe id="viewer"></iframe>
-</div>
 
+  <div id="right">
+    <div id="viewerBar">
+      <div id="currentPath">Select a resource...</div>
+      <a id="openTab" class="btn" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+    </div>
+    <iframe id="viewer" title="PDF Preview"></iframe>
+  </div>
 </div>
 
 <script>
-
-const OWNER = "HJexe";
-const REPO = "Class-12-ISC";
+const OWNER = "YOUR_GITHUB_USERNAME";
+const REPO = "YOUR_REPOSITORY_NAME";
 
 const SUBJECT_FOLDERS = [
   "Economics",
@@ -62,70 +202,92 @@ const $viewer = document.getElementById("viewer");
 const $currentPath = document.getElementById("currentPath");
 const $openTab = document.getElementById("openTab");
 
-function pathToUrl(path){
-  return path.split('/').map(encodeURIComponent).join('/');
+function pathToUrl(path) {
+  return path.split("/").map(encodeURIComponent).join("/");
 }
 
-function showPreview(path){
+function setActiveLink(path) {
+  document.querySelectorAll(".file-link.active").forEach(link => link.classList.remove("active"));
+  const current = document.querySelector(`.file-link[data-path="${CSS.escape(path)}"]`);
+  if (current) current.classList.add("active");
+}
+
+function showPreview(path) {
   const url = pathToUrl(path);
   $viewer.src = url;
   $currentPath.textContent = path;
   $openTab.href = url;
+  setActiveLink(path);
 }
 
-async function fetchJSON(url){
-  const r = await fetch(url);
-  if(!r.ok) throw new Error("GitHub API Error");
-  return r.json();
+async function fetchJSON(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("GitHub API Error");
+  return response.json();
 }
 
-async function loadResources(){
+function buildFolderSection(folder, files, expanded = false) {
+  const details = document.createElement("details");
+  details.className = "accordion";
+  details.open = expanded;
 
+  const summary = document.createElement("summary");
+  summary.innerHTML = `
+    <span class="folder-info">📂 ${folder}</span>
+    <span class="chevron">▶</span>
+  `;
+
+  details.appendChild(summary);
+
+  if (files.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No resources found.";
+    details.appendChild(empty);
+    return details;
+  }
+
+  const ul = document.createElement("ul");
+  ul.className = "file-list";
+
+  files.forEach(file => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = pathToUrl(file.path);
+    a.className = "file-link";
+    a.dataset.path = file.path;
+    a.textContent = file.path.replace(folder + "/", "");
+    a.onclick = event => {
+      event.preventDefault();
+      showPreview(file.path);
+    };
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  details.appendChild(ul);
+  return details;
+}
+
+async function loadResources() {
   const repoMeta = await fetchJSON(`https://api.github.com/repos/${OWNER}/${REPO}`);
   const branchData = await fetchJSON(`https://api.github.com/repos/${OWNER}/${REPO}/branches/${repoMeta.default_branch}`);
   const sha = branchData.commit.sha;
   const tree = await fetchJSON(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${sha}?recursive=1`);
 
-  const pdfFiles = tree.tree
-    .filter(f => f.type === "blob" && f.path.endsWith(".pdf"));
+  const pdfFiles = tree.tree.filter(file => file.type === "blob" && file.path.toLowerCase().endsWith(".pdf"));
 
-  SUBJECT_FOLDERS.forEach(folder => {
+  $folders.innerHTML = "";
 
-    const section = document.createElement("div");
-    const title = document.createElement("div");
-    title.className = "folder-title";
-    title.textContent = "📂 " + folder;
-    section.appendChild(title);
-
-    const ul = document.createElement("ul");
-
-    pdfFiles
-      .filter(f => f.path.startsWith(folder + "/"))
-      .forEach(file => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = pathToUrl(file.path);
-        a.textContent = file.path.replace(folder + "/", "");
-        a.onclick = (e)=>{
-          e.preventDefault();
-          showPreview(file.path);
-        };
-        li.appendChild(a);
-        ul.appendChild(li);
-      });
-
-    section.appendChild(ul);
-    $folders.appendChild(section);
-
+  SUBJECT_FOLDERS.forEach((folder, index) => {
+    const files = pdfFiles.filter(file => file.path.startsWith(folder + "/"));
+    $folders.appendChild(buildFolderSection(folder, files, index === 0));
   });
-
 }
 
-loadResources().catch(err=>{
-  $folders.innerHTML = "Error loading resources.";
+loadResources().catch(() => {
+  $folders.innerHTML = "<div class='empty'>Error loading resources.</div>";
 });
-
 </script>
-
 </body>
 </html>
