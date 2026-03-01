@@ -288,7 +288,6 @@ function renderSubtree(node, subject, prefix = "", depth = 0) {
     const li = document.createElement("li");
     const details = document.createElement("details");
     details.className = "accordion sub-accordion";
-    if (depth === 0) details.open = true;
 
     const summary = document.createElement("summary");
     summary.innerHTML = `
@@ -348,9 +347,9 @@ async function loadResources() {
 
   $folders.innerHTML = "";
 
-  SUBJECT_FOLDERS.forEach((folder, index) => {
+  SUBJECT_FOLDERS.forEach(folder => {
     const treeNode = buildSubjectTree(pdfFiles, folder);
-    $folders.appendChild(buildFolderSection(folder, treeNode, index === 0));
+    $folders.appendChild(buildFolderSection(folder, treeNode));
   });
 }
 
