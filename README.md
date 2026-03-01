@@ -1,13 +1,5 @@
 # 📚 Class-12-ISC
 
-```{=html}
-<p align="center">
-```
-`<b>`{=html}ISC Class 12 Digital Resource Hub`</b>`{=html}`<br>`{=html}
-Organized • Structured • Premium UI Ready
-```{=html}
-</p>
-```
 
 ------------------------------------------------------------------------
 
