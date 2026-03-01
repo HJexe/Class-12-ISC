@@ -100,6 +100,10 @@ header h1 { margin:0; }
   background:#0f1216;
 }
 
+.sub-accordion {
+  margin:8px 0 0;
+}
+
 .accordion summary {
   list-style:none;
   cursor:pointer;
@@ -124,7 +128,7 @@ header h1 { margin:0; }
   transition:transform .2s ease;
 }
 
-.accordion[open] .chevron {
+details[open] > summary .chevron {
   transform:rotate(90deg);
 }
 
@@ -226,7 +230,90 @@ async function fetchJSON(url) {
   return response.json();
 }
 
-function buildFolderSection(folder, files, expanded = false) {
+function createNode() {
+  return { dirs: new Map(), files: [] };
+}
+
+function insertPath(rootNode, relativePath) {
+  const parts = relativePath.split("/").filter(Boolean);
+  let current = rootNode;
+
+  while (parts.length > 1) {
+    const segment = parts.shift();
+    if (!current.dirs.has(segment)) {
+      current.dirs.set(segment, createNode());
+    }
+    current = current.dirs.get(segment);
+  }
+
+  if (parts.length === 1) {
+    current.files.push(parts[0]);
+  }
+}
+
+function buildSubjectTree(entries, subject) {
+  const root = createNode();
+
+  entries.forEach(entry => {
+    if (!entry.path.startsWith(subject + "/")) return;
+    const relativePath = entry.path.slice(subject.length + 1);
+    if (!relativePath) return;
+    insertPath(root, relativePath);
+  });
+
+  return root;
+}
+
+function renderFileLink(fullPath, filename) {
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.href = pathToUrl(fullPath);
+  a.className = "file-link";
+  a.dataset.path = fullPath;
+  a.textContent = filename;
+  a.onclick = event => {
+    event.preventDefault();
+    showPreview(fullPath);
+  };
+  li.appendChild(a);
+  return li;
+}
+
+function renderSubtree(node, subject, prefix = "", depth = 0) {
+  const ul = document.createElement("ul");
+  ul.className = "file-list";
+
+  const folders = [...node.dirs.keys()].sort((a, b) => a.localeCompare(b));
+  folders.forEach(folderName => {
+    const li = document.createElement("li");
+    const details = document.createElement("details");
+    details.className = "accordion sub-accordion";
+    if (depth === 0) details.open = true;
+
+    const summary = document.createElement("summary");
+    summary.innerHTML = `
+      <span class="folder-info">📁 ${folderName}</span>
+      <span class="chevron">▶</span>
+    `;
+
+    const nextPrefix = prefix ? `${prefix}/${folderName}` : folderName;
+    details.appendChild(summary);
+    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, nextPrefix, depth + 1));
+    li.appendChild(details);
+    ul.appendChild(li);
+  });
+
+  const files = [...node.files].sort((a, b) => a.localeCompare(b));
+  files.forEach(filename => {
+    const relative = prefix ? `${prefix}/${filename}` : filename;
+    const fullPath = `${subject}/${relative}`;
+    ul.appendChild(renderFileLink(fullPath, filename));
+  });
+
+  return ul;
+}
+
+function buildFolderSection(folder, treeNode, expanded = false) {
   const details = document.createElement("details");
   details.className = "accordion";
   details.open = expanded;
@@ -239,7 +326,7 @@ function buildFolderSection(folder, files, expanded = false) {
 
   details.appendChild(summary);
 
-  if (files.length === 0) {
+  if (treeNode.dirs.size === 0 && treeNode.files.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty";
     empty.textContent = "No resources found.";
@@ -247,25 +334,7 @@ function buildFolderSection(folder, files, expanded = false) {
     return details;
   }
 
-  const ul = document.createElement("ul");
-  ul.className = "file-list";
-
-  files.forEach(file => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = pathToUrl(file.path);
-    a.className = "file-link";
-    a.dataset.path = file.path;
-    a.textContent = file.path.replace(folder + "/", "");
-    a.onclick = event => {
-      event.preventDefault();
-      showPreview(file.path);
-    };
-    li.appendChild(a);
-    ul.appendChild(li);
-  });
-
-  details.appendChild(ul);
+  details.appendChild(renderSubtree(treeNode, folder));
   return details;
 }
 
@@ -280,8 +349,8 @@ async function loadResources() {
   $folders.innerHTML = "";
 
   SUBJECT_FOLDERS.forEach((folder, index) => {
-    const files = pdfFiles.filter(file => file.path.startsWith(folder + "/"));
-    $folders.appendChild(buildFolderSection(folder, files, index === 0));
+    const treeNode = buildSubjectTree(pdfFiles, folder);
+    $folders.appendChild(buildFolderSection(folder, treeNode, index === 0));
   });
 }
 
