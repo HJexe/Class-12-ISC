@@ -23,7 +23,6 @@ body {
   color:var(--fg);
 }
 
-
 header {
   padding:16px 20px;
   border-bottom:1px solid var(--border);
@@ -87,6 +86,7 @@ header h1 { margin:0; }
   border-radius:8px;
   text-decoration:none;
   font-size:13px;
+  white-space:nowrap;
 }
 
 .btn:hover {
@@ -159,15 +159,32 @@ details[open] > summary .chevron {
   padding:0 10px 10px;
 }
 
+.loading {
+  color:var(--muted);
+  font-size:13px;
+  padding:10px;
+  text-align:center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.error {
+  color:#ff6b6b;
+  font-size:13px;
+  padding:10px;
+  line-height:1.6;
+}
+
 @media (max-width: 900px) {
   #wrap {
     grid-template-columns:1fr;
     height:auto;
   }
-
-  #right {
-    min-height:60vh;
-  }
+  #right { min-height:60vh; }
 }
 </style>
 </head>
@@ -179,7 +196,7 @@ details[open] > summary .chevron {
 
 <div id="wrap">
   <div id="left">
-    <div id="folders"></div>
+    <div id="folders"><div class="loading">Loading resources...</div></div>
   </div>
 
   <div id="right">
@@ -192,176 +209,141 @@ details[open] > summary .chevron {
 </div>
 
 <script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const GITHUB_OWNER  = "HJexe";
+const GITHUB_REPO   = "ISC.exe";
+const GITHUB_BRANCH = "main";
+
 const SUBJECT_FOLDERS = [
   "Economics",
   "Accounts",
   "Business Studies",
   "Commerce"
 ];
+// ─────────────────────────────────────────────────────────────────────────────
 
-const LOCAL_PDF_PATHS = [
-  "Business Studies/2026-specimen-Ak.pdf",
-  "Business Studies/Important Papers.pdf",
-  "Business Studies/ISC-Business-Studies-XII.pdf",
-  "Economics/Important Questions/National Income MCQs.pdf",
-  "Economics/Important Questions/HOTS QUESTION.pdf",
-  "Economics/Important Questions/IMPORTANT.QUESTIONS[ macro ]-1.pdf",
-  "Economics/Important Questions/CLASS XII ECONOMICS MCQS(CASE STUDY BASED QUESTIONS,AR,ADDITONAL QUESTIONS).pdf",
-  "Economics/Important Questions/IMPORTANT.QUESTIONS[ macro ].pdf",
-  "Economics/Papers/14-St Paul's School Economics.pdf",
-  "Economics/Papers/answer key sample 1.pdf",
-  "Economics/Papers/sample paper 2.pdf",
-  "Economics/Papers/Ans. Key - Economics -ISC KISA Preparatory 2026.pdf",
-  "Economics/Papers/practice.paper[oswal].pdf",
-  "Economics/Papers/12 Bombay scottish eco prelim.pdf",
-  "Economics/Papers/sample paper 1.pdf",
-  "Economics/Papers/ISC KISA Preparatory 2026 - Economics QP.pdf",
-  "Economics/Papers/IMPROVEMENT EXAM ECONOMICS .pdf",
-  "Economics/Papers/11-singhania economicsprelim.pdf"
-];
+const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
 
-const $folders = document.getElementById("folders");
-const $viewer = document.getElementById("viewer");
+const $folders     = document.getElementById("folders");
+const $viewer      = document.getElementById("viewer");
 const $currentPath = document.getElementById("currentPath");
-const $openTab = document.getElementById("openTab");
+const $openTab     = document.getElementById("openTab");
 
-function pathToUrl(path) {
-  return path.split("/").map(encodeURIComponent).join("/");
+function rawUrl(path) {
+  return RAW_BASE + path.split("/").map(encodeURIComponent).join("/");
 }
 
 function setActiveLink(path) {
-  document.querySelectorAll(".file-link.active").forEach(link => link.classList.remove("active"));
-  const current = document.querySelector(`.file-link[data-path="${CSS.escape(path)}"]`);
-  if (current) current.classList.add("active");
+  document.querySelectorAll(".file-link.active").forEach(l => l.classList.remove("active"));
+  const el = document.querySelector(`.file-link[data-path="${CSS.escape(path)}"]`);
+  if (el) el.classList.add("active");
 }
 
 function showPreview(path) {
-  const url = pathToUrl(path);
+  const url = rawUrl(path);
   $viewer.src = url;
   $currentPath.textContent = path;
   $openTab.href = url;
   setActiveLink(path);
 }
 
-function createNode() {
-  return { dirs: new Map(), files: [] };
-}
-
-function insertPath(rootNode, relativePath) {
-  const parts = relativePath.split("/").filter(Boolean);
-  let current = rootNode;
-
-  while (parts.length > 1) {
-    const segment = parts.shift();
-    if (!current.dirs.has(segment)) {
-      current.dirs.set(segment, createNode());
+// Build a nested tree from a flat list of relative paths (no subject prefix)
+function buildTree(paths) {
+  const root = { dirs: new Map(), files: [] };
+  for (const p of paths) {
+    const parts = p.split("/").filter(Boolean);
+    let node = root;
+    for (let i = 0; i < parts.length - 1; i++) {
+      if (!node.dirs.has(parts[i])) node.dirs.set(parts[i], { dirs: new Map(), files: [] });
+      node = node.dirs.get(parts[i]);
     }
-    current = current.dirs.get(segment);
+    const filename = parts[parts.length - 1];
+    if (filename) node.files.push(filename);
   }
-
-  if (parts.length === 1) {
-    current.files.push(parts[0]);
-  }
-}
-
-function buildSubjectTree(entries, subject) {
-  const root = createNode();
-
-  entries.forEach(entry => {
-    if (!entry.path.startsWith(subject + "/")) return;
-    const relativePath = entry.path.slice(subject.length + 1);
-    if (!relativePath) return;
-    insertPath(root, relativePath);
-  });
-
   return root;
 }
 
 function renderFileLink(fullPath, filename) {
   const li = document.createElement("li");
-  const a = document.createElement("a");
-  a.href = pathToUrl(fullPath);
-  a.className = "file-link";
+  const a  = document.createElement("a");
+  a.href         = rawUrl(fullPath);
+  a.className    = "file-link";
   a.dataset.path = fullPath;
-  a.textContent = filename;
-  a.onclick = event => {
-    event.preventDefault();
-    showPreview(fullPath);
-  };
+  a.textContent  = filename;
+  a.onclick = e => { e.preventDefault(); showPreview(fullPath); };
   li.appendChild(a);
   return li;
 }
 
-function renderSubtree(node, subject, prefix = "", depth = 0) {
+function renderSubtree(node, subject, prefix = "") {
   const ul = document.createElement("ul");
   ul.className = "file-list";
 
-  const folders = [...node.dirs.keys()].sort((a, b) => a.localeCompare(b));
-  folders.forEach(folderName => {
-    const li = document.createElement("li");
+  [...node.dirs.keys()].sort((a, b) => a.localeCompare(b)).forEach(folderName => {
+    const li      = document.createElement("li");
     const details = document.createElement("details");
     details.className = "accordion sub-accordion";
 
     const summary = document.createElement("summary");
-    summary.innerHTML = `
-      <span class="folder-info">📁 ${folderName}</span>
-      <span class="chevron">▶</span>
-    `;
+    summary.innerHTML = `<span class="folder-info">📁 ${folderName}</span><span class="chevron">▶</span>`;
 
     const nextPrefix = prefix ? `${prefix}/${folderName}` : folderName;
     details.appendChild(summary);
-    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, nextPrefix, depth + 1));
+    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, nextPrefix));
     li.appendChild(details);
     ul.appendChild(li);
   });
 
-  const files = [...node.files].sort((a, b) => a.localeCompare(b));
-  files.forEach(filename => {
+  [...node.files].sort((a, b) => a.localeCompare(b)).forEach(filename => {
     const relative = prefix ? `${prefix}/${filename}` : filename;
-    const fullPath = `${subject}/${relative}`;
+    const fullPath  = `${subject}/${relative}`;
     ul.appendChild(renderFileLink(fullPath, filename));
   });
 
   return ul;
 }
 
-function buildFolderSection(folder, treeNode, expanded = false) {
+function buildFolderSection(subject, paths) {
   const details = document.createElement("details");
   details.className = "accordion";
-  details.open = expanded;
 
   const summary = document.createElement("summary");
-  summary.innerHTML = `
-    <span class="folder-info">📂 ${folder}</span>
-    <span class="chevron">▶</span>
-  `;
-
+  summary.innerHTML = `<span class="folder-info">📂 ${subject}</span><span class="chevron">▶</span>`;
   details.appendChild(summary);
 
-  if (treeNode.dirs.size === 0 && treeNode.files.length === 0) {
+  if (paths.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty";
     empty.textContent = "No resources found.";
     details.appendChild(empty);
-    return details;
+  } else {
+    // Strip the "Subject/" prefix before building the tree
+    const relative = paths.map(p => p.slice(subject.length + 1));
+    details.appendChild(renderSubtree(buildTree(relative), subject));
   }
 
-  details.appendChild(renderSubtree(treeNode, folder));
   return details;
 }
 
-function loadResources() {
-  const pdfFiles = LOCAL_PDF_PATHS.map(path => ({
-    type: "blob",
-    path
-  }));
+async function loadResources() {
+  try {
+    // files.json lives at the root of the repo, served via GitHub Pages
+    const res = await fetch("files.json");
+    if (!res.ok) throw new Error(`files.json not found (${res.status}). Has the GitHub Action run yet?`);
 
-  $folders.innerHTML = "";
+    const allFiles = await res.json(); // flat array of paths like "Economics/Papers/foo.pdf"
 
-  SUBJECT_FOLDERS.forEach(folder => {
-    const treeNode = buildSubjectTree(pdfFiles, folder);
-    $folders.appendChild(buildFolderSection(folder, treeNode));
-  });
+    $folders.innerHTML = "";
+
+    SUBJECT_FOLDERS.forEach(subject => {
+      const subjectFiles = allFiles.filter(p => p.startsWith(subject + "/"));
+      $folders.appendChild(buildFolderSection(subject, subjectFiles));
+    });
+
+  } catch (err) {
+    $folders.innerHTML = `<div class="error">⚠️ ${err.message}<br><br>Make sure the <strong>Generate File Index</strong> GitHub Action has run at least once so <code>files.json</code> exists in the repo.</div>`;
+    console.error(err);
+  }
 }
 
 loadResources();
