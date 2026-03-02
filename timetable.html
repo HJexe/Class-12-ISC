@@ -413,7 +413,6 @@
 
 <div class="stats-bar" id="statsBar">
   <div>Total exams: <span id="statTotal">—</span></div>
-  <div>Remaining: <span id="statRemaining">—</span></div>
   <div>Next: <span id="statNext">—</span></div>
 </div>
 
@@ -448,40 +447,40 @@
   // All exams from timetable image
   // stream: 'science' | 'commerce' | 'both'
   const ALL_EXAMS = [
-    { date: '2026-02-12', day: 'Thursday',  time: '2:00 PM', subject: 'Psychology',                        stream: 'both' },
-    { date: '2026-02-13', day: 'Friday',    time: '2:00 PM', subject: 'English — Paper 1 (English Language)', stream: 'both' },
-    { date: '2026-02-14', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 3 (Drawing or Painting of a Living Person)', stream: 'both' },
-    { date: '2026-02-14', day: 'Saturday',  time: '2:00 PM', subject: 'Legal Studies',                     stream: 'both' },
-    { date: '2026-02-16', day: 'Monday',    time: '2:00 PM', subject: 'English — Paper 2 (Literature in English)', stream: 'both' },
-    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Home Science — Paper 1 (Theory)',   stream: 'both' },
-    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Electricity and Electronics',       stream: 'science' },
-    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Geometrical & Mechanical Drawing',  stream: 'both' },
-    { date: '2026-02-20', day: 'Friday',    time: '2:00 PM', subject: 'Accounts',                          stream: 'commerce' },
-    { date: '2026-02-21', day: 'Saturday',  time: '2:00 PM', subject: 'Mass Media & Communication',        stream: 'both' },
-    { date: '2026-02-23', day: 'Monday',    time: '2:00 PM', subject: 'Chemistry — Paper 1 (Theory)',      stream: 'science' },
-    { date: '2026-02-25', day: 'Wednesday', time: '2:00 PM', subject: 'History',                           stream: 'both' },
-    { date: '2026-02-27', day: 'Friday',    time: '2:00 PM', subject: 'Commerce',                          stream: 'commerce' },
-    { date: '2026-02-28', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 1 (Drawing or Painting from Still Life)', stream: 'both' },
-    { date: '2026-03-02', day: 'Monday',    time: '2:00 PM', subject: 'Environmental Science — Paper 1 (Theory)', stream: 'science' },
-    { date: '2026-03-06', day: 'Friday',    time: '2:00 PM', subject: 'Biology — Paper 1 (Theory)',        stream: 'science' },
-    { date: '2026-03-07', day: 'Saturday',  time: '2:00 PM', subject: 'Fashion Designing — Paper 1 (Theory)', stream: 'both' },
-    { date: '2026-03-07', day: 'Saturday',  time: '2:00 PM', subject: 'Indian Music — Hindustani — Paper 1 (Theory)', stream: 'both' },
-    { date: '2026-03-09', day: 'Monday',    time: '2:00 PM', subject: 'Mathematics',                       stream: 'science' },
-    { date: '2026-03-11', day: 'Wednesday', time: '2:00 PM', subject: 'Business Studies',                  stream: 'commerce' },
+    { date: '2026-02-12', day: 'Thursday',  time: '2:00 PM', subject: 'Psychology',                                          stream: 'both' },
+    { date: '2026-02-13', day: 'Friday',    time: '2:00 PM', subject: 'English — Paper 1 (English Language)',                stream: 'both' },
+    { date: '2026-02-14', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 3 (Drawing or Painting of a Living Person)',stream: 'both' },
+    { date: '2026-02-14', day: 'Saturday',  time: '2:00 PM', subject: 'Legal Studies',                                       stream: 'both' },
+    { date: '2026-02-16', day: 'Monday',    time: '2:00 PM', subject: 'English — Paper 2 (Literature in English)',           stream: 'both' },
+    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Home Science — Paper 1 (Theory)',                    stream: 'both' },
+    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Electricity and Electronics',                         stream: 'science' },
+    { date: '2026-02-17', day: 'Tuesday',   time: '2:00 PM', subject: 'Geometrical & Mechanical Drawing',                   stream: 'both' },
+    { date: '2026-02-20', day: 'Friday',    time: '2:00 PM', subject: 'Accounts',                                            stream: 'commerce' },
+    { date: '2026-02-21', day: 'Saturday',  time: '2:00 PM', subject: 'Mass Media & Communication',                         stream: 'both' },
+    { date: '2026-02-23', day: 'Monday',    time: '2:00 PM', subject: 'Chemistry — Paper 1 (Theory)',                       stream: 'science' },
+    { date: '2026-02-25', day: 'Wednesday', time: '2:00 PM', subject: 'History',                                             stream: 'both' },
+    { date: '2026-02-27', day: 'Friday',    time: '2:00 PM', subject: 'Commerce',                                            stream: 'commerce' },
+    { date: '2026-02-28', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 1 (Drawing or Painting from Still Life)',  stream: 'both' },
+    { date: '2026-03-02', day: 'Monday',    time: '2:00 PM', subject: 'Environmental Science — Paper 1 (Theory)',           stream: 'science' },
+    { date: '2026-03-06', day: 'Friday',    time: '2:00 PM', subject: 'Biology — Paper 1 (Theory)',                         stream: 'science' },
+    { date: '2026-03-07', day: 'Saturday',  time: '2:00 PM', subject: 'Fashion Designing — Paper 1 (Theory)',               stream: 'both' },
+    { date: '2026-03-07', day: 'Saturday',  time: '2:00 PM', subject: 'Indian Music — Hindustani — Paper 1 (Theory)',       stream: 'both' },
+    { date: '2026-03-09', day: 'Monday',    time: '2:00 PM', subject: 'Mathematics',                                         stream: 'science' },
+    { date: '2026-03-11', day: 'Wednesday', time: '2:00 PM', subject: 'Business Studies',                                   stream: 'commerce' },
     { date: '2026-03-13', day: 'Friday',    time: '2:00 PM', subject: 'Bengali, Gujarati, Hindi, Kannada & other regional languages', stream: 'both' },
-    { date: '2026-03-14', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 2 (Drawing or Painting from Nature)', stream: 'both' },
-    { date: '2026-03-16', day: 'Monday',    time: '2:00 PM', subject: 'Physics — Paper 1 (Theory)',        stream: 'science' },
-    { date: '2026-03-18', day: 'Wednesday', time: '2:00 PM', subject: 'Physical Education',                stream: 'both' },
-    { date: '2026-03-23', day: 'Monday',    time: '2:00 PM', subject: 'Economics',                         stream: 'commerce' },
-    { date: '2026-03-23', day: 'Monday',    time: '2:00 PM', subject: 'Biotechnology — Paper 1 (Theory)',  stream: 'science' },
-    { date: '2026-03-25', day: 'Wednesday', time: '2:00 PM', subject: 'Sociology',                         stream: 'both' },
-    { date: '2026-03-27', day: 'Friday',    time: '2:00 PM', subject: 'Computer Science — Paper 1 (Theory)', stream: 'science' },
+    { date: '2026-03-14', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 2 (Drawing or Painting from Nature)',      stream: 'both' },
+    { date: '2026-03-16', day: 'Monday',    time: '2:00 PM', subject: 'Physics — Paper 1 (Theory)',                         stream: 'science' },
+    { date: '2026-03-18', day: 'Wednesday', time: '2:00 PM', subject: 'Physical Education',                                 stream: 'both' },
+    { date: '2026-03-23', day: 'Monday',    time: '2:00 PM', subject: 'Economics',                                           stream: 'commerce' },
+    { date: '2026-03-23', day: 'Monday',    time: '2:00 PM', subject: 'Biotechnology — Paper 1 (Theory)',                   stream: 'science' },
+    { date: '2026-03-25', day: 'Wednesday', time: '2:00 PM', subject: 'Sociology',                                           stream: 'both' },
+    { date: '2026-03-27', day: 'Friday',    time: '2:00 PM', subject: 'Computer Science — Paper 1 (Theory)',                stream: 'science' },
     { date: '2026-03-28', day: 'Saturday',  time: '9:00 AM', subject: 'Art Paper 4 (Original Imaginative Composition in Colour)', stream: 'both' },
-    { date: '2026-03-30', day: 'Monday',    time: '2:00 PM', subject: 'Political Science',                 stream: 'both' },
-    { date: '2026-04-01', day: 'Wednesday', time: '2:00 PM', subject: 'Elective English',                  stream: 'both' },
-    { date: '2026-04-01', day: 'Wednesday', time: '2:00 PM', subject: 'Hospitality Management',            stream: 'commerce' },
-    { date: '2026-04-04', day: 'Saturday',  time: '9:00 AM', subject: "Art Paper 5 (Crafts 'A')",          stream: 'both' },
-    { date: '2026-04-06', day: 'Monday',    time: '2:00 PM', subject: 'Geography',                         stream: 'both' },
+    { date: '2026-03-30', day: 'Monday',    time: '2:00 PM', subject: 'Political Science',                                   stream: 'both' },
+    { date: '2026-04-01', day: 'Wednesday', time: '2:00 PM', subject: 'Elective English',                                   stream: 'both' },
+    { date: '2026-04-01', day: 'Wednesday', time: '2:00 PM', subject: 'Hospitality Management',                             stream: 'commerce' },
+    { date: '2026-04-04', day: 'Saturday',  time: '9:00 AM', subject: "Art Paper 5 (Crafts 'A')",                           stream: 'both' },
+    { date: '2026-04-06', day: 'Monday',    time: '2:00 PM', subject: 'Geography',                                           stream: 'both' },
   ];
 
   // Stream-specific subjects map
@@ -530,7 +529,7 @@
     document.getElementById('noExams').style.display = 'none';
 
     let lastMonth = null;
-    let total = 0, remaining = 0, nextSubject = null;
+    let total = 0, nextSubject = null;
 
     filtered.forEach((exam, i) => {
       const examDate = new Date(exam.date);
@@ -539,7 +538,6 @@
       const isToday = examDate.getTime() === today.getTime();
 
       total++;
-      if (!isPast || isToday) remaining++;
       if (!isPast && !isToday && !nextSubject) nextSubject = exam;
 
       // Month divider
@@ -576,7 +574,6 @@
     });
 
     document.getElementById('statTotal').textContent = total;
-    document.getElementById('statRemaining').textContent = remaining;
     document.getElementById('statNext').textContent = nextSubject
       ? nextSubject.subject.split('—')[0].split('(')[0].trim()
       : 'All done!';
