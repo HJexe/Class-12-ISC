@@ -30,7 +30,6 @@ jobs:
             if not os.path.isdir(subject):
               continue
             for root, dirs, filenames in os.walk(subject):
-              # skip hidden dirs
               dirs[:] = [d for d in dirs if not d.startswith('.')]
               for fn in filenames:
                 if any(fn.lower().endswith(ext) for ext in ALLOWED):
@@ -47,9 +46,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add files.json
           git diff --staged --quiet || (
-            git pull --rebase origin main &&
             git commit -m "chore: update file index [skip ci]" &&
             git push
           )
