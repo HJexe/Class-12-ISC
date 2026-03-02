@@ -239,11 +239,17 @@ function setActiveLink(path) {
   if (el) el.classList.add("active");
 }
 
+function previewUrl(path) {
+  const fileUrl = rawUrl(path);
+  // Use PDF.js viewer to avoid browser-native PDF behaviors (like auto-opening print UI).
+  return `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(fileUrl)}`;
+}
+
 function showPreview(path) {
-  const url = rawUrl(path);
-  $viewer.src = url;
+  const raw = rawUrl(path);
+  $viewer.src = previewUrl(path);
   $currentPath.textContent = path;
-  $openTab.href = url;
+  $openTab.href = raw;
   setActiveLink(path);
 }
 
