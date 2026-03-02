@@ -1,6 +1,757 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISC.exe — Class 12 Resource Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg:      #080809;
+      --surface: #0f0f12;
+      --s2:      #141418;
+      --border:  #1f1f28;
+      --accent:  #7fff5f;
+      --accent2: #4dff2a;
+      --glow:    rgba(127,255,95,0.18);
+      --glowS:   rgba(127,255,95,0.08);
+      --text:    #dddde8;
+      --muted:   #55556a;
+      --dim:     #333345;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
+      mix-blend-mode: screen;
+    }
+    #cursor-trail {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(127,255,95,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: left 0.12s ease, top 0.12s ease, width 0.25s, height 0.25s, opacity 0.25s;
+    }
+    body:has(a:hover) #cursor    { width:18px; height:18px; }
+    body:has(a:hover) #cursor-trail { width:52px; height:52px; border-color:rgba(127,255,95,0.55); }
+
+    /* ─── MOUSE GLOW ─── */
+    #mouse-glow {
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(127,255,95,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%,-50%);
+      transition: left 0.08s, top 0.08s;
+    }
+
+    /* ─── SCANLINES ─── */
+    body::after {
+      content: '';
+      position: fixed; inset:0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top:0; left:0; right:0;
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 1.4rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,9,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 500;
+    }
+
+    .logo {
+      font-size: 1rem; font-weight: 700;
+      color: var(--text); text-decoration:none;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a {
+      color: var(--muted); text-decoration:none;
+      font-size: 0.7rem; letter-spacing: 2px; text-transform:uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 3rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid lines background */
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(127,255,95,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(127,255,95,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events:none;
+    }
+
+    .hero-left { position:relative; z-index:2; padding-top:5rem; }
+
+    .eyebrow {
+      display: flex; align-items:center; gap:0.8rem;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 2.5px; text-transform:uppercase;
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+    .eyebrow::before {
+      content:'';
+      display:block; width:2.5rem; height:1px;
+      background: var(--accent);
+    }
+    .eyebrow span { color: var(--accent); }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.35s ease forwards;
+    }
+    h1 .line1 { color: var(--text); display:block; }
+    h1 .line2 { color: var(--muted); font-style:italic; font-weight:400; display:block; }
+    h1 .line3 { color: var(--accent); display:block; }
+
+    .edition-tag {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: var(--accent);
+      margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+
+    .hero-desc {
+      font-size: 0.82rem; color: var(--muted);
+      line-height: 1.8; max-width: 400px;
+      margin-bottom: 2.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      opacity: 0; animation: fadeUp 0.7s 0.65s ease forwards;
+    }
+
+    .hero-ctas {
+      display: flex; align-items:center; gap:1.5rem;
+      opacity: 0; animation: fadeUp 0.7s 0.8s ease forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items:center; gap:0.6rem;
+      background: var(--accent); color: #080809;
+      padding: 0.75rem 1.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 1px; text-transform:uppercase;
+      text-decoration:none; border:none; cursor:none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(127,255,95,0.3);
+    }
+
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      color: var(--muted); text-decoration:none;
+      font-size: 0.75rem; letter-spacing:1px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-ghost::after { content:'→'; transition: transform 0.2s; }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    /* ─── HERO RIGHT — Orbital widget ─── */
+    .hero-right {
+      position:relative; z-index:2;
+      display:flex; align-items:center; justify-content:center;
+      height: 100%;
+      opacity: 0; animation: fadeIn 1s 0.9s ease forwards;
+    }
+
+    .orbital {
+      position:relative;
+      width: 340px; height: 340px;
+    }
+
+    .orb-ring {
+      position:absolute; inset:0;
+      border-radius:50%;
+      border: 1px solid rgba(127,255,95,0.12);
+      animation: spinSlow 18s linear infinite;
+    }
+    .orb-ring-2 {
+      inset: 30px;
+      border: 1px solid rgba(127,255,95,0.07);
+      animation-direction: reverse;
+      animation-duration: 26s;
+    }
+
+    .orb-center {
+      position:absolute;
+      inset:60px;
+      border-radius:50%;
+      background: radial-gradient(circle at 40% 35%, var(--s2), var(--bg));
+      border: 1px solid var(--border);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:4px;
+    }
+
+    .orb-label {
+      font-size: 0.55rem; color: var(--muted);
+      letter-spacing:2px; text-transform:uppercase;
+    }
+    .orb-num {
+      font-family:'Playfair Display', serif;
+      font-size: 3.5rem; font-weight:900;
+      color: var(--text); line-height:1;
+      letter-spacing:-3px;
+    }
+    .orb-sub {
+      font-size:0.6rem; color: var(--muted);
+      letter-spacing:1.5px;
+    }
+
+    /* Dot on ring */
+    .orb-dot {
+      position:absolute;
+      width:8px; height:8px;
+      background: var(--accent);
+      border-radius:50%;
+      box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(127,255,95,0.4);
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+    }
+    .orb-dot-2 {
+      width:5px; height:5px;
+      background: rgba(127,255,95,0.4);
+      box-shadow: none;
+      top:auto; bottom:30px; left:auto; right:20px;
+      transform:none;
+    }
+
+    /* Stats floating */
+    .stat-float {
+      position:absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.7rem 1.1rem;
+      font-size: 0.65rem; color: var(--muted);
+      white-space:nowrap;
+    }
+    .stat-float strong {
+      display:block;
+      font-size: 1.2rem;
+      color: var(--text);
+      font-family:'Playfair Display', serif;
+      font-weight:700;
+    }
+    .sf1 { top:30px; left:-20px; }
+    .sf2 { bottom:60px; right:-30px; }
+    .sf3 { bottom:10px; left:10px; }
+
+    @keyframes spinSlow { to { transform:rotate(360deg); } }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    /* ─── SECTION SHARED ─── */
+    section { position:relative; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+
+    .section-eyebrow {
+      font-size:0.62rem; color:var(--accent);
+      letter-spacing:3px; text-transform:uppercase;
+      margin-bottom:0.8rem;
+    }
+
+    h2 {
+      font-family:'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight:900;
+      letter-spacing:-1px;
+      line-height:1.1;
+      margin-bottom:3rem;
+    }
+    h2 em { font-style:italic; color:var(--accent); font-weight:400; }
+
+    .divider {
+      width:100%; height:1px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+      margin-bottom: 0.8rem;
+    }
+
+    /* ─── SUBJECTS ─── */
+    #subjects { background: var(--surface); border-top:1px solid var(--border); }
+
+    .subjects-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+      gap:1px;
+      background: var(--border);
+      border:1px solid var(--border);
+    }
+
+    .subject-card {
+      background: var(--bg);
+      padding: 2rem;
+      text-decoration:none;
+      color: var(--text);
+      display:flex; flex-direction:column; gap:1rem;
+      transition: background 0.2s;
+      position:relative; overflow:hidden;
+    }
+    .subject-card::after {
+      content:'';
+      position:absolute; bottom:0; left:0;
+      height:2px; width:0;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .subject-card:hover { background: var(--s2); }
+    .subject-card:hover::after { width:100%; }
+
+    .sc-num {
+      font-size:0.6rem; color:var(--dim);
+      letter-spacing:2px;
+    }
+    .sc-icon { font-size:1.8rem; }
+    .sc-title { font-size:1rem; font-weight:600; color:var(--text); }
+    .sc-desc { font-size:0.72rem; color:var(--muted); line-height:1.7; }
+    .sc-link {
+      margin-top:auto;
+      font-size:0.65rem; color:var(--accent);
+      display:flex; align-items:center; gap:0.4rem;
+    }
+    .sc-link::after { content:'→'; transition:transform 0.2s; }
+    .subject-card:hover .sc-link::after { transform:translateX(4px); }
+
+    /* ─── FEATURES ─── */
+    #features { border-top:1px solid var(--border); }
+
+    .features-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+      gap:1.5rem;
+    }
+
+    .feature-card {
+      padding: 1.8rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(127,255,95,0.3); background: var(--s2); }
+
+    .feat-icon { font-size:1.5rem; margin-bottom:1rem; }
+    .feat-title { font-size:0.85rem; font-weight:600; margin-bottom:0.5rem; color:var(--text); }
+    .feat-desc { font-size:0.72rem; color:var(--muted); line-height:1.7; }
+
+    /* ─── TERMINAL SECTION ─── */
+    #terminal-section { background: var(--surface); border-top:1px solid var(--border); }
+
+    .terminal-wrap {
+      border:1px solid var(--border);
+      background: var(--bg);
+      max-width:680px;
+    }
+
+    .terminal-bar {
+      background: var(--s2);
+      padding:0.7rem 1rem;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:0.6rem;
+      font-size:0.65rem; color:var(--muted);
+    }
+    .t-dot { width:10px; height:10px; border-radius:50%; }
+    .t-r { background:#ff5f5f; }
+    .t-y { background:#ffbf00; }
+    .t-g { background: var(--accent); }
+    .t-title { margin-left:0.5rem; }
+
+    .terminal-body {
+      padding: 1.5rem;
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+    .t-cmd { color: var(--accent); }
+    .t-ok  { color: #5fdf3a; }
+    .t-dim { color: var(--dim); }
+    .t-cursor {
+      display:inline-block;
+      width:8px; height:1em;
+      background: var(--accent);
+      vertical-align:middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity:0; } }
+
+    /* ─── CTA ─── */
+    #cta {
+      border-top:1px solid var(--border);
+      text-align:center;
+    }
+    .cta-inner {
+      max-width:700px;
+      margin:0 auto;
+      padding:7rem 3rem;
+    }
+    .cta-pre {
+      font-size:0.65rem; color:var(--muted);
+      letter-spacing:3px; text-transform:uppercase;
+      margin-bottom:1.5rem;
+    }
+    .cta-inner h2 { margin-bottom:1.5rem; }
+    .cta-sub {
+      font-size:0.75rem; color:var(--muted);
+      margin-bottom:3rem; line-height:1.8;
+    }
+    .cta-chips {
+      display:flex; gap:1.5rem; justify-content:center;
+      flex-wrap:wrap; margin-top:2rem;
+      font-size:0.65rem; color:var(--dim);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top:1px solid var(--border);
+      padding:1.8rem 3rem;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:0.68rem; color:var(--muted);
+    }
+    footer a { color:var(--muted); text-decoration:none; transition:color 0.2s; }
+    footer a:hover { color:var(--accent); }
+    .foot-logo { color:var(--text); font-weight:600; }
+    .foot-logo span { color:var(--accent); }
+
+    /* ─── TIMETABLE NAV LINK ─── */
+    .nav-timetable {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      color: var(--accent) !important;
+      border: 1px solid rgba(127,255,95,0.3);
+      padding: 0.3rem 0.8rem;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-timetable:hover {
+      background: rgba(127,255,95,0.1);
+      color: var(--accent) !important;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns:1fr; padding-top:6rem; }
+      .hero-right { display:none; }
+      nav { padding:1rem 1.5rem; }
+      .section-inner { padding:4rem 1.5rem; }
+      footer { flex-direction:column; gap:1rem; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor elements -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<div id="mouse-glow"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="/" class="logo">ISC<span>.exe</span></a>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="timetable.html" class="nav-timetable">⏱ Timetable</a></li>
+    <li><a href="https://github.com/HJexe/Class-12-ISC">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">Class 12 · <span>ISC</span> · 2024–25</p>
+    <h1>
+      <span class="line1">Study</span>
+      <span class="line2">smarter,</span>
+      <span class="line3">not harder.</span>
+    </h1>
+    <p class="edition-tag">Commerce Edition</p>
+    <p class="hero-desc">All your Class 12 ISC resources — PDFs, notes, and study materials — organized, searchable, and viewable in one place.</p>
+    <div class="hero-ctas">
+      <a href="resource.html" class="btn-primary">→ Open Resource Hub</a>
+      <a href="https://github.com/HJexe/Class-12-ISC" class="btn-ghost">View on GitHub</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="orbital">
+      <div class="orb-ring">
+        <div class="orb-dot"></div>
+      </div>
+      <div class="orb-ring orb-ring-2">
+        <div class="orb-dot orb-dot-2"></div>
+      </div>
+      <div class="orb-center">
+        <span class="orb-label">ISC · 2025</span>
+        <span class="orb-num">12</span>
+        <span class="orb-sub">Commerce</span>
+      </div>
+
+      <div class="stat-float sf1">
+        <strong>4</strong>
+        Subjects
+      </div>
+      <div class="stat-float sf2">
+        <strong>∞</strong>
+        PDFs & Notes
+      </div>
+      <div class="stat-float sf3">
+        <strong>100%</strong>
+        Free Forever
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SUBJECTS ─── -->
+<section id="subjects">
+  <div class="section-inner">
+    <p class="section-eyebrow">// 01 — Subjects</p>
+    <div class="divider"></div>
+    <h2>What's <em>inside</em></h2>
+    <div class="subjects-grid">
+      <a href="resource.html" class="subject-card">
+        <span class="sc-num">01</span>
+        <span class="sc-icon">📈</span>
+        <span class="sc-title">Economics</span>
+        <span class="sc-desc">Micro & macro economics, consumer theory, market structures, national income, and more — fully organized by topic.</span>
+        <span class="sc-link">Browse resources</span>
+      </a>
+      <a href="resource.html" class="subject-card">
+        <span class="sc-num">02</span>
+        <span class="sc-icon">🧾</span>
+        <span class="sc-title">Accounts</span>
+        <span class="sc-desc">Partnership accounts, company accounts, cash flow statements, ratio analysis — all ISC board syllabus covered.</span>
+        <span class="sc-link">Browse resources</span>
+      </a>
+      <a href="resource.html" class="subject-card">
+        <span class="sc-num">03</span>
+        <span class="sc-icon">🏢</span>
+        <span class="sc-title">Business Studies</span>
+        <span class="sc-desc">Management principles, planning, organizing, directing, controlling, and entrepreneurship topics for ISC boards.</span>
+        <span class="sc-link">Browse resources</span>
+      </a>
+      <a href="resource.html" class="subject-card">
+        <span class="sc-num">04</span>
+        <span class="sc-icon">💹</span>
+        <span class="sc-title">Commerce</span>
+        <span class="sc-desc">Trade, banking, insurance, warehousing, means of transport, and all general commerce concepts neatly filed.</span>
+        <span class="sc-link">Browse resources</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section id="features">
+  <div class="section-inner">
+    <p class="section-eyebrow">// 02 — Features</p>
+    <div class="divider"></div>
+    <h2>Built to <em>last</em></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feat-icon">📂</div>
+        <div class="feat-title">Smart File Tree</div>
+        <div class="feat-desc">Nested folder navigation with instant expand/collapse. Find exactly what you need without scrolling endlessly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">👁️</div>
+        <div class="feat-title">Inline PDF Viewer</div>
+        <div class="feat-desc">Preview any PDF directly in the browser without downloading. No third-party apps, no fuss.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">🔗</div>
+        <div class="feat-title">Direct GitHub Links</div>
+        <div class="feat-desc">Every resource links straight back to the repo. Always up-to-date with the latest uploaded content.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">📱</div>
+        <div class="feat-title">Mobile Friendly</div>
+        <div class="feat-desc">Responsive layout that works on any screen. Study on your phone, tablet, or desktop — your choice.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">Zero Dependencies</div>
+        <div class="feat-desc">Pure HTML, CSS, and vanilla JS. No frameworks, no build steps. Just open and go.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">🌙</div>
+        <div class="feat-title">Dark by Default</div>
+        <div class="feat-desc">Easy on the eyes for late-night study sessions. Crafted for those 2 AM revision marathons.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TERMINAL ─── -->
+<section id="terminal-section">
+  <div class="section-inner">
+    <p class="section-eyebrow">// 03 — Under the Hood</p>
+    <div class="divider"></div>
+    <h2>How it <em>works</em></h2>
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <div class="t-dot t-r"></div>
+        <div class="t-dot t-y"></div>
+        <div class="t-dot t-g"></div>
+        <span class="t-title">isc.exe — bash</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-cmd">→</span> fetch api.github.com/repos/HJexe/Class-12-ISC</div>
+        <div><span class="t-ok">✓</span> Repo metadata loaded · branch: <span class="t-cmd">main</span></div>
+        <div class="t-dim">─────────────────────────────────────</div>
+        <div><span class="t-cmd">→</span> get git/trees/main?recursive=1</div>
+        <div><span class="t-ok">✓</span> 4 subjects found · scanning for PDFs...</div>
+        <div class="t-dim">─────────────────────────────────────</div>
+        <div><span class="t-ok">✓</span> Economics/       → 12 files</div>
+        <div><span class="t-ok">✓</span> Accounts/        → 9 files</div>
+        <div><span class="t-ok">✓</span> Business Studies/ → 8 files</div>
+        <div><span class="t-ok">✓</span> Commerce/        → 6 files</div>
+        <div class="t-dim">─────────────────────────────────────</div>
+        <div><span class="t-cmd">→</span> render sidebar // build accordion tree</div>
+        <div><span class="t-ok">✓</span> File tree rendered · 0 dependencies required</div>
+        <div class="t-dim">─────────────────────────────────────</div>
+        <div><span class="t-cmd">→</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section id="cta">
+  <div class="cta-inner">
+    <p class="cta-pre">// Ready?</p>
+    <h2>Start <em>studying</em> right now.</h2>
+    <p class="cta-sub">No login · No download · Free forever</p>
+    <a href="resource.html" class="btn-primary" style="font-size:0.8rem; padding:0.9rem 2.5rem;">→ Open ISC.exe</a>
+    <div class="cta-chips">
+      <span>✓ No login required</span>
+      <span>✓ Always free</span>
+      <span>✓ Live from GitHub</span>
+      <span>✓ Mobile friendly</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span class="foot-logo">ISC<span>.exe</span></span>
+  <span>© 2025 HJexe · Class 12 ISC Commerce</span>
+  <a href="https://github.com/HJexe/Class-12-ISC">HJexe / Class-12-ISC</a>
+</footer>
+
+<script>
+  // ── Custom cursor + mouse glow ──
+  const cursor      = document.getElementById('cursor');
+  const trail       = document.getElementById('cursor-trail');
+  const glow        = document.getElementById('mouse-glow');
+
+  let mx = 0, my = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+    trail.style.left  = mx + 'px';
+    trail.style.top   = my + 'px';
+    glow.style.left   = mx + 'px';
+    glow.style.top    = my + 'px';
+  });
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.subject-card, .feature-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.5s ${i * 0.07}s ease, transform 0.5s ${i * 0.07}s ease`;
+    observer.observe(el);
+  });
+
+  // ── Cursor hide on leave ──
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    trail.style.opacity  = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+    trail.style.opacity  = '1';
+  });
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ISC.exe — Class 12 Resource Hub</title>
