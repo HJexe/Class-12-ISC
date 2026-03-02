@@ -41,6 +41,19 @@ You can now keep using local repo files **and** add Google Drive files inside th
 }
 ```
 
+
+3. **Object (Google Drive folder link)**
+
+```json
+{
+  "path": "Maths-(creds-Abhinav)/ISC 12th/PYQ (topic wise)/PYQ Drive Folder",
+  "url": "https://drive.google.com/drive/folders/YOUR_FOLDER_ID?usp=drive_link",
+  "source": "gdrive"
+}
+```
+
+> Preferred: use object entries in `files.json`. Legacy fallback: a plain `text` file with one URL is also supported.
+
 ### Important fields
 
 - `path`: controls where the file appears in subject → folder → subfolder in UI.
@@ -55,6 +68,7 @@ You can now keep using local repo files **and** add Google Drive files inside th
   - `Business Studies/Chapter 2/Revision/Notes.pdf`
 - The site automatically builds nested folders from this path.
 - You can mix local files and Drive files in the same folder.
+- Backward compatibility: a file named `text` inside a subject folder can contain a single URL and it will be shown as `Google Drive Folder` in the tree.
 
 
 ### Zero-manual update flow (autonomous)

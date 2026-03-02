@@ -354,6 +354,18 @@ const GITHUB_REPO = "Class-12-ISC";
 const GITHUB_BRANCH = "main";
 const ALLOWED_EXTENSIONS = new Set(["pdf", "doc", "docx", "txt", "ppt", "pptx", "xls", "xlsx"]);
 
+function isLegacyDriveLinkPath(path) {
+  return /\/text$/i.test(path);
+}
+
+function toRawGithubUrl(path) {
+  return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${rawUrl(path)}`;
+}
+
+function looksLikeUrl(value) {
+  return /^https?:\/\//i.test((value || '').trim());
+}
+
 const $folders     = document.getElementById("folders");
 const $search      = document.getElementById("search");
 const $viewer      = document.getElementById("viewer");
@@ -395,12 +407,34 @@ async function fetchRepoFiles() {
   const data = await res.json();
   if (!Array.isArray(data.tree)) return [];
 
-  return data.tree
+  const candidatePaths = data.tree
     .filter(item => item.type === 'blob')
     .map(item => item.path)
-    .filter(path => isSubjectPath(path) && hasAllowedExtension(path))
-    .map(path => normalizeEntry(path))
-    .filter(Boolean);
+    .filter(path => isSubjectPath(path) && (hasAllowedExtension(path) || isLegacyDriveLinkPath(path)));
+
+  const entries = await Promise.all(candidatePaths.map(async path => {
+    if (hasAllowedExtension(path)) return normalizeEntry(path);
+    if (!isLegacyDriveLinkPath(path)) return null;
+
+    try {
+      const txt = await fetch(toRawGithubUrl(path));
+      if (!txt.ok) return null;
+      const link = (await txt.text()).trim();
+      if (!looksLikeUrl(link)) return null;
+
+      const baseDir = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : path;
+      return normalizeEntry({
+        path: `${baseDir}/Google Drive Folder`,
+        url: link,
+        source: 'gdrive'
+      });
+    } catch (err) {
+      console.warn('Failed to parse legacy drive link file:', path, err);
+      return null;
+    }
+  }));
+
+  return entries.filter(Boolean);
 }
 
 function normalizeEntry(item) {
