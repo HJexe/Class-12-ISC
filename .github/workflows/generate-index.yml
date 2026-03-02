@@ -17,6 +17,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Sync with latest main
+        run: git pull --rebase origin main
+
       - name: Generate files.json
         run: |
           python3 - <<'EOF'
@@ -46,11 +49,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git stash --include-untracked
-          git pull --rebase origin main
-          git stash pop
           git add files.json
-          git diff --staged --quiet || (
-            git commit -m "chore: update file index [skip ci]" &&
+          if git diff --staged --quiet; then
+            echo "No files.json changes to commit"
+          else
+            git commit -m "chore: update file index [skip ci]"
             git push
-          )
+          fi

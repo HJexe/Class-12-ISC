@@ -349,6 +349,11 @@ const SUBJECT_FOLDERS = [
   "Commerce"
 ];
 
+const GITHUB_OWNER = "HJexe";
+const GITHUB_REPO = "Class-12-ISC";
+const GITHUB_BRANCH = "main";
+const ALLOWED_EXTENSIONS = new Set(["pdf", "doc", "docx", "txt", "ppt", "pptx", "xls", "xlsx"]);
+
 const $folders     = document.getElementById("folders");
 const $search      = document.getElementById("search");
 const $viewer      = document.getElementById("viewer");
@@ -359,6 +364,10 @@ const $meta        = document.getElementById("meta");
 
 let allFiles = [];
 
+function createFileKey(entry) {
+  return `${entry.path}::${entry.url}`;
+}
+
 function rawUrl(path) {
   return path.split("/").map(encodeURIComponent).join("/");
 }
@@ -368,33 +377,84 @@ function previewUrl(path) {
   return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(fileUrl)}`;
 }
 
-function describe(path) {
-  const ext     = path.split('.').pop().toLowerCase();
-  const subject = path.split('/')[0].replace(/-(creds-.+)$/i, '');
-  const title   = path.split('/').pop();
+
+function hasAllowedExtension(path) {
+  const ext = path.split('.').pop().toLowerCase();
+  return ALLOWED_EXTENSIONS.has(ext);
+}
+
+function isSubjectPath(path) {
+  return SUBJECT_FOLDERS.some(subject => path.startsWith(subject + '/'));
+}
+
+async function fetchRepoFiles() {
+  const endpoint = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+  const res = await fetch(endpoint, { headers: { Accept: 'application/vnd.github+json' } });
+  if (!res.ok) throw new Error(`GitHub tree fetch failed (${res.status})`);
+
+  const data = await res.json();
+  if (!Array.isArray(data.tree)) return [];
+
+  return data.tree
+    .filter(item => item.type === 'blob')
+    .map(item => item.path)
+    .filter(path => isSubjectPath(path) && hasAllowedExtension(path))
+    .map(path => normalizeEntry(path))
+    .filter(Boolean);
+}
+
+function normalizeEntry(item) {
+  if (typeof item === 'string') {
+    return {
+      path: item,
+      url: rawUrl(item),
+      preview: previewUrl(item),
+      source: 'repo'
+    };
+  }
+
+  if (!item || typeof item !== 'object' || !item.path || !item.url) {
+    return null;
+  }
+
+  return {
+    path: item.path,
+    url: item.url,
+    preview: item.previewUrl || `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(item.url)}`,
+    source: item.source || 'gdrive'
+  };
+}
+
+function describe(entry) {
+  const ext     = entry.path.split('.').pop().toLowerCase();
+  const subject = entry.path.split('/')[0].replace(/-(creds-.+)$/i, '');
+  const title   = entry.path.split('/').pop();
   const typeMap = {
     pdf:  'Document PDF with printable study material.',
     docx: 'Word document containing class notes.',
     txt:  'Plain text support file or quick notes.'
   };
-  return `<b>DESCRIPTION:</b> <strong>${title}</strong> belongs to <strong>${subject}</strong>. ${typeMap[ext] || 'Study resource file available for preview/download.'}`;
+  const sourceText = entry.source === 'gdrive'
+    ? 'Hosted on Google Drive.'
+    : 'Hosted in this repository.';
+  return `<b>DESCRIPTION:</b> <strong>${title}</strong> belongs to <strong>${subject}</strong>. ${typeMap[ext] || 'Study resource file available for preview/download.'} ${sourceText}`;
 }
 
-function setActive(path) {
+function setActive(key) {
   document.querySelectorAll('.file-link.active').forEach(el => el.classList.remove('active'));
-  const active = document.querySelector(`.file-link[data-path="${CSS.escape(path)}"]`);
+  const active = document.querySelector(`.file-link[data-key="${CSS.escape(key)}"]`);
   if (active) active.classList.add('active');
 }
 
-function showPreview(path) {
-  const url = rawUrl(path);
-  $viewer.src      = previewUrl(path);
-  $currentPath.textContent = path;
-  $openTab.href    = url;
-  $downloadBtn.href = url;
-  $downloadBtn.setAttribute('download', path.split('/').pop());
-  $meta.innerHTML  = describe(path);
-  setActive(path);
+function showPreview(entry) {
+  const key = createFileKey(entry);
+  $viewer.src      = entry.preview;
+  $currentPath.textContent = entry.path;
+  $openTab.href    = entry.url;
+  $downloadBtn.href = entry.url;
+  $downloadBtn.setAttribute('download', entry.path.split('/').pop());
+  $meta.innerHTML  = describe(entry);
+  setActive(key);
 }
 
 // Build nested tree from flat paths (already stripped of subject prefix)
@@ -413,7 +473,7 @@ function buildTree(paths) {
   return root;
 }
 
-function renderSubtree(node, subject, prefix = "") {
+function renderSubtree(node, subject, fileMap, prefix = "") {
   const ul = document.createElement("ul");
   ul.className = "file-list";
 
@@ -428,22 +488,25 @@ function renderSubtree(node, subject, prefix = "") {
 
     const nextPrefix = prefix ? `${prefix}/${folderName}` : folderName;
     details.appendChild(summary);
-    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, nextPrefix));
+    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, fileMap, nextPrefix));
     li.appendChild(details);
     ul.appendChild(li);
   });
 
   // Then files
   [...node.files].sort((a, b) => a.localeCompare(b)).forEach(filename => {
-    const relative = prefix ? `${prefix}/${filename}` : filename;
+    const relative  = prefix ? `${prefix}/${filename}` : filename;
     const fullPath  = `${subject}/${relative}`;
+    const entry     = fileMap.get(fullPath);
+    if (!entry) return;
+    const fileKey   = createFileKey(entry);
     const li = document.createElement("li");
     const a  = document.createElement("a");
-    a.href         = rawUrl(fullPath);
+    a.href         = entry.url;
     a.className    = "file-link";
-    a.dataset.path = fullPath;
+    a.dataset.key  = fileKey;
     a.textContent  = filename;
-    a.onclick = e => { e.preventDefault(); showPreview(fullPath); };
+    a.onclick = e => { e.preventDefault(); showPreview(entry); };
     li.appendChild(a);
     ul.appendChild(li);
   });
@@ -452,7 +515,7 @@ function renderSubtree(node, subject, prefix = "") {
 }
 
 function getOrderedSubjects(files) {
-  const discovered = new Set(files.map(f => f.split('/')[0]).filter(Boolean));
+  const discovered = new Set(files.map(f => f.path.split('/')[0]).filter(Boolean));
   const extras = [...discovered].filter(s => !SUBJECT_FOLDERS.includes(s)).sort((a,b) => a.localeCompare(b));
   return [...SUBJECT_FOLDERS, ...extras];
 }
@@ -463,8 +526,8 @@ function renderList(files) {
   $folders.innerHTML = '';
 
   subjects.forEach(subject => {
-    const subjectFiles = files.filter(path => path.startsWith(subject + '/'));
-    const filtered     = subjectFiles.filter(path => path.toLowerCase().includes(query));
+    const subjectFiles = files.filter(file => file.path.startsWith(subject + '/'));
+    const filtered     = subjectFiles.filter(file => file.path.toLowerCase().includes(query));
     if (!filtered.length) return;
 
     const details = document.createElement('details');
@@ -480,22 +543,24 @@ function renderList(files) {
       // flat list when searching
       const ul = document.createElement('ul');
       ul.className = 'file-list';
-      filtered.sort((a,b) => a.localeCompare(b)).forEach(path => {
+      filtered.sort((a,b) => a.path.localeCompare(b.path)).forEach(file => {
+        const fileKey = createFileKey(file);
         const li = document.createElement('li');
         const a  = document.createElement('a');
-        a.href         = rawUrl(path);
+        a.href         = file.url;
         a.className    = 'file-link';
-        a.dataset.path = path;
-        a.textContent  = path.split('/').slice(1).join(' / ');
-        a.onclick = e => { e.preventDefault(); showPreview(path); };
+        a.dataset.key  = fileKey;
+        a.textContent  = file.path.split('/').slice(1).join(' / ');
+        a.onclick = e => { e.preventDefault(); showPreview(file); };
         li.appendChild(a);
         ul.appendChild(li);
       });
       details.appendChild(ul);
     } else {
       // nested tree when not searching
-      const relative = filtered.map(p => p.slice(subject.length + 1));
-      details.appendChild(renderSubtree(buildTree(relative), subject));
+      const relative = filtered.map(file => file.path.slice(subject.length + 1));
+      const fileMap = new Map(filtered.map(file => [file.path, file]));
+      details.appendChild(renderSubtree(buildTree(relative), subject, fileMap));
     }
 
     $folders.appendChild(details);
@@ -507,14 +572,35 @@ function renderList(files) {
 }
 
 async function loadResources() {
+  const merged = new Map();
+
+  try {
+    const repoFiles = await fetchRepoFiles();
+    repoFiles.forEach(file => merged.set(createFileKey(file), file));
+  } catch (err) {
+    console.warn('Failed to auto-load repo files from GitHub API:', err);
+  }
+
   try {
     const res = await fetch('files.json');
-    if (!res.ok) throw new Error(`Unable to load files.json (${res.status})`);
-    allFiles = await res.json();
-    renderList(allFiles);
+    if (res.ok) {
+      const rawItems = await res.json();
+      rawItems
+        .map(normalizeEntry)
+        .filter(Boolean)
+        .forEach(file => merged.set(createFileKey(file), file));
+    }
   } catch (err) {
-    $folders.innerHTML = `<div class="message error">⚠ ${err.message}</div>`;
+    console.warn('Failed to load optional files.json entries:', err);
   }
+
+  allFiles = [...merged.values()];
+  if (!allFiles.length) {
+    $folders.innerHTML = '<div class="message error">⚠ No resources found. Add files in subject folders or provide files.json entries.</div>';
+    return;
+  }
+
+  renderList(allFiles);
 }
 
 $search.addEventListener('input', () => renderList(allFiles));
