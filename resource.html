@@ -218,7 +218,7 @@ const SUBJECT_FOLDERS = [
   "Economics",
   "Accounts",
   "Business Studies",
-  "Maths (creds-Abhinav)",
+  "Maths",
   "Commerce"
 ];
 // ─────────────────────────────────────────────────────────────────────────────
@@ -332,6 +332,19 @@ function buildFolderSection(subject, paths) {
   return details;
 }
 
+function getSubjectFolders(allFiles) {
+  const discovered = new Set(
+    allFiles
+      .map(path => path.split("/")[0])
+      .filter(Boolean)
+  );
+
+  const ordered = [...SUBJECT_FOLDERS];
+  const extras = [...discovered].filter(subject => !SUBJECT_FOLDERS.includes(subject)).sort((a, b) => a.localeCompare(b));
+
+  return [...ordered, ...extras];
+}
+
 async function loadResources() {
   try {
     // files.json lives at the root of the repo, served via GitHub Pages
@@ -342,7 +355,9 @@ async function loadResources() {
 
     $folders.innerHTML = "";
 
-    SUBJECT_FOLDERS.forEach(subject => {
+    const subjects = getSubjectFolders(allFiles);
+
+    subjects.forEach(subject => {
       const subjectFiles = allFiles.filter(p => p.startsWith(subject + "/"));
       $folders.appendChild(buildFolderSection(subject, subjectFiles));
     });
