@@ -204,7 +204,7 @@ details[open] > summary .chevron {
       <div id="currentPath">Select a resource...</div>
       <a id="openTab" class="btn" target="_blank" rel="noopener noreferrer">Open in new tab</a>
     </div>
-    <iframe id="viewer" title="PDF Preview"></iframe>
+    <iframe id="viewer" title="PDF Preview" sandbox="allow-scripts allow-same-origin"></iframe>
   </div>
 </div>
 
@@ -241,8 +241,8 @@ function setActiveLink(path) {
 
 function previewUrl(path) {
   const fileUrl = rawUrl(path);
-  // Use PDF.js viewer to avoid browser-native PDF behaviors (like auto-opening print UI).
-  return `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(fileUrl)}`;
+  // Render through Google Docs viewer to avoid executing PDF-embedded auto-print actions.
+  return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(fileUrl)}`;
 }
 
 function showPreview(path) {
