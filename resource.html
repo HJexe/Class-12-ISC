@@ -171,6 +171,43 @@ body::before {
 
 .subject[open] summary { color: var(--accent); }
 
+/* SUB-FOLDERS */
+.sub-folder {
+  border: 1px solid rgba(127,255,95,0.08);
+  border-radius: 8px;
+  margin: 4px 0;
+  background: rgba(6,10,6,0.6);
+}
+
+.sub-folder summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.sub-folder summary::-webkit-details-marker { display: none; }
+.sub-folder[open] summary { color: var(--accent); }
+
+.sub-folder .file-list {
+  padding: 0 10px 8px;
+}
+
+.chevron {
+  font-size: 9px;
+  transition: transform .2s;
+}
+
+.sub-folder[open] > summary .chevron,
+.subject[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+
 .file-list {
   list-style: none;
   margin: 0;
@@ -298,7 +335,7 @@ iframe {
           <a id="downloadBtn" class="btn" download>Download</a>
         </div>
       </div>
-      <div id="meta"> <b>DESCRIPTION:</b> Choose any file from the left panel to see an instant preview, short description, and direct download option.</div>
+      <div id="meta"><b>DESCRIPTION:</b> Choose any file from the left panel to see an instant preview, short description, and direct download option.</div>
       <iframe id="viewer" title="PDF Preview" sandbox="allow-scripts allow-same-origin"></iframe>
     </section>
   </main>
@@ -312,13 +349,13 @@ const SUBJECT_FOLDERS = [
   "Commerce"
 ];
 
-const $folders = document.getElementById("folders");
-const $search = document.getElementById("search");
-const $viewer = document.getElementById("viewer");
+const $folders     = document.getElementById("folders");
+const $search      = document.getElementById("search");
+const $viewer      = document.getElementById("viewer");
 const $currentPath = document.getElementById("currentPath");
-const $openTab = document.getElementById("openTab");
+const $openTab     = document.getElementById("openTab");
 const $downloadBtn = document.getElementById("downloadBtn");
-const $meta = document.getElementById("meta");
+const $meta        = document.getElementById("meta");
 
 let allFiles = [];
 
@@ -332,13 +369,13 @@ function previewUrl(path) {
 }
 
 function describe(path) {
-  const ext = path.split('.').pop().toLowerCase();
-  const subject = path.split('/')[0];
-  const title = path.split('/').pop();
+  const ext     = path.split('.').pop().toLowerCase();
+  const subject = path.split('/')[0].replace(/-(creds-.+)$/i, '');
+  const title   = path.split('/').pop();
   const typeMap = {
-    pdf: 'Document PDF with printable study material.',
+    pdf:  'Document PDF with printable study material.',
     docx: 'Word document containing class notes.',
-    txt: 'Plain text support file or quick notes.'
+    txt:  'Plain text support file or quick notes.'
   };
   return `<b>DESCRIPTION:</b> <strong>${title}</strong> belongs to <strong>${subject}</strong>. ${typeMap[ext] || 'Study resource file available for preview/download.'}`;
 }
@@ -351,13 +388,67 @@ function setActive(path) {
 
 function showPreview(path) {
   const url = rawUrl(path);
-  $viewer.src = previewUrl(path);
+  $viewer.src      = previewUrl(path);
   $currentPath.textContent = path;
-  $openTab.href = url;
+  $openTab.href    = url;
   $downloadBtn.href = url;
   $downloadBtn.setAttribute('download', path.split('/').pop());
-  $meta.innerHTML = describe(path);
+  $meta.innerHTML  = describe(path);
   setActive(path);
+}
+
+// Build nested tree from flat paths (already stripped of subject prefix)
+function buildTree(paths) {
+  const root = { dirs: new Map(), files: [] };
+  for (const p of paths) {
+    const parts = p.split("/").filter(Boolean);
+    let node = root;
+    for (let i = 0; i < parts.length - 1; i++) {
+      if (!node.dirs.has(parts[i])) node.dirs.set(parts[i], { dirs: new Map(), files: [] });
+      node = node.dirs.get(parts[i]);
+    }
+    const filename = parts[parts.length - 1];
+    if (filename) node.files.push(filename);
+  }
+  return root;
+}
+
+function renderSubtree(node, subject, prefix = "") {
+  const ul = document.createElement("ul");
+  ul.className = "file-list";
+
+  // Render sub-folders first
+  [...node.dirs.keys()].sort((a, b) => a.localeCompare(b)).forEach(folderName => {
+    const li      = document.createElement("li");
+    const details = document.createElement("details");
+    details.className = "sub-folder";
+
+    const summary = document.createElement("summary");
+    summary.innerHTML = `<span>📁 ${folderName}</span><span class="chevron">▶</span>`;
+
+    const nextPrefix = prefix ? `${prefix}/${folderName}` : folderName;
+    details.appendChild(summary);
+    details.appendChild(renderSubtree(node.dirs.get(folderName), subject, nextPrefix));
+    li.appendChild(details);
+    ul.appendChild(li);
+  });
+
+  // Then files
+  [...node.files].sort((a, b) => a.localeCompare(b)).forEach(filename => {
+    const relative = prefix ? `${prefix}/${filename}` : filename;
+    const fullPath  = `${subject}/${relative}`;
+    const li = document.createElement("li");
+    const a  = document.createElement("a");
+    a.href         = rawUrl(fullPath);
+    a.className    = "file-link";
+    a.dataset.path = fullPath;
+    a.textContent  = filename;
+    a.onclick = e => { e.preventDefault(); showPreview(fullPath); };
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  return ul;
 }
 
 function getOrderedSubjects(files) {
@@ -367,13 +458,13 @@ function getOrderedSubjects(files) {
 }
 
 function renderList(files) {
-  const query = $search.value.trim().toLowerCase();
+  const query    = $search.value.trim().toLowerCase();
   const subjects = getOrderedSubjects(files);
   $folders.innerHTML = '';
 
   subjects.forEach(subject => {
     const subjectFiles = files.filter(path => path.startsWith(subject + '/'));
-    const filtered = subjectFiles.filter(path => path.toLowerCase().includes(query));
+    const filtered     = subjectFiles.filter(path => path.toLowerCase().includes(query));
     if (!filtered.length) return;
 
     const details = document.createElement('details');
@@ -381,25 +472,32 @@ function renderList(files) {
     details.open = query.length > 0;
 
     const summary = document.createElement('summary');
-    summary.innerHTML = `<span>${subject.replace(/-(creds-.+)$/i, '')}</span><span>${filtered.length}</span>`;
+    const displayName = subject.replace(/-(creds-.+)$/i, '');
+    summary.innerHTML = `<span>📂 ${displayName}</span><span class="chevron">▶ &nbsp;${filtered.length}</span>`;
     details.appendChild(summary);
 
-    const ul = document.createElement('ul');
-    ul.className = 'file-list';
+    if (query.length > 0) {
+      // flat list when searching
+      const ul = document.createElement('ul');
+      ul.className = 'file-list';
+      filtered.sort((a,b) => a.localeCompare(b)).forEach(path => {
+        const li = document.createElement('li');
+        const a  = document.createElement('a');
+        a.href         = rawUrl(path);
+        a.className    = 'file-link';
+        a.dataset.path = path;
+        a.textContent  = path.split('/').slice(1).join(' / ');
+        a.onclick = e => { e.preventDefault(); showPreview(path); };
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      details.appendChild(ul);
+    } else {
+      // nested tree when not searching
+      const relative = filtered.map(p => p.slice(subject.length + 1));
+      details.appendChild(renderSubtree(buildTree(relative), subject));
+    }
 
-    filtered.sort((a,b) => a.localeCompare(b)).forEach(path => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = rawUrl(path);
-      a.className = 'file-link';
-      a.dataset.path = path;
-      a.textContent = path.split('/').slice(1).join(' / ');
-      a.onclick = (e) => { e.preventDefault(); showPreview(path); };
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
-
-    details.appendChild(ul);
     $folders.appendChild(details);
   });
 
