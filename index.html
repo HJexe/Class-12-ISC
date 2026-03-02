@@ -217,6 +217,33 @@ footer{border-top:1px solid var(--border);padding:1.8rem 3rem;display:flex;justi
 footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a:hover{color:#7fff5f;}
 .flogo{color:var(--text);font-weight:600;}.flogo b{color:#7fff5f;}
 
+/* DISCLAIMER */
+.disclaimer {
+  margin-top: 2rem;
+  max-width: 420px;
+  font-size: .62rem;
+  color: var(--muted);
+  line-height: 1.8;
+  letter-spacing: .3px;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(127,255,95,0.1);
+  border-left: 2px solid rgba(127,255,95,0.4);
+  background: rgba(127,255,95,0.03);
+  border-radius: 0 4px 4px 0;
+}
+.disc-sym {
+  color: rgba(127,255,95,0.6);
+  margin-right: .4rem;
+  font-size: .7rem;
+}
+.disclaimer a {
+  color: #7fff5f;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(127,255,95,0.3);
+  transition: border-color .2s;
+}
+.disclaimer a:hover { border-color: #7fff5f; }
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -319,6 +346,11 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
       <a href="resource.html" class="btn">→ Open Resource Hub</a>
       <a href="https://github.com/HJexe/Class-12-ISC" class="ghost">View on GitHub</a>
     </div>
+
+    <p class="disclaimer">
+      <span class="disc-sym">⚠</span>
+      ISC.exe is a free aggregator of study notes found publicly online — we hold no copyrights, licences, or ownership over any material. If you are the rightful owner of any content and wish it removed, please write to us at <a href="mailto:ninja-sheep-vibes@duck.com">ninja-sheep-vibes@duck.com</a> and we will act promptly.
+    </p>
   </div>
 
   <div class="hero-r">
