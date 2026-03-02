@@ -296,6 +296,58 @@ iframe {
   background: #050705;
 }
 
+
+.admin-box {
+  margin: 12px;
+  padding: 12px;
+  border: 1px solid rgba(127,255,95,.2);
+  border-radius: 12px;
+  background: rgba(127,255,95,.03);
+}
+
+.admin-box h3 {
+  font-size: 12px;
+  letter-spacing: .08em;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.admin-box .admin-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.admin-box input {
+  width: 100%;
+  background: #0b120b;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.admin-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+.admin-btn {
+  width: 100%;
+  border: 1px solid rgba(127,255,95,.45);
+  background: rgba(127,255,95,.12);
+  color: var(--fg);
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.admin-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+#adminStatus { font-size: 11px; margin-top: 8px; }
+
 .message { padding: 14px; color: var(--muted); }
 .error { color: var(--danger); }
 
@@ -324,6 +376,30 @@ iframe {
       <div class="search-wrap">
         <input id="search" type="search" placeholder="Search file name, subject, worksheet…" />
       </div>
+
+      <div class="admin-box">
+        <h3>ADMIN PORTAL</h3>
+        <p class="admin-note">Only admin can add Google Drive PDFs.</p>
+
+        <div id="adminLogin">
+          <input id="adminUser" type="text" placeholder="Admin username" />
+          <input id="adminPass" type="password" placeholder="Admin password" />
+          <button id="adminLoginBtn" class="admin-btn" type="button">Login</button>
+        </div>
+
+        <div id="adminPanel" style="display:none;">
+          <input id="driveLink" type="url" placeholder="Google Drive file link" />
+          <div class="admin-row">
+            <input id="mainFolder" type="text" placeholder="Main folder (Economics)" />
+            <input id="subFolder" type="text" placeholder="Subfolder (optional)" />
+          </div>
+          <input id="fileName" type="text" placeholder="File name (Sample Paper.pdf)" />
+          <button id="addDriveBtn" class="admin-btn" type="button">Add PDF to Viewer</button>
+        </div>
+
+        <div id="adminStatus"></div>
+      </div>
+
       <div id="folders"><div class="message">Loading resources…</div></div>
     </section>
 
@@ -353,6 +429,10 @@ const GITHUB_OWNER = "HJexe";
 const GITHUB_REPO = "Class-12-ISC";
 const GITHUB_BRANCH = "main";
 const ALLOWED_EXTENSIONS = new Set(["pdf", "doc", "docx", "txt", "ppt", "pptx", "xls", "xlsx"]);
+const ADMIN_STORAGE_KEY = 'isc_admin_files';
+const ADMIN_SESSION_KEY = 'isc_admin_logged';
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'isc-admin';
 
 function isLegacyDriveLinkPath(path) {
   return /\/text$/i.test(path);
@@ -373,6 +453,15 @@ const $currentPath = document.getElementById("currentPath");
 const $openTab     = document.getElementById("openTab");
 const $downloadBtn = document.getElementById("downloadBtn");
 const $meta        = document.getElementById("meta");
+const $adminLogin  = document.getElementById('adminLogin');
+const $adminPanel  = document.getElementById('adminPanel');
+const $adminStatus = document.getElementById('adminStatus');
+const $adminUser   = document.getElementById('adminUser');
+const $adminPass   = document.getElementById('adminPass');
+const $driveLink   = document.getElementById('driveLink');
+const $mainFolder  = document.getElementById('mainFolder');
+const $subFolder   = document.getElementById('subFolder');
+const $fileName    = document.getElementById('fileName');
 
 let allFiles = [];
 
@@ -454,9 +543,22 @@ function normalizeEntry(item) {
   return {
     path: item.path,
     url: item.url,
-    preview: item.previewUrl || `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(item.url)}`,
+    preview: item.previewUrl || item.preview || `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(item.url)}`,
     source: item.source || 'gdrive'
   };
+}
+
+function loadAdminEntries() {
+  try {
+    const raw = localStorage.getItem(ADMIN_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.map(normalizeEntry).filter(Boolean);
+  } catch (err) {
+    console.warn('Failed to parse admin local resources:', err);
+    return [];
+  }
 }
 
 function describe(entry) {
@@ -605,6 +707,75 @@ function renderList(files) {
   }
 }
 
+function extractDriveFileId(link) {
+  const value = (link || '').trim();
+  const patterns = [/\/file\/d\/([a-zA-Z0-9_-]+)/, /[?&]id=([a-zA-Z0-9_-]+)/, /\/d\/([a-zA-Z0-9_-]+)/];
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+  return null;
+}
+
+function normalizePdfName(name) {
+  const cleaned = (name || '').trim();
+  if (!cleaned) return 'Google Drive PDF.pdf';
+  return /\.pdf$/i.test(cleaned) ? cleaned : `${cleaned}.pdf`;
+}
+
+function setAdminState(isLoggedIn) {
+  $adminLogin.style.display = isLoggedIn ? 'none' : 'block';
+  $adminPanel.style.display = isLoggedIn ? 'block' : 'none';
+}
+
+function setAdminStatus(message, ok = false) {
+  $adminStatus.textContent = message;
+  $adminStatus.className = ok ? '' : 'error';
+  if (ok) $adminStatus.style.color = 'var(--accent)';
+  else $adminStatus.style.color = 'var(--danger)';
+}
+
+function saveAdminEntries(entries) {
+  localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(entries, null, 2));
+}
+
+function handleAdminLogin() {
+  if ($adminUser.value.trim() === ADMIN_USER && $adminPass.value === ADMIN_PASS) {
+    sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+    setAdminState(true);
+    setAdminStatus('Admin login successful.', true);
+    return;
+  }
+  setAdminStatus('Invalid admin credentials.');
+}
+
+function addAdminDriveResource() {
+  const fileId = extractDriveFileId($driveLink.value);
+  const root = $mainFolder.value.trim();
+  if (!fileId || !root) {
+    setAdminStatus('Drive link and main folder are required.');
+    return;
+  }
+
+  const name = normalizePdfName($fileName.value);
+  const path = [root, $subFolder.value.trim(), name].filter(Boolean).join('/').replace(/\/+/g, '/');
+  const entry = {
+    path,
+    url: `https://drive.google.com/uc?export=download&id=${fileId}`,
+    previewUrl: `https://drive.google.com/file/d/${fileId}/preview`,
+    source: 'gdrive-admin'
+  };
+
+  const current = loadAdminEntries();
+  const idx = current.findIndex(item => item.path === entry.path);
+  if (idx >= 0) current[idx] = normalizeEntry(entry);
+  else current.push(normalizeEntry(entry));
+  saveAdminEntries(current);
+
+  setAdminStatus('PDF added. Refreshing list…', true);
+  loadResources();
+}
+
 async function loadResources() {
   const merged = new Map();
 
@@ -628,6 +799,8 @@ async function loadResources() {
     console.warn('Failed to load optional files.json entries:', err);
   }
 
+  loadAdminEntries().forEach(file => merged.set(createFileKey(file), file));
+
   allFiles = [...merged.values()];
   if (!allFiles.length) {
     $folders.innerHTML = '<div class="message error">⚠ No resources found. Add files in subject folders or provide files.json entries.</div>';
@@ -638,6 +811,9 @@ async function loadResources() {
 }
 
 $search.addEventListener('input', () => renderList(allFiles));
+document.getElementById('adminLoginBtn').addEventListener('click', handleAdminLogin);
+document.getElementById('addDriveBtn').addEventListener('click', addAdminDriveResource);
+setAdminState(sessionStorage.getItem(ADMIN_SESSION_KEY) === '1');
 loadResources();
 </script>
 </body>

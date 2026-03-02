@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISC.exe Admin Portal</title>
+  <style>
+    :root { --bg:#060a06; --card:#101710; --border:#1a2a1a; --fg:#e8f0e8; --muted:#88a388; --accent:#7FFF5F; --danger:#ff7373; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:20px}
+    .wrap{max-width:860px;margin:0 auto}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px}
+    h1{margin:0 0 8px}
+    p{margin:8px 0;color:var(--muted)}
+    label{display:block;margin:12px 0 6px;font-size:13px;color:var(--muted)}
+    input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:#0b120b;color:var(--fg)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    button{margin-top:14px;padding:10px 14px;border:1px solid rgba(127,255,95,.5);background:rgba(127,255,95,.1);color:var(--fg);border-radius:10px;cursor:pointer}
+    .muted{font-size:12px}
+    .hidden{display:none}
+    #status{margin-top:10px;font-size:13px}
+    .ok{color:var(--accent)}
+    .err{color:var(--danger)}
+    pre{white-space:pre-wrap;background:#0a0f0a;border:1px solid var(--border);border-radius:10px;padding:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="loginCard">
+      <h1>Admin Login</h1>
+      <p>This portal is only for admin updates.</p>
+      <label for="user">Username</label>
+      <input id="user" type="text" placeholder="admin" />
+      <label for="pass">Password</label>
+      <input id="pass" type="password" placeholder="Enter admin password" />
+      <button id="loginBtn">Login</button>
+      <div id="loginMsg"></div>
+      <p class="muted">Default credentials: <code>admin / isc-admin</code> (change in code before deploy).</p>
+    </div>
+
+    <div class="card hidden" id="portalCard">
+      <h1>Add Google Drive PDF</h1>
+      <p>Paste a Drive link, choose folder + subfolder path, and it will become a resource in the viewer.</p>
+
+      <div class="row">
+        <div>
+          <label for="subject">Main Folder (subject)</label>
+          <input id="subject" type="text" placeholder="Economics" />
+        </div>
+        <div>
+          <label for="subfolder">Subfolder (optional, use / for nested)</label>
+          <input id="subfolder" type="text" placeholder="Important Questions/Unit 1" />
+        </div>
+      </div>
+
+      <label for="title">File name shown in portal</label>
+      <input id="title" type="text" placeholder="Sample Paper 2026.pdf" />
+
+      <label for="driveLink">Google Drive link</label>
+      <input id="driveLink" type="url" placeholder="https://drive.google.com/file/d/.../view" />
+
+      <button id="saveBtn">Save to Admin Resources</button>
+      <div id="status"></div>
+      <p class="muted">Saved entries are stored in browser localStorage key <code>isc_admin_files</code>.</p>
+      <pre id="previewJson">[]</pre>
+    </div>
+  </div>
+
+<script>
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'isc-admin';
+const STORAGE_KEY = 'isc_admin_files';
+
+const $loginCard = document.getElementById('loginCard');
+const $portalCard = document.getElementById('portalCard');
+const $loginMsg = document.getElementById('loginMsg');
+const $status = document.getElementById('status');
+const $previewJson = document.getElementById('previewJson');
+
+function extractDriveFileId(link) {
+  const value = (link || '').trim();
+  const patterns = [
+    /\/file\/d\/([a-zA-Z0-9_-]+)/,
+    /[?&]id=([a-zA-Z0-9_-]+)/,
+    /\/d\/([a-zA-Z0-9_-]+)/
+  ];
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+  return null;
+}
+
+function toDriveDirectPdf(link) {
+  const fileId = extractDriveFileId(link);
+  if (!fileId) return null;
+  return `https://drive.google.com/uc?export=download&id=${fileId}`;
+}
+
+function toDriveEmbed(link) {
+  const fileId = extractDriveFileId(link);
+  if (!fileId) return null;
+  return `https://drive.google.com/file/d/${fileId}/preview`;
+}
+
+function normalizePdfName(name) {
+  const trimmed = (name || '').trim();
+  if (!trimmed) return 'Google Drive PDF.pdf';
+  return /\.pdf$/i.test(trimmed) ? trimmed : `${trimmed}.pdf`;
+}
+
+function loadEntries() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function saveEntries(items) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items, null, 2));
+}
+
+function renderPreview() {
+  $previewJson.textContent = JSON.stringify(loadEntries(), null, 2);
+}
+
+function showPortal() {
+  sessionStorage.setItem('isc_admin_logged_in', '1');
+  $loginCard.classList.add('hidden');
+  $portalCard.classList.remove('hidden');
+  renderPreview();
+}
+
+document.getElementById('loginBtn').addEventListener('click', () => {
+  const user = document.getElementById('user').value.trim();
+  const pass = document.getElementById('pass').value;
+  if (user === ADMIN_USER && pass === ADMIN_PASS) {
+    $loginMsg.textContent = 'Login successful.';
+    $loginMsg.className = 'ok';
+    showPortal();
+  } else {
+    $loginMsg.textContent = 'Invalid admin credentials.';
+    $loginMsg.className = 'err';
+  }
+});
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const subject = document.getElementById('subject').value.trim();
+  const subfolder = document.getElementById('subfolder').value.trim();
+  const title = normalizePdfName(document.getElementById('title').value);
+  const driveLink = document.getElementById('driveLink').value.trim();
+
+  if (!subject || !driveLink) {
+    $status.textContent = 'Main folder and Google Drive link are required.';
+    $status.className = 'err';
+    return;
+  }
+
+  const directUrl = toDriveDirectPdf(driveLink);
+  const embedUrl = toDriveEmbed(driveLink);
+  if (!directUrl || !embedUrl) {
+    $status.textContent = 'Could not parse this Google Drive URL. Use a share link for a file.';
+    $status.className = 'err';
+    return;
+  }
+
+  const pieces = [subject, subfolder, title].map(v => (v || '').trim()).filter(Boolean);
+  const path = pieces.join('/').replace(/\/+/g, '/');
+
+  const items = loadEntries();
+  const nextEntry = {
+    path,
+    url: directUrl,
+    previewUrl: embedUrl,
+    source: 'gdrive-admin'
+  };
+
+  const idx = items.findIndex(item => item.path === path);
+  if (idx >= 0) items[idx] = nextEntry; else items.push(nextEntry);
+
+  saveEntries(items);
+  renderPreview();
+  $status.textContent = 'Saved. Open resource.html to view the newly added PDF.';
+  $status.className = 'ok';
+});
+
+if (sessionStorage.getItem('isc_admin_logged_in') === '1') {
+  showPortal();
+}
+</script>
+</body>
+</html>
