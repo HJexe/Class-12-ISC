@@ -41,6 +41,19 @@ You can now keep using local repo files **and** add Google Drive files inside th
 }
 ```
 
+
+3. **Object (Google Drive folder link)**
+
+```json
+{
+  "path": "Maths-(creds-Abhinav)/ISC 12th/PYQ (topic wise)/PYQ Drive Folder",
+  "url": "https://drive.google.com/drive/folders/YOUR_FOLDER_ID?usp=drive_link",
+  "source": "gdrive"
+}
+```
+
+> For Drive **folders**, use object entries in `files.json` (not a plain `text` file inside the repo).
+
 ### Important fields
 
 - `path`: controls where the file appears in subject → folder → subfolder in UI.
