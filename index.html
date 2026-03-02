@@ -22,8 +22,9 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
   border-bottom:1px solid rgba(127,255,95,0.2);
   padding:.65rem 3rem;
   font-size:.72rem;
-  position:relative;
-  z-index:400;
+  position:sticky;
+  top:64px;
+  z-index:490;
 }
 .beta-tag{
   background:#7fff5f;color:#080809;
@@ -57,7 +58,7 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 .nav-tt:hover{background:rgba(127,255,95,.1) !important;}
 
 /* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 3rem;gap:4rem;position:relative;overflow:hidden;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:2rem 3rem 0;gap:4rem;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(127,255,95,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(127,255,95,.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
 .hero-l{position:relative;z-index:2;padding-top:6rem;}
 
