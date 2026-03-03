@@ -44,16 +44,16 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 .disc-nav-btn:hover{background:rgba(255,180,50,0.15);border-color:rgba(255,180,50,0.7);color:rgba(255,200,80,1);}
 
 /* DISCLAIMER POPUP */
-.disc-popup{position:fixed;top:72px;left:3rem;z-index:600;animation:upin .2s ease;}
-.disc-popup-inner{width:380px;background:rgba(10,10,13,0.97);border:1px solid rgba(255,180,50,0.3);border-top:2px solid rgba(255,180,50,0.6);backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,0.6),0 0 0 1px rgba(255,180,50,0.05);}
+.disc-popup{position:fixed;top:72px;left:3rem;z-index:600;}
+.disc-popup-inner{width:380px;background:rgba(10,10,13,0.97);border:1px solid rgba(255,180,50,0.3);border-top:2px solid rgba(255,180,50,0.6);backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,0.6);}
 .disc-popup-head{display:flex;align-items:center;gap:.6rem;padding:.75rem 1rem;border-bottom:1px solid rgba(255,180,50,0.1);background:rgba(255,180,50,0.05);}
 .disc-popup-title{font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,180,50,0.9);flex:1;}
 .disc-popup-close{background:none;border:none;color:var(--dim);font-size:.75rem;cursor:pointer;font-family:'JetBrains Mono',monospace;padding:.1rem .3rem;transition:color .2s;}
 .disc-popup-close:hover{color:var(--text);}
-.disc-popup-body{padding:1.1rem 1rem;font-size:.67rem;color:#ffffff;line-height:1.9;}
-.disc-popup-body strong{color:#ffffff;font-weight:700;}
-.disc-popup-body a{color:rgba(255,180,50,0.85);text-decoration:none;border-bottom:1px solid rgba(255,180,50,0.3);transition:border-color .2s,color .2s;}
-.disc-popup-body a:hover{color:rgba(255,200,80,1);border-color:rgba(255,180,50,0.7);}
+.disc-popup-body{padding:1.1rem 1rem;font-size:.67rem;color:#fff;line-height:1.9;}
+.disc-popup-body strong{color:#fff;font-weight:700;}
+.disc-popup-body a{color:rgba(255,180,50,0.85);text-decoration:none;border-bottom:1px solid rgba(255,180,50,0.3);}
+.disc-popup-body a:hover{color:rgba(255,200,80,1);}
 
 /* UPDATES BOX */
 .updates-wrap{position:fixed;top:116px;right:24px;z-index:480;opacity:0;animation:upin .5s .4s ease forwards;}
@@ -75,21 +75,19 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 .ub-time{font-size:.52rem;color:var(--dim);margin-top:2px;display:block;}
 .ub-foot{padding:6px 12px;border-top:1px solid rgba(127,255,95,0.08);display:flex;justify-content:space-between;align-items:center;}
 .ub-foot-txt{font-size:.52rem;color:var(--dim);letter-spacing:.5px;}
-.ub-foot-link{font-size:.52rem;color:#7fff5f;text-decoration:none;letter-spacing:.5px;transition:opacity .2s;}
+.ub-foot-link{font-size:.52rem;color:#7fff5f;text-decoration:none;transition:opacity .2s;}
 .ub-foot-link:hover{opacity:0.7;}
 
 /* HERO */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:2rem 3rem 0;gap:4rem;position:relative;overflow:hidden;}
 .hero::before{
-  content:'';
-  position:absolute;
-  inset:0;
+  content:'';position:absolute;inset:0;
   background-image:
     linear-gradient(rgba(127,255,95,.06) 1px,transparent 1px),
     linear-gradient(90deg,rgba(127,255,95,.06) 1px,transparent 1px),
     linear-gradient(rgba(127,255,95,.02) 1px,transparent 1px),
     linear-gradient(90deg,rgba(127,255,95,.02) 1px,transparent 1px);
-  background-size:64px 64px, 64px 64px, 16px 16px, 16px 16px;
+  background-size:64px 64px,64px 64px,16px 16px,16px 16px;
   pointer-events:none;
 }
 .hero-l{position:relative;z-index:2;padding-top:6rem;}
@@ -97,14 +95,28 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 .eyebrow::before{content:'';display:block;width:2.5rem;height:1px;background:#7fff5f;}
 .eyebrow em{color:#7fff5f;font-style:normal;}
 h1{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,5.5vw,5.8rem);font-weight:900;line-height:1.0;letter-spacing:-2px;margin-bottom:1.4rem;opacity:0;animation:up .7s .35s ease forwards;}
-h1 .l1{color:var(--text);display:block;}h1 .l2{color:var(--muted);font-style:italic;font-weight:400;display:block;}h1 .l3{color:#7fff5f;display:block;}
-.edition{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:#7fff5f;margin-bottom:1.8rem;opacity:0;animation:up .7s .5s ease forwards;}
-.desc{font-size:.8rem;color:var(--muted);line-height:1.9;max-width:400px;margin-bottom:2.5rem;opacity:0;animation:up .7s .65s ease forwards;}
-.ctas{display:flex;align-items:center;gap:1.5rem;opacity:0;animation:up .7s .8s ease forwards;}
+h1 .l1{color:var(--text);display:block;}
+h1 .l2{color:var(--muted);font-style:italic;font-weight:400;display:block;}
+h1 .l3{color:#7fff5f;display:block;}
+.desc{font-size:.8rem;color:var(--muted);line-height:1.9;max-width:400px;margin-bottom:1.6rem;}
+.ctas{display:flex;align-items:center;gap:1.5rem;}
 .btn{display:inline-flex;align-items:center;gap:.6rem;background:#7fff5f;color:#080809;padding:.72rem 1.8rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:background .2s,transform .2s,box-shadow .2s;}
 .btn:hover{background:#4dff2a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(127,255,95,.3);}
-.ghost{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:1px;transition:color .2s;}
-.ghost:hover{color:var(--text);}.ghost::after{content:' →';}
+
+/* STREAM SWITCHER */
+.stream-switch{display:flex;gap:.6rem;margin-bottom:1.6rem;opacity:0;animation:up .7s .5s ease forwards;}
+.stream-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:1.5px;padding:.45rem 1.1rem;cursor:pointer;transition:border-color .2s,color .2s;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+.stream-btn:hover{border-color:rgba(127,255,95,.3);color:rgba(127,255,95,.7);}
+.stream-btn.active{background:none;border-color:rgba(127,255,95,.3);color:rgba(127,255,95,.7);}
+
+/* SCIENCE DROPDOWNS */
+.sci-subjects{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.8rem;}
+.sci-drop{border:1px solid var(--border);background:var(--surf);transition:border-color .2s;}
+.sci-drop[open]{border-color:rgba(127,255,95,.2);}
+.sci-drop summary{list-style:none;cursor:pointer;padding:.65rem 1rem;font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.6rem;transition:color .2s;user-select:none;}
+.sci-drop summary::-webkit-details-marker{display:none;}
+.sci-drop[open] summary{color:var(--green);}
+.sci-drop-body{padding:.6rem 1rem .9rem 2.2rem;font-size:.72rem;color:var(--muted);line-height:1.8;border-top:1px solid var(--border);}
 
 /* ORBITAL */
 .hero-r{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;animation:fadein 1s .9s ease forwards;}
@@ -129,22 +141,6 @@ h1 .l1{color:var(--text);display:block;}h1 .l2{color:var(--muted);font-style:ita
 h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:2.8rem;}
 h2 em{font-style:italic;color:#7fff5f;font-weight:400;}
 
-/* SUBJECTS */
-.sbg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);}
-.sc{background:var(--bg);padding:2rem;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:.9rem;transition:background .2s;position:relative;overflow:hidden;}
-.sc::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:#7fff5f;transition:width .3s ease;}
-.sc:hover{background:var(--surf2);}.sc:hover::after{width:100%;}
-.sc-n{font-size:.58rem;color:var(--dim);letter-spacing:2px;}.sc-i{font-size:1.6rem;}
-.sc-t{font-size:.95rem;font-weight:600;color:var(--text);}.sc-d{font-size:.7rem;color:var(--muted);line-height:1.7;}
-.sc-l{margin-top:auto;font-size:.62rem;color:#7fff5f;display:flex;align-items:center;gap:.4rem;}
-.sc-l::after{content:'→';transition:transform .2s;}.sc:hover .sc-l::after{transform:translateX(4px);}
-
-/* FEATURES */
-.fbg{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;}
-.fc{padding:1.8rem;border:1px solid var(--border);background:var(--surf);transition:border-color .2s,background .2s;}
-.fc:hover{border-color:rgba(127,255,95,.3);background:var(--surf2);}
-.fc-i{font-size:1.4rem;margin-bottom:.9rem;}.fc-t{font-size:.82rem;font-weight:600;margin-bottom:.5rem;color:var(--text);}.fc-d{font-size:.7rem;color:var(--muted);line-height:1.7;}
-
 /* TERMINAL */
 #term{background:var(--surf);}
 .tw{border:1px solid var(--border);background:var(--bg);max-width:680px;}
@@ -164,7 +160,7 @@ h2 em{font-style:italic;color:#7fff5f;font-weight:400;}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:1.8rem 3rem;display:flex;justify-content:space-between;align-items:center;font-size:.68rem;color:var(--muted);}
-footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a:hover{color:#7fff5f;}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s;}
 .flogo{color:var(--text);font-weight:600;}.flogo b{color:#7fff5f;}
 
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -253,10 +249,45 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
       <span class="l2">smarter,</span>
       <span class="l3">not harder.</span>
     </h1>
-    <p class="edition">Commerce Edition</p>
-    <p class="desc">All your Class 12 ISC resources — PDFs, notes, and study materials — organized, searchable, and viewable in one place.</p>
-    <div class="ctas">
-      <a href="resource.html" class="btn">→ Open Resource Hub</a>
+
+    <!-- Stream switcher -->
+    <div class="stream-switch">
+      <button class="stream-btn active" id="btn-commerce">📊 Commerce</button>
+      <button class="stream-btn" id="btn-science">🔬 Science</button>
+    </div>
+
+    <!-- Commerce content -->
+    <div id="stream-commerce">
+      <p class="desc">All your Class 12 ISC resources — PDFs, notes, and study materials — organized, searchable, and viewable in one place.</p>
+      <div class="ctas">
+        <a href="resource.html" class="btn">→ Open Resource Hub</a>
+      </div>
+    </div>
+
+    <!-- Science content -->
+    <div id="stream-science" style="display:none;">
+      <p class="desc">Class 12 ISC Science resources — Physics, Chemistry, Biology, Maths — all your study materials in one place.</p>
+      <div class="sci-subjects">
+        <details class="sci-drop">
+          <summary>⚛️ Physics</summary>
+          <div class="sci-drop-body">Coming soon — resources being added.</div>
+        </details>
+        <details class="sci-drop">
+          <summary>🧪 Chemistry</summary>
+          <div class="sci-drop-body">Coming soon — resources being added.</div>
+        </details>
+        <details class="sci-drop">
+          <summary>🧬 Biology</summary>
+          <div class="sci-drop-body">Coming soon — resources being added.</div>
+        </details>
+        <details class="sci-drop">
+          <summary>📐 Mathematics</summary>
+          <div class="sci-drop-body">Coming soon — resources being added.</div>
+        </details>
+      </div>
+      <div class="ctas">
+        <a href="resource.html#science" class="btn">→ Open Science Hub</a>
+      </div>
     </div>
   </div>
 
@@ -270,7 +301,7 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
         <span class="orb-s">Commerce</span>
       </div>
       <div class="sf sf1"><strong id="stat-subjects">—</strong>Subjects</div>
-      <div class="sf sf2"><strong id="stat-files">—</strong>PDFs & Notes</div>
+      <div class="sf sf2"><strong id="stat-files">—</strong>PDFs &amp; Notes</div>
       <div class="sf sf3"><strong>100%</strong>Free Forever</div>
     </div>
   </div>
@@ -279,7 +310,7 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
 <!-- TERMINAL -->
 <section class="sec" id="term">
   <div class="sec-in">
-    <p class="sec-eye">// 03 — Under the Hood</p>
+    <p class="sec-eye">// 01 — Under the Hood</p>
     <div class="rule"></div>
     <h2>How it <em>works</em></h2>
     <div class="tw">
@@ -287,14 +318,14 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
         <div class="td2 tr"></div><div class="td2 ty"></div><div class="td2 tg"></div>
         <span class="tname">iscnerds — bash</span>
       </div>
-      <div class="tbody" id="terminal-body">
+      <div class="tbody">
         <div><span class="tc">→</span> fetch api.github.com/repos/HJexe/Class-12-ISC</div>
         <div><span class="tok">✓</span> Repo metadata loaded · branch: <span class="tc">main</span></div>
         <div class="tdim">────────────────────────────────────</div>
         <div><span class="tc">→</span> get git/trees/main?recursive=1</div>
         <div id="term-scanning"><span class="tok">✓</span> scanning subjects...</div>
         <div class="tdim">────────────────────────────────────</div>
-        <div id="term-subject-lines"><!-- filled by JS --></div>
+        <div id="term-subject-lines"></div>
         <div class="tdim">────────────────────────────────────</div>
         <div><span class="tc">→</span> render sidebar // build accordion tree</div>
         <div><span class="tok">✓</span> File tree rendered · 0 dependencies required</div>
@@ -324,12 +355,12 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
 <!-- FOOTER -->
 <footer>
   <span class="flogo">ISC<b>Nerds</b></span>
-  <span>© 2025 HJexe · Class 12 ISC Commerce</span>
+  <span>© 2025 HJexe · Class 12 ISC</span>
   <span>HJexe / Class-12-ISC</span>
 </footer>
 
 <script>
-// ── CONFIG (must match resource.html) ──────────────────────────────
+// ── CONFIG ──────────────────────────────────────────────────────────
 const GITHUB_OWNER  = 'HJexe';
 const GITHUB_REPO   = 'Class-12-ISC';
 const GITHUB_BRANCH = 'main';
@@ -344,10 +375,10 @@ function isSubjectPath(path) {
   return SUBJECT_FOLDERS.some(s => path.startsWith(s + '/'));
 }
 
-// ── FETCH & POPULATE LIVE STATS ────────────────────────────────────
+// ── LIVE STATS ──────────────────────────────────────────────────────
 async function loadStats() {
   try {
-    const res  = await fetch(
+    const res = await fetch(
       `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`,
       { headers: { Accept: 'application/vnd.github+json' } }
     );
@@ -360,7 +391,6 @@ async function loadStats() {
       .map(i => i.path)
       .filter(p => isSubjectPath(p) && isAllowed(p));
 
-    // Count files per subject
     const subjectMap = {};
     SUBJECT_FOLDERS.forEach(s => subjectMap[s] = 0);
     files.forEach(p => {
@@ -368,37 +398,43 @@ async function loadStats() {
       if (s) subjectMap[s]++;
     });
 
-    // Count active subjects (those with at least 1 file)
     const activeSubjects = Object.values(subjectMap).filter(c => c > 0).length;
     const totalFiles     = files.length;
 
-    // ── Orbital counters ──
-    document.getElementById('stat-subjects').textContent   = activeSubjects;
-    document.getElementById('stat-files').textContent      = totalFiles;
+    document.getElementById('stat-subjects').textContent    = activeSubjects;
+    document.getElementById('stat-files').textContent       = totalFiles;
     document.getElementById('stat-total-files').textContent = totalFiles;
 
-    // ── Terminal subject lines ──
     const termLines = document.getElementById('term-subject-lines');
     const scanLine  = document.getElementById('term-scanning');
-
     scanLine.innerHTML = `<span class="tok">✓</span> ${activeSubjects} subjects found · ${totalFiles} files indexed`;
-
     termLines.innerHTML = SUBJECT_FOLDERS
       .filter(s => subjectMap[s] > 0)
       .map(s => {
-        const display = s.replace(/-(creds-.+)$/i,'').padEnd(18,' ');
+        const display = s.replace(/-(creds-.+)$/i, '').padEnd(18, ' ');
         return `<div><span class="tok">✓</span> ${display}→ ${subjectMap[s]} files</div>`;
-      })
-      .join('');
-
+      }).join('');
   } catch (e) {
     console.warn('Stats fetch failed:', e);
   }
 }
-
 loadStats();
 
-// ── DISCLAIMER TOGGLE ──────────────────────────────────────────────
+// ── STREAM TOGGLE ───────────────────────────────────────────────────
+document.getElementById('btn-commerce').addEventListener('click', function() {
+  document.getElementById('stream-commerce').style.display = 'block';
+  document.getElementById('stream-science').style.display  = 'none';
+  this.classList.add('active');
+  document.getElementById('btn-science').classList.remove('active');
+});
+document.getElementById('btn-science').addEventListener('click', function() {
+  document.getElementById('stream-commerce').style.display = 'none';
+  document.getElementById('stream-science').style.display  = 'block';
+  this.classList.add('active');
+  document.getElementById('btn-commerce').classList.remove('active');
+});
+
+// ── DISCLAIMER ──────────────────────────────────────────────────────
 function toggleDisc() {
   const p = document.getElementById('disc-popup');
   p.style.display = p.style.display === 'none' ? 'block' : 'none';
@@ -412,31 +448,35 @@ document.addEventListener('click', e => {
   }
 });
 
-// ── CURSOR ─────────────────────────────────────────────────────────
+// ── CURSOR ──────────────────────────────────────────────────────────
 const cur  = document.getElementById('cur');
 const ring = document.getElementById('cur-ring');
 const glow = document.getElementById('glow');
-
 document.addEventListener('mousemove', e => {
-  cur.style.left  = e.clientX+'px'; cur.style.top  = e.clientY+'px';
-  ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
-  glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px';
+  cur.style.left  = e.clientX + 'px'; cur.style.top  = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+  glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
 });
-document.addEventListener('mouseleave', () => { cur.style.opacity='0'; ring.style.opacity='0'; });
-document.addEventListener('mouseenter', () => { cur.style.opacity='1'; ring.style.opacity='1'; });
-
-document.querySelectorAll('a,.fc,.sc').forEach(el => {
-  el.addEventListener('mouseenter', () => { cur.style.width='16px'; cur.style.height='16px'; ring.style.width='52px'; ring.style.height='52px'; });
-  el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; ring.style.width='38px'; ring.style.height='38px'; });
+document.addEventListener('mouseleave', () => { cur.style.opacity = '0'; ring.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cur.style.opacity = '1'; ring.style.opacity = '1'; });
+document.querySelectorAll('a, .sci-drop').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width = '16px'; cur.style.height = '16px'; ring.style.width = '52px'; ring.style.height = '52px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width = '10px'; cur.style.height = '10px'; ring.style.width = '38px'; ring.style.height = '38px'; });
 });
 
-// ── SCROLL ANIMATIONS ──────────────────────────────────────────────
+// ── SCROLL ANIMATIONS ───────────────────────────────────────────────
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
-},{threshold:.1});
-document.querySelectorAll('.sc,.fc').forEach((el,i) => {
-  el.style.opacity='0'; el.style.transform='translateY(20px)';
-  el.style.transition=`opacity .5s ${i*.07}s ease,transform .5s ${i*.07}s ease`;
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.sc, .fc').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = `opacity .5s ${i * .07}s ease, transform .5s ${i * .07}s ease`;
   obs.observe(el);
 });
 </script>
