@@ -16,28 +16,10 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:none}
 
 /* BETA BANNER */
-.beta-banner{
-  display:flex;align-items:center;gap:1rem;
-  background:rgba(127,255,95,0.06);
-  border-bottom:1px solid rgba(127,255,95,0.2);
-  padding:.65rem 3rem;
-  font-size:.72rem;
-  position:sticky;
-  top:64px;
-  z-index:490;
-}
-.beta-tag{
-  background:#7fff5f;color:#080809;
-  font-weight:700;font-size:.6rem;
-  padding:.2rem .55rem;letter-spacing:1.5px;
-  flex-shrink:0;
-}
+.beta-banner{display:flex;align-items:center;gap:1rem;background:rgba(127,255,95,0.06);border-bottom:1px solid rgba(127,255,95,0.2);padding:.65rem 3rem;font-size:.72rem;position:sticky;top:64px;z-index:490;}
+.beta-tag{background:#7fff5f;color:#080809;font-weight:700;font-size:.6rem;padding:.2rem .55rem;letter-spacing:1.5px;flex-shrink:0;}
 .beta-msg{color:var(--muted);line-height:1.5;}
-.beta-dismiss{
-  margin-left:auto;color:var(--dim);
-  cursor:pointer;font-size:.75rem;flex-shrink:0;
-  transition:color .2s;padding:.2rem .4rem;
-}
+.beta-dismiss{margin-left:auto;color:var(--dim);cursor:pointer;font-size:.75rem;flex-shrink:0;transition:color .2s;padding:.2rem .4rem;}
 .beta-dismiss:hover{color:var(--text);}
 
 /* CURSOR */
@@ -57,104 +39,67 @@ nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-
 .nav-tt{color:#7fff5f !important;border:1px solid rgba(127,255,95,.35);padding:.3rem .85rem;}
 .nav-tt:hover{background:rgba(127,255,95,.1) !important;}
 
-/* ── UPDATES BOX ── */
-.updates-wrap{
-  position:fixed;
-  top:116px;
-  right:24px;
-  z-index:480;
-  opacity:0;
-  animation:upin .5s .4s ease forwards;
-}
+/* DISCLAIMER NAV BUTTON */
+.disc-nav-btn{background:rgba(255,180,50,0.08);border:1px solid rgba(255,180,50,0.35);color:rgba(255,180,50,0.9);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;padding:.3rem .75rem;cursor:pointer;transition:background .2s,border-color .2s,color .2s;}
+.disc-nav-btn:hover{background:rgba(255,180,50,0.15);border-color:rgba(255,180,50,0.7);color:rgba(255,200,80,1);}
+
+/* DISCLAIMER POPUP */
+.disc-popup{position:fixed;top:72px;left:3rem;z-index:600;animation:upin .2s ease;}
+.disc-popup-inner{width:380px;background:rgba(10,10,12,0.97);border:1px solid rgba(255,180,50,0.3);border-top:2px solid rgba(255,180,50,0.6);backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,0.6),0 0 0 1px rgba(255,180,50,0.05);}
+.disc-popup-head{display:flex;align-items:center;gap:.6rem;padding:.75rem 1rem;border-bottom:1px solid rgba(255,180,50,0.1);background:rgba(255,180,50,0.05);}
+.disc-popup-title{font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,180,50,0.9);flex:1;}
+.disc-popup-close{background:none;border:none;color:var(--dim);font-size:.75rem;cursor:pointer;font-family:'JetBrains Mono',monospace;padding:.1rem .3rem;transition:color .2s;}
+.disc-popup-close:hover{color:var(--text);}
+.disc-popup-body{padding:1.1rem 1rem;font-size:.67rem;color:#ffffff;line-height:1.9;}
+.disc-popup-body strong{color:#ffffff;font-weight:700;}
+.disc-popup-body a{color:rgba(255,180,50,0.85);text-decoration:none;border-bottom:1px solid rgba(255,180,50,0.3);transition:border-color .2s,color .2s;}
+.disc-popup-body a:hover{color:rgba(255,200,80,1);border-color:rgba(255,180,50,0.7);}
+
+/* UPDATES BOX */
+.updates-wrap{position:fixed;top:116px;right:24px;z-index:480;opacity:0;animation:upin .5s .4s ease forwards;}
 @keyframes upin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-
-.updates-box{
-  width:300px;
-  background:rgba(8,8,9,0.92);
-  border:1px solid rgba(127,255,95,0.2);
-  border-radius:4px;
-  overflow:hidden;
-  backdrop-filter:blur(16px);
-  box-shadow:0 8px 32px rgba(0,0,0,0.5);
-}
-.ub-head{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 12px;
-  background:rgba(127,255,95,0.06);
-  border-bottom:1px solid rgba(127,255,95,0.1);
-}
-.ub-badge{
-  background:#7fff5f;color:#080809;
-  font-size:.52rem;font-weight:700;
-  letter-spacing:1.5px;padding:2px 6px;
-  text-transform:uppercase;flex-shrink:0;
-}
-.ub-title{
-  font-size:.58rem;letter-spacing:2px;
-  color:var(--muted);text-transform:uppercase;flex:1;
-}
-.ub-dot{
-  width:5px;height:5px;background:#7fff5f;
-  border-radius:50%;box-shadow:0 0 6px #7fff5f;
-  animation:pulse 2s infinite;
-}
+.updates-box{width:300px;background:rgba(8,8,9,0.92);border:1px solid rgba(127,255,95,0.2);border-radius:4px;overflow:hidden;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.ub-head{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(127,255,95,0.06);border-bottom:1px solid rgba(127,255,95,0.1);}
+.ub-badge{background:#7fff5f;color:#080809;font-size:.52rem;font-weight:700;letter-spacing:1.5px;padding:2px 6px;text-transform:uppercase;flex-shrink:0;}
+.ub-title{font-size:.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;flex:1;}
+.ub-dot{width:5px;height:5px;background:#7fff5f;border-radius:50%;box-shadow:0 0 6px #7fff5f;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-
 .ub-body{padding:2px 0;}
-.ub-item{
-  display:flex;align-items:flex-start;gap:8px;
-  padding:8px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-}
+.ub-item{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.04);}
 .ub-item:last-child{border-bottom:none;}
 .ub-sym{color:#7fff5f;font-size:.65rem;flex-shrink:0;margin-top:1px;}
-.ub-tag{
-  display:inline-block;
-  font-size:.5rem;letter-spacing:1px;text-transform:uppercase;
-  color:#7fff5f;border:1px solid rgba(127,255,95,0.3);
-  padding:1px 4px;margin-bottom:3px;
-}
+.ub-tag{display:inline-block;font-size:.5rem;letter-spacing:1px;text-transform:uppercase;color:#7fff5f;border:1px solid rgba(127,255,95,0.3);padding:1px 4px;margin-bottom:3px;}
 .ub-tag.pdf{color:#fbbf24;border-color:rgba(251,191,36,0.3);}
 .ub-text{font-size:.63rem;color:rgba(220,220,232,0.6);line-height:1.5;display:block;}
 .ub-text strong{color:var(--text);font-weight:600;}
 .ub-time{font-size:.52rem;color:var(--dim);margin-top:2px;display:block;}
-
-.ub-foot{
-  padding:6px 12px;
-  border-top:1px solid rgba(127,255,95,0.08);
-  display:flex;justify-content:space-between;align-items:center;
-}
+.ub-foot{padding:6px 12px;border-top:1px solid rgba(127,255,95,0.08);display:flex;justify-content:space-between;align-items:center;}
 .ub-foot-txt{font-size:.52rem;color:var(--dim);letter-spacing:.5px;}
-.ub-foot-link{
-  font-size:.52rem;color:#7fff5f;
-  text-decoration:none;letter-spacing:.5px;
-  transition:opacity .2s;
-}
+.ub-foot-link{font-size:.52rem;color:#7fff5f;text-decoration:none;letter-spacing:.5px;transition:opacity .2s;}
 .ub-foot-link:hover{opacity:0.7;}
 
 /* HERO */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:2rem 3rem 0;gap:4rem;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(127,255,95,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(127,255,95,.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;}
 .hero-l{position:relative;z-index:2;padding-top:6rem;}
-
 .eyebrow{display:flex;align-items:center;gap:.8rem;font-size:.62rem;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:2rem;opacity:0;animation:up .6s .2s ease forwards;}
 .eyebrow::before{content:'';display:block;width:2.5rem;height:1px;background:#7fff5f;}
 .eyebrow em{color:#7fff5f;font-style:normal;}
-
 h1{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,5.5vw,5.8rem);font-weight:900;line-height:1.0;letter-spacing:-2px;margin-bottom:1.4rem;opacity:0;animation:up .7s .35s ease forwards;}
-h1 .l1{color:var(--text);display:block;}
-h1 .l2{color:var(--muted);font-style:italic;font-weight:400;display:block;}
-h1 .l3{color:#7fff5f;display:block;}
-
+h1 .l1{color:var(--text);display:block;}h1 .l2{color:var(--muted);font-style:italic;font-weight:400;display:block;}h1 .l3{color:#7fff5f;display:block;}
 .edition{font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;color:#7fff5f;margin-bottom:1.8rem;opacity:0;animation:up .7s .5s ease forwards;}
 .desc{font-size:.8rem;color:var(--muted);line-height:1.9;max-width:400px;margin-bottom:2.5rem;opacity:0;animation:up .7s .65s ease forwards;}
 .ctas{display:flex;align-items:center;gap:1.5rem;opacity:0;animation:up .7s .8s ease forwards;}
-
 .btn{display:inline-flex;align-items:center;gap:.6rem;background:#7fff5f;color:#080809;padding:.72rem 1.8rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:background .2s,transform .2s,box-shadow .2s;}
 .btn:hover{background:#4dff2a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(127,255,95,.3);}
 .ghost{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:1px;transition:color .2s;}
-.ghost:hover{color:var(--text);}
-.ghost::after{content:' →';}
+.ghost:hover{color:var(--text);}.ghost::after{content:' →';}
+
+/* DISCLAIMER (hero) */
+.disclaimer{margin-top:2rem;max-width:420px;font-size:.62rem;font-weight:700;color:#ffffff;line-height:1.8;letter-spacing:.3px;padding:.75rem 1rem;border:1px solid rgba(127,255,95,0.1);border-left:2px solid rgba(127,255,95,0.4);background:rgba(127,255,95,0.03);border-radius:0 4px 4px 0;}
+.disc-sym{color:rgba(127,255,95,0.6);margin-right:.4rem;font-size:.7rem;}
+.disclaimer a{color:#ffffff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.45);transition:border-color .2s;}
+.disclaimer a:hover{border-color:#ffffff;}
 
 /* ORBITAL */
 .hero-r{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;animation:fadein 1s .9s ease forwards;}
@@ -217,34 +162,6 @@ footer{border-top:1px solid var(--border);padding:1.8rem 3rem;display:flex;justi
 footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a:hover{color:#7fff5f;}
 .flogo{color:var(--text);font-weight:600;}.flogo b{color:#7fff5f;}
 
-/* DISCLAIMER */
-.disclaimer {
-  margin-top: 2rem;
-  max-width: 420px;
-  font-size: .62rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.8;
-  letter-spacing: .3px;
-  padding: .75rem 1rem;
-  border: 1px solid rgba(127,255,95,0.1);
-  border-left: 2px solid rgba(127,255,95,0.4);
-  background: rgba(127,255,95,0.03);
-  border-radius: 0 4px 4px 0;
-}
-.disc-sym {
-  color: rgba(127,255,95,0.6);
-  margin-right: .4rem;
-  font-size: .7rem;
-}
-.disclaimer a {
-  color: #ffffff;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.45);
-  transition: border-color .2s;
-}
-.disclaimer a:hover { border-color: #ffffff; }
-
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -254,8 +171,7 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
   .hero{grid-template-columns:1fr;padding-top:6rem;}.hero-r{display:none;}
   nav{padding:1rem 1.5rem;}.sec-in{padding:4rem 1.5rem;}
   footer{flex-direction:column;gap:1rem;text-align:center;}
-  .updates-wrap{right:12px;top:80px;}
-  .updates-box{width:260px;}
+  .updates-wrap{right:12px;top:80px;}.updates-box{width:260px;}
 }
 </style>
 </head>
@@ -267,13 +183,35 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">ISC<b>.exe</b></a>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <a href="/" class="logo">ISC<b>.exe</b></a>
+    <button class="disc-nav-btn" onclick="toggleDisc()">⚠ Disclaimer</button>
+  </div>
   <ul class="nav-links">
     <li><a href="#subjects">Subjects</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="timetable.html" class="nav-tt">⏱ Timetable</a></li>
   </ul>
 </nav>
+
+<!-- DISCLAIMER POPUP -->
+<div id="disc-popup" class="disc-popup" style="display:none;">
+  <div class="disc-popup-inner">
+    <div class="disc-popup-head">
+      <span>⚠️</span>
+      <span class="disc-popup-title">Disclaimer</span>
+      <button class="disc-popup-close" onclick="toggleDisc()">✕</button>
+    </div>
+    <p class="disc-popup-body">
+      ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
+      We hold <strong>no copyrights, licences, or ownership</strong> over any material hosted or linked here.
+      All content belongs to its respective creators and publishers.<br/><br/>
+      If you are the <strong>rightful owner</strong> of any content and wish it removed,
+      please contact us at <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a>
+      and we will act promptly.
+    </p>
+  </div>
+</div>
 
 <!-- BETA BANNER -->
 <div class="beta-banner">
@@ -291,38 +229,10 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
       <span class="ub-dot"></span>
     </div>
     <div class="ub-body">
-      <div class="ub-item">
-        <span class="ub-sym">+</span>
-        <div>
-          <span class="ub-tag">Notes</span>
-          <span class="ub-text"><strong>Maths</strong> — Chapter notes added</span>
-          <span class="ub-time">48 min ago</span>
-        </div>
-      </div>
-      <div class="ub-item">
-        <span class="ub-sym">+</span>
-        <div>
-          <span class="ub-tag pdf">PDF</span>
-          <span class="ub-text"><strong>Accounts</strong> — New PDFs uploaded</span>
-          <span class="ub-time">6 hrs ago</span>
-        </div>
-      </div>
-      <div class="ub-item">
-        <span class="ub-sym">+</span>
-        <div>
-          <span class="ub-tag pdf">PDF</span>
-          <span class="ub-text"><strong>Economics</strong> — Study material added</span>
-          <span class="ub-time">17 hrs ago</span>
-        </div>
-      </div>
-      <div class="ub-item">
-        <span class="ub-sym">+</span>
-        <div>
-          <span class="ub-tag">Notes</span>
-          <span class="ub-text"><strong>Business Studies</strong> — Notes uploaded</span>
-          <span class="ub-time">1 day ago</span>
-        </div>
-      </div>
+      <div class="ub-item"><span class="ub-sym">+</span><div><span class="ub-tag">Notes</span><span class="ub-text"><strong>Maths</strong> — Chapter notes added</span><span class="ub-time">48 min ago</span></div></div>
+      <div class="ub-item"><span class="ub-sym">+</span><div><span class="ub-tag pdf">PDF</span><span class="ub-text"><strong>Accounts</strong> — New PDFs uploaded</span><span class="ub-time">6 hrs ago</span></div></div>
+      <div class="ub-item"><span class="ub-sym">+</span><div><span class="ub-tag pdf">PDF</span><span class="ub-text"><strong>Economics</strong> — Study material added</span><span class="ub-time">17 hrs ago</span></div></div>
+      <div class="ub-item"><span class="ub-sym">+</span><div><span class="ub-tag">Notes</span><span class="ub-text"><strong>Business Studies</strong> — Notes uploaded</span><span class="ub-time">1 day ago</span></div></div>
     </div>
     <div class="ub-foot">
       <span class="ub-foot-txt">Resources updated regularly</span>
@@ -345,10 +255,9 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
     <div class="ctas">
       <a href="resource.html" class="btn">→ Open Resource Hub</a>
     </div>
-
     <p class="disclaimer">
       <span class="disc-sym">⚠</span>
-      ISC.exe is a free aggregator of study notes found publicly online — we hold no copyrights, licences, or ownership over any material. If you are the rightful owner of any content and wish it removed, please write to us at <a href="mailto:ninja-sheep-vibes@duck.com">ninja-sheep-vibes@duck.com</a> and we will act promptly.
+      ISC.exe is a free aggregator of study notes found publicly online — we hold no copyrights, licences, or ownership over any material. If you are the rightful owner of any content and wish it removed, please write to us at <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> and we will act promptly.
     </p>
   </div>
 
@@ -358,11 +267,11 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
       <div class="ring ring2"><div class="dot dot2"></div></div>
       <div class="orb-c">
         <span class="orb-lbl">ISC · 2025</span>
-        <span class="orb-n">12</span>
+        <span class="orb-n" id="stat-total-files">—</span>
         <span class="orb-s">Commerce</span>
       </div>
-      <div class="sf sf1"><strong>4</strong>Subjects</div>
-      <div class="sf sf2"><strong>∞</strong>PDFs & Notes</div>
+      <div class="sf sf1"><strong id="stat-subjects">—</strong>Subjects</div>
+      <div class="sf sf2"><strong id="stat-files">—</strong>PDFs & Notes</div>
       <div class="sf sf3"><strong>100%</strong>Free Forever</div>
     </div>
   </div>
@@ -411,18 +320,14 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
         <div class="td2 tr"></div><div class="td2 ty"></div><div class="td2 tg"></div>
         <span class="tname">isc.exe — bash</span>
       </div>
-      <div class="tbody">
+      <div class="tbody" id="terminal-body">
         <div><span class="tc">→</span> fetch api.github.com/repos/HJexe/Class-12-ISC</div>
         <div><span class="tok">✓</span> Repo metadata loaded · branch: <span class="tc">main</span></div>
         <div class="tdim">────────────────────────────────────</div>
         <div><span class="tc">→</span> get git/trees/main?recursive=1</div>
-        <div><span class="tok">✓</span> 4 subjects found · scanning for PDFs...</div>
+        <div id="term-scanning"><span class="tok">✓</span> scanning subjects...</div>
         <div class="tdim">────────────────────────────────────</div>
-        <div><span class="tok">✓</span> Economics/        → 12 files</div>
-        <div><span class="tok">✓</span> Accounts/         → 9 files</div>
-        <div><span class="tok">✓</span> Business Studies/ → 8 files</div>
-        <div><span class="tok">✓</span> Commerce/         → 6 files</div>
-        <div><span class="tok">✓</span> Mathematics/      → new</div>
+        <div id="term-subject-lines"><!-- filled by JS --></div>
         <div class="tdim">────────────────────────────────────</div>
         <div><span class="tc">→</span> render sidebar // build accordion tree</div>
         <div><span class="tok">✓</span> File tree rendered · 0 dependencies required</div>
@@ -457,14 +362,99 @@ footer a{color:var(--muted);text-decoration:none;transition:color .2s;}.footer a
 </footer>
 
 <script>
+// ── CONFIG (must match resource.html) ──────────────────────────────
+const GITHUB_OWNER  = 'HJexe';
+const GITHUB_REPO   = 'Class-12-ISC';
+const GITHUB_BRANCH = 'main';
+const SUBJECT_FOLDERS = ['Economics','Accounts','Business Studies','Maths-(creds-Abhinav)','Commerce'];
+const ALLOWED_EXT   = new Set(['pdf','doc','docx','txt','ppt','pptx','xls','xlsx']);
+
+function isAllowed(path) {
+  const ext = path.split('.').pop().toLowerCase();
+  return ALLOWED_EXT.has(ext) || /\/text\.?$/i.test(path);
+}
+function isSubjectPath(path) {
+  return SUBJECT_FOLDERS.some(s => path.startsWith(s + '/'));
+}
+
+// ── FETCH & POPULATE LIVE STATS ────────────────────────────────────
+async function loadStats() {
+  try {
+    const res  = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`,
+      { headers: { Accept: 'application/vnd.github+json' } }
+    );
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!Array.isArray(data.tree)) return;
+
+    const files = data.tree
+      .filter(i => i.type === 'blob')
+      .map(i => i.path)
+      .filter(p => isSubjectPath(p) && isAllowed(p));
+
+    // Count files per subject
+    const subjectMap = {};
+    SUBJECT_FOLDERS.forEach(s => subjectMap[s] = 0);
+    files.forEach(p => {
+      const s = SUBJECT_FOLDERS.find(s => p.startsWith(s + '/'));
+      if (s) subjectMap[s]++;
+    });
+
+    // Count active subjects (those with at least 1 file)
+    const activeSubjects = Object.values(subjectMap).filter(c => c > 0).length;
+    const totalFiles     = files.length;
+
+    // ── Orbital counters ──
+    document.getElementById('stat-subjects').textContent   = activeSubjects;
+    document.getElementById('stat-files').textContent      = totalFiles;
+    document.getElementById('stat-total-files').textContent = totalFiles;
+
+    // ── Terminal subject lines ──
+    const termLines = document.getElementById('term-subject-lines');
+    const scanLine  = document.getElementById('term-scanning');
+
+    scanLine.innerHTML = `<span class="tok">✓</span> ${activeSubjects} subjects found · ${totalFiles} files indexed`;
+
+    termLines.innerHTML = SUBJECT_FOLDERS
+      .filter(s => subjectMap[s] > 0)
+      .map(s => {
+        const display = s.replace(/-(creds-.+)$/i,'').padEnd(18,' ');
+        return `<div><span class="tok">✓</span> ${display}→ ${subjectMap[s]} files</div>`;
+      })
+      .join('');
+
+  } catch (e) {
+    // silently fail — fallback text stays as-is
+    console.warn('Stats fetch failed:', e);
+  }
+}
+
+loadStats();
+
+// ── DISCLAIMER TOGGLE ──────────────────────────────────────────────
+function toggleDisc() {
+  const p = document.getElementById('disc-popup');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+document.addEventListener('click', e => {
+  const popup = document.getElementById('disc-popup');
+  if (popup.style.display === 'block'
+    && !popup.contains(e.target)
+    && !e.target.classList.contains('disc-nav-btn')) {
+    popup.style.display = 'none';
+  }
+});
+
+// ── CURSOR ─────────────────────────────────────────────────────────
 const cur  = document.getElementById('cur');
 const ring = document.getElementById('cur-ring');
 const glow = document.getElementById('glow');
 
 document.addEventListener('mousemove', e => {
-  cur.style.left  = e.clientX + 'px'; cur.style.top  = e.clientY + 'px';
-  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
-  glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+  cur.style.left  = e.clientX+'px'; cur.style.top  = e.clientY+'px';
+  ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px';
+  glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px';
 });
 document.addEventListener('mouseleave', () => { cur.style.opacity='0'; ring.style.opacity='0'; });
 document.addEventListener('mouseenter', () => { cur.style.opacity='1'; ring.style.opacity='1'; });
@@ -474,8 +464,9 @@ document.querySelectorAll('a,.fc,.sc').forEach(el => {
   el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; ring.style.width='38px'; ring.style.height='38px'; });
 });
 
+// ── SCROLL ANIMATIONS ──────────────────────────────────────────────
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
 },{threshold:.1});
 document.querySelectorAll('.sc,.fc').forEach((el,i) => {
   el.style.opacity='0'; el.style.transform='translateY(20px)';
