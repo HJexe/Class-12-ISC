@@ -336,7 +336,7 @@ iframe {
         </div>
       </div>
       <div id="meta"><b>DESCRIPTION:</b> Choose any file from the left panel to see an instant preview, short description, and direct download option.</div>
-      <iframe id="viewer" title="PDF Preview" sandbox="allow-scripts allow-same-origin"></iframe>
+      <iframe id="viewer" title="PDF Preview" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
     </section>
   </main>
 
@@ -366,6 +366,39 @@ function looksLikeUrl(value) {
   return /^https?:\/\//i.test((value || '').trim());
 }
 
+// --- Google Drive URL helpers ---
+
+// Extract the file ID from any common Drive URL format
+function extractDriveFileId(url) {
+  // Matches /file/d/FILE_ID/ or id=FILE_ID
+  const patterns = [
+    /\/file\/d\/([a-zA-Z0-9_-]{10,})/,
+    /[?&]id=([a-zA-Z0-9_-]{10,})/
+  ];
+  for (const re of patterns) {
+    const m = url.match(re);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+// Returns the correct embed URL for a Google Drive file (PDF viewer)
+function driveEmbedUrl(url) {
+  const id = extractDriveFileId(url);
+  if (id) {
+    // /preview gives the full Drive PDF viewer inside an iframe — no login required for public files
+    return `https://drive.google.com/file/d/${id}/preview`;
+  }
+  // Fallback: if it's a Drive folder link or unrecognised format, open via gview
+  return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(url)}`;
+}
+
+// For repo-hosted files, use Google Docs Viewer since raw GitHub URLs are accessible
+function repoPreviewUrl(path) {
+  const fileUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${rawUrl(path)}`;
+  return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(fileUrl)}`;
+}
+
 const $folders     = document.getElementById("folders");
 const $search      = document.getElementById("search");
 const $viewer      = document.getElementById("viewer");
@@ -383,12 +416,6 @@ function createFileKey(entry) {
 function rawUrl(path) {
   return path.split("/").map(encodeURIComponent).join("/");
 }
-
-function previewUrl(path) {
-  const fileUrl = `${location.origin}/${rawUrl(path)}`;
-  return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(fileUrl)}`;
-}
-
 
 function hasAllowedExtension(path) {
   const ext = path.split('.').pop().toLowerCase();
@@ -438,24 +465,26 @@ async function fetchRepoFiles() {
 }
 
 function normalizeEntry(item) {
+  // Plain string = repo-hosted file path
   if (typeof item === 'string') {
     return {
       path: item,
-      url: rawUrl(item),
-      preview: previewUrl(item),
+      url: `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${rawUrl(item)}`,
+      preview: repoPreviewUrl(item),
       source: 'repo'
     };
   }
 
-  if (!item || typeof item !== 'object' || !item.path || !item.url) {
-    return null;
-  }
+  if (!item || typeof item !== 'object' || !item.path || !item.url) return null;
+
+  const isDrive = item.source === 'gdrive' || /drive\.google\.com/i.test(item.url);
 
   return {
     path: item.path,
     url: item.url,
-    preview: item.previewUrl || `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(item.url)}`,
-    source: item.source || 'gdrive'
+    // KEY FIX: use /preview for Drive files so the PDF renders inside the iframe
+    preview: isDrive ? driveEmbedUrl(item.url) : (item.previewUrl || repoPreviewUrl(item.path)),
+    source: isDrive ? 'gdrive' : (item.source || 'repo')
   };
 }
 
@@ -482,12 +511,12 @@ function setActive(key) {
 
 function showPreview(entry) {
   const key = createFileKey(entry);
-  $viewer.src      = entry.preview;
+  $viewer.src       = entry.preview;
   $currentPath.textContent = entry.path;
-  $openTab.href    = entry.url;
+  $openTab.href     = entry.url;
   $downloadBtn.href = entry.url;
   $downloadBtn.setAttribute('download', entry.path.split('/').pop());
-  $meta.innerHTML  = describe(entry);
+  $meta.innerHTML   = describe(entry);
   setActive(key);
 }
 
@@ -511,7 +540,6 @@ function renderSubtree(node, subject, fileMap, prefix = "") {
   const ul = document.createElement("ul");
   ul.className = "file-list";
 
-  // Render sub-folders first
   [...node.dirs.keys()].sort((a, b) => a.localeCompare(b)).forEach(folderName => {
     const li      = document.createElement("li");
     const details = document.createElement("details");
@@ -527,7 +555,6 @@ function renderSubtree(node, subject, fileMap, prefix = "") {
     ul.appendChild(li);
   });
 
-  // Then files
   [...node.files].sort((a, b) => a.localeCompare(b)).forEach(filename => {
     const relative  = prefix ? `${prefix}/${filename}` : filename;
     const fullPath  = `${subject}/${relative}`;
@@ -574,7 +601,6 @@ function renderList(files) {
     details.appendChild(summary);
 
     if (query.length > 0) {
-      // flat list when searching
       const ul = document.createElement('ul');
       ul.className = 'file-list';
       filtered.sort((a,b) => a.path.localeCompare(b.path)).forEach(file => {
@@ -591,7 +617,6 @@ function renderList(files) {
       });
       details.appendChild(ul);
     } else {
-      // nested tree when not searching
       const relative = filtered.map(file => file.path.slice(subject.length + 1));
       const fileMap = new Map(filtered.map(file => [file.path, file]));
       details.appendChild(renderSubtree(buildTree(relative), subject, fileMap));
