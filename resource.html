@@ -450,10 +450,12 @@ async function fetchRepoFiles() {
       if (!looksLikeUrl(link)) return null;
 
       const baseDir = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : path;
-      return normalizeEntry({
-        path: `${baseDir}/Google Drive Folder`,
-        url: link,
-        source: 'gdrive'
+      const folderName = baseDir.split('/').pop();
+return normalizeEntry({
+  path: `${baseDir}/${folderName}`,
+  url: link,
+  source: 'gdrive'
+});
       });
     } catch (err) {
       console.warn('Failed to parse legacy drive link file:', path, err);
