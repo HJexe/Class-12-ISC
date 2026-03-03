@@ -335,13 +335,29 @@ async function fetchRepoFiles() {
     try {
       const txt = await fetch(toRawGithubUrl(path));
       if (!txt.ok) return null;
-      const link = (await txt.text()).trim();
+      const raw = (await txt.text()).trim();
+
+      // Support two formats:
+      // 1) "My File Name|https://drive.google.com/..."  ← name + URL
+      // 2) "https://drive.google.com/..."               ← URL only (fallback to folder name)
+      let fileName, link;
+      if (raw.includes('|')) {
+        const sep = raw.indexOf('|');
+        fileName  = raw.slice(0, sep).trim();
+        link      = raw.slice(sep + 1).trim();
+      } else {
+        link      = raw;
+        fileName  = null;
+      }
+
       if (!looksLikeUrl(link)) return null;
 
       const baseDir    = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : path;
       const folderName = baseDir.split('/').pop();
+      const displayName = fileName || folderName;
+
       return normalizeEntry({
-        path:   `${baseDir}/${folderName}`,
+        path:   `${baseDir}/${displayName}`,
         url:    link,
         source: 'gdrive'
       });
@@ -349,6 +365,7 @@ async function fetchRepoFiles() {
       console.warn('Failed to parse legacy drive link file:', path, err);
       return null;
     }
+
   }));
 
   return entries.filter(Boolean);
