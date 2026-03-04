@@ -19,8 +19,9 @@
   --fg:#dde3da;--fg2:#96a492;--fg3:#505c4e;
   --pdf:#c8956a;--doc:#6a96c8;--txt:#8a8a7a;--amber:#d4a84b;
 }
-html,body{height:100%;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow:hidden;}
+html{height:100%;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
+  overflow:hidden;height:100%;position:fixed;width:100%;}
 
 /* grain */
 body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
@@ -75,9 +76,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
   border-bottom:1px solid rgba(255,180,50,0.3);}
 
 /* ── PAGES ── */
-/* top offset: 50px nav + ~30px beta */
-.page{display:none;position:fixed;top:80px;left:0;right:0;
-  bottom:calc(56px + env(safe-area-inset-bottom,0px));overflow-y:auto;}
+.page{display:none;position:fixed;left:0;right:0;
+  top:var(--header-h,80px);
+  bottom:calc(56px + env(safe-area-inset-bottom,0px));
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;}
 .page.active{display:block;}
 
 /* ════════════════════════
@@ -274,7 +277,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
 .tb-spacer{flex:1;}
 .tbtn svg{width:12px;height:12px;flex-shrink:0;}
 
-.sheet-body{flex:1;overflow:hidden;position:relative;background:#0e0f0d;}
+.sheet-body{flex:1;overflow:hidden;position:relative;background:#0e0f0d;-webkit-overflow-scrolling:touch;}
 .sheet-body iframe{width:100%;height:calc(100% - 36px);border:0;background:#181a17;}
 .sheet-drive-hint{position:absolute;bottom:0;left:0;right:0;height:36px;
   background:var(--rbg2);border-top:1px solid var(--rborder);
@@ -303,7 +306,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
 /* ── BOTTOM TAB BAR ── */
 .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:500;
   display:flex;background:rgba(8,8,9,.97);border-top:1px solid var(--border);
-  backdrop-filter:blur(20px);padding-bottom:env(safe-area-inset-bottom,0px);}
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  /* prevent content going under home indicator on iOS */
+  padding-bottom:max(env(safe-area-inset-bottom,0px), 4px);}
 .tabbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
   padding:9px 0 7px;background:none;border:none;cursor:pointer;
   font-family:'JetBrains Mono',monospace;font-size:.46rem;font-weight:500;
@@ -338,7 +344,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
       ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
       We hold <strong>no copyrights, licences, or ownership</strong> over any material hosted or linked here.
       All content belongs to its respective creators.<br/><br/>
-      Rightful owners may contact <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.
+      Rightful owners may contact <a href="/cdn-cgi/l/email-protection#a0c8d2cfcfd3c8c9e0c4d5c3cb8ec3cfcd"><span class="__cf_email__" data-cfemail="6a021805051902032a0e1f090144090507">[email&#160;protected]</span></a> for removal.
     </p>
   </div>
 </div>
@@ -347,7 +353,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
 <div class="beta" id="betaBanner">
   <span class="beta-tag">BETA</span>
   <span>Early build — resources actively being added.</span>
-  <span class="beta-x" onclick="document.getElementById('betaBanner').style.display='none'">✕</span>
+  <span class="beta-x" onclick="dismissBeta()">✕</span>
 </div>
 
 <!-- ══════════ HOME PAGE ══════════ -->
@@ -374,7 +380,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
   </div>
 
 
-  <p class="disc-inline">⚠ ISC.exe is a free aggregator of publicly available study notes — we hold no ownership over any material. Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.</p>
+  <p class="disc-inline">⚠ ISC.exe is a free aggregator of publicly available study notes — we hold no ownership over any material. Rightful owners may write to <a href="/cdn-cgi/l/email-protection#b1d9c3dedec2d9d8f1d5c4d2da9fd2dedc"><span class="__cf_email__" data-cfemail="a7cfd5c8c8d4cfcee7c3d2c4cc89c4c8ca">[email&#160;protected]</span></a> for removal.</p>
 
 </div>
 
@@ -457,8 +463,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:50px;
   </button>
 </div>
 
-<script>
-/* ── CONFIG (matches resource.html exactly) ── */
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── HEADER HEIGHT ── */
+function updateHeaderHeight(){
+  const nav = document.querySelector('nav');
+  const beta = document.getElementById('betaBanner');
+  const navH = nav ? nav.offsetHeight : 50;
+  const betaH = (beta && beta.style.display !== 'none') ? beta.offsetHeight : 0;
+  document.documentElement.style.setProperty('--header-h', (navH + betaH) + 'px');
+}
+function dismissBeta(){
+  document.getElementById('betaBanner').style.display='none';
+  updateHeaderHeight();
+}
+updateHeaderHeight();
+window.addEventListener('resize', updateHeaderHeight);
+
+
 const OWNER  = 'HJexe';
 const REPO   = 'Class-12-ISC';
 const BRANCH = 'main';
@@ -760,11 +781,4 @@ function showExamAlert(s){
   if(!upcoming.length){el.innerHTML='';return;}
   const next=upcoming[0];
   const days=Math.round((next.d-today)/86400000);
-  const daysStr=days===0?'Today!':(days===1?'Tomorrow':`in ${days} days`);
-  el.innerHTML=`<div class="exam-alert-m"><span class="ea-icon">⚡</span><span class="ea-label">Next</span><span class="ea-subj">${next.subject}</span><span class="ea-days"><strong>${daysStr}</strong></span><button class="ea-close" onclick="this.closest('.exam-alert-m').remove()">✕</button></div>`;
-}
-
-loadFiles();
-</script>
-</body>
-</html>
+  const daysStr=days===0?'Today!':(days===1?'Tomorrow'
