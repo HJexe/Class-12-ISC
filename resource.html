@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ISC.exe | Resources</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ════════════════════════════════════════════
-   TOKENS
-════════════════════════════════════════════ */
 :root {
   --bg:        #111210;
   --bg2:       #151714;
@@ -27,8 +24,10 @@
   --txt:       #8a8a7a;
   --amber:     #d4a84b;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
+
 body {
   background: var(--bg);
   color: var(--fg);
@@ -37,6 +36,7 @@ body {
   line-height: 1.55;
   overflow: hidden;
 }
+
 body::before {
   content: '';
   position: fixed; inset: 0; z-index: 9999; pointer-events: none;
@@ -44,124 +44,94 @@ body::before {
   opacity: 0.022;
 }
 
-/* ════════════════════════════════════════════
-   NAV
-════════════════════════════════════════════ */
+/* ── NAV ── */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   height: 50px;
-  display: flex; align-items: center; gap: 0;
-  padding: 0 20px;
-  background: rgba(17,18,16,0.95);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px;
+  background: rgba(17,18,16,0.92);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
 }
 .nav-brand {
   font-family: 'DM Mono', monospace;
   font-size: 13px; font-weight: 500; color: var(--fg);
-  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 9px;
 }
-.nav-brand-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-
-/* Red notice — fills the empty centre of the nav bar */
-.nav-notice {
-  display: flex; align-items: center; gap: 7px;
-  flex: 1; margin: 0 18px;
-  padding: 4px 12px;
-  background: rgba(50,10,10,0.95);
-  border: 1px solid rgba(220,80,80,0.35);
-  border-radius: 5px;
-  max-width: 500px;
-  overflow: hidden;
-}
-.nav-notice.hidden { display: none; }
-.nn-tag {
-  font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700;
-  letter-spacing: 1.2px; text-transform: uppercase;
-  background: #e05555; color: #000;
-  padding: 2px 5px; border-radius: 2px; flex-shrink: 0;
-}
-.nn-text {
-  font-family: 'DM Mono', monospace; font-size: 10px;
-  color: rgba(255,165,165,0.85); flex: 1;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.nn-kbd {
-  display: inline-flex; align-items: center;
-  background: rgba(224,85,85,0.2); border: 1px solid rgba(224,85,85,0.45);
-  border-radius: 3px; padding: 0 5px;
-  font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 700;
-  color: #ff9999; margin: 0 2px;
-}
-.nn-close {
-  background: none; border: none; color: rgba(220,100,100,0.4);
-  cursor: pointer; font-size: 12px; padding: 1px 3px; border-radius: 3px;
-  transition: color .14s; flex-shrink: 0;
-}
-.nn-close:hover { color: #ff9999; }
-
-.nav-links { display: flex; gap: 5px; margin-left: auto; }
+.nav-brand-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.nav-links { display: flex; gap: 5px; }
 .nav-link {
   text-decoration: none; color: var(--fg3);
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  padding: 5px 12px; border: 1px solid transparent; border-radius: 6px;
-  transition: all .16s; display: flex; align-items: center; gap: 5px;
+  font-family: 'DM Mono', monospace; font-size: 11.5px;
+  padding: 5px 13px; border: 1px solid transparent; border-radius: 6px;
+  transition: color .18s, border-color .18s, background .18s;
+  display: flex; align-items: center; gap: 6px;
 }
 .nav-link:hover { color: var(--fg2); border-color: var(--border2); background: var(--surface); }
-.nav-link-pip { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: .7; animation: breathe 2.8s ease-in-out infinite; }
-@keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:.85} }
+.nav-link-pip { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.7; animation: breathe 2.8s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{opacity:.45} 50%{opacity:.85} }
 
-/* ════════════════════════════════════════════
-   EXAM ALERT STRIP
-════════════════════════════════════════════ */
+/* ── EXAM ALERT ── */
+#examAlert { position: fixed; top: 50px; left: 300px; right: 0; z-index: 150; }
 .exam-alert {
-  display: flex; align-items: center; gap: 10px;
-  padding: 7px 20px;
-  background: rgba(42,36,10,0.97);
-  border-bottom: 1px solid rgba(220,180,60,0.25);
-  font-size: 12px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 22px;
+  background: rgba(38,32,8,0.97);
+  border-bottom: 1px solid rgba(212,168,75,0.28);
+  backdrop-filter: blur(12px);
+  animation: slideDown .3s ease;
 }
-.ea-icon { font-size: 13px; flex-shrink: 0; }
-.ea-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(212,168,75,0.6); flex-shrink: 0; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+.ea-icon { font-size: 14px; flex-shrink: 0; }
+.ea-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(212,168,75,0.65); flex-shrink: 0; }
 .ea-divider { width: 1px; height: 14px; background: rgba(212,168,75,0.18); flex-shrink: 0; }
-.ea-subject { font-weight: 500; color: #f0d060; }
+.ea-subject { font-weight: 500; font-size: 13px; color: #f0d060; }
 .ea-date { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(212,168,75,0.55); }
 .ea-days { margin-left: auto; font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(212,168,75,0.45); flex-shrink: 0; }
 .ea-days strong { color: #f0d060; font-size: 13px; }
-.ea-link { text-decoration: none; font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(212,168,75,0.45); border: 1px solid rgba(212,168,75,0.18); border-radius: 5px; padding: 3px 9px; transition: all .16s; flex-shrink: 0; }
-.ea-link:hover { color: #f0d060; border-color: rgba(212,168,75,0.45); }
-.ea-close { background: none; border: none; color: var(--fg3); cursor: pointer; font-size: 13px; padding: 2px 5px; border-radius: 3px; transition: color .15s; flex-shrink: 0; }
+.ea-close { background: none; border: none; color: var(--fg3); cursor: pointer; font-size: 13px; padding: 2px 6px; margin-left: 8px; border-radius: 3px; transition: color .15s; flex-shrink: 0; }
 .ea-close:hover { color: var(--fg); }
+.ea-link { text-decoration: none; font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(212,168,75,0.45); border: 1px solid rgba(212,168,75,0.18); border-radius: 5px; padding: 3px 9px; transition: all .18s; flex-shrink: 0; }
+.ea-link:hover { color: #f0d060; border-color: rgba(212,168,75,0.45); }
 
-/* ════════════════════════════════════════════
-   DESKTOP LAYOUT  (> 820px)
-════════════════════════════════════════════ */
+/* ── LAYOUT ── */
 .layout {
   display: grid;
   grid-template-columns: 300px 1fr;
-  height: calc(100vh - 50px);
-  margin-top: 50px;
-  overflow: hidden;
+  height: 100vh;
+  padding-top: 50px;
 }
+.layout.with-alert { padding-top: 50px; margin-top: 34px; }
 
 /* ── SIDEBAR ── */
 .sidebar {
   display: flex; flex-direction: column;
   background: var(--bg2);
   border-right: 1px solid var(--border);
-  overflow: hidden; height: 100%;
+  overflow: hidden;
 }
 .sidebar-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .sidebar-heading { font-family: 'Lora', serif; font-size: 22px; font-weight: 400; color: var(--fg); line-height: 1.1; margin-bottom: 4px; }
-.sidebar-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); }
+.sidebar-sub { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); letter-spacing: .4px; }
 
 .tabs { display: flex; padding: 8px 10px; border-bottom: 1px solid var(--border); gap: 5px; flex-shrink: 0; }
-.tab { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 0; font-family: 'DM Mono', monospace; font-size: 10.5px; letter-spacing: .5px; text-transform: uppercase; border: 1px solid var(--border2); border-radius: 7px; background: transparent; color: var(--fg3); cursor: pointer; transition: all .16s; }
+.tab {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 6px 0; font-family: 'DM Mono', monospace; font-size: 10.5px;
+  letter-spacing: .5px; text-transform: uppercase;
+  border: 1px solid var(--border2); border-radius: 7px;
+  background: transparent; color: var(--fg3); cursor: pointer; transition: all .18s;
+}
 .tab:hover { color: var(--fg2); background: var(--surface); }
 .tab.active { color: var(--accent); background: var(--accent-lo); border-color: rgba(122,184,106,0.28); }
 
 .search-wrap { padding: 8px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-.search-box { display: flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--border2); border-radius: 7px; padding: 7px 10px; transition: border-color .16s; }
+.search-box {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 7px; padding: 7px 10px; transition: border-color .18s;
+}
 .search-box:focus-within { border-color: rgba(122,184,106,0.4); }
 .search-ico { color: var(--fg3); font-size: 11px; }
 #search { background: none; border: none; outline: none; color: var(--fg); font-family: 'DM Sans', sans-serif; font-size: 12.5px; width: 100%; }
@@ -171,8 +141,15 @@ body::before {
 #folders::-webkit-scrollbar { width: 3px; }
 #folders::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
+/* Subject */
 .subject { border-radius: 8px; margin-bottom: 3px; }
-.subject > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 8px; color: var(--fg2); font-size: 13px; font-weight: 500; transition: background .14s, color .14s; user-select: none; }
+.subject > summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 10px; border-radius: 8px;
+  color: var(--fg2); font-size: 13px; font-weight: 500;
+  transition: background .14s, color .14s; user-select: none;
+}
 .subject > summary::-webkit-details-marker { display: none; }
 .subject > summary:hover { background: var(--surface); color: var(--fg); }
 .subject[open] > summary { color: var(--fg); background: var(--surface); }
@@ -184,7 +161,13 @@ body::before {
 .subject[open] .s-arr { transform: rotate(90deg); }
 
 .sub-folder { margin: 2px 0 2px 8px; border-radius: 6px; }
-.sub-folder > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 6px; font-size: 11.5px; color: var(--fg3); transition: background .14s, color .14s; user-select: none; min-width: 0; }
+.sub-folder > summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 9px; border-radius: 6px;
+  font-size: 11.5px; color: var(--fg3);
+  transition: background .14s, color .14s; user-select: none; min-width: 0;
+}
 .sub-folder > summary::-webkit-details-marker { display: none; }
 .sub-folder > summary:hover { background: var(--surface2); color: var(--fg2); }
 .sub-folder[open] > summary { color: var(--fg2); }
@@ -194,257 +177,350 @@ body::before {
 
 .file-list { list-style: none; padding: 2px 3px 3px; }
 .file-list li + li { margin-top: 1px; }
-.file-link { display: flex; align-items: center; gap: 7px; text-decoration: none; color: var(--fg2); border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer; transition: background .12s, color .12s; border: 1px solid transparent; min-width: 0; }
+.file-link {
+  display: flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--fg2);
+  border-radius: 6px; padding: 5px 9px;
+  font-size: 12px; cursor: pointer;
+  transition: background .12s, color .12s;
+  border: 1px solid transparent; min-width: 0;
+}
 .file-link:hover { background: var(--surface2); color: var(--fg); }
 .file-link.active { background: var(--accent-lo); color: var(--fg); border-color: rgba(122,184,106,0.22); }
-.f-badge { font-family: 'DM Mono', monospace; font-size: 9px; padding: 1px 5px; border-radius: 3px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .4px; font-weight: 500; opacity: .85; }
-.badge-pdf { background: rgba(200,149,106,0.14); color: var(--pdf); }
-.badge-doc { background: rgba(106,150,200,0.14); color: var(--doc); }
-.badge-txt { background: rgba(138,138,122,0.14); color: var(--txt); }
-.badge-def { background: var(--surface2); color: var(--fg3); }
-.f-name { flex: 1; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.f-badge { font-family: 'DM Mono', monospace; font-size: 8.5px; padding: 1px 5px; border-radius: 3px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .4px; font-weight: 500; opacity: .85; }
+.badge-pdf  { background: rgba(200,149,106,0.14); color: var(--pdf); }
+.badge-doc  { background: rgba(106,150,200,0.14); color: var(--doc); }
+.badge-txt  { background: rgba(138,138,122,0.14); color: var(--txt); }
+.badge-def  { background: var(--surface2); color: var(--fg3); }
+.f-name { flex: 1; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .msg { padding: 16px 10px; color: var(--fg3); font-size: 12px; font-family: 'DM Mono', monospace; }
 
-/* ── DESKTOP VIEWER ── */
-.viewer-panel { display: flex; flex-direction: column; background: var(--bg); overflow: hidden; height: 100%; }
+/* ── VIEWER ── */
+.viewer {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+}
 
-.viewer-infobar { display: flex; align-items: center; justify-content: space-between; padding: 8px 18px; min-height: 44px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 10px; }
-.vi-breadcrumb { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-.vb-file { color: var(--fg2); }
-.vi-chips { display: flex; gap: 5px; flex-shrink: 0; }
-.vi-chip { font-family: 'DM Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; background: var(--surface2); color: var(--fg3); border: 1px solid var(--border2); text-transform: uppercase; letter-spacing: .5px; }
-.vi-chip.src-drive { color: var(--accent); background: var(--accent-lo); border-color: rgba(122,184,106,0.25); }
+/* Top info bar — file name + source */
+.viewer-infobar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 18px;
+  height: 44px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  min-width: 0;
+}
+.vi-breadcrumb {
+  flex: 1; min-width: 0;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.vi-breadcrumb .vb-file { color: var(--fg2); }
+.vi-chips { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.vi-chip {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  padding: 2px 7px; border-radius: 4px;
+  background: var(--surface2); color: var(--fg3);
+  border: 1px solid var(--border2); text-transform: uppercase; letter-spacing: .5px;
+  white-space: nowrap;
+}
+.vi-chip.src-drive { color: #6a96c8; border-color: rgba(106,150,200,0.3); background: rgba(106,150,200,0.08); }
+.vi-chip.src-repo  { color: var(--accent); border-color: rgba(122,184,106,0.3); background: rgba(122,184,106,0.06); }
 
-.viewer-toolbar { display: flex; align-items: center; gap: 6px; padding: 7px 14px; min-height: 46px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-shrink: 0; }
-.tbtn { display: flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 11px; border: 1px solid var(--border2); background: transparent; color: var(--fg3); cursor: pointer; text-decoration: none; transition: all .16s; white-space: nowrap; }
-.tbtn svg { width: 12px; height: 12px; flex-shrink: 0; }
-.tbtn:hover { color: var(--fg2); border-color: var(--fg3); background: var(--surface); }
-.tbtn.primary { color: var(--accent); background: var(--accent-lo); border-color: rgba(122,184,106,0.3); }
-.tbtn.primary:hover { background: var(--accent-md); }
-.tb-sep { width: 1px; height: 20px; background: var(--border2); margin: 0 2px; }
+/* Action toolbar */
+.viewer-toolbar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 18px;
+  height: 46px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.tb-group { display: flex; align-items: center; gap: 4px; }
+.tb-sep { width: 1px; height: 22px; background: var(--border2); margin: 0 4px; flex-shrink: 0; }
 .tb-spacer { flex: 1; }
 
-.viewer-body { flex: 1; position: relative; overflow: hidden; background: #0e0f0d; }
-.empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 12px; color: var(--fg3); user-select: none; }
-.empty-ico { font-size: 34px; opacity: .16; animation: bob 3.5s ease-in-out infinite; }
-@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.tbtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--fg3); padding: 6px 11px;
+  border: 1px solid var(--border2); border-radius: 6px;
+  background: transparent; cursor: pointer;
+  transition: all .16s; white-space: nowrap; text-decoration: none;
+  letter-spacing: .2px;
+}
+.tbtn:hover { color: var(--fg2); background: var(--surface2); border-color: var(--fg3); }
+.tbtn:active { transform: scale(0.97); }
+
+.tbtn.primary {
+  color: var(--accent); border-color: rgba(122,184,106,0.35);
+  background: var(--accent-lo);
+}
+.tbtn.primary:hover { background: var(--accent-md); border-color: rgba(122,184,106,0.6); color: var(--fg); }
+
+.tbtn.danger { color: #e06c6c; border-color: rgba(224,108,108,0.3); background: rgba(224,108,108,0.06); }
+.tbtn.danger:hover { background: rgba(224,108,108,0.12); }
+
+.tbtn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* Zoom display */
+.zoom-display {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  color: var(--fg3); min-width: 38px; text-align: center;
+  padding: 0 4px;
+}
+
+/* Viewer frame area */
+.viewer-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #0e0f0d;
+}
+
+/* Empty state */
+.empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 100%; gap: 14px; color: var(--fg3); user-select: none;
+}
+.empty-ico { font-size: 36px; opacity: .18; animation: bob 3.5s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
 .empty-h { font-family: 'Lora', serif; font-style: italic; font-size: 18px; color: var(--fg3); }
-.empty-s { font-family: 'DM Mono', monospace; font-size: 11px; }
-.empty-hint { margin-top: 6px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-.empty-hint-item { display: flex; align-items: center; gap: 7px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--fg3); }
-.empty-hint-key { background: var(--surface2); border: 1px solid var(--border2); border-radius: 4px; padding: 1px 6px; font-size: 9px; color: var(--fg2); }
+.empty-s { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); }
+.empty-hint {
+  margin-top: 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.empty-hint-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--fg3);
+}
+.empty-hint-key {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 4px; padding: 2px 7px; font-size: 9px; color: var(--fg2);
+}
 
-#viewerFrame { width: 100%; height: calc(100% - 44px); border: 0; background: #181a17; }
-.drive-hint { position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background: var(--bg2); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 7px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--fg3); pointer-events: none; opacity: 0; transition: opacity .3s; }
-.drive-hint.visible { opacity: 1; }
+/* iFrame */
+iframe#viewerFrame {
+  width: 100%;
+  /* Leave 48px at bottom so Drive's native Page/Zoom toolbar is never clipped */
+  height: calc(100% - 48px);
+  border: 0;
+  background: #181a17;
+  transition: opacity .2s;
+}
 
-.loader-overlay { position: absolute; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 10; }
-.loader-overlay.hidden { display: none; }
-.loader-spinner { width: 28px; height: 28px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+/* Drive toolbar clearance bar — visible strip at bottom so users know controls are in the iframe */
+.viewer-drive-hint {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: 10px; color: var(--fg3);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.viewer-drive-hint.visible { opacity: 1; }
+.viewer-drive-hint .dh-icon { font-size: 13px; opacity: 0.5; }
+
+/* Loading overlay */
+.loader-overlay {
+  position: absolute; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; z-index: 10;
+  transition: opacity .3s;
+}
+.loader-overlay.hidden { opacity: 0; pointer-events: none; }
+.loader-spinner {
+  width: 32px; height: 32px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
 @keyframes spin { to { transform: rotate(360deg); } }
 .loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); }
 
-.viewer-panel.fullscreen { position: fixed; inset: 0; z-index: 400; }
-body.fullscreen-active .sidebar,
-body.fullscreen-active .nav,
-body.fullscreen-active #examAlert { display: none; }
+/* Fullscreen mode */
+.viewer.fullscreen { position: fixed; inset: 0; z-index: 9990; padding: 0; }
+.viewer.fullscreen .viewer-body { height: calc(100% - 90px); }
+body.fullscreen-active .layout { display: block; }
 
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--border2); font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg2); padding: 8px 18px; border-radius: 6px; z-index: 9000; pointer-events: none; }
+/* Toast notification */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 9px 18px;
+  font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg2);
+  z-index: 9000; white-space: nowrap;
+  animation: toastIn .2s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(8px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 
-/* ════════════════════════════════════════════
-   MOBILE UI  (≤ 820px)
-   Completely separate from desktop — no shared state
-════════════════════════════════════════════ */
+/* Keyboard shortcut badge */
+.kbd {
+  font-family: 'DM Mono', monospace; font-size: 8px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 3px; padding: 1px 4px; color: var(--fg3); margin-left: 2px;
+}
+
+/* ── RED NOTICE BANNER (inside nav) ── */
+.file-notice {
+  display: none;
+  align-items: center; gap: 8px;
+  padding: 5px 14px;
+  background: rgba(50, 10, 10, 0.95);
+  border: 1px solid rgba(220, 80, 80, 0.4);
+  border-radius: 6px;
+  flex: 1; margin: 0 20px;
+  max-width: 520px;
+}
+.file-notice.visible { display: flex; }
+.fn-icon { font-size: 12px; flex-shrink: 0; }
+.fn-tag {
+  font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: #000; background: #e05555;
+  padding: 2px 6px; border-radius: 2px; flex-shrink: 0;
+}
+.fn-text {
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
+  color: rgba(255, 170, 170, 0.85); flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fn-kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(224, 85, 85, 0.25); border: 1px solid rgba(224, 85, 85, 0.5);
+  border-radius: 3px; padding: 0px 5px;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700;
+  color: #ff9999; margin: 0 2px;
+}
+.fn-close {
+  background: none; border: none; color: rgba(220,100,100,0.45);
+  cursor: pointer; font-size: 12px; padding: 1px 3px;
+  border-radius: 3px; transition: color .15s; flex-shrink: 0;
+}
+.fn-close:hover { color: #ff9999; }
+
 @media (max-width: 820px) {
-
-  /* Nav: hide notice + links, only show brand */
-  .nav-notice { display: none !important; }
-  .nav-links  { display: none !important; }
-  .nav        { padding: 0 16px; }
-
-  /* Exam alert: compact */
-  .ea-link, .ea-days { display: none; }
-
-  /* Body: scrollable */
-  body { overflow-y: auto; overflow-x: hidden; }
-
-  /* Layout: single column, sidebar is the page */
-  .layout {
-    display: block;
-    height: auto;
-    min-height: calc(100vh - 50px);
-    margin-top: 50px;
-    overflow: visible;
-  }
-
-  /* Sidebar fills page naturally */
-  .sidebar { height: auto; overflow: visible; border-right: none; }
-  #folders { overflow: visible; max-height: none; padding-bottom: 80px; }
-
-  /* Hide desktop viewer entirely */
-  .viewer-panel { display: none !important; }
-
-  /* Bigger tap targets */
-  .file-link            { padding: 12px 14px; font-size: 13px; }
-  .subject > summary    { padding: 11px 14px; font-size: 14px; }
-  .sub-folder > summary { padding: 9px 14px; font-size: 13px; }
-  .f-badge              { font-size: 10px; padding: 2px 6px; }
-
-  /* ── MOBILE SHEET ──
-     Completely isolated from desktop viewer.
-     Opens over the entire screen when a file is tapped.
-  ── */
-  .mobile-sheet {
-    display: none;
-    position: fixed; inset: 0; z-index: 600;
-    flex-direction: column;
-    background: var(--bg);
-  }
-  .mobile-sheet.open {
-    display: flex;
-    animation: sheetIn .22s cubic-bezier(.25,.46,.45,.94);
-  }
-  @keyframes sheetIn {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
-  }
-
-  /* Header bar */
-  .ms-nav {
-    display: flex; align-items: center; gap: 8px;
-    height: 54px; padding: 0 14px;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .ms-back {
-    display: flex; align-items: center; gap: 6px;
-    background: none; border: 1px solid var(--border2); border-radius: 7px;
-    color: var(--fg2); font-family: 'DM Mono', monospace; font-size: 12px;
-    padding: 7px 13px; cursor: pointer; transition: all .14s; flex-shrink: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .ms-back:active { background: var(--surface2); }
-  .ms-filename { flex: 1; font-size: 12px; color: var(--fg2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; font-family: 'DM Mono', monospace; }
-  .ms-actions { display: flex; gap: 6px; flex-shrink: 0; }
-  .ms-btn {
-    display: flex; align-items: center; gap: 5px;
-    padding: 7px 12px; border-radius: 7px;
-    font-family: 'DM Mono', monospace; font-size: 11px;
-    border: 1px solid var(--border2); background: transparent;
-    color: var(--fg3); cursor: pointer; text-decoration: none;
-    transition: all .14s; white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .ms-btn:active { background: var(--surface2); }
-  .ms-btn.primary { color: var(--accent); background: var(--accent-lo); border-color: rgba(122,184,106,0.3); }
-  .ms-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
-
-  /* Red tip strip */
-  .ms-tip {
-    display: flex; align-items: center; gap: 8px;
-    padding: 7px 14px;
-    background: rgba(40,10,10,0.97);
-    border-bottom: 1px solid rgba(220,80,80,0.22);
-    flex-shrink: 0;
-  }
-  .ms-tip-tag { font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: #e05555; color: #000; padding: 2px 5px; border-radius: 2px; flex-shrink: 0; }
-  .ms-tip-text { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,165,165,0.8); flex: 1; }
-  .ms-tip-kbd { display: inline-flex; align-items: center; background: rgba(224,85,85,0.18); border: 1px solid rgba(224,85,85,0.4); border-radius: 3px; padding: 0 5px; font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 700; color: #ff9999; margin: 0 2px; }
-
-  /* iframe area */
-  .ms-body { flex: 1; position: relative; overflow: hidden; background: #0e0f0d; }
-  .ms-body iframe { width: 100%; height: 100%; border: 0; }
-
-  /* Loading state */
-  .ms-loader { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: var(--bg); z-index: 10; }
-  .ms-loader.hidden { display: none; }
-  .ms-spinner { width: 28px; height: 28px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
-  .ms-loader-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--fg3); }
+  .layout { grid-template-columns: 1fr; }
+  .viewer { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
     <div class="nav-brand-mark"></div>
     ISC.exe / Resources
   </div>
-  <div class="nav-notice" id="navNotice">
-    <span class="nn-tag">Notice</span>
-    <span class="nn-text">File not loading? Press <span class="nn-kbd">R</span> to reload — most errors fix on refresh.</span>
-    <button class="nn-close" onclick="document.getElementById('navNotice').classList.add('hidden')" title="Dismiss">✕</button>
+  <!-- Notice in nav centre -->
+  <div class="file-notice visible" id="fileNotice">
+    <span class="fn-icon">⚠️</span>
+    <span class="fn-tag">Notice</span>
+    <span class="fn-text">File not loading? Press <span class="fn-kbd">R</span> to reload — most errors fix on refresh.</span>
+    <button class="fn-close" onclick="document.getElementById('fileNotice').classList.remove('visible')" title="Dismiss">✕</button>
   </div>
   <div class="nav-links">
     <a class="nav-link" href="index.html">← Home</a>
-    <a class="nav-link" href="timetable.html"><span class="nav-link-pip"></span>Timetable</a>
+    <a class="nav-link" href="timetable.html">
+      <span class="nav-link-pip"></span>
+      Timetable
+    </a>
   </div>
 </nav>
 
-<!-- Exam alert injected here by JS -->
 <div id="examAlert"></div>
 
-<!-- DESKTOP LAYOUT -->
 <div class="layout" id="mainLayout">
 
-  <!-- Sidebar — used on both desktop and mobile -->
+  <!-- ── SIDEBAR ── -->
   <aside class="sidebar">
     <div class="sidebar-head">
       <div class="sidebar-heading">Study Files</div>
       <div class="sidebar-sub">browse · search · preview</div>
     </div>
+
     <div class="tabs">
       <button class="tab active" id="tab-commerce" onclick="switchStream('commerce')">📊 Commerce</button>
-      <button class="tab"        id="tab-science"  onclick="switchStream('science')">🔬 Science</button>
+      <button class="tab" id="tab-science" onclick="switchStream('science')">🔬 Science</button>
     </div>
+
     <div class="search-wrap">
       <div class="search-box">
         <span class="search-ico">◎</span>
-        <input id="search" type="search" placeholder="Search files…"/>
+        <input id="search" type="search" placeholder="Search files…" />
       </div>
     </div>
+
     <div id="folders"><div class="msg">Loading…</div></div>
   </aside>
 
-  <!-- Desktop viewer — hidden on mobile via CSS -->
-  <section class="viewer-panel" id="viewerPanel">
-    <div class="viewer-infobar">
+  <!-- ── VIEWER ── -->
+  <section class="viewer" id="viewerPanel">
+
+    <!-- Info bar: breadcrumb + source chips -->
+    <div class="viewer-infobar" id="viewerInfobar">
       <div class="vi-breadcrumb" id="vBreadcrumb">Select a file to preview</div>
       <div class="vi-chips" id="vChips"></div>
     </div>
-    <div class="viewer-toolbar">
-      <div style="display:flex;gap:6px;align-items:center;">
-        <a id="btnOpen" class="tbtn primary" target="_blank" rel="noopener noreferrer">
+
+    <!-- Action toolbar -->
+    <div class="viewer-toolbar" id="viewerToolbar">
+
+      <div class="tb-group">
+        <!-- Open in new tab -->
+        <a id="btnOpen" class="tbtn primary" target="_blank" rel="noopener noreferrer" title="Open in new tab">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Open
         </a>
-        <a id="btnDownload" class="tbtn" download>
+        <!-- Download -->
+        <a id="btnDownload" class="tbtn" download title="Download file">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download
         </a>
       </div>
+
       <div class="tb-sep"></div>
-      <button class="tbtn" onclick="desktopReload()">
+
+      <!-- Reload -->
+      <button class="tbtn" id="btnReload" title="Reload preview" onclick="reloadViewer()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         Reload
       </button>
+
       <div class="tb-spacer"></div>
-      <button class="tbtn" onclick="toggleFullscreen()">
-        <svg id="fsExpand"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        <svg id="fsCollapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="21" y2="3"/><line x1="3" y1="21" x2="14" y2="10"/></svg>
+
+      <!-- Fullscreen toggle -->
+      <button class="tbtn" id="btnFullscreen" title="Fullscreen (F)" onclick="toggleFullscreen()">
+        <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        <svg id="fsIconCollapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="21" y2="3"/><line x1="3" y1="21" x2="14" y2="10"/></svg>
         <span id="fsLabel">Fullscreen</span>
       </button>
     </div>
-    <div class="viewer-body">
+
+    <!-- Viewer body -->
+    <div class="viewer-body" id="viewerBody">
       <div class="empty" id="emptyState">
         <div class="empty-ico">📖</div>
         <div class="empty-h">Nothing open yet</div>
         <div class="empty-s">pick a file from the sidebar</div>
         <div class="empty-hint">
-          <div class="empty-hint-item"><span class="empty-hint-key">F</span> fullscreen</div>
+          <div class="empty-hint-item"><span class="empty-hint-key">F</span> toggle fullscreen</div>
           <div class="empty-hint-item"><span class="empty-hint-key">R</span> reload preview</div>
+          <div class="empty-hint-item"><span class="empty-hint-key">+</span><span class="empty-hint-key">−</span> zoom inside Drive viewer</div>
         </div>
       </div>
       <div class="loader-overlay hidden" id="loaderOverlay">
@@ -453,54 +529,20 @@ body.fullscreen-active #examAlert { display: none; }
       </div>
       <iframe id="viewerFrame" title="File preview" style="display:none;"
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
-      <div class="drive-hint" id="driveHint">
-        <span>📄</span><span>Page &amp; zoom controls are inside the viewer above ↑</span>
+      <!-- Clearance strip so Drive's native toolbar isn't clipped -->
+      <div class="viewer-drive-hint" id="driveHint">
+        <span class="dh-icon">📄</span>
+        <span>Page navigation &amp; zoom controls are inside the viewer above ↑</span>
       </div>
     </div>
   </section>
-</div>
 
-<!-- MOBILE SHEET — completely separate from desktop viewer -->
-<div class="mobile-sheet" id="mobileSheet">
-  <div class="ms-nav">
-    <button class="ms-back" onclick="mobileClose()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      Back
-    </button>
-    <span class="ms-filename" id="msFilename">—</span>
-    <div class="ms-actions">
-      <button class="ms-btn" onclick="mobileReload()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        Reload
-      </button>
-      <a class="ms-btn primary" id="msOpen" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Open
-      </a>
-      <a class="ms-btn" id="msDownload" download>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Save
-      </a>
-    </div>
-  </div>
-  <div class="ms-tip">
-    <span class="ms-tip-tag">Tip</span>
-    <span class="ms-tip-text">Blank? Tap <span class="ms-tip-kbd">Reload</span> or <span class="ms-tip-kbd">Open</span> to view directly in browser.</span>
-  </div>
-  <div class="ms-body">
-    <div class="ms-loader" id="msLoader">
-      <div class="ms-spinner"></div>
-      <div class="ms-loader-text">Loading preview…</div>
-    </div>
-    <iframe id="msFrame" title="Mobile file preview"
-      sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
-  </div>
 </div>
 
 <script>
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    CONFIG
-════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 const OWNER  = 'HJexe';
 const REPO   = 'Class-12-ISC';
 const BRANCH = 'main';
@@ -509,7 +551,7 @@ const STREAMS = {
   commerce: ['Economics','Accounts','Business Studies','Commerce','Maths-(creds-Abhinav)'],
   science:  ['Physics','Chemistry','Biology','Maths-(creds-Abhinav)','Computer Science','Biotechnology','Environmental Science']
 };
-const ALL_FOLDERS = ['Economics','Accounts','Business Studies','Commerce',
+const ALL_SUBJECT_FOLDERS = ['Economics','Accounts','Business Studies','Commerce',
   'Physics','Chemistry','Biology','Maths-(creds-Abhinav)','Computer Science',
   'Biotechnology','Environmental Science'];
 const ICONS = {
@@ -519,28 +561,17 @@ const ICONS = {
 };
 const ALLOWED = new Set(['pdf','doc','docx','txt','ppt','pptx','xls','xlsx']);
 
-/* ════════════════════════════════════════════
-   SHARED STATE
-════════════════════════════════════════════ */
-let allFiles    = [];
-let stream      = 'commerce';
-
-// Desktop-only state
-let activeEntry = null;
+let allFiles = [];
+let stream   = 'commerce';
+let currentEntry = null;
 let isFullscreen = false;
 
-// Mobile-only state
-let mobileEntry = null;
-
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    HELPERS
-════════════════════════════════════════════ */
-const isMobile = () => window.innerWidth <= 820;
-
-function raw(p) { return p.split('/').map(encodeURIComponent).join('/'); }
-
-function previewUrl(p) {
-  const u = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${raw(p)}`;
+═══════════════════════════════════════════════ */
+function raw(path) { return path.split('/').map(encodeURIComponent).join('/'); }
+function previewUrl(path) {
+  const u = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${raw(path)}`;
   return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(u)}`;
 }
 function drivePreview(url) {
@@ -552,8 +583,8 @@ function allowed(p) {
   const e = p.split('.').pop().toLowerCase();
   return ALLOWED.has(e) || /\/text\.?$/i.test(p);
 }
-function inFolders(p, list) { return list.some(s => p.startsWith(s + '/')); }
-function eKey(e) { return `${e.path}::${e.url}`; }
+function inSubjects(p, subs) { return subs.some(s => p.startsWith(s + '/')); }
+function key(e) { return `${e.path}::${e.url}`; }
 
 function normalize(item) {
   if (typeof item === 'string') {
@@ -567,46 +598,47 @@ function normalize(item) {
 function badge(path, source) {
   let ext = path.split('.').pop().toLowerCase();
   if (source === 'gdrive' && (ext === path.toLowerCase() || ext.length > 5)) ext = 'pdf';
-  const cls = ext==='pdf' ? 'badge-pdf' : (ext==='doc'||ext==='docx') ? 'badge-doc' : ext==='txt' ? 'badge-txt' : 'badge-def';
+  const cls = ext === 'pdf' ? 'badge-pdf' : (ext==='doc'||ext==='docx') ? 'badge-doc' : ext==='txt' ? 'badge-txt' : 'badge-def';
   return `<span class="f-badge ${cls}">${ext}</span>`;
 }
 
-function showToast(msg) {
-  document.querySelector('.toast')?.remove();
+function showToast(msg, duration = 2200) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
   const t = document.createElement('div');
   t.className = 'toast'; t.textContent = msg;
   document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(), 320); }, 2200);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 320); }, duration);
 }
 
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    LOAD FILES
-════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 async function load() {
   const el = document.getElementById('folders');
 
-  // Show skeleton placeholder while both fetches run
-  el.innerHTML = `<div style="padding:10px 6px;display:flex;flex-direction:column;gap:4px;">
-    ${['Economics','Accounts','Business Studies','Commerce','Maths'].map(n => `
-      <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--surface);opacity:0.45;">
-        <span style="font-size:13px">${{Economics:'📈',Accounts:'🧾','Business Studies':'🏢',Commerce:'💹',Maths:'📐'}[n]||'📁'}</span>
-        <span style="flex:1;font-size:13px;color:var(--fg3)">${n}</span>
-        <span style="width:22px;height:13px;background:var(--surface2);border-radius:8px"></span>
-      </div>`).join('')}
-  </div>`;
+  // Show skeleton rows while loading — no partial render
+  el.innerHTML = `
+    <div style="padding:12px 8px;display:flex;flex-direction:column;gap:6px;" id="skeletonList">
+      ${['Economics','Accounts','Business Studies','Commerce','Maths'].map(n => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:9px;background:var(--surface);opacity:0.5;">
+          <span style="font-size:14px">${{Economics:'📈',Accounts:'🧾','Business Studies':'🏢',Commerce:'💹',Maths:'📐'}[n]||'📁'}</span>
+          <span style="flex:1;font-size:13px;color:var(--fg3)">${n}</span>
+          <span style="width:24px;height:14px;background:var(--surface2);border-radius:8px;display:inline-block"></span>
+        </div>`).join('')}
+    </div>`;
 
   const merged = new Map();
 
-  // 1. files.json (fast, no rate limit)
   try {
     const r = await fetch('files.json');
     if (r.ok) {
       const items = await r.json();
-      items.map(normalize).filter(Boolean).forEach(f => merged.set(eKey(f), f));
+      items.map(normalize).filter(Boolean).forEach(f => merged.set(key(f), f));
     }
   } catch(e) { console.warn('files.json failed', e); }
 
-  // 2. GitHub tree API (adds drive-linked files from text. files)
+  // Do NOT render yet — wait for GitHub API so sidebar appears complete in one go
   try {
     const r = await fetch(
       `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,
@@ -615,55 +647,46 @@ async function load() {
     if (r.ok) {
       const d = await r.json();
       if (!d.message) {
-        const paths = (d.tree||[]).filter(i=>i.type==='blob').map(i=>i.path)
-          .filter(p => inFolders(p, ALL_FOLDERS) && allowed(p));
-
-        // Regular files
-        paths.filter(p => ALLOWED.has(p.split('.').pop().toLowerCase()))
-          .map(normalize).filter(Boolean).forEach(f => merged.set(eKey(f), f));
-
-        // text. files — parse drive links
-        await Promise.all(
-          paths.filter(p => /\/text\.?$/i.test(p)).map(async tp => {
-            try {
-              const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${tp.split('/').map(encodeURIComponent).join('/')}`;
-              const tr = await fetch(rawUrl);
-              if (!tr.ok) return;
-              const dir = tp.split('/').slice(0, -1).join('/');
-              (await tr.text()).trim().split('\n').filter(Boolean).forEach(line => {
-                line = line.trim();
-                let name, url;
-                if (line.includes('|')) {
-                  const i = line.indexOf('|');
-                  name = line.slice(0, i).trim();
-                  url  = line.slice(i + 1).trim();
-                } else if (/^https?:\/\//i.test(line)) {
-                  url  = line;
-                  name = dir.split('/').pop() || 'File';
-                } else return;
-                if (!/^https?:\/\//i.test(url)) return;
-                const entry = { path: `${dir}/${name}`, url, preview: drivePreview(url), source: 'gdrive' };
-                merged.set(eKey(entry), entry);
-              });
-            } catch {}
-          })
-        );
+        const paths = (d.tree||[]).filter(i => i.type === 'blob').map(i => i.path)
+          .filter(p => inSubjects(p, ALL_SUBJECT_FOLDERS) && allowed(p));
+        const regular = paths.filter(p => ALLOWED.has(p.split('.').pop().toLowerCase()));
+        const textFiles = paths.filter(p => /\/text\.?$/i.test(p));
+        regular.map(normalize).filter(Boolean).forEach(f => merged.set(key(f), f));
+        await Promise.all(textFiles.map(async tp => {
+          try {
+            const rawUrl = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/' + tp.split('/').map(encodeURIComponent).join('/');
+            const tr = await fetch(rawUrl);
+            if (!tr.ok) return;
+            const lines = (await tr.text()).trim().split('\n').filter(Boolean);
+            const dir = tp.split('/').slice(0, -1).join('/');
+            lines.forEach(line => {
+              line = line.trim();
+              let name, url;
+              if (line.includes('|')) { const sep = line.indexOf('|'); name = line.slice(0,sep).trim(); url = line.slice(sep+1).trim(); }
+              else if (/^https?:\/\//i.test(line)) { url = line; name = dir.split('/').pop() || 'File'; }
+              else return;
+              if (!/^https?:\/\//i.test(url)) return;
+              const entry = { path: dir+'/'+name, url, preview: drivePreview(url), source: 'gdrive' };
+              merged.set(key(entry), entry);
+            });
+          } catch {}
+        }));
       }
     }
-  } catch(e) { console.warn('GitHub API failed', e); }
+  } catch(e) { console.warn('GitHub API failed:', e); }
 
   allFiles = [...merged.values()];
   if (!allFiles.length) { el.innerHTML = '<div class="msg">⚠ No resources found.</div>'; return; }
-  render(); // single render once all data is ready
+  render();
 }
 
-/* ════════════════════════════════════════════
-   SIDEBAR (shared)
-════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   RENDER SIDEBAR
+═══════════════════════════════════════════════ */
 function switchStream(s) {
   stream = s;
-  document.getElementById('tab-commerce').classList.toggle('active', s === 'commerce');
-  document.getElementById('tab-science').classList.toggle('active',  s === 'science');
+  document.getElementById('tab-commerce').classList.toggle('active', s==='commerce');
+  document.getElementById('tab-science').classList.toggle('active', s==='science');
   render();
   showExamAlert(s);
 }
@@ -673,39 +696,30 @@ function render() {
   const subs = STREAMS[stream] || [];
   const wrap = document.getElementById('folders');
   wrap.innerHTML = '';
-  const streamFiles = allFiles.filter(f => inFolders(f.path, subs));
+  const streamFiles = allFiles.filter(f => inSubjects(f.path, subs));
 
   subs.forEach(subj => {
     const filtered = streamFiles.filter(f => f.path.startsWith(subj+'/') && f.path.toLowerCase().includes(q));
     if (!filtered.length) return;
-
-    const det  = document.createElement('details');
+    const det = document.createElement('details');
     det.className = 'subject';
     if (q) det.open = true;
-
-    const sum = document.createElement('summary');
-    sum.innerHTML = `
-      <span class="s-icon">${ICONS[subj]||'📁'}</span>
-      <span class="s-name">${subj.replace(/-(creds-.+)$/i,'')}</span>
-      <span class="s-count">${filtered.length}</span>
-      <span class="s-arr">▶</span>`;
+    const disp = subj.replace(/-(creds-.+)$/i,'');
+    const icon = ICONS[subj] || '📁';
+    const sum  = document.createElement('summary');
+    sum.innerHTML = `<span class="s-icon">${icon}</span><span class="s-name">${disp}</span><span class="s-count">${filtered.length}</span><span class="s-arr">▶</span>`;
     det.appendChild(sum);
-
     if (q) {
       const ul = document.createElement('ul'); ul.className = 'file-list';
-      filtered.sort((a,b)=>a.path.localeCompare(b.path))
-              .forEach(f => ul.appendChild(makeFileLi(f, f.path.split('/').pop())));
+      filtered.sort((a,b)=>a.path.localeCompare(b.path)).forEach(f=>ul.appendChild(fileLi(f, f.path.split('/').pop())));
       det.appendChild(ul);
     } else {
-      const fmap = new Map(filtered.map(f => [f.path, f]));
-      det.appendChild(buildSubtree(
-        buildTree(filtered.map(f => f.path.slice(subj.length + 1))),
-        subj, fmap
-      ));
+      const rel  = filtered.map(f=>f.path.slice(subj.length+1));
+      const fmap = new Map(filtered.map(f=>[f.path,f]));
+      det.appendChild(subtree(buildTree(rel), subj, fmap));
     }
     wrap.appendChild(det);
   });
-
   if (!wrap.children.length) wrap.innerHTML = `<div class="msg">No results for "${q}"</div>`;
 }
 
@@ -714,239 +728,188 @@ function buildTree(paths) {
   for (const p of paths) {
     const pts = p.split('/').filter(Boolean);
     let node = root;
-    for (let i = 0; i < pts.length - 1; i++) {
-      if (!node.dirs.has(pts[i])) node.dirs.set(pts[i], { dirs: new Map(), files: [] });
+    for (let i=0; i<pts.length-1; i++) {
+      if (!node.dirs.has(pts[i])) node.dirs.set(pts[i],{dirs:new Map(),files:[]});
       node = node.dirs.get(pts[i]);
     }
-    const f = pts[pts.length - 1]; if (f) node.files.push(f);
+    const f = pts[pts.length-1]; if (f) node.files.push(f);
   }
   return root;
 }
 
-function buildSubtree(node, subj, fmap, prefix='') {
+function subtree(node, subj, fmap, prefix='') {
   const ul = document.createElement('ul'); ul.className = 'file-list';
-  [...node.dirs.keys()].sort((a,b) => a.localeCompare(b)).forEach(name => {
+  [...node.dirs.keys()].sort((a,b)=>a.localeCompare(b)).forEach(name => {
     const li = document.createElement('li');
     const d  = document.createElement('details'); d.className = 'sub-folder';
     const s  = document.createElement('summary');
     s.innerHTML = `<span>📁</span><span style="flex:1;font-size:11.5px">${name}</span><span class="sf-arr">▶</span>`;
     d.appendChild(s);
-    d.appendChild(buildSubtree(node.dirs.get(name), subj, fmap, prefix ? `${prefix}/${name}` : name));
+    d.appendChild(subtree(node.dirs.get(name), subj, fmap, prefix ? `${prefix}/${name}` : name));
     li.appendChild(d); ul.appendChild(li);
   });
-  [...node.files].sort((a,b) => a.localeCompare(b)).forEach(fname => {
+  [...node.files].sort((a,b)=>a.localeCompare(b)).forEach(fname => {
     const rel   = prefix ? `${prefix}/${fname}` : fname;
     const fpath = `${subj}/${rel}`;
-    const entry = fmap.get(fpath) || [...fmap.values()].find(e => e.path === fpath || e.path.endsWith('/' + fname));
-    if (entry) ul.appendChild(makeFileLi(entry, fname));
+    const entry = fmap.get(fpath) || [...fmap.values()].find(e => e.path === fpath || e.path.endsWith('/'+fname));
+    if (entry) ul.appendChild(fileLi(entry, fname));
   });
   return ul;
 }
 
-// Single file-link creator — routes to correct handler based on screen size
-function makeFileLi(entry, label) {
+function fileLi(entry, label) {
   const li = document.createElement('li');
   const a  = document.createElement('a');
-  a.href = entry.url;
-  a.className = 'file-link';
-  a.dataset.key = eKey(entry);
+  a.href = entry.url; a.className = 'file-link'; a.dataset.key = key(entry);
   a.innerHTML = `${badge(entry.path, entry.source)}<span class="f-name">${label}</span>`;
-  a.onclick = e => {
-    e.preventDefault();
-    if (isMobile()) {
-      mobileOpen(entry, label);   // → mobile sheet
-    } else {
-      desktopOpen(entry);         // → desktop viewer
-    }
-  };
-  li.appendChild(a);
-  return li;
+  a.onclick = e => { e.preventDefault(); preview(entry); };
+  li.appendChild(a); return li;
 }
 
-/* ════════════════════════════════════════════
-   DESKTOP VIEWER
-   Uses: #viewerPanel, #viewerFrame, #loaderOverlay,
-         #emptyState, #driveHint, #vBreadcrumb,
-         #vChips, #btnOpen, #btnDownload
-════════════════════════════════════════════ */
-function desktopOpen(entry) {
-  activeEntry = entry;
+/* ═══════════════════════════════════════════════
+   PREVIEW
+═══════════════════════════════════════════════ */
+function preview(entry) {
+  currentEntry = entry;
 
-  // Sidebar active highlight
-  document.querySelectorAll('.file-link.active').forEach(el => el.classList.remove('active'));
-  const el = document.querySelector(`.file-link[data-key="${CSS.escape(eKey(entry))}"]`);
+  // Sidebar active state
+  document.querySelectorAll('.file-link.active').forEach(e=>e.classList.remove('active'));
+  const el = document.querySelector(`.file-link[data-key="${CSS.escape(key(entry))}"]`);
   if (el) { el.classList.add('active'); el.scrollIntoView({ block: 'nearest' }); }
 
   const parts    = entry.path.split('/');
-  const fname    = parts[parts.length - 1];
+  const fname    = parts[parts.length-1];
   const ext      = fname.split('.').pop().toLowerCase();
-  const subjDisp = parts[0].replace(/-(creds-.+)$/i, '');
+  const subjDisp = parts[0].replace(/-(creds-.+)$/i,'');
 
   // Breadcrumb
   document.getElementById('vBreadcrumb').innerHTML =
-    parts.slice(0, -1).map(p => `<span style="color:var(--fg3)">${p.replace(/-(creds-.+)$/i,'')} /</span>`).join(' ') +
+    parts.slice(0,-1).map(p=>`<span style="color:var(--fg3)">${p.replace(/-(creds-.+)$/i,'')} /</span>`).join(' ') +
     ` <span class="vb-file">${fname}</span>`;
 
-  // Type + source chips
-  const typeMap = { pdf:'PDF', docx:'Word', doc:'Word', txt:'Text', pptx:'Slides', ppt:'Slides', xlsx:'Spreadsheet' };
-  document.getElementById('vChips').innerHTML = `
-    <span class="vi-chip">${typeMap[ext] || ext.toUpperCase()}</span>
-    <span class="vi-chip ${entry.source==='gdrive' ? 'src-drive' : ''}">${entry.source==='gdrive' ? '⬡ Drive' : '⎔ GitHub'}</span>
-    <span class="vi-chip">${subjDisp}</span>`;
+  // Source chips
+  const typeMap = {pdf:'PDF',docx:'Word',doc:'Word',txt:'Text',pptx:'Slides',ppt:'Slides',xlsx:'Spreadsheet'};
+  const srcCls  = entry.source === 'gdrive' ? 'src-drive' : 'src-repo';
+  const srcLbl  = entry.source === 'gdrive' ? '⬡ Drive' : '⎔ GitHub';
+  document.getElementById('vChips').innerHTML =
+    `<span class="vi-chip">${typeMap[ext]||ext.toUpperCase()}</span>
+     <span class="vi-chip ${srcCls}">${srcLbl}</span>
+     <span class="vi-chip">${subjDisp}</span>`;
 
-  // Action buttons
+  // Buttons
   document.getElementById('btnOpen').href = entry.url;
   const dl = document.getElementById('btnDownload');
   dl.href = entry.url; dl.setAttribute('download', fname);
 
-  // Auto-dismiss the nav notice
-  document.getElementById('navNotice').classList.add('hidden');
+  // Show loader, then iframe
+  const emptyState    = document.getElementById('emptyState');
+  const loaderOverlay = document.getElementById('loaderOverlay');
+  const frame         = document.getElementById('viewerFrame');
 
-  // iframe load sequence
-  const emptyEl  = document.getElementById('emptyState');
-  const loader   = document.getElementById('loaderOverlay');
-  const frame    = document.getElementById('viewerFrame');
-  const hint     = document.getElementById('driveHint');
-
-  emptyEl.style.display = 'none';
-  loader.classList.remove('hidden');
-  frame.style.display   = 'none';
+  emptyState.style.display = 'none';
+  loaderOverlay.classList.remove('hidden');
+  frame.style.display = 'none';
   frame.src = '';
-  hint.classList.remove('visible');
+  document.getElementById('driveHint').classList.remove('visible');
 
   setTimeout(() => {
     frame.src = entry.preview;
     frame.style.display = 'block';
-    frame.onload = () => { loader.classList.add('hidden'); hint.classList.add('visible'); };
-    setTimeout(() => { loader.classList.add('hidden'); hint.classList.add('visible'); }, 8000);
+    frame.onload = () => {
+      loaderOverlay.classList.add('hidden');
+      document.getElementById('driveHint').classList.add('visible');
+      // Auto-dismiss the notice after first successful load
+      document.getElementById('fileNotice').classList.remove('visible');
+    };
+    // Fallback: hide loader after 8s even if onload doesn't fire
+    setTimeout(() => {
+      loaderOverlay.classList.add('hidden');
+      document.getElementById('driveHint').classList.add('visible');
+    }, 8000);
   }, 80);
 }
 
-function desktopReload() {
-  if (!activeEntry) { showToast('No file open'); return; }
-  const loader = document.getElementById('loaderOverlay');
-  const frame  = document.getElementById('viewerFrame');
-  loader.classList.remove('hidden');
+/* ═══════════════════════════════════════════════
+   RELOAD
+═══════════════════════════════════════════════ */
+function reloadViewer() {
+  if (!currentEntry) { showToast('No file open'); return; }
+  const loaderOverlay = document.getElementById('loaderOverlay');
+  const frame = document.getElementById('viewerFrame');
+  loaderOverlay.classList.remove('hidden');
   frame.src = '';
   setTimeout(() => {
-    frame.src = activeEntry.preview;
-    frame.onload = () => loader.classList.add('hidden');
-    setTimeout(() => loader.classList.add('hidden'), 8000);
+    frame.src = currentEntry.preview;
+    frame.onload = () => loaderOverlay.classList.add('hidden');
+    setTimeout(() => loaderOverlay.classList.add('hidden'), 8000);
   }, 100);
-  showToast('Reloading…');
+  showToast('Reloading preview…');
 }
 
+/* ═══════════════════════════════════════════════
+   FULLSCREEN
+═══════════════════════════════════════════════ */
 function toggleFullscreen() {
+  const panel = document.getElementById('viewerPanel');
+  const layout = document.getElementById('mainLayout');
   isFullscreen = !isFullscreen;
-  document.getElementById('viewerPanel').classList.toggle('fullscreen', isFullscreen);
-  document.body.classList.toggle('fullscreen-active', isFullscreen);
-  document.getElementById('fsExpand').style.display   = isFullscreen ? 'none' : '';
-  document.getElementById('fsCollapse').style.display = isFullscreen ? '' : 'none';
-  document.getElementById('fsLabel').textContent      = isFullscreen ? 'Exit' : 'Fullscreen';
+
+  if (isFullscreen) {
+    panel.classList.add('fullscreen');
+    document.body.classList.add('fullscreen-active');
+    document.getElementById('fsIconExpand').style.display = 'none';
+    document.getElementById('fsIconCollapse').style.display = '';
+    document.getElementById('fsLabel').textContent = 'Exit';
+  } else {
+    panel.classList.remove('fullscreen');
+    document.body.classList.remove('fullscreen-active');
+    document.getElementById('fsIconExpand').style.display = '';
+    document.getElementById('fsIconCollapse').style.display = 'none';
+    document.getElementById('fsLabel').textContent = 'Fullscreen';
+  }
 }
 
+/* ═══════════════════════════════════════════════
+   KEYBOARD SHORTCUTS
+═══════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return;
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-  if (e.key === 'r' || e.key === 'R') desktopReload();
+  if (e.key === 'r' || e.key === 'R') reloadViewer();
   if (e.key === 'Escape' && isFullscreen) toggleFullscreen();
 });
 
-/* ════════════════════════════════════════════
-   MOBILE SHEET
-   Uses: #mobileSheet, #msFrame, #msLoader,
-         #msFilename, #msOpen, #msDownload
-   Completely isolated — no shared DOM with desktop
-════════════════════════════════════════════ */
-function mobileOpen(entry, fname) {
-  mobileEntry = entry;
-
-  // Set header content
-  document.getElementById('msFilename').textContent = fname;
-  document.getElementById('msOpen').href = entry.url;
-  const dl = document.getElementById('msDownload');
-  dl.href = entry.url; dl.setAttribute('download', fname);
-
-  // Reset and show loader
-  const loader = document.getElementById('msLoader');
-  const frame  = document.getElementById('msFrame');
-  loader.classList.remove('hidden');
-  frame.src = '';
-
-  // Open the sheet
-  document.getElementById('mobileSheet').classList.add('open');
-  document.body.style.overflow = 'hidden'; // prevent background scroll
-
-  // Wait for sheet animation, then load iframe
-  setTimeout(() => {
-    frame.src = entry.preview;
-    frame.onload = () => loader.classList.add('hidden');
-    setTimeout(() => loader.classList.add('hidden'), 8000); // fallback
-  }, 220);
-}
-
-function mobileClose() {
-  document.getElementById('mobileSheet').classList.remove('open');
-  // Clear iframe src so it doesn't keep loading in background
-  setTimeout(() => { document.getElementById('msFrame').src = ''; }, 250);
-  document.body.style.overflow = '';
-}
-
-function mobileReload() {
-  if (!mobileEntry) return;
-  const loader = document.getElementById('msLoader');
-  const frame  = document.getElementById('msFrame');
-  loader.classList.remove('hidden');
-  frame.src = '';
-  setTimeout(() => {
-    frame.src = mobileEntry.preview;
-    frame.onload = () => loader.classList.add('hidden');
-    setTimeout(() => loader.classList.add('hidden'), 8000);
-  }, 80);
-}
-
-// Swipe-down to close the sheet
-(function() {
-  let startY = 0;
-  document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
-  document.addEventListener('touchend', e => {
-    if (!document.getElementById('mobileSheet').classList.contains('open')) return;
-    if (e.changedTouches[0].clientY - startY > 80) mobileClose();
-  }, { passive: true });
-})();
-
-/* ════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    EXAM ALERT
-════════════════════════════════════════════ */
-const EXAMS = [
-  { date:'2026-02-13', subject:'English — Paper 1',     stream:'both'     },
-  { date:'2026-02-16', subject:'English — Paper 2',     stream:'both'     },
-  { date:'2026-02-20', subject:'Accounts',              stream:'commerce' },
-  { date:'2026-02-23', subject:'Chemistry',             stream:'science'  },
-  { date:'2026-02-27', subject:'Commerce',              stream:'commerce' },
-  { date:'2026-03-02', subject:'Environmental Science', stream:'science'  },
-  { date:'2026-03-06', subject:'Biology',               stream:'science'  },
-  { date:'2026-03-09', subject:'Mathematics',           stream:'both'     },
-  { date:'2026-03-11', subject:'Business Studies',      stream:'commerce' },
-  { date:'2026-03-16', subject:'Physics',               stream:'science'  },
-  { date:'2026-03-23', subject:'Economics',             stream:'commerce' },
-  { date:'2026-03-23', subject:'Biotechnology',         stream:'science'  },
-  { date:'2026-03-27', subject:'Computer Science',      stream:'science'  },
+═══════════════════════════════════════════════ */
+const ALL_EXAMS_ALERT = [
+  { date:'2026-02-13', subject:'English — Paper 1',           stream:'both'     },
+  { date:'2026-02-16', subject:'English — Paper 2',           stream:'both'     },
+  { date:'2026-02-20', subject:'Accounts',                    stream:'commerce' },
+  { date:'2026-02-23', subject:'Chemistry',                   stream:'science'  },
+  { date:'2026-02-27', subject:'Commerce',                    stream:'commerce' },
+  { date:'2026-03-02', subject:'Environmental Science',       stream:'science'  },
+  { date:'2026-03-06', subject:'Biology',                     stream:'science'  },
+  { date:'2026-03-09', subject:'Mathematics',                 stream:'both'     },
+  { date:'2026-03-11', subject:'Business Studies',            stream:'commerce' },
+  { date:'2026-03-16', subject:'Physics',                     stream:'science'  },
+  { date:'2026-03-23', subject:'Economics',                   stream:'commerce' },
+  { date:'2026-03-23', subject:'Biotechnology',               stream:'science'  },
+  { date:'2026-03-27', subject:'Computer Science',            stream:'science'  },
 ];
 
-function showExamAlert(s) {
+function showExamAlert(currentStream) {
   const alertEl = document.getElementById('examAlert');
-  const today   = new Date(); today.setHours(0, 0, 0, 0);
-  const upcoming = EXAMS
-    .filter(e => e.stream === 'both' || e.stream === s)
-    .map(e => { const d = new Date(e.date); d.setHours(0,0,0,0); return { ...e, d }; })
-    .filter(e => e.d >= today)
-    .sort((a, b) => a.d - b.d);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const upcoming = ALL_EXAMS_ALERT
+    .filter(e => e.stream === 'both' || e.stream === currentStream)
+    .map(e => ({ ...e, d: new Date(e.date) }))
+    .filter(e => { e.d.setHours(0,0,0,0); return e.d >= today; })
+    .sort((a,b) => a.d - b.d);
 
-  if (!upcoming.length) { alertEl.innerHTML = ''; return; }
-
-  const next    = upcoming[0];
-  const days    = Math.round((next.d - today) / 86400000);
+  if (!upcoming.length) { alertEl.innerHTML = ''; document.getElementById('viewerPanel').style.paddingTop = ''; return; }
+  const next = upcoming[0];
+  const days = Math.round((next.d - today) / 86400000);
   const dateStr = next.d.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short' });
   const daysStr = days === 0 ? 'Today!' : days === 1 ? 'Tomorrow' : `in ${days} days`;
 
@@ -959,13 +922,11 @@ function showExamAlert(s) {
       <span class="ea-date">${dateStr}</span>
       <span class="ea-days"><strong>${daysStr}</strong></span>
       <a class="ea-link" href="timetable.html">Schedule →</a>
-      <button class="ea-close" onclick="this.closest('.exam-alert').parentElement.innerHTML=''">✕</button>
+      <button class="ea-close" onclick="this.closest('.exam-alert').parentElement.innerHTML='';document.getElementById('viewerPanel').style.paddingTop=''">✕</button>
     </div>`;
+  document.getElementById('viewerPanel').style.paddingTop = '34px';
 }
 
-/* ════════════════════════════════════════════
-   INIT
-════════════════════════════════════════════ */
 document.getElementById('search').addEventListener('input', render);
 load();
 showExamAlert('commerce');
