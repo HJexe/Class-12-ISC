@@ -515,10 +515,48 @@ async function load() {
     if (r.ok) {
       const d = await r.json();
       const allSubs = [...new Set([...STREAMS.commerce,...STREAMS.science])];
-      (d.tree||[]).filter(i=>i.type==='blob').map(i=>i.path)
-        .filter(p=>inSubjects(p,allSubs)&&allowed(p))
-        .map(normalize).filter(Boolean)
-        .forEach(f=>merged.set(key(f),f));
+      const paths = (d.tree||[]).filter(i=>i.type==='blob').map(i=>i.path)
+        .filter(p=>inSubjects(p,allSubs)&&allowed(p));
+
+      // Separate regular files from text pointer files
+      const regularPaths = paths.filter(p => { const e=p.split('.').pop().toLowerCase(); return ALLOWED.has(e); });
+      const textPaths    = paths.filter(p => /\/text\.?$/i.test(p));
+
+      // Add regular files directly
+      regularPaths.map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));
+
+      // Fetch each text file and parse drive links out of it
+      await Promise.all(textPaths.map(async tp => {
+        try {
+          const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${tp.split('/').map(encodeURIComponent).join('/')}`;
+          const tr = await fetch(rawUrl);
+          if (!tr.ok) return;
+          const lines = (await tr.text()).trim().split('
+').filter(Boolean);
+          lines.forEach(line => {
+            line = line.trim();
+            let name, url;
+            if (line.includes('|')) {
+              const sep = line.indexOf('|');
+              name = line.slice(0, sep).trim();
+              url  = line.slice(sep + 1).trim();
+            } else if (/^https?:\/\//i.test(line)) {
+              url  = line;
+              name = tp.split('/').slice(-2,-1)[0] || 'File'; // use folder name
+            } else return;
+            if (!/^https?:\/\//i.test(url)) return;
+            // Build a fake path using the folder the text file lives in
+            const dir = tp.split('/').slice(0,-1).join('/');
+            const entry = {
+              path:    `${dir}/${name}`,
+              url:     url,
+              preview: drivePreview(url),
+              source:  'gdrive'
+            };
+            merged.set(key(entry), entry);
+          });
+        } catch {}
+      }));
     }
   } catch {}
   try {
