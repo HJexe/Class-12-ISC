@@ -73,7 +73,7 @@ body::before {
 @keyframes breathe { 0%,100%{opacity:.45} 50%{opacity:.85} }
 
 /* ── EXAM ALERT ── */
-#examAlert { position: fixed; top: 50px; left: 0; right: 0; z-index: 150; }
+#examAlert { position: fixed; top: 50px; left: 300px; right: 0; z-index: 150; }
 .exam-alert {
   display: flex; align-items: center; gap: 12px;
   padding: 8px 22px;
@@ -854,7 +854,7 @@ function showExamAlert(currentStream) {
     .filter(e => { e.d.setHours(0,0,0,0); return e.d >= today; })
     .sort((a,b) => a.d - b.d);
 
-  if (!upcoming.length) { alertEl.innerHTML = ''; document.getElementById('mainLayout').style.marginTop = ''; return; }
+  if (!upcoming.length) { alertEl.innerHTML = ''; document.getElementById('viewerPanel').style.paddingTop = ''; return; }
   const next = upcoming[0];
   const days = Math.round((next.d - today) / 86400000);
   const dateStr = next.d.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short' });
@@ -869,9 +869,9 @@ function showExamAlert(currentStream) {
       <span class="ea-date">${dateStr}</span>
       <span class="ea-days"><strong>${daysStr}</strong></span>
       <a class="ea-link" href="timetable.html">Schedule →</a>
-      <button class="ea-close" onclick="this.closest('.exam-alert').parentElement.innerHTML='';document.getElementById('mainLayout').style.marginTop=''">✕</button>
+      <button class="ea-close" onclick="this.closest('.exam-alert').parentElement.innerHTML='';document.getElementById('viewerPanel').style.paddingTop=''">✕</button>
     </div>`;
-  document.getElementById('mainLayout').style.marginTop = '34px';
+  document.getElementById('viewerPanel').style.paddingTop = '34px';
 }
 
 document.getElementById('search').addEventListener('input', render);
