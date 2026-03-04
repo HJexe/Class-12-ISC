@@ -375,6 +375,44 @@ body.fullscreen-active .layout { display: block; }
   border-radius: 3px; padding: 1px 4px; color: var(--fg3); margin-left: 2px;
 }
 
+/* ── RED NOTICE BANNER (inside nav) ── */
+.file-notice {
+  display: none;
+  align-items: center; gap: 8px;
+  padding: 5px 14px;
+  background: rgba(50, 10, 10, 0.95);
+  border: 1px solid rgba(220, 80, 80, 0.4);
+  border-radius: 6px;
+  flex: 1; margin: 0 20px;
+  max-width: 520px;
+}
+.file-notice.visible { display: flex; }
+.fn-icon { font-size: 12px; flex-shrink: 0; }
+.fn-tag {
+  font-family: 'DM Mono', monospace; font-size: 8px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: #000; background: #e05555;
+  padding: 2px 6px; border-radius: 2px; flex-shrink: 0;
+}
+.fn-text {
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
+  color: rgba(255, 170, 170, 0.85); flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fn-kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(224, 85, 85, 0.25); border: 1px solid rgba(224, 85, 85, 0.5);
+  border-radius: 3px; padding: 0px 5px;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700;
+  color: #ff9999; margin: 0 2px;
+}
+.fn-close {
+  background: none; border: none; color: rgba(220,100,100,0.45);
+  cursor: pointer; font-size: 12px; padding: 1px 3px;
+  border-radius: 3px; transition: color .15s; flex-shrink: 0;
+}
+.fn-close:hover { color: #ff9999; }
+
 @media (max-width: 820px) {
   .layout { grid-template-columns: 1fr; }
   .viewer { display: none; }
@@ -387,6 +425,13 @@ body.fullscreen-active .layout { display: block; }
   <div class="nav-brand">
     <div class="nav-brand-mark"></div>
     ISC.exe / Resources
+  </div>
+  <!-- Notice in nav centre -->
+  <div class="file-notice visible" id="fileNotice">
+    <span class="fn-icon">⚠️</span>
+    <span class="fn-tag">Notice</span>
+    <span class="fn-text">File not loading? Press <span class="fn-kbd">R</span> to reload — most errors fix on refresh.</span>
+    <button class="fn-close" onclick="document.getElementById('fileNotice').classList.remove('visible')" title="Dismiss">✕</button>
   </div>
   <div class="nav-links">
     <a class="nav-link" href="index.html">← Home</a>
@@ -571,7 +616,18 @@ function showToast(msg, duration = 2200) {
 ═══════════════════════════════════════════════ */
 async function load() {
   const el = document.getElementById('folders');
-  el.innerHTML = '<div class="msg">⏳ Loading resources…</div>';
+
+  // Show skeleton rows while loading — no partial render
+  el.innerHTML = `
+    <div style="padding:12px 8px;display:flex;flex-direction:column;gap:6px;" id="skeletonList">
+      ${['Economics','Accounts','Business Studies','Commerce','Maths'].map(n => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:9px;background:var(--surface);opacity:0.5;">
+          <span style="font-size:14px">${{Economics:'📈',Accounts:'🧾','Business Studies':'🏢',Commerce:'💹',Maths:'📐'}[n]||'📁'}</span>
+          <span style="flex:1;font-size:13px;color:var(--fg3)">${n}</span>
+          <span style="width:24px;height:14px;background:var(--surface2);border-radius:8px;display:inline-block"></span>
+        </div>`).join('')}
+    </div>`;
+
   const merged = new Map();
 
   try {
@@ -582,8 +638,7 @@ async function load() {
     }
   } catch(e) { console.warn('files.json failed', e); }
 
-  if (merged.size > 0) { allFiles = [...merged.values()]; render(); }
-
+  // Do NOT render yet — wait for GitHub API so sidebar appears complete in one go
   try {
     const r = await fetch(
       `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,
@@ -763,6 +818,8 @@ function preview(entry) {
     frame.onload = () => {
       loaderOverlay.classList.add('hidden');
       document.getElementById('driveHint').classList.add('visible');
+      // Auto-dismiss the notice after first successful load
+      document.getElementById('fileNotice').classList.remove('visible');
     };
     // Fallback: hide loader after 8s even if onload doesn't fire
     setTimeout(() => {
