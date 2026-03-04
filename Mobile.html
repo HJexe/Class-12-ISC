@@ -781,4 +781,11 @@ function showExamAlert(s){
   if(!upcoming.length){el.innerHTML='';return;}
   const next=upcoming[0];
   const days=Math.round((next.d-today)/86400000);
-  const daysStr=days===0?'Today!':(days===1?'Tomorrow'
+  const daysStr=days===0?'Today!':(days===1?'Tomorrow':`in ${days} days`);
+  el.innerHTML=`<div class="exam-alert-m"><span class="ea-icon">⚡</span><span class="ea-label">Next</span><span class="ea-subj">${next.subject}</span><span class="ea-days"><strong>${daysStr}</strong></span><button class="ea-close" onclick="this.closest('.exam-alert-m').remove()">✕</button></div>`;
+}
+
+loadFiles();
+</script>
+</body>
+</html>
