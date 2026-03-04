@@ -1,4 +1,4 @@
-name: Update File Index
+name: generate-index
 
 on:
   push:
@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          repository: HJexe/Class-12-ISC
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate files.json
@@ -48,9 +47,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add files.json
+
+          # Stash the generated file (works whether staged or unstaged)
+          git stash push --include-untracked -m "files-json-update"
+
+          # Pull latest cleanly
           git pull --rebase origin main
+
+          # Restore the generated file
+          git stash pop
+
+          # Stage and commit if changed
           git add files.json
           git diff --staged --quiet && echo "No changes to commit" && exit 0
           git commit -m "chore: update file index [skip ci]"
-          git push
+          git push origin main
