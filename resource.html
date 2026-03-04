@@ -519,7 +519,6 @@ const ALLOWED = new Set(['pdf','doc','docx','txt','ppt','pptx','xls','xlsx']);
 let allFiles = [];
 let stream   = 'commerce';
 let currentEntry = null;
-let zoomLevel = 100;
 let isFullscreen = false;
 
 /* ═══════════════════════════════════════════════
@@ -717,8 +716,6 @@ function fileLi(entry, label) {
 ═══════════════════════════════════════════════ */
 function preview(entry) {
   currentEntry = entry;
-  zoomLevel = 100;
-  document.getElementById('zoomLabel').textContent = '100%';
 
   // Sidebar active state
   document.querySelectorAll('.file-link.active').forEach(e=>e.classList.remove('active'));
@@ -745,14 +742,14 @@ function preview(entry) {
      <span class="vi-chip">${subjDisp}</span>`;
 
   // Buttons
-  document.getElementById('btnOpen').href     = entry.url;
+  document.getElementById('btnOpen').href = entry.url;
   const dl = document.getElementById('btnDownload');
   dl.href = entry.url; dl.setAttribute('download', fname);
 
   // Show loader, then iframe
-  const emptyState   = document.getElementById('emptyState');
+  const emptyState    = document.getElementById('emptyState');
   const loaderOverlay = document.getElementById('loaderOverlay');
-  const frame        = document.getElementById('viewerFrame');
+  const frame         = document.getElementById('viewerFrame');
 
   emptyState.style.display = 'none';
   loaderOverlay.classList.remove('hidden');
@@ -767,13 +764,12 @@ function preview(entry) {
       loaderOverlay.classList.add('hidden');
       document.getElementById('driveHint').classList.add('visible');
     };
+    // Fallback: hide loader after 8s even if onload doesn't fire
     setTimeout(() => {
       loaderOverlay.classList.add('hidden');
       document.getElementById('driveHint').classList.add('visible');
     }, 8000);
   }, 80);
-
-  applyZoom();
 }
 
 /* ═══════════════════════════════════════════════
