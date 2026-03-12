@@ -67,7 +67,7 @@ body{animation:pgIn .4s ease both;}
 @keyframes breathe{0%,100%{opacity:.45}50%{opacity:.85}}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-/* ════ NAV — exact clone of resource.html ════ */
+/* ════ NAV ════ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   height:50px;display:flex;align-items:center;justify-content:space-between;
@@ -84,8 +84,6 @@ body{animation:pgIn .4s ease both;}
   width:6px;height:6px;border-radius:50%;background:var(--accent);
   transition:background .3s;
 }
-
-/* Center pills — styled like resource.html stream tabs */
 .nav-center{
   position:absolute;left:50%;transform:translateX(-50%);
   display:flex;align-items:center;gap:4px;
@@ -106,6 +104,9 @@ body{animation:pgIn .4s ease both;}
   color:var(--accent);background:var(--accent-lo);
   border-color:rgba(122,184,106,.28);
 }
+/* locked nav pill */
+.nav-pill.locked-pill{cursor:pointer;}
+.nav-pill.locked-pill:hover{color:rgba(212,168,75,.8);background:rgba(212,168,75,.06);border-color:rgba(212,168,75,.25);}
 .nav-pill-icon{font-size:12px;line-height:1;}
 .nav-pill-pip{
   width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.7;
@@ -120,7 +121,6 @@ body{animation:pgIn .4s ease both;}
   opacity:0;pointer-events:none;transition:opacity .15s;letter-spacing:.3px;
 }
 .nav-pill:hover[data-hint]::after{opacity:1;}
-
 .nav-right{display:flex;align-items:center;gap:6px;}
 .nav-link{
   text-decoration:none;color:var(--fg3);
@@ -130,7 +130,7 @@ body{animation:pgIn .4s ease both;}
 }
 .nav-link:hover{color:var(--fg2);border-color:var(--border2);background:var(--surface);}
 
-/* ════ COLOR PICKER — exact clone of resource.html ════ */
+/* ════ COLOR PICKER ════ */
 .picker-wrap{position:relative;}
 .color-trigger{
   display:flex;align-items:center;gap:7px;
@@ -321,6 +321,147 @@ body{animation:pgIn .4s ease both;}
   padding:2px 6px;border-radius:3px;transition:background .3s;
 }
 
+/* ════ LOCKED CARD ════ */
+.nav-card--locked{
+  border-top-color:rgba(212,168,75,.5) !important;
+  border-color:rgba(212,168,75,.15) !important;
+  background:color-mix(in srgb,#d4a84b 3%,var(--bg2)) !important;
+  cursor:pointer;
+}
+.nav-card--locked::before{
+  background:linear-gradient(135deg,rgba(212,168,75,.06),transparent 55%) !important;
+}
+.nav-card--locked:hover{
+  border-color:rgba(212,168,75,.35) !important;
+  border-top-color:rgba(212,168,75,.7) !important;
+  transform:translateY(-3px) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 20px rgba(212,168,75,.08) !important;
+}
+.nav-card--locked:hover .nc-icon{
+  background:rgba(212,168,75,.08) !important;
+  border-color:rgba(212,168,75,.25) !important;
+}
+.nav-card--locked:active{
+  animation:cardShake .38s ease !important;
+  transform:translateY(-1px) !important;
+}
+/* shimmer sweep on locked card */
+.lock-shimmer{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(212,168,75,.06) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:shimmerSweep 3.5s ease-in-out infinite;
+}
+@keyframes shimmerSweep{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+@keyframes cardShake{
+  0%,100%{transform:translateX(0) translateY(-1px);}
+  20%{transform:translateX(-6px) translateY(-1px);}
+  40%{transform:translateX(5px) translateY(-1px);}
+  60%{transform:translateX(-4px) translateY(-1px);}
+  80%{transform:translateX(3px) translateY(-1px);}
+}
+
+/* ════ LOCK MODAL ════ */
+#lockModal{
+  position:fixed;inset:0;z-index:8000;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;
+  transition:opacity .25s ease;
+}
+#lockModal.show{opacity:1;pointer-events:all;}
+.lock-backdrop{
+  position:absolute;inset:0;
+  background:rgba(8,9,8,.78);
+  backdrop-filter:blur(8px);
+}
+.lock-box{
+  position:relative;z-index:1;
+  width:340px;
+  background:rgba(14,16,13,.98);
+  border:1px solid rgba(212,168,75,.22);
+  border-top:2px solid rgba(212,168,75,.6);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.8),0 0 40px rgba(212,168,75,.06);
+  transform:scale(.88) translateY(18px);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .25s ease;
+  opacity:0;
+  text-align:center;
+  padding:36px 32px 30px;
+}
+#lockModal.show .lock-box{
+  transform:scale(1) translateY(0);
+  opacity:1;
+}
+.lock-icon-wrap{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(212,168,75,.08);
+  border:1px solid rgba(212,168,75,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-size:30px;
+  position:relative;
+}
+.lock-icon-wrap::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px dashed rgba(212,168,75,.2);
+  animation:spinDash 12s linear infinite;
+}
+@keyframes spinDash{to{transform:rotate(360deg);}}
+
+/* lock shake on open */
+.lock-icon-wrap.shake{animation:lockBounce .5s cubic-bezier(.36,.07,.19,.97);}
+@keyframes lockBounce{
+  0%,100%{transform:rotate(0);}
+  15%{transform:rotate(-10deg) scale(1.1);}
+  30%{transform:rotate(8deg);}
+  45%{transform:rotate(-6deg);}
+  60%{transform:rotate(4deg);}
+  75%{transform:rotate(-2deg);}
+}
+
+.lock-title{
+  font-family:'Lora',serif;font-size:1.45rem;font-weight:400;
+  color:var(--fg);margin-bottom:8px;
+}
+.lock-sub{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(212,168,75,.7);margin-bottom:14px;
+}
+.lock-desc{
+  font-size:12.5px;color:var(--fg3);line-height:1.8;margin-bottom:24px;
+}
+.lock-progress{
+  height:2px;background:var(--border);border-radius:2px;
+  margin-bottom:22px;overflow:hidden;
+}
+.lock-progress-bar{
+  height:100%;width:23%;
+  background:linear-gradient(90deg,rgba(212,168,75,.4),rgba(212,168,75,.8));
+  border-radius:2px;
+  animation:progressPulse 2.4s ease-in-out infinite;
+}
+@keyframes progressPulse{
+  0%,100%{opacity:.5;}50%{opacity:1;}
+}
+.lock-close{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--fg3);background:none;border:1px solid var(--border2);
+  border-radius:6px;padding:7px 22px;cursor:pointer;
+  transition:color .18s,border-color .18s,background .18s;
+}
+.lock-close:hover{color:var(--fg2);border-color:var(--fg2);background:var(--surface);}
+.lock-tag{
+  display:inline-block;margin-bottom:18px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  background:rgba(212,168,75,.1);border:1px solid rgba(212,168,75,.25);
+  color:rgba(212,168,75,.8);padding:3px 10px;border-radius:4px;
+}
+
 /* ════ STATS BAR ════ */
 .stats-bar{
   position:relative;z-index:1;
@@ -356,6 +497,20 @@ footer a:hover{color:var(--fg2);}
 <div id="cur-ring"></div>
 <div class="grid-bg"></div>
 
+<!-- LOCK MODAL -->
+<div id="lockModal" onclick="handleModalClick(event)">
+  <div class="lock-backdrop"></div>
+  <div class="lock-box">
+    <div class="lock-icon-wrap" id="lockIcon">🔒</div>
+    <div class="lock-tag">In Development</div>
+    <div class="lock-title">Dashboard</div>
+    <div class="lock-sub">Coming Soon</div>
+    <p class="lock-desc">This feature is still being built. Check back soon — it'll have countdowns, Pomodoro timers, subject readiness trackers and more.</p>
+    <div class="lock-progress"><div class="lock-progress-bar"></div></div>
+    <button class="lock-close" onclick="closeLock()">↩ Go Back</button>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav class="nav">
   <div style="display:flex;align-items:center;gap:10px;">
@@ -378,19 +533,18 @@ footer a:hover{color:var(--fg2);}
     </div>
   </div>
 
-  <!-- CENTER PILLS — styled like resource.html stream tabs -->
   <div class="nav-center">
-    <a class="nav-pill active" href="dashboard.html" data-hint="Study overview">
-      <span class="nav-pill-icon">📊</span>
+    <span class="nav-pill locked-pill" onclick="triggerLocked()" data-hint="In development">
+      <span class="nav-pill-icon">🔒</span>
       Dashboard
-      <span style="display:inline-block;background:var(--accent);color:#0b150a;font-size:7px;font-weight:700;letter-spacing:1px;padding:1px 5px;border-radius:2px;text-transform:uppercase;margin-left:1px;line-height:1.6;" id="newBadge">Beta</span>
-    </a>
+      <span style="display:inline-block;background:rgba(212,168,75,.15);color:rgba(212,168,75,.85);border:1px solid rgba(212,168,75,.3);font-size:7px;font-weight:700;letter-spacing:1px;padding:1px 5px;border-radius:2px;text-transform:uppercase;margin-left:1px;line-height:1.6;">Dev</span>
+    </span>
     <a class="nav-pill" href="timetable.html" data-hint="Exam schedule 2026">
       <span class="nav-pill-pip" id="navPip"></span>
       <span class="nav-pill-icon">📅</span>
       Timetable
     </a>
-    <a class="nav-pill" href="resource.html" data-hint="PDFs &amp; notes">
+    <a class="nav-pill active" href="resource.html" data-hint="PDFs &amp; notes">
       <span class="nav-pill-icon">📚</span>
       Resources
     </a>
@@ -448,14 +602,17 @@ footer a:hover{color:var(--fg2);}
   <p class="hero-desc">All your Class 12 ISC resources — PDFs, notes, exam schedule and study tools — organized, searchable, and viewable in one place.</p>
 
   <div class="nav-cards">
-    <a class="nav-card" href="dashboard.html">
-      <span class="nc-badge" id="badge1">Beta</span>
+    <!-- LOCKED DASHBOARD CARD -->
+    <div class="nav-card nav-card--locked" id="dashCard" onclick="triggerLocked()">
+      <span class="nc-badge" style="background:rgba(212,168,75,.15);color:rgba(212,168,75,.9);border:1px solid rgba(212,168,75,.3);">🔒 Dev</span>
       <div class="nc-icon">📊</div>
       <div class="nc-label">Overview</div>
       <div class="nc-title">Dashboard</div>
       <div class="nc-desc">Stats, exam countdown, Pomodoro timer, tasks &amp; subject readiness in one view.</div>
-      <div class="nc-arrow">Open <span>→</span></div>
-    </a>
+      <div class="nc-arrow" style="color:rgba(212,168,75,.5);">In development <span>🔒</span></div>
+      <div class="lock-shimmer"></div>
+    </div>
+
     <a class="nav-card" href="timetable.html">
       <div class="nc-icon">📅</div>
       <div class="nc-label">Schedule</div>
@@ -489,9 +646,48 @@ footer a:hover{color:var(--fg2);}
 /* CURSOR */
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
 document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';});
-document.querySelectorAll('a,button,.nav-card').forEach(el=>{
+document.querySelectorAll('a,button,.nav-card,.nav-pill').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.width='13px';cur.style.height='13px';ring.style.width='42px';ring.style.height='42px';});
   el.addEventListener('mouseleave',()=>{cur.style.width='7px';cur.style.height='7px';ring.style.width='30px';ring.style.height='30px';});
+});
+
+/* ════ LOCK MODAL ════ */
+function triggerLocked(){
+  // shake the card
+  const card=document.getElementById('dashCard');
+  card.style.animation='none';
+  requestAnimationFrame(()=>{
+    card.style.animation='';
+    card.style.animation='cardShake .38s ease';
+  });
+  setTimeout(()=>{card.style.animation='';},400);
+
+  // open modal
+  const modal=document.getElementById('lockModal');
+  modal.classList.add('show');
+  document.body.style.overflow='hidden';
+
+  // bounce the lock icon
+  const icon=document.getElementById('lockIcon');
+  icon.classList.remove('shake');
+  requestAnimationFrame(()=>{
+    icon.classList.add('shake');
+    setTimeout(()=>icon.classList.remove('shake'),500);
+  });
+}
+function closeLock(){
+  const modal=document.getElementById('lockModal');
+  modal.classList.remove('show');
+  document.body.style.overflow='';
+}
+function handleModalClick(e){
+  // close if clicking on backdrop
+  if(e.target===document.querySelector('.lock-backdrop')||e.target===document.getElementById('lockModal')){
+    closeLock();
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeLock();
 });
 
 /* COLOR PICKER */
@@ -513,7 +709,6 @@ function applyAccent(hex,save){
   root.style.setProperty('--accent-md',hexAlpha(hex,.15));
   const gc=hexAlpha(hex,.025);
   document.querySelector('.grid-bg').style.backgroundImage=`linear-gradient(${gc} 1px,transparent 1px),linear-gradient(90deg,${gc} 1px,transparent 1px)`;
-  const ids={triggerSwatch:1,navMark:1,navPip:1,autosaveDot:1};
   const sw=document.getElementById('triggerSwatch');if(sw){sw.style.background=hex;sw.style.boxShadow=`0 0 5px ${hex}`;}
   ['navMark','navPip','autosaveDot'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.background=hex;});
   const panel=document.getElementById('pickerPanel');if(panel)panel.style.borderTopColor=hex;
@@ -523,8 +718,6 @@ function applyAccent(hex,save){
   const glow=document.getElementById('heroGlow');if(glow)glow.style.background=`radial-gradient(circle,${hexAlpha(hex,.065)} 0%,transparent 65%)`;
   ['eyeLine1','eyeLine2'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.background=hex;});
   const em=document.getElementById('eyeEm');if(em)em.style.color=hex;
-  document.querySelectorAll('.nc-badge').forEach(b=>{b.style.background=hex;b.style.color='#0b150a';});
-  const nb=document.getElementById('newBadge');if(nb){nb.style.background=hex;nb.style.color='#0b150a';}
   document.querySelectorAll('.preset').forEach((el,i)=>{
     el.classList.toggle('active',PRESETS[i].hex.toLowerCase()===hex.toLowerCase());
     el.style.setProperty('--p-color',PRESETS[i].hex);
