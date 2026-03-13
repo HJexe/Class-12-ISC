@@ -700,11 +700,16 @@ body.fullscreen-active .layout { display: block; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download
         </a>
+        <!-- ── NEW: SHARE BUTTON ── -->
+        <button class="tbtn" id="btnShare" title="Copy shareable link (S)" onclick="copyShareLink()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>
       </div>
 
       <div class="tb-sep"></div>
 
-      <button class="tbtn" id="btnReload" title="Reload preview" onclick="reloadViewer()">
+      <button class="tbtn" id="btnReload" title="Reload preview (R)" onclick="reloadViewer()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
         Reload
       </button>
@@ -726,6 +731,7 @@ body.fullscreen-active .layout { display: block; }
         <div class="empty-hint">
           <div class="empty-hint-item"><span class="empty-hint-key">F</span> toggle fullscreen</div>
           <div class="empty-hint-item"><span class="empty-hint-key">R</span> reload preview</div>
+          <div class="empty-hint-item"><span class="empty-hint-key">S</span> copy share link</div>
         </div>
       </div>
       <div class="loader-overlay hidden" id="loaderOverlay">
@@ -935,6 +941,55 @@ function showToast(msg, duration = 2200) {
   setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .3s'; setTimeout(() => t.remove(), 320); }, duration);
 }
 
+/* ════════════════════════════════════
+   DEEP LINK — URL HASH
+   Opening a file writes its path into
+   location.hash so the URL is shareable.
+   On load, resolveDeepLink() reads the
+   hash and auto-opens the right file.
+════════════════════════════════════ */
+
+function pushHash(entry) {
+  // Write  resource.html#Physics/Notes/file.pdf  into the address bar
+  history.replaceState(null, '', '#' + encodeURIComponent(entry.path));
+}
+
+function copyShareLink() {
+  if (!currentEntry) { showToast('Open a file first, then share'); return; }
+  // location.href already contains the hash set by pushHash()
+  navigator.clipboard.writeText(location.href).then(() => {
+    showToast('🔗 Link copied — paste to share this exact file');
+  }).catch(() => {
+    // Clipboard API unavailable — fallback
+    const inp = document.createElement('input');
+    inp.value = location.href;
+    document.body.appendChild(inp);
+    inp.select();
+    document.execCommand('copy');
+    inp.remove();
+    showToast('🔗 Link copied!');
+  });
+}
+
+function resolveDeepLink() {
+  const hash = location.hash.slice(1); // remove leading #
+  if (!hash) return;
+  const path = decodeURIComponent(hash);
+
+  const entry = allFiles.find(f => f.path === path);
+  if (!entry) return;
+
+  // Switch to the correct stream tab if needed
+  const matchedStream = Object.entries(STREAMS).find(([, subs]) =>
+    subs.some(s => path.startsWith(s + '/'))
+  );
+  if (matchedStream && matchedStream[0] !== stream) {
+    switchStream(matchedStream[0]);
+  }
+
+  preview(entry);
+}
+
 async function load() {
   const el = document.getElementById('folders');
   el.innerHTML = `
@@ -987,6 +1042,9 @@ async function load() {
   allFiles = [...merged.values()];
   if (!allFiles.length) { el.innerHTML = '<div class="msg">⚠ No resources found.</div>'; return; }
   render();
+
+  // ── Resolve deep link AFTER allFiles is populated ──
+  resolveDeepLink();
 }
 
 function switchStream(s) {
@@ -1071,6 +1129,10 @@ function fileLi(entry, label) {
 
 function preview(entry) {
   currentEntry = entry;
+
+  // ── Update address bar hash for sharing ──
+  pushHash(entry);
+
   document.querySelectorAll('.file-link.active').forEach(e=>e.classList.remove('active'));
   const el = document.querySelector(`.file-link[data-key="${CSS.escape(key(entry))}"]`);
   if (el) { el.classList.add('active'); el.scrollIntoView({ block: 'nearest' }); }
@@ -1149,6 +1211,7 @@ document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return;
   if (e.key === 'f' || e.key === 'F') toggleFullscreen();
   if (e.key === 'r' || e.key === 'R') reloadViewer();
+  if (e.key === 's' || e.key === 'S') copyShareLink();
   if (e.key === 'Escape' && isFullscreen) toggleFullscreen();
 });
 
