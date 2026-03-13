@@ -91,14 +91,12 @@ body{animation:pgIn .4s ease both;}
 @keyframes breathe{0%,100%{opacity:.45}50%{opacity:.85}}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-/* ════ NAV ════ */
+/* ════ TOPBAR (brand only) ════ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
-  height:50px;display:flex;align-items:center;justify-content:space-between;
+  height:46px;display:flex;align-items:center;justify-content:space-between;
   padding:0 22px;
-  background:rgba(17,18,16,0.92);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
+  background:transparent;
 }
 
 /* Brand */
@@ -108,33 +106,45 @@ body{animation:pgIn .4s ease both;}
 }
 .nav-brand-mark{
   width:6px;height:6px;border-radius:50%;background:var(--accent);
-  transition:background .3s;
+  box-shadow:0 0 8px var(--accent);
+  transition:background .3s,box-shadow .3s;
 }
 
-/* ── Pill strip (center) ── */
-.nav-center{
-  position:absolute;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;
-}
-.pill-strip{
-  display:flex;align-items:center;
-  background:var(--surface);
+/* Right side (picker + github) */
+.nav-right{display:flex;align-items:center;gap:6px;}
+
+/* ════ BOTTOM DOCK ════ */
+.bottom-dock{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  z-index:600;
+  display:flex;align-items:center;gap:3px;
+  background:rgba(14,16,13,0.94);
   border:1px solid var(--border2);
-  border-radius:9px;
-  padding:3px;
-  gap:2px;
+  border-radius:18px;
+  padding:6px 8px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 8px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03);
+  animation:dockIn .5s .8s cubic-bezier(.34,1.56,.64,1) both;
 }
+@keyframes dockIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* separator dot */
+.dock-sep{
+  width:1px;height:16px;background:var(--border2);margin:0 4px;flex-shrink:0;
+}
+
+/* dock tabs */
 .ps-tab{
   display:flex;align-items:center;gap:6px;
   font-family:'DM Mono',monospace;font-size:10.5px;
   letter-spacing:.4px;text-transform:uppercase;
-  padding:5px 13px;border-radius:6px;
+  padding:6px 14px;border-radius:12px;
   border:none;background:transparent;
   color:var(--fg3);text-decoration:none;
   transition:all .15s;white-space:nowrap;
   position:relative;
 }
-.ps-tab:hover{ color:var(--fg2);background:var(--surface2); }
+.ps-tab:hover{ color:var(--fg2);background:rgba(255,255,255,.05); }
 .ps-tab.active{
   color:var(--accent);
   background:var(--accent-lo);
@@ -157,11 +167,11 @@ body{animation:pgIn .4s ease both;}
   border:1px solid rgba(212,168,75,.25);
   padding:1px 5px;border-radius:2px;line-height:1.6;
 }
-/* tooltip on strip tabs */
+/* tooltip on dock tabs — opens UPWARD */
 .ps-tab[data-hint]{position:relative;}
 .ps-tab[data-hint]::after{
   content:attr(data-hint);
-  position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
   font-family:'DM Mono',monospace;font-size:9px;color:var(--fg3);
   background:var(--surface2);border:1px solid var(--border2);
   padding:2px 7px;border-radius:4px;white-space:nowrap;
@@ -169,35 +179,60 @@ body{animation:pgIn .4s ease both;}
 }
 .ps-tab:hover[data-hint]::after{opacity:1;}
 
-/* Right side */
-.nav-right{display:flex;align-items:center;gap:6px;}
+/* nav-center for disclaimer */
+.nav-center{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;
+}
 
-/* Disclaimer as subtle text link */
+/* Disclaimer wrap + popup */
 .disc-wrap{position:relative;}
-.disc-link{
-  font-family:'DM Mono',monospace;font-size:10.5px;
-  color:var(--fg3);background:none;border:none;
-  padding:4px 6px;border-radius:4px;
-  transition:color .18s,background .18s;
-  display:flex;align-items:center;gap:4px;
-  letter-spacing:.2px;
+
+/* BIG AMBER WARNING BUTTON */
+.disc-btn{
+  display:flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.6px;text-transform:uppercase;
+  padding:7px 16px;border-radius:8px;
+  background:rgba(212,168,75,.13);
+  border:1px solid rgba(212,168,75,.45);
+  color:#d4a84b;
+  cursor:pointer;
+  transition:all .18s;
+  box-shadow:0 0 12px rgba(212,168,75,.08), inset 0 1px 0 rgba(255,255,255,.04);
 }
-.disc-link:hover{color:rgba(212,168,75,.8);background:rgba(212,168,75,.06);}
-.disc-link-icon{font-size:11px;opacity:.7;}
-.disc-popup{position:absolute;top:calc(100% + 6px);left:0;z-index:600;display:none;}
+.disc-btn:hover{
+  background:rgba(212,168,75,.22);
+  border-color:rgba(212,168,75,.75);
+  box-shadow:0 0 22px rgba(212,168,75,.18), inset 0 1px 0 rgba(255,255,255,.06);
+  color:#e8be5a;
+}
+.disc-warn-icon{
+  font-size:16px;
+  filter:drop-shadow(0 0 6px rgba(212,168,75,.6));
+  animation:warnPulse 2.5s ease-in-out infinite;
+}
+@keyframes warnPulse{0%,100%{filter:drop-shadow(0 0 4px rgba(212,168,75,.4));}50%{filter:drop-shadow(0 0 10px rgba(212,168,75,.9));}}
+.disc-btn-text{letter-spacing:1.5px;}
+
+.disc-popup{
+  position:absolute;top:calc(100% + 10px);left:0;
+  z-index:600;display:none;
+}
 .disc-wrap:hover .disc-popup{display:block;animation:popIn .18s ease;}
-@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 .disc-inner{
-  width:340px;background:rgba(14,15,13,.97);
-  border:1px solid rgba(212,168,75,.22);border-top:2px solid rgba(212,168,75,.5);
-  backdrop-filter:blur(20px);box-shadow:0 16px 48px rgba(0,0,0,.6);
-  border-radius:8px;overflow:hidden;
+  width:360px;background:rgba(14,15,13,.98);
+  border:1px solid rgba(212,168,75,.28);border-top:2px solid rgba(212,168,75,.7);
+  backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.02);
+  border-radius:10px;overflow:hidden;
 }
-.disc-head{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid rgba(212,168,75,.1);background:rgba(212,168,75,.05);}
-.disc-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,168,75,.85);flex:1;}
-.disc-body{padding:14px;font-size:12px;color:rgba(221,227,218,.65);line-height:1.8;}
+.disc-head{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid rgba(212,168,75,.12);background:rgba(212,168,75,.06);}
+.disc-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,168,75,.9);flex:1;}
+.disc-body{padding:16px;font-size:12px;color:rgba(221,227,218,.65);line-height:1.8;}
 .disc-body strong{color:#fff;}
-.disc-body a{color:rgba(212,168,75,.8);text-decoration:none;border-bottom:1px solid rgba(212,168,75,.3);}
+.disc-body a{color:rgba(212,168,75,.85);text-decoration:none;border-bottom:1px solid rgba(212,168,75,.35);}
+.disc-body a:hover{color:#d4a84b;}
 
 /* Color picker */
 .picker-wrap{position:relative;}
@@ -324,7 +359,7 @@ body{animation:pgIn .4s ease both;}
   position:relative;z-index:1;
   min-height:100vh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  padding:80px 24px 0;text-align:center;
+  padding:60px 24px 100px;text-align:center;
 }
 .hero-glow{
   position:absolute;width:640px;height:640px;
@@ -529,7 +564,8 @@ footer a:hover{color:var(--fg2);}
   .nav-cards{max-width:100%;}
   .stats-bar{flex-wrap:wrap;}
   .stat-b{flex:1 1 50%;border-right:none;border-bottom:1px solid var(--border);}
-  .nav-center{display:none;}
+  .bottom-dock{bottom:12px;padding:5px 6px;}
+  .ps-tab{padding:5px 10px;font-size:9.5px;}
   footer{flex-direction:column;gap:8px;text-align:center;}
   .community-strip{flex-wrap:wrap;justify-content:center;}
 }
@@ -560,51 +596,34 @@ footer a:hover{color:var(--fg2);}
   </div>
 </div>
 
-<!-- NAV -->
+<!-- SLIM TOPBAR -->
 <nav class="nav">
-
-  <!-- Left: brand -->
+  <!-- Left: brand + disclaimer -->
+  <div style="display:flex;align-items:center;gap:10px;">
   <a class="nav-brand" href="/">
     <div class="nav-brand-mark" id="navMark"></div>
     ISC.exe
   </a>
-
-  <!-- Center: pill strip -->
-  <div class="nav-center">
-    <div class="pill-strip">
-      <a class="ps-tab active" href="resource.html" data-hint="PDFs &amp; notes">
-        📚&nbsp;Resources
-      </a>
-      <a class="ps-tab" href="timetable.html" data-hint="Exam schedule 2026">
-        <span class="ps-pip" id="navPip"></span>
-        📅&nbsp;Timetable
-      </a>
-      <span class="ps-tab locked" onclick="triggerLocked()" data-hint="In development">
-        🔒&nbsp;Dashboard
-        <span class="ps-dev-badge">Dev</span>
-      </span>
-    </div>
-  </div>
-
-  <!-- Right: disclaimer link + theme picker + github -->
-  <div class="nav-right">
-    <div class="disc-wrap">
-      <button class="disc-link">
-        <span class="disc-link-icon">⚠</span>
-        Disclaimer
-      </button>
-      <div class="disc-popup">
-        <div class="disc-inner">
-          <div class="disc-head"><span>⚠️</span><span class="disc-title">Disclaimer</span></div>
-          <p class="disc-body">
-            ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
-            We hold <strong>no copyrights, licences, or ownership</strong> over any material.<br/><br/>
-            Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.
-          </p>
-        </div>
+  <div class="disc-wrap">
+    <button class="disc-btn">
+      <span class="disc-warn-icon">⚠️</span>
+      <span class="disc-btn-text">Disclaimer</span>
+    </button>
+    <div class="disc-popup" style="left:0;transform:none;">
+      <div class="disc-inner">
+        <div class="disc-head"><span>⚠️</span><span class="disc-title">Disclaimer</span></div>
+        <p class="disc-body">
+          ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
+          We hold <strong>no copyrights, licences, or ownership</strong> over any material.<br/><br/>
+          Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.
+        </p>
       </div>
     </div>
+  </div>
+  </div>
 
+  <!-- Right: disclaimer + theme picker + github -->
+  <div class="nav-right">
     <div class="picker-wrap" id="pickerWrap">
       <button class="color-trigger" id="colorTrigger" onclick="togglePicker()">
         <span class="trigger-swatch" id="triggerSwatch"></span>
@@ -631,10 +650,25 @@ footer a:hover{color:var(--fg2);}
         </div>
       </div>
     </div>
-
     <a class="nav-link" href="https://github.com/HJexe/Class-12-ISC" target="_blank" rel="noopener">GitHub</a>
   </div>
 </nav>
+
+<!-- BOTTOM DOCK -->
+<div class="bottom-dock">
+  <a class="ps-tab active" href="resource.html" data-hint="PDFs &amp; notes">
+    📚&nbsp;Resources & Notes
+  </a>
+  <a class="ps-tab" href="timetable.html" data-hint="Exam schedule 2026">
+    <span class="ps-pip" id="navPip"></span>
+    📅&nbsp;Timetable
+  </a>
+  <div class="dock-sep"></div>
+  <span class="ps-tab locked" onclick="triggerLocked()" data-hint="In development">
+    🔒&nbsp;Dashboard
+    <span class="ps-dev-badge">Dev</span>
+  </span>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -664,7 +698,7 @@ footer a:hover{color:var(--fg2);}
       <div class="rc-icon">📚</div>
       <div class="rc-body">
         <div class="rc-label">Files</div>
-        <div class="rc-title">Resources</div>
+        <div class="rc-title">Resources & Notes</div>
         <div class="rc-desc">Browse, search and preview PDFs &amp; notes straight in the browser, no downloads.</div>
       </div>
       <div class="rc-right">
@@ -767,7 +801,7 @@ footer a:hover{color:var(--fg2);}
     visible=false;dot.style.opacity='0';ring.style.opacity='0';
     trails.forEach(t=>t.style.opacity='0');
   });
-  const HOVER='a,button,.row-card,.ps-tab,.preset,.cs-btn,.color-trigger,.disc-link,.lock-close,.reset-btn,.apply-btn,.nav-link';
+  const HOVER='a,button,.row-card,.ps-tab,.preset,.cs-btn,.color-trigger,.disc-link,.lock-close,.reset-btn,.apply-btn,.nav-link,.bottom-dock';
   function setHover(on){
     isHover=on;
     if(on){
