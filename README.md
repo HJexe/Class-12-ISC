@@ -5,10 +5,26 @@ materials in one place. **New updates will be coming soon**
 
 🔗 Live Website: https://class-12-isc.vercel.app/
 
-Now updated with both streams, Commerce and Science
+## 📂 Subjects Included
+
+-   ეკ Economics
+-   📊 Accounts
+-   📈 Business Studies
+-   🏪 Commerce
+-   ➗ Maths
+-   ⚛️ Physics
+-   🧪 Chemistry
+-   🧬 Biology
+
 ## 🚀 Features
 
--   Organized subject-wise folders
--   Easy access to notes & resources
--   Clean, minimal UI
+-   🗂️ Organized subject-wise folders
+-   💨 Easy access to notes & resources
+-    Minimal UI
+-   🌐 Works on all devices
+-   📥 Downloadable resources
+-   🆓 Free to use
 
+## 💪 Contributing
+
+Contributions are always welcome! hrooshi@duck.com
