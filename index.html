@@ -19,7 +19,6 @@
 </script>
 <title>ISC.exe — Class 12 Resource Hub</title>
 
-<!-- Open Graph / Link Preview -->
 <meta property="og:type"        content="website"/>
 <meta property="og:url"         content="https://hjexe.github.io/Class-12-ISC/"/>
 <meta property="og:title"       content="ISC.exe — Class 12 Resource Hub"/>
@@ -27,14 +26,10 @@
 <meta property="og:image"       content="https://hjexe.github.io/Class-12-ISC/og-image.png"/>
 <meta property="og:image:width"  content="1200"/>
 <meta property="og:image:height" content="630"/>
-
-<!-- Twitter / X Card -->
 <meta name="twitter:card"        content="summary_large_image"/>
 <meta name="twitter:title"       content="ISC.exe — Class 12 Resource Hub"/>
 <meta name="twitter:description" content="All your Class 12 ISC resources — PDFs, notes, exam schedule and study tools — organized, searchable, free. No login required."/>
 <meta name="twitter:image"       content="https://hjexe.github.io/Class-12-ISC/og-image.png"/>
-
-<!-- General SEO -->
 <meta name="description" content="All your Class 12 ISC resources — PDFs, notes, exam schedule and study tools — organized, searchable, free. No login required."/>
 <meta name="theme-color" content="#7ab86a"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -110,15 +105,13 @@ body{animation:pgIn .4s ease both;}
 @keyframes breathe{0%,100%{opacity:.45}50%{opacity:.85}}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-/* ════ TOPBAR (brand only) ════ */
+/* ════ TOPBAR ════ */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   height:46px;display:flex;align-items:center;justify-content:space-between;
   padding:0 22px;
   background:transparent;
 }
-
-/* Brand */
 .nav-brand{
   font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--fg);
   display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;
@@ -128,8 +121,6 @@ body{animation:pgIn .4s ease both;}
   box-shadow:0 0 8px var(--accent);
   transition:background .3s,box-shadow .3s;
 }
-
-/* Right side (picker + github) */
 .nav-right{display:flex;align-items:center;gap:6px;}
 
 /* ════ BOTTOM DOCK ════ */
@@ -147,12 +138,10 @@ body{animation:pgIn .4s ease both;}
 }
 @keyframes dockIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-/* separator dot */
 .dock-sep{
   width:1px;height:16px;background:var(--border2);margin:0 4px;flex-shrink:0;
 }
 
-/* dock tabs */
 .ps-tab{
   display:flex;align-items:center;gap:6px;
   font-family:'DM Mono',monospace;font-size:10.5px;
@@ -169,24 +158,10 @@ body{animation:pgIn .4s ease both;}
   background:var(--accent-lo);
   box-shadow:inset 0 0 0 1px rgba(122,184,106,.2);
 }
-.ps-tab.locked{
-  color:rgba(212,168,75,.65);
-}
-.ps-tab.locked:hover{
-  color:rgba(212,168,75,.9);
-  background:rgba(212,168,75,.06);
-}
 .ps-pip{
   width:4px;height:4px;border-radius:50%;background:var(--accent);
   opacity:.7;animation:breathe 2.8s ease-in-out infinite;flex-shrink:0;
 }
-.ps-dev-badge{
-  font-size:7px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  background:rgba(212,168,75,.12);color:rgba(212,168,75,.8);
-  border:1px solid rgba(212,168,75,.25);
-  padding:1px 5px;border-radius:2px;line-height:1.6;
-}
-/* tooltip on dock tabs — opens UPWARD */
 .ps-tab[data-hint]{position:relative;}
 .ps-tab[data-hint]::after{
   content:attr(data-hint);
@@ -198,16 +173,8 @@ body{animation:pgIn .4s ease both;}
 }
 .ps-tab:hover[data-hint]::after{opacity:1;}
 
-/* nav-center for disclaimer */
-.nav-center{
-  position:absolute;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;
-}
-
-/* Disclaimer wrap + popup */
+/* Disclaimer */
 .disc-wrap{position:relative;}
-
-/* BIG AMBER WARNING BUTTON */
 .disc-btn{
   display:flex;align-items:center;gap:8px;
   font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
@@ -223,21 +190,12 @@ body{animation:pgIn .4s ease both;}
 .disc-btn:hover{
   background:rgba(212,168,75,.22);
   border-color:rgba(212,168,75,.75);
-  box-shadow:0 0 22px rgba(212,168,75,.18), inset 0 1px 0 rgba(255,255,255,.06);
   color:#e8be5a;
 }
-.disc-warn-icon{
-  font-size:16px;
-  filter:drop-shadow(0 0 6px rgba(212,168,75,.6));
-  animation:warnPulse 2.5s ease-in-out infinite;
-}
+.disc-warn-icon{font-size:16px;filter:drop-shadow(0 0 6px rgba(212,168,75,.6));animation:warnPulse 2.5s ease-in-out infinite;}
 @keyframes warnPulse{0%,100%{filter:drop-shadow(0 0 4px rgba(212,168,75,.4));}50%{filter:drop-shadow(0 0 10px rgba(212,168,75,.9));}}
 .disc-btn-text{letter-spacing:1.5px;}
-
-.disc-popup{
-  position:absolute;top:calc(100% + 10px);left:0;
-  z-index:600;display:none;
-}
+.disc-popup{position:absolute;top:calc(100% + 10px);left:0;z-index:600;display:none;}
 .disc-wrap:hover .disc-popup{display:block;animation:popIn .18s ease;}
 @keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 .disc-inner{
@@ -312,66 +270,6 @@ body{animation:pgIn .4s ease both;}
   transition:all .18s;
 }
 .nav-link:hover{color:var(--fg2);border-color:var(--border2);background:var(--surface);}
-
-/* ════ LOCK MODAL ════ */
-#lockModal{
-  position:fixed;inset:0;z-index:8000;
-  display:flex;align-items:center;justify-content:center;
-  pointer-events:none;opacity:0;
-  transition:opacity .25s ease;
-}
-#lockModal.show{opacity:1;pointer-events:all;}
-.lock-backdrop{position:absolute;inset:0;background:rgba(8,9,8,.78);backdrop-filter:blur(8px);}
-.lock-box{
-  position:relative;z-index:1;width:340px;
-  background:rgba(14,16,13,.98);
-  border:1px solid rgba(212,168,75,.22);border-top:2px solid rgba(212,168,75,.6);
-  border-radius:14px;overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.8),0 0 40px rgba(212,168,75,.06);
-  transform:scale(.88) translateY(18px);
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .25s ease;
-  opacity:0;text-align:center;padding:36px 32px 30px;
-}
-#lockModal.show .lock-box{transform:scale(1) translateY(0);opacity:1;}
-.lock-icon-wrap{
-  width:72px;height:72px;border-radius:50%;
-  background:rgba(212,168,75,.08);border:1px solid rgba(212,168,75,.2);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 20px;font-size:30px;position:relative;
-}
-.lock-icon-wrap::after{
-  content:'';position:absolute;inset:-4px;border-radius:50%;
-  border:1px dashed rgba(212,168,75,.2);animation:spinDash 12s linear infinite;
-}
-@keyframes spinDash{to{transform:rotate(360deg);}}
-.lock-icon-wrap.shake{animation:lockBounce .5s cubic-bezier(.36,.07,.19,.97);}
-@keyframes lockBounce{
-  0%,100%{transform:rotate(0);}15%{transform:rotate(-10deg) scale(1.1);}
-  30%{transform:rotate(8deg);}45%{transform:rotate(-6deg);}
-  60%{transform:rotate(4deg);}75%{transform:rotate(-2deg);}
-}
-.lock-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;color:var(--fg);margin-bottom:8px;}
-.lock-sub{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,168,75,.7);margin-bottom:14px;}
-.lock-desc{font-size:12.5px;color:var(--fg3);line-height:1.8;margin-bottom:24px;}
-.lock-progress{height:2px;background:var(--border);border-radius:2px;margin-bottom:22px;overflow:hidden;}
-.lock-progress-bar{
-  height:100%;width:23%;
-  background:linear-gradient(90deg,rgba(212,168,75,.4),rgba(212,168,75,.8));
-  border-radius:2px;animation:progressPulse 2.4s ease-in-out infinite;
-}
-@keyframes progressPulse{0%,100%{opacity:.5;}50%{opacity:1;}}
-.lock-close{
-  font-family:'DM Mono',monospace;font-size:11px;color:var(--fg3);
-  background:none;border:1px solid var(--border2);border-radius:6px;padding:7px 22px;
-  transition:color .18s,border-color .18s,background .18s;
-}
-.lock-close:hover{color:var(--fg2);border-color:var(--fg2);background:var(--surface);}
-.lock-tag{
-  display:inline-block;margin-bottom:18px;
-  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  background:rgba(212,168,75,.1);border:1px solid rgba(212,168,75,.25);
-  color:rgba(212,168,75,.8);padding:3px 10px;border-radius:4px;
-}
 
 /* ════ HERO ════ */
 .hero{
@@ -451,38 +349,6 @@ body{animation:pgIn .4s ease both;}
 .row-card:hover::before{opacity:1;}
 .row-card:active{transform:translateX(1px);}
 
-/* Locked row card */
-.row-card--locked{
-  border-left-color:rgba(212,168,75,.5) !important;
-  background:color-mix(in srgb,#d4a84b 2%,var(--surface)) !important;
-}
-.row-card--locked::before{
-  background:linear-gradient(90deg,rgba(212,168,75,.06),transparent 40%) !important;
-}
-.row-card--locked:hover{
-  border-color:rgba(212,168,75,.2) !important;
-  border-left-color:rgba(212,168,75,.75) !important;
-  transform:none !important;
-  box-shadow:none !important;
-}
-.row-card--locked:active{animation:rowShake .35s ease;}
-@keyframes rowShake{
-  0%,100%{transform:translateX(0);}
-  20%{transform:translateX(-5px);}
-  40%{transform:translateX(4px);}
-  60%{transform:translateX(-3px);}
-  80%{transform:translateX(2px);}
-}
-
-/* Lock shimmer on row */
-.lock-shimmer{
-  position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(105deg,transparent 40%,rgba(212,168,75,.05) 50%,transparent 60%);
-  background-size:200% 100%;
-  animation:shimmerSweep 3.5s ease-in-out infinite;
-}
-@keyframes shimmerSweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
 .rc-icon{
   font-size:20px;flex-shrink:0;
   width:42px;height:42px;
@@ -493,10 +359,6 @@ body{animation:pgIn .4s ease both;}
 .row-card:hover .rc-icon{
   background:var(--accent-lo);
   border-color:rgba(122,184,106,.3);
-}
-.row-card--locked:hover .rc-icon{
-  background:rgba(212,168,75,.07) !important;
-  border-color:rgba(212,168,75,.22) !important;
 }
 .rc-body{flex:1;min-width:0;position:relative;z-index:1;}
 .rc-label{
@@ -524,17 +386,11 @@ body{animation:pgIn .4s ease both;}
   background:rgba(122,184,106,.1);color:var(--accent);
   border:1px solid rgba(122,184,106,.22);
 }
-.rc-badge--dev{
-  background:rgba(212,168,75,.1);color:var(--amber);
-  border:1px solid rgba(212,168,75,.25);
-}
 .rc-arrow{
   font-family:'DM Mono',monospace;font-size:11px;
   color:var(--fg3);transition:color .2s,transform .2s;
 }
 .row-card:hover .rc-arrow{color:var(--accent);transform:translateX(3px);}
-.row-card--locked .rc-arrow{color:rgba(212,168,75,.4);}
-.row-card--locked:hover .rc-arrow{color:rgba(212,168,75,.6);transform:none;}
 
 /* ════ STATS BAR ════ */
 .stats-bar{
@@ -601,47 +457,30 @@ footer a:hover{color:var(--fg2);}
 
 <div class="grid-bg"></div>
 
-<!-- LOCK MODAL -->
-<div id="lockModal" onclick="handleModalClick(event)">
-  <div class="lock-backdrop"></div>
-  <div class="lock-box">
-    <div class="lock-icon-wrap" id="lockIcon">🔒</div>
-    <div class="lock-tag">In Development</div>
-    <div class="lock-title">Dashboard</div>
-    <div class="lock-sub">Coming Soon</div>
-    <p class="lock-desc">This feature is still being built. Check back soon — it'll have countdowns, Pomodoro timers, subject readiness trackers and more.</p>
-    <div class="lock-progress"><div class="lock-progress-bar"></div></div>
-    <button class="lock-close" onclick="closeLock()">↩ Go Back</button>
-  </div>
-</div>
-
 <!-- SLIM TOPBAR -->
 <nav class="nav">
-  <!-- Left: brand + disclaimer -->
   <div style="display:flex;align-items:center;gap:10px;">
-  <a class="nav-brand" href="/">
-    <div class="nav-brand-mark" id="navMark"></div>
-    ISC.exe
-  </a>
-  <div class="disc-wrap">
-    <button class="disc-btn">
-      <span class="disc-warn-icon">⚠️</span>
-      <span class="disc-btn-text">Disclaimer</span>
-    </button>
-    <div class="disc-popup" style="left:0;transform:none;">
-      <div class="disc-inner">
-        <div class="disc-head"><span>⚠️</span><span class="disc-title">Disclaimer</span></div>
-        <p class="disc-body">
-          ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
-          We hold <strong>no copyrights, licences, or ownership</strong> over any material.<br/><br/>
-          Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.
-        </p>
+    <a class="nav-brand" href="/">
+      <div class="nav-brand-mark" id="navMark"></div>
+      ISC.exe
+    </a>
+    <div class="disc-wrap">
+      <button class="disc-btn">
+        <span class="disc-warn-icon">⚠️</span>
+        <span class="disc-btn-text">Disclaimer</span>
+      </button>
+      <div class="disc-popup" style="left:0;transform:none;">
+        <div class="disc-inner">
+          <div class="disc-head"><span>⚠️</span><span class="disc-title">Disclaimer</span></div>
+          <p class="disc-body">
+            ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online.
+            We hold <strong>no copyrights, licences, or ownership</strong> over any material.<br/><br/>
+            Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-
-  <!-- Right: disclaimer + theme picker + github -->
   <div class="nav-right">
     <div class="picker-wrap" id="pickerWrap">
       <button class="color-trigger" id="colorTrigger" onclick="togglePicker()">
@@ -673,7 +512,7 @@ footer a:hover{color:var(--fg2);}
   </div>
 </nav>
 
-<!-- BOTTOM DOCK -->
+<!-- BOTTOM DOCK (2 tabs only) -->
 <div class="bottom-dock">
   <a class="ps-tab active" href="resource.html" data-hint="PDFs &amp; notes">
     📚&nbsp;Resources & Notes
@@ -682,11 +521,6 @@ footer a:hover{color:var(--fg2);}
     <span class="ps-pip" id="navPip"></span>
     📅&nbsp;Timetable
   </a>
-  <div class="dock-sep"></div>
-  <span class="ps-tab locked" onclick="triggerLocked()" data-hint="In development">
-    🔒&nbsp;Dashboard
-    <span class="ps-dev-badge">Dev</span>
-  </span>
 </div>
 
 <!-- HERO -->
@@ -709,10 +543,9 @@ footer a:hover{color:var(--fg2);}
 
   <p class="hero-desc">All your Class 12 ISC resources — PDFs, notes, exam schedule and study tools — organized, searchable, and viewable in one place.</p>
 
-  <!-- HORIZONTAL ROW CARDS -->
+  <!-- ROW CARDS (2 only) -->
   <div class="nav-cards">
 
-    <!-- Resources -->
     <a class="row-card" href="resource.html">
       <div class="rc-icon">📚</div>
       <div class="rc-body">
@@ -726,7 +559,6 @@ footer a:hover{color:var(--fg2);}
       </div>
     </a>
 
-    <!-- Timetable -->
     <a class="row-card" href="timetable.html">
       <div class="rc-icon">📅</div>
       <div class="rc-body">
@@ -739,21 +571,6 @@ footer a:hover{color:var(--fg2);}
         <span class="rc-arrow">→</span>
       </div>
     </a>
-
-    <!-- Locked: Dashboard -->
-    <div class="row-card row-card--locked" id="dashCard" onclick="triggerLocked()">
-      <div class="rc-icon">📊</div>
-      <div class="rc-body">
-        <div class="rc-label">Overview</div>
-        <div class="rc-title">Dashboard</div>
-        <div class="rc-desc">Stats, exam countdown, Pomodoro timer &amp; subject readiness in one view.</div>
-      </div>
-      <div class="rc-right">
-        <span class="rc-badge rc-badge--dev">Dev</span>
-        <span class="rc-arrow">🔒</span>
-      </div>
-      <div class="lock-shimmer"></div>
-    </div>
 
   </div>
 
@@ -803,14 +620,8 @@ footer a:hover{color:var(--fg2);}
   let visible=false,isHover=false,dotW=8,ringW=22;
   const LERP=0.22;
   function lerp(a,b,t){return a+(b-a)*t;}
-  function centerDot(x,y,scale){
-    const h=dotW/2;
-    dot.style.transform=`translate(${x-h}px,${y-h}px)${scale?' scale('+scale+')':''}`;
-  }
-  function centerRing(x,y){
-    const h=ringW/2;
-    ring.style.transform=`translate(${x-h}px,${y-h}px)`;
-  }
+  function centerDot(x,y,scale){const h=dotW/2;dot.style.transform=`translate(${x-h}px,${y-h}px)${scale?' scale('+scale+')':''}`;};
+  function centerRing(x,y){const h=ringW/2;ring.style.transform=`translate(${x-h}px,${y-h}px)`;};
   document.addEventListener('mousemove',e=>{
     mx=e.clientX;my=e.clientY;
     if(!visible){visible=true;dot.style.opacity='1';ring.style.opacity='0.85';}
@@ -820,7 +631,7 @@ footer a:hover{color:var(--fg2);}
     visible=false;dot.style.opacity='0';ring.style.opacity='0';
     trails.forEach(t=>t.style.opacity='0');
   });
-  const HOVER='a,button,.row-card,.ps-tab,.preset,.cs-btn,.color-trigger,.disc-link,.lock-close,.reset-btn,.apply-btn,.nav-link,.bottom-dock';
+  const HOVER='a,button,.row-card,.ps-tab,.preset,.cs-btn,.color-trigger,.disc-btn,.reset-btn,.apply-btn,.nav-link,.bottom-dock';
   function setHover(on){
     isHover=on;
     if(on){
@@ -830,7 +641,6 @@ footer a:hover{color:var(--fg2);}
       ring.style.width=ringW+'px';ring.style.height=ringW+'px';
       ring.style.borderRadius='10px';
       ring.style.borderColor='color-mix(in srgb,var(--accent) 65%,transparent)';
-      ring.style.boxShadow='0 0 14px color-mix(in srgb,var(--accent) 20%,transparent)';
     } else {
       dotW=8;ringW=22;
       dot.style.width=dotW+'px';dot.style.height=dotW+'px';
@@ -838,14 +648,10 @@ footer a:hover{color:var(--fg2);}
       ring.style.width=ringW+'px';ring.style.height=ringW+'px';
       ring.style.borderRadius='50%';
       ring.style.borderColor='color-mix(in srgb,var(--accent) 40%,transparent)';
-      ring.style.boxShadow='none';
     }
   }
   document.addEventListener('mouseover',e=>{setHover(!!e.target.closest(HOVER));});
-  document.addEventListener('mousedown',()=>{
-    centerDot(mx,my,0.5);
-    ring.style.borderColor='color-mix(in srgb,var(--accent) 90%,transparent)';
-  });
+  document.addEventListener('mousedown',()=>{centerDot(mx,my,0.5);ring.style.borderColor='color-mix(in srgb,var(--accent) 90%,transparent)';});
   document.addEventListener('mouseup',()=>{centerDot(mx,my,1);setHover(isHover);});
   const TRAIL_OFFSETS=[3,6,9,13];
   function tick(){
@@ -863,31 +669,6 @@ footer a:hover{color:var(--fg2);}
   }
   requestAnimationFrame(tick);
 })();
-
-/* ════ LOCK MODAL ════ */
-function triggerLocked(){
-  const card=document.getElementById('dashCard');
-  card.style.animation='none';
-  requestAnimationFrame(()=>{card.style.animation='rowShake .35s ease';});
-  setTimeout(()=>{card.style.animation='';},380);
-  const modal=document.getElementById('lockModal');
-  modal.classList.add('show');
-  document.body.style.overflow='hidden';
-  const icon=document.getElementById('lockIcon');
-  icon.classList.remove('shake');
-  requestAnimationFrame(()=>{
-    icon.classList.add('shake');
-    setTimeout(()=>icon.classList.remove('shake'),500);
-  });
-}
-function closeLock(){
-  document.getElementById('lockModal').classList.remove('show');
-  document.body.style.overflow='';
-}
-function handleModalClick(e){
-  if(e.target===document.querySelector('.lock-backdrop')||e.target===document.getElementById('lockModal'))closeLock();
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLock();});
 
 /* ════ COLOR PICKER ════ */
 const PRESETS=[
@@ -917,8 +698,7 @@ function applyAccent(hex,save){
   const glow=document.getElementById('heroGlow');if(glow)glow.style.background=`radial-gradient(circle,${hexAlpha(hex,.065)} 0%,transparent 65%)`;
   ['eyeLine1','eyeLine2'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.background=hex;});
   const em=document.getElementById('eyeEm');if(em)em.style.color=hex;
-  // update row card left borders
-  document.querySelectorAll('.row-card:not(.row-card--locked)').forEach(el=>{el.style.borderLeftColor=hex;});
+  document.querySelectorAll('.row-card').forEach(el=>{el.style.borderLeftColor=hex;});
   document.querySelectorAll('.ps-tab.active').forEach(el=>{el.style.color=hex;});
   document.querySelectorAll('.rc-badge--open').forEach(el=>{el.style.color=hex;el.style.borderColor=hexAlpha(hex,.22);el.style.background=hexAlpha(hex,.1);});
   document.querySelectorAll('.preset').forEach((el,i)=>{
