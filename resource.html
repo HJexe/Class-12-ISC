@@ -147,54 +147,139 @@ body.grad-mode .picker-panel {
 /* ── NAV ── */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 50px;
+  height: 60px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 22px 0 22px;
-  background: rgba(17,18,16,0.95);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  background: linear-gradient(180deg, rgba(17,18,16,0.98) 0%, rgba(17,18,16,0.93) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 14%, var(--border));
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
 }
 .nav-left {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 16px;
 }
 .nav-brand {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px; font-weight: 500; color: var(--fg);
-  display: flex; align-items: center; gap: 9px;
+  font-family: 'Lora', serif;
+  font-size: 17px; font-weight: 500; color: var(--fg);
+  display: flex; align-items: center; gap: 11px;
+  letter-spacing: .2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
 }
 .nav-brand-mark {
-  width: 6px; height: 6px; border-radius: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
   background: var(--accent); flex-shrink: 0;
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 10px var(--accent);
   transition: background .3s, box-shadow .3s;
 }
-.nav-right { display: flex; align-items: center; gap: 6px; }
-.nav-links { display: flex; gap: 4px; }
+.nav-right { display: flex; align-items: center; gap: 7px; }
+.nav-links { display: flex; gap: 6px; }
 .nav-link {
-  text-decoration: none; color: #ffffff;
-  font-family: 'DM Mono', monospace; font-size: 11.5px; font-weight: 500;
-  padding: 5px 13px; border: 1px solid rgba(255,255,255,0.10); border-radius: 6px;
-  transition: color .18s, border-color .18s, background .18s;
-  display: flex; align-items: center; gap: 6px;
-  letter-spacing: .3px;
+  text-decoration: none; color: var(--fg);
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  padding: 8px 14px; min-height: 36px;
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 11px;
+  background: rgba(255,255,255,0.04);
+  transition: color .18s, border-color .18s, background .18s, transform .18s, box-shadow .18s;
+  display: flex; align-items: center; gap: 7px;
+  letter-spacing: .15px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
 }
-.nav-link:hover { color: #ffffff; border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.07); }
+.nav-link:hover { color: #ffffff; border-color: color-mix(in srgb, var(--accent) 40%, rgba(255,255,255,.16)); background: color-mix(in srgb, var(--accent) 12%, rgba(255,255,255,.06)); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
 .nav-link-pip {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--accent); opacity: 0.7;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); opacity: 0.82;
   animation: breathe 2.8s ease-in-out infinite;
   transition: background .3s;
 }
 @keyframes breathe { 0%,100%{opacity:.45} 50%{opacity:.85} }
 
-.community-links { display: flex; align-items: center; gap: 3px; }
+/* ── DISCLAIMER ── */
+.disc-wrap { position: relative; }
+.disc-btn {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .65px; text-transform: uppercase;
+  padding: 8px 13px; min-height: 36px; border-radius: 11px;
+  background: linear-gradient(180deg, rgba(212,168,75,.22), rgba(212,168,75,.12));
+  border: 1px solid rgba(212,168,75,.42);
+  color: #f0cc73; cursor: pointer;
+  transition: all .18s;
+  box-shadow: 0 10px 24px rgba(0,0,0,.16), 0 0 16px rgba(212,168,75,.07), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.disc-btn:hover {
+  background: linear-gradient(180deg, rgba(212,168,75,.28), rgba(212,168,75,.16));
+  border-color: rgba(212,168,75,.78);
+  color: #ffe29a;
+  transform: translateY(-1px);
+}
+.disc-warn-icon {
+  font-size: 16px;
+  filter: drop-shadow(0 0 6px rgba(212,168,75,.6));
+  animation: warnPulse 2.5s ease-in-out infinite;
+}
+@keyframes warnPulse {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(212,168,75,.4)); }
+  50% { filter: drop-shadow(0 0 10px rgba(212,168,75,.9)); }
+}
+.disc-btn-text { letter-spacing: 1.5px; }
+.disc-popup {
+  position: absolute; top: calc(100% + 10px); left: 0; z-index: 600;
+  display: none;
+}
+.disc-wrap:hover .disc-popup {
+  display: block;
+  animation: popIn .18s ease;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.disc-inner {
+  width: 300px;
+  background: rgba(14,15,13,.98);
+  border: 1px solid rgba(212,168,75,.28);
+  border-top: 2px solid rgba(212,168,75,.7);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.02);
+  border-radius: 10px; overflow: hidden;
+}
+.disc-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  border-bottom: 1px solid rgba(212,168,75,.12);
+  background: rgba(212,168,75,.06);
+}
+.disc-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(212,168,75,.9); flex: 1;
+}
+.disc-body {
+  padding: 10px 14px;
+  font-size: 11.5px; color: rgba(221,227,218,.65);
+  line-height: 1.7;
+}
+.disc-body strong { color: #fff; }
+.disc-body a {
+  color: rgba(212,168,75,.85);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212,168,75,.35);
+}
+.disc-body a:hover { color: #d4a84b; }
+
+.community-links { display: flex; align-items: center; gap: 8px; }
 .community-link {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
   color: #ffffff; text-decoration: none;
-  padding: 5px 10px; border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 6px; transition: all .18s; white-space: nowrap;
-  letter-spacing: .3px;
+  padding: 8px 12px; min-height: 36px; border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px; transition: all .18s; white-space: nowrap;
+  letter-spacing: .15px; background: rgba(255,255,255,.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
 }
 .community-link svg { flex-shrink: 0; }
 .community-link--discord:hover {
@@ -207,31 +292,32 @@ body.grad-mode .picker-panel {
   border-color: rgba(255,99,20,.25);
   background: rgba(255,99,20,.06);
 }
-.nav-sep { width: 1px; height: 18px; background: var(--border2); margin: 0 2px; flex-shrink: 0; }
+.nav-sep { width: 1px; height: 24px; background: color-mix(in srgb, var(--accent) 12%, var(--border2)); margin: 0 3px; flex-shrink: 0; }
 
 /* ── THEME PICKER ── */
 .picker-wrap { position: relative; }
 .color-trigger {
-  display: flex; align-items: center; gap: 7px;
-  padding: 5px 11px 5px 7px;
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  background: transparent;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px 8px 10px; min-height: 36px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px;
+  background: rgba(255,255,255,.04);
   cursor: pointer;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; color: #ffffff; font-weight: 500;
-  letter-spacing: .4px;
-  transition: border-color .18s, color .18s, background .18s;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px; color: #ffffff; font-weight: 600;
+  letter-spacing: .15px;
+  transition: border-color .18s, color .18s, background .18s, transform .18s, box-shadow .18s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
 }
-.color-trigger:hover { border-color: var(--accent); color: #ffffff; background: var(--accent-lo); }
+.color-trigger:hover { border-color: color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.18)); color: #ffffff; background: color-mix(in srgb, var(--accent) 12%, rgba(255,255,255,.06)); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
 .trigger-swatch {
-  width: 13px; height: 13px; border-radius: 3px;
+  width: 14px; height: 14px; border-radius: 4px;
   background: var(--accent);
   box-shadow: 0 0 5px var(--accent);
   flex-shrink: 0;
   transition: background .25s, box-shadow .25s;
 }
-.trigger-caret { font-size: 7px; color: var(--fg3); margin-left: 1px; transition: transform .2s, color .18s; }
+.trigger-caret { font-size: 7px; color: var(--fg3); margin-left: 2px; transition: transform .2s, color .18s; }
 .color-trigger.open .trigger-caret { transform: rotate(180deg); color: var(--accent); }
 .color-trigger.open { border-color: var(--accent); color: #ffffff; background: var(--accent-lo); }
 .picker-panel {
@@ -299,7 +385,7 @@ body.grad-mode .picker-panel {
 }
 
 /* ── EXAM ALERT ── */
-#examAlert { position: fixed; top: 50px; left: calc(var(--sidebar-width) + 12px); right: 0; z-index: 150; }
+#examAlert { position: fixed; top: 60px; left: calc(var(--sidebar-width) + 12px); right: 0; z-index: 150; }
 .exam-alert {
   display: flex; align-items: center; gap: 12px;
   padding: 8px 22px;
@@ -326,9 +412,9 @@ body.grad-mode .picker-panel {
   display: grid;
   grid-template-columns: var(--sidebar-width) 12px minmax(0, 1fr);
   height: 100vh;
-  padding-top: 50px;
+  padding-top: 60px;
 }
-.layout.with-alert { padding-top: 50px; margin-top: 34px; }
+.layout.with-alert { padding-top: 60px; margin-top: 34px; }
 
 /* ── SIDEBAR ── */
 .sidebar {
@@ -801,6 +887,15 @@ body.fullscreen-active .layout { display: block; }
     <div class="nav-brand">
       <div class="nav-brand-mark" id="navMark"></div>
       ISC.exe / Resources
+    </div>
+    <div class="disc-wrap">
+      <button class="disc-btn"><span class="disc-warn-icon">⚠️</span><span class="disc-btn-text">Disclaimer</span></button>
+      <div class="disc-popup">
+        <div class="disc-inner">
+          <div class="disc-head"><span>⚠️</span><span class="disc-title">Disclaimer</span></div>
+          <p class="disc-body">ISC.exe is a <strong>free aggregator</strong> of study notes and resources found publicly online. This is an <strong>unofficial platform</strong> and is <strong>not affiliated with or connected to ISC (CISCE)</strong> in any way. We hold <strong>no copyrights, licences, or ownership</strong> over any material.<br/><br/>Rightful owners may write to <a href="mailto:hrooshi@duck.com">hrooshi@duck.com</a> for removal.</p>
+        </div>
+      </div>
     </div>
     <div class="nav-links">
       <a class="nav-link" href="/">← Home</a>
