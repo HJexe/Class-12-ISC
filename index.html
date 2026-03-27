@@ -64,9 +64,9 @@ body{animation:pgIn .4s ease both;}
 @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:transparent;}
-.nav-brand{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
-.nav-brand-mark{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:background .3s,box-shadow .3s;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:transparent;}
+.nav-brand{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;}
+.nav-brand-mark{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:background .3s,box-shadow .3s;}
 .nav-main{display:flex;align-items:center;gap:26px;}
 .nav-main-links{
   position:relative;display:flex;align-items:center;gap:2px;padding:2px;
@@ -100,9 +100,9 @@ body{animation:pgIn .4s ease both;}
 
 /* DISCLAIMER */
 .disc-wrap{position:relative;}
-.disc-btn{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:6px 12px;border-radius:8px;background:rgba(212,168,75,.13);border:1px solid rgba(212,168,75,.45);color:#d4a84b;cursor:pointer;transition:all .18s;box-shadow:0 0 12px rgba(212,168,75,.08),inset 0 1px 0 rgba(255,255,255,.04);}
+.disc-btn{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;background:rgba(212,168,75,.13);border:1px solid rgba(212,168,75,.45);color:#d4a84b;cursor:pointer;transition:all .18s;box-shadow:0 0 12px rgba(212,168,75,.08),inset 0 1px 0 rgba(255,255,255,.04);}
 .disc-btn:hover{background:rgba(212,168,75,.22);border-color:rgba(212,168,75,.75);color:#e8be5a;}
-.disc-warn-icon{font-size:16px;filter:drop-shadow(0 0 6px rgba(212,168,75,.6));animation:warnPulse 2.5s ease-in-out infinite;}
+.disc-warn-icon{font-size:15px;filter:drop-shadow(0 0 6px rgba(212,168,75,.6));animation:warnPulse 2.5s ease-in-out infinite;}
 @keyframes warnPulse{0%,100%{filter:drop-shadow(0 0 4px rgba(212,168,75,.4));}50%{filter:drop-shadow(0 0 10px rgba(212,168,75,.9));}}
 .disc-btn-text{letter-spacing:1.5px;}
 .disc-popup{position:absolute;top:calc(100% + 10px);left:0;z-index:600;display:none;}
@@ -139,10 +139,10 @@ body.grad-mode .fp-dot{background:linear-gradient(135deg,var(--grad-a),var(--gra
 .grad-preset.active{border-color:rgba(255,255,255,.65);}
 .grad-preset.active::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(0,0,0,.55);font-weight:700;}
 .picker-wrap{position:relative;}
-.color-trigger{display:flex;align-items:center;gap:7px;padding:6px 12px 6px 8px;border:1px solid var(--border2);border-radius:8px;background:transparent;font-family:'DM Mono',monospace;font-size:12.5px;color:var(--fg3);letter-spacing:.4px;transition:border-color .18s,color .18s,background .18s;cursor:pointer;}
+.color-trigger{display:flex;align-items:center;gap:7px;padding:5px 11px 5px 7px;border:1px solid var(--border2);border-radius:6px;background:transparent;font-family:'DM Mono',monospace;font-size:11px;color:var(--fg3);letter-spacing:.4px;transition:border-color .18s,color .18s,background .18s;cursor:pointer;}
 .color-trigger:hover{border-color:var(--accent);color:var(--fg2);background:var(--accent-lo);}
 .color-trigger.open{border-color:var(--accent);color:var(--fg2);background:var(--accent-lo);}
-.trigger-swatch{width:16px;height:16px;border-radius:5px;background:var(--accent);box-shadow:0 0 6px var(--accent);flex-shrink:0;transition:background .25s,box-shadow .25s;}
+.trigger-swatch{width:14px;height:14px;border-radius:4px;background:var(--accent);box-shadow:0 0 6px var(--accent);flex-shrink:0;transition:background .25s,box-shadow .25s;}
 .trigger-caret{font-size:7px;color:var(--fg3);margin-left:1px;transition:transform .2s,color .18s;}
 .color-trigger.open .trigger-caret{transform:rotate(180deg);color:var(--accent);}
 .picker-panel{position:absolute;top:calc(100% + 10px);right:0;z-index:9000;width:320px;background:rgba(10,14,11,.98);border:1px solid var(--border2);border-top:2px solid var(--accent);border-radius:14px;backdrop-filter:blur(32px);box-shadow:0 32px 80px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.02),inset 0 1px 0 rgba(255,255,255,.03);opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:opacity .22s ease,transform .22s ease,border-color .25s;overflow:hidden;}
@@ -172,7 +172,7 @@ body.grad-mode .fp-dot{background:linear-gradient(135deg,var(--grad-a),var(--gra
 .reset-btn:hover{color:var(--fg2);border-color:var(--fg3);}
 .autosave-note{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;color:var(--fg3);display:flex;align-items:center;gap:4px;opacity:.5;}
 .autosave-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:breathe 2.5s ease-in-out infinite;transition:background .3s;}
-.nav-link{text-decoration:none;color:var(--fg3);font-family:'DM Mono',monospace;font-size:12.5px;padding:7px 14px;border:1px solid transparent;border-radius:8px;transition:all .18s;}
+.nav-link{text-decoration:none;color:var(--fg3);font-family:'DM Mono',monospace;font-size:11.5px;padding:5px 13px;border:1px solid transparent;border-radius:6px;transition:all .18s;}
 .nav-link:hover{color:var(--fg2);border-color:var(--border2);background:var(--surface);}
 
 /* HERO */
@@ -429,6 +429,7 @@ body.grad-mode .fp-dot{background:linear-gradient(135deg,var(--grad-a),var(--gra
         </div>
       </div>
     </div>
+    <div class="focus-pill"><span class="fp-dot"></span> Focus mode: active</div>
     <div class="picker-wrap" id="pickerWrap">
       <button class="color-trigger" id="colorTrigger" onclick="togglePicker()">
         <span class="trigger-swatch" id="triggerSwatch"></span>
