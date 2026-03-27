@@ -68,34 +68,9 @@ body{animation:pgIn .4s ease both;}
 .nav-brand{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0;}
 .nav-brand-mark{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:background .3s,box-shadow .3s;}
 .nav-main{display:flex;align-items:center;gap:26px;}
-.nav-main-links{
-  position:relative;display:flex;align-items:center;gap:2px;padding:2px;
-  border-radius:999px;border:1px solid color-mix(in srgb,var(--border2) 72%,transparent);
-  background:rgba(10,16,13,.42);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 0 12px rgba(0,0,0,.22);
-}
-.nav-main-links a{
-  position:relative;z-index:2;display:block;padding:6px 12px;border-radius:999px;
-  font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;
-  text-decoration:none;color:color-mix(in srgb,var(--fg) 68%,var(--fg3));
-  transition:color .2s ease,text-shadow .25s ease;
-}
-.nav-main-links a:hover,.nav-main-links a.active{
-  color:color-mix(in srgb,var(--fg) 92%,#fff);
-  text-shadow:0 0 14px color-mix(in srgb,var(--accent) 28%,transparent);
-}
-.nav-slide-cursor{
-  position:absolute;top:2px;left:0;z-index:1;height:calc(100% - 4px);
-  border-radius:999px;
-  background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent) 10%,transparent));
-  border:1px solid color-mix(in srgb,var(--accent) 44%,transparent);
-  backdrop-filter:blur(6px);
-  opacity:0;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.08),
-    0 0 12px color-mix(in srgb,var(--accent) 24%,transparent);
-  transition:left .28s cubic-bezier(.34,1.56,.64,1),width .28s cubic-bezier(.34,1.56,.64,1),opacity .18s;
-}
+.nav-main-links{display:flex;align-items:center;gap:18px;}
+.nav-main-links a{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;text-decoration:none;color:color-mix(in srgb,var(--fg) 70%,var(--fg3));}
+.nav-main-links a:hover,.nav-main-links a.active{color:var(--accent);}
 .nav-right{display:flex;align-items:center;gap:6px;}
 
 /* DISCLAIMER */
@@ -409,11 +384,10 @@ body.grad-mode .fp-dot{background:linear-gradient(135deg,var(--grad-a),var(--gra
 <nav class="nav">
   <div class="nav-main">
     <a class="nav-brand" href="/"><div class="nav-brand-mark" id="navMark"></div>ISC.exe</a>
-    <div class="nav-main-links" id="navSlideTabs" aria-label="Primary navigation">
+    <div class="nav-main-links">
       <a class="active" href="index.html">Dashboard</a>
       <a href="resource.html">Resources</a>
       <a href="timetable.html">Timetable</a>
-      <span class="nav-slide-cursor" id="navSlideCursor" aria-hidden="true"></span>
     </div>
   </div>
   <div class="nav-right">
@@ -814,30 +788,8 @@ function closePicker() {
 document.addEventListener('click', e => { if (pickerOpen && !document.getElementById('pickerWrap').contains(e.target)) closePicker(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && pickerOpen) closePicker(); });
 
-function initNavSlideTabs() {
-  const container = document.getElementById('navSlideTabs');
-  const cursor = document.getElementById('navSlideCursor');
-  if (!container || !cursor) return;
-  const tabs = [...container.querySelectorAll('a')];
-  const getCurrent = () => container.querySelector('a.active') || tabs[0];
-  const moveTo = (tab) => {
-    if (!tab) return;
-    cursor.style.left = `${tab.offsetLeft}px`;
-    cursor.style.width = `${tab.offsetWidth}px`;
-    cursor.style.opacity = '1';
-  };
-  tabs.forEach((tab) => {
-    tab.addEventListener('mouseenter', () => moveTo(tab));
-    tab.addEventListener('focus', () => moveTo(tab));
-  });
-  container.addEventListener('mouseleave', () => moveTo(getCurrent()));
-  window.addEventListener('resize', () => moveTo(getCurrent()));
-  moveTo(getCurrent());
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   buildPresets(); buildGradPresets();
-  initNavSlideTabs();
   const savedGrad = localStorage.getItem(GRAD_KEY);
   if (savedGrad) {
     const g = JSON.parse(savedGrad); applyGradient(g.a, g.b, false); switchPickerMode('gradient');
