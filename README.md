@@ -1,22 +1,26 @@
-# 📚 Class 12 ISC Resources (Built with AI+github tutorials from yt)
+# 📚 Class 12 ISC Resources (Built with AI + GitHub tutorials from YouTube)
 
 A clean and simple website built to organize **ISC Class 12** study
 materials in one place. **New updates will be coming soon**
 
-🔗 Live Website: https://class-12-isc.vercel.app/
+🔗 Website live at: https://class-12-isc.vercel.app/
 
 ## 📂 Subjects Included
-<img width="439" height="332" alt="CleanShot 2026-04-04 at 07 53 55" src="https://github.com/user-attachments/assets/9b6fa37f-0f94-4840-b0bb-c0bbb8983419" />
-<img width="446" height="333" alt="CleanShot 2026-04-04 at 07 54 06" src="https://github.com/user-attachments/assets/bc784c3a-d6b7-4611-bfd4-c2572fa8ce97" />
-<img width="439" height="224" alt="CleanShot 2026-04-04 at 07 54 23" src="https://github.com/user-attachments/assets/868c5bb6-12ee-4bca-adcf-9a91152e48df" />
+### Commerce
+<img width="434" height="330" alt="Commerce-subject-cluster" src="https://github.com/user-attachments/assets/e55bea5e-33f4-42cc-981a-61c804a840c3" />
 
+### Science
+<img width="434" height="329" alt="Science-subject-cluster" src="https://github.com/user-attachments/assets/6dc89294-4fb9-4f34-8205-8a595106a649" />
+
+### Humaities & Arts
+<img width="438" height="235" alt="Humanities-and-Arts-subject-cluster" src="https://github.com/user-attachments/assets/af252cab-ddad-465b-a99b-f3d3515497f1" />
 
 
 ## 🚀 Features
 
 -   🗂️ Organized subject-wise folders
 -   💨 Easy access to notes & resources
--    Minimal UI
+-   🎨 Minimal UI
 -   🌐 Works on all devices
 -   📥 Downloadable resources
 -   🆓 Free to use
