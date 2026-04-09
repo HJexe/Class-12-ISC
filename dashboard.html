@@ -311,7 +311,7 @@ body::after{
 /* ── TOPBAR ── */
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:16px;flex-wrap:wrap;}
 .topbar-greeting{font-family:'Outfit',sans-serif;font-size:28px;color:var(--fg);line-height:1.1;margin-bottom:3px;font-weight:600;}
-.topbar-greeting em{font-style:italic;color:var(--accent);transition:color .3s;text-shadow:none;}
+#timeOfDay {color:var(--accent);transition:color .3s;text-shadow:none;}
 .topbar-date{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--fg3);letter-spacing:1.5px;text-transform:uppercase;}
 .topbar-beta-note{
   margin-top:5px;
@@ -475,22 +475,22 @@ body::after{
   50% { stroke-width: 7; }
 }
 .timer-time{
-  position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);
-  font-family:'Outfit',sans-serif;font-size:46px;font-weight:700;
+  position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Outfit',sans-serif;font-size:45px;font-weight:700;
   color:var(--fg);letter-spacing:-1px;line-height:1;z-index:2;
   text-shadow:none;
 }
 .timer-time-label{
-  position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:75px;left:50%;transform:translateX(-50%);
   font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--fg3);
-  letter-spacing:2px;text-transform:uppercase;white-space:nowrap;transition:color .3s,opacity .3s;
+  letter-spacing:1.9px;text-transform:uppercase;white-space:nowrap;transition:color .3s,opacity .3s;
 }
 .timer-time-label.active{color:var(--accent);opacity:.9;}
 
 .timer-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;}
 .ctrl-btn{
   display:flex;align-items:center;justify-content:center;
-  border-radius:9px;border:1px solid var(--border2);
+  border-radius:25px;border:1px solid var(--border2);
   background:var(--surface2);color:var(--fg2);
   cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1);font-size:14px;
 }
@@ -1150,7 +1150,7 @@ body::after{
 
     <div class="topbar">
       <div>
-        <div class="topbar-greeting">Good <em id="timeOfDay">evening</em>, <span id="greetName">Harsh</span></div>
+        <div class="topbar-greeting">Good <span id="timeOfDay">evening</span>, <span id="greetName">Harsh</span>!</div>
         <div class="topbar-date" id="topbarDate">Loading…</div>
         <div class="topbar-beta-note"><span class="topbar-beta-note-dot"></span>Beta version — some bugs may occur. Your data is saved locally.</div>
       </div>
@@ -1233,7 +1233,7 @@ body::after{
         </div>
 
         <div class="timer-controls">
-          <button class="ctrl-btn sm" onclick="resetTimer()" title="Reset">
+          <button class="ctrl-btn sm" onclick="resetTimer()" title="Reset" style="border-radius:15px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5.34L1 10"/>
             </svg>
@@ -1242,7 +1242,7 @@ body::after{
             <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
             <svg id="pauseIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
           </button>
-          <button class="ctrl-btn sm stop" onclick="stopSession()" title="Stop & Save">
+          <button class="ctrl-btn sm stop" onclick="stopSession()" title="Stop & Save" style="border-radius:15px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
           </button>
         </div>
