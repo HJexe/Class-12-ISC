@@ -1863,6 +1863,46 @@ function resolveDeepLink(){
   if(entry){preview(entry);setTimeout(()=>{const a=document.querySelector('.file-link.active');if(!a)return;let n=a.parentElement;while(n&&n.id!=='folders'){if(n.tagName==='DETAILS')n.open=true;n=n.parentElement;}a.scrollIntoView({block:'nearest'});},150);return;}
   setTimeout(()=>{let st=null;document.querySelectorAll('details[data-folder]').forEach(det=>{const f=det.dataset.folder;if(path.startsWith(f+'/')||f===path){det.open=true;if(f===path)st=det;}});if(st)st.scrollIntoView({block:'start',behavior:'smooth'});},150);
 }
+
+async function loadLocalManifestFallback(merged){
+  const candidates=[];
+  const nested=['Notes/text','Papers/text','Worksheets/text','Official ISC/text','Miscellaneous/text','Revision Notes /text','text','text.'];
+  const allSubs=[...new Set(Object.values(STREAMS).flat())];
+  for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
+  await Promise.all(candidates.map(async tp=>{
+    try{
+      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      if(!tr.ok) return;
+      const txt=await tr.text();
+      if(!txt || txt.includes('<!DOCTYPE html')) return;
+      const dir=tp.split('/').slice(0,-1).join('/');
+      txt.trim().split('\n').filter(Boolean).forEach(line=>{
+        line=line.trim(); let name,url;
+        if(line.includes('|')){const i=line.indexOf('|');name=line.slice(0,i).trim();url=line.slice(i+1).trim();}
+        else if(/^https?:\/\//i.test(line)){url=line;name=dir.split('/').pop()||'File';}
+        else return;
+        if(!/^https?:\/\//i.test(url)) return;
+        const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
+        merged.set(key(entry),entry);
+      });
+    }catch{}
+  }));
+}
+
+
+async function fetchIndexEntries(){
+  const urls=['/files','/files.json'];
+  for(const u of urls){
+    try{
+      const r=await fetch(u,{cache:'no-store'});
+      if(!r.ok) continue;
+      const data=await r.json();
+      if(Array.isArray(data)) return data;
+    }catch{}
+  }
+  return [];
+}
+
 function shareFolderLink(folderPath){history.replaceState(null,'','/resource/'+folderPath.split('/').map(encodeURIComponent).join('/'));navigator.clipboard.writeText(location.href).then(()=>showToast('Folder link copied!')).catch(()=>showToast('Folder link copied!'));}
 
 async function load(){
@@ -1893,6 +1933,7 @@ async function load(){
       }
     }
   }catch(e){}
+  if(!merged.size) await loadLocalManifestFallback(merged);
   allFiles=[...merged.values()];
   if(!allFiles.length){el.innerHTML='<div class="msg">No resources found.</div>';return;}
   render();setTimeout(resolveDeepLink,150);
