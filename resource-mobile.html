@@ -592,7 +592,7 @@ function closeViewer(){
 async function load(){
   render(); // show skeleton
   const merged=new Map();
-  try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/files.json`);if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
+  try{const r=await fetch('/files.json',{cache:'no-store'});if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
