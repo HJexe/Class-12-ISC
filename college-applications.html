@@ -307,49 +307,6 @@ td .trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:28
 .search-overlay.open{opacity:1;pointer-events:auto}
 .search-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(10px)}
 .search-modal{position:relative;width:100%;max-width:520px;margin:0 16px;border-radius:var(--radius);border:1px solid var(--border2);border-top:2px solid var(--accent);background:var(--bg2);box-shadow:0 32px 80px rgba(0,0,0,.8);overflow:hidden;transform:scale(.97);transition:transform .15s}
-
-/* ─── College Search ─── */
-.cs-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:18px}
-.cs-filter-group{display:flex;flex-direction:column;gap:5px}
-.cs-filter-label{font-size:.65rem;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--font-mono)}
-.cs-select{padding:9px 11px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);color:var(--fg);font-size:.8rem;outline:none;transition:all .15s;font-family:var(--font);cursor:pointer}
-.cs-select:focus{border-color:var(--accent-md);background:var(--surface2)}
-.cs-select option{background:var(--bg2);color:var(--fg)}
-.cs-search-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.cs-search-input{flex:1;min-width:200px;position:relative}
-.cs-search-input svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--fg3)}
-.cs-search-input input{width:100%;padding:9px 11px 9px 34px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);color:var(--fg);font-size:.8rem;outline:none;transition:all .15s;font-family:var(--font)}
-.cs-search-input input:focus{border-color:var(--accent-md);background:var(--surface2)}
-.cs-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--radius-sm);font-size:.8rem;font-weight:600;background:var(--accent);color:var(--bg);border:none;cursor:pointer;transition:all .2s;font-family:var(--font-mono);letter-spacing:.3px}
-.cs-btn:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 16px rgba(59,255,108,.25)}
-.cs-btn svg{width:14px;height:14px}
-.cs-results-count{font-size:.75rem;color:var(--fg3);margin-bottom:12px;font-family:var(--font-mono)}
-.cs-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.cs-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;transition:all .2s;animation:fadeIn .25s ease both}
-.cs-card:hover{border-color:var(--accent-md);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.cs-card-header{display:flex;align-items:start;gap:12px;padding:14px 14px 0}
-.cs-card-logo{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem;font-weight:700;color:var(--accent);font-family:var(--font-mono)}
-.cs-card-info{flex:1;min-width:0}
-.cs-card-name{font-size:.9rem;font-weight:600;color:var(--fg);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cs-card-location{font-size:.7rem;color:var(--fg3);font-family:var(--font-mono);display:flex;align-items:center;gap:4px}
-.cs-card-location svg{width:11px;height:11px}
-.cs-card-body{padding:12px 14px}
-.cs-card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.cs-tag{padding:3px 8px;border-radius:12px;font-size:.65rem;font-weight:600;font-family:var(--font-mono);background:var(--accent-lo);color:var(--accent);border:1px solid var(--accent-md)}
-.cs-tag.course{background:var(--cyan-lo);color:var(--cyan);border-color:rgba(95,212,232,.25)}
-.cs-tag.fee{background:var(--amber-lo);color:var(--amber);border-color:rgba(255,184,48,.25)}
-.cs-card-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04)}
-.cs-meta-item{display:flex;flex-direction:column;gap:2px}
-.cs-meta-label{font-size:.6rem;color:var(--fg3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--font-mono)}
-.cs-meta-value{font-size:.75rem;color:var(--fg2);font-weight:500}
-.cs-card-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.01);border-top:1px solid rgba(255,255,255,.03)}
-.cs-apply-link{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:var(--radius-xs);font-size:.7rem;font-weight:600;background:var(--accent-lo);color:var(--accent);border:1px solid var(--accent-md);text-decoration:none;transition:all .15s;font-family:var(--font-mono)}
-.cs-apply-link:hover{background:var(--accent-md);color:var(--bg)}
-.cs-apply-link svg{width:12px;height:12px}
-.cs-loading{text-align:center;padding:40px 20px}
-.cs-loading svg{width:32px;height:32px;color:var(--accent);animation:spin 1s linear infinite;margin-bottom:12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.cs-error{background:var(--red-lo);border:1px solid rgba(255,107,107,.25);border-radius:var(--radius);padding:16px;text-align:center;color:var(--red);font-family:var(--font-mono);font-size:.8rem}
 .search-overlay.open .search-modal{transform:scale(1)}
 .search-input-modal{display:flex;align-items:center;gap:9px;padding:13px 15px;border-bottom:1px solid var(--border)}
 .search-input-modal svg{width:16px;height:16px;color:var(--fg3);flex-shrink:0}
@@ -532,11 +489,6 @@ td .trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:28
       <span class="nav-text">College Deadlines</span>
     </button>
 
-    <button class="nav-item" data-tab="college-search" onclick="setTab('college-search')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
-      <span class="nav-text">College Search</span>
-    </button>
-
     <button class="nav-item" data-tab="my-list" onclick="setTab('my-list')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
       <span class="nav-text">My List</span>
@@ -572,12 +524,6 @@ td .trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:28
       Colleges
     </button>
 
-    <button class="mobile-tab" data-tab="college-search" onclick="setTab('college-search')">
-      <span class="tab-indicator"></span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Search
-    </button>
-
     <button class="mobile-tab" data-tab="my-list" onclick="setTab('my-list')">
       <span class="tab-indicator"></span>
       <span class="tab-badge" id="mobileBadge" style="display:none"></span>
@@ -603,10 +549,6 @@ td .trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:28
     </button>
     <button class="nav-item" data-tab="college-deadlines" onclick="setTab('college-deadlines');closeDrawer()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg><span>College Deadlines</span>
-    </button>
-
-    <button class="nav-item" data-tab="college-search" onclick="setTab('college-search');closeDrawer()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>College Search</span>
     </button>
 
     <button class="nav-item" data-tab="my-list" onclick="setTab('my-list');closeDrawer()">
@@ -911,7 +853,6 @@ async function renderTab() {
   const renderers = {
     'test-deadlines': renderTestDeadlines,
     'college-deadlines': renderCollegeDeadlines,
-    'college-search': renderCollegeSearch,
     'my-list': renderMyList
   };
   if (renderers[state.tab]) await renderers[state.tab](el);
@@ -1127,237 +1068,6 @@ async function renderCollegeDeadlines(el) {
 
   window._renderCDs = render;
   render();
-}
-
-// ─── COLLEGE SEARCH (UG Programs - Indian Universities) ───
-const CS_COURSES = [
-  { value: '', label: 'All Courses' },
-  { value: 'architecture', label: 'Architecture' },
-  { value: 'ai', label: 'Artificial Intelligence' },
-  { value: 'data-science', label: 'Data Science' },
-  { value: 'economics', label: 'Economics' },
-  { value: 'computer-science', label: 'Computer Science' },
-  { value: 'mechanical', label: 'Mechanical Engineering' },
-  { value: 'electrical', label: 'Electrical Engineering' },
-  { value: 'civil', label: 'Civil Engineering' },
-  { value: 'electronics', label: 'Electronics & Communication' },
-  { value: 'business', label: 'Business Administration' },
-  { value: 'finance', label: 'Finance' },
-  { value: 'marketing', label: 'Marketing' },
-  { value: 'psychology', label: 'Psychology' },
-  { value: 'mathematics', label: 'Mathematics' },
-  { value: 'physics', label: 'Physics' },
-  { value: 'chemistry', label: 'Chemistry' },
-  { value: 'biotechnology', label: 'Biotechnology' },
-  { value: 'medicine', label: 'Medicine' },
-  { value: 'law', label: 'Law' },
-  { value: 'design', label: 'Design' },
-  { value: 'media', label: 'Media & Journalism' }
-];
-
-const CS_STATES = [
-  { value: '', label: 'All India' },
-  { value: 'Delhi', label: 'Delhi' },
-  { value: 'Maharashtra', label: 'Maharashtra' },
-  { value: 'Karnataka', label: 'Karnataka' },
-  { value: 'Tamil Nadu', label: 'Tamil Nadu' },
-  { value: 'Uttar Pradesh', label: 'Uttar Pradesh' },
-  { value: 'West Bengal', label: 'West Bengal' },
-  { value: 'Telangana', label: 'Telangana' },
-  { value: 'Gujarat', label: 'Gujarat' },
-  { value: 'Rajasthan', label: 'Rajasthan' },
-  { value: 'Punjab', label: 'Punjab' },
-  { value: 'Haryana', label: 'Haryana' },
-  { value: 'Madhya Pradesh', label: 'Madhya Pradesh' },
-  { value: 'Kerala', label: 'Kerala' },
-  { value: 'Andhra Pradesh', label: 'Andhra Pradesh' }
-];
-
-async function renderCollegeSearch(el) {
-  el.innerHTML = `
-    <div class="page-header">
-      <h1>College Search</h1>
-      <p>Find UG programmes from Indian universities</p>
-    </div>
-    <div class="cs-search-row">
-      <div class="cs-search-input">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="csSearchInput" placeholder="Search colleges, universities..." onkeyup="if(event.key==='Enter')performCSearch()">
-      </div>
-      <button class="cs-btn" onclick="performCSearch()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Search
-      </button>
-    </div>
-    <div class="cs-filters">
-      <div class="cs-filter-group">
-        <label class="cs-filter-label">Course / Stream</label>
-        <select id="csCourseSelect" class="cs-select">${CS_COURSES.map(c => `<option value="${c.value}">${c.label}</option>`).join('')}</select>
-      </div>
-      <div class="cs-filter-group">
-        <label class="cs-filter-label">State</label>
-        <select id="csStateSelect" class="cs-select">${CS_STATES.map(s => `<option value="${s.value}">${s.label}</option>`).join('')}</select>
-      </div>
-      <div class="cs-filter-group">
-        <label class="cs-filter-label">Maths Requirement</label>
-        <select id="csMathsSelect" class="cs-select">
-          <option value="">Any</option>
-          <option value="mandatory">Maths Mandatory</option>
-          <option value="optional">Maths Optional</option>
-          <option value="not-required">No Maths Required</option>
-        </select>
-      </div>
-      <div class="cs-filter-group">
-        <label class="cs-filter-label">Fee Range (Annual)</label>
-        <select id="csFeeSelect" class="cs-select">
-          <option value="">Any</option>
-          <option value="low">Under ₹50,000</option>
-          <option value="medium">₹50,000 - ₹2,00,000</option>
-          <option value="high">₹2,00,000 - ₹5,00,000</option>
-          <option value="premium">Above ₹5,00,000</option>
-        </select>
-      </div>
-    </div>
-    <div id="csResultsCount" class="cs-results-count"></div>
-    <div id="csResultsGrid" class="cs-card-grid"></div>
-  `;
-  
-  // Load initial data
-  performCSearch();
-}
-
-// Sample college data for demonstration (in production, this would come from an API)
-const SAMPLE_COLLEGES = [
-  { id: 1, name: 'Indian Institute of Technology Delhi', location: 'New Delhi, Delhi', state: 'Delhi', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science'], maths: 'mandatory', fee: 85000, feeCategory: 'low', logo: 'IITD', url: 'https://home.iitd.ac.in/' },
-  { id: 2, name: 'Indian Institute of Science', location: 'Bangalore, Karnataka', state: 'Karnataka', courses: ['computer-science', 'ai', 'data-science', 'physics', 'chemistry', 'mathematics', 'biotechnology'], maths: 'mandatory', fee: 72000, feeCategory: 'low', logo: 'IISc', url: 'https://www.iisc.ac.in/' },
-  { id: 3, name: 'Delhi Technological University', location: 'New Delhi, Delhi', state: 'Delhi', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'architecture'], maths: 'mandatory', fee: 165000, feeCategory: 'medium', logo: 'DTU', url: 'https://dtu.ac.in/' },
-  { id: 4, name: 'Netaji Subhas University of Technology', location: 'New Delhi, Delhi', state: 'Delhi', courses: ['computer-science', 'mechanical', 'electrical', 'electronics', 'ai', 'data-science'], maths: 'mandatory', fee: 173000, feeCategory: 'medium', logo: 'NSUT', url: 'https://nsut.ac.in/' },
-  { id: 5, name: 'Vellore Institute of Technology', location: 'Vellore, Tamil Nadu', state: 'Tamil Nadu', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'biotechnology', 'design'], maths: 'mandatory', fee: 198000, feeCategory: 'medium', logo: 'VIT', url: 'https://vit.ac.in/' },
-  { id: 6, name: 'Manipal Institute of Technology', location: 'Manipal, Karnataka', state: 'Karnataka', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'architecture', 'design'], maths: 'mandatory', fee: 214000, feeCategory: 'medium', logo: 'MIT', url: 'https://manipal.edu/mit.html' },
-  { id: 7, name: 'SRM Institute of Science and Technology', location: 'Chennai, Tamil Nadu', state: 'Tamil Nadu', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'biotechnology', 'medicine', 'law', 'business'], maths: 'optional', fee: 265000, feeCategory: 'medium', logo: 'SRM', url: 'https://www.srmist.edu.in/' },
-  { id: 8, name: 'Amity University', location: 'Noida, Uttar Pradesh', state: 'Uttar Pradesh', courses: ['computer-science', 'business', 'law', 'media', 'design', 'psychology', 'economics', 'finance', 'marketing', 'ai', 'data-science'], maths: 'optional', fee: 138000, feeCategory: 'medium', logo: 'Amity', url: 'https://www.amity.edu/' },
-  { id: 9, name: 'Christ University', location: 'Bangalore, Karnataka', state: 'Karnataka', courses: ['computer-science', 'business', 'economics', 'finance', 'marketing', 'psychology', 'media', 'law', 'design', 'mathematics'], maths: 'optional', fee: 145000, feeCategory: 'medium', logo: 'Christ', url: 'https://christuniversity.in/' },
-  { id: 10, name: 'Lovely Professional University', location: 'Jalandhar, Punjab', state: 'Punjab', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'business', 'law', 'media', 'design', 'agriculture'], maths: 'optional', fee: 98000, feeCategory: 'low', logo: 'LPU', url: 'https://www.lpu.in/' },
-  { id: 11, name: 'BITS Pilani', location: 'Pilani, Rajasthan', state: 'Rajasthan', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'chemical', 'pharmacy'], maths: 'mandatory', fee: 241000, feeCategory: 'medium', logo: 'BITS', url: 'https://www.bits-pilani.ac.in/' },
-  { id: 12, name: 'Thapar Institute of Engineering and Technology', location: 'Patiala, Punjab', state: 'Punjab', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science'], maths: 'mandatory', fee: 223000, feeCategory: 'medium', logo: 'TIET', url: 'https://www.thapar.edu/' },
-  { id: 13, name: 'Jadavpur University', location: 'Kolkata, West Bengal', state: 'West Bengal', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'chemical', 'architecture'], maths: 'mandatory', fee: 9600, feeCategory: 'low', logo: 'JU', url: 'https://jadavpuruniversity.in/' },
-  { id: 14, name: 'Anna University', location: 'Chennai, Tamil Nadu', state: 'Tamil Nadu', courses: ['computer-science', 'mechanical', 'electrical', 'civil', 'electronics', 'ai', 'data-science', 'architecture', 'technology'], maths: 'mandatory', fee: 50000, feeCategory: 'low', logo: 'AU', url: 'https://www.annauniv.edu/' },
-  { id: 15, name: 'Symbiosis International University', location: 'Pune, Maharashtra', state: 'Maharashtra', courses: ['computer-science', 'business', 'law', 'media', 'design', 'economics', 'international-studies'], maths: 'optional', fee: 275000, feeCategory: 'medium', logo: 'SIU', url: 'https://www.siu.edu.in/' },
-  { id: 16, name: 'IIIT Hyderabad', location: 'Hyderabad, Telangana', state: 'Telangana', courses: ['computer-science', 'ai', 'data-science', 'electronics', 'communications'], maths: 'mandatory', fee: 350000, feeCategory: 'high', logo: 'IIITH', url: 'https://www.iiit.ac.in/' },
-  { id: 17, name: 'NIFT Delhi', location: 'New Delhi, Delhi', state: 'Delhi', courses: ['design', 'fashion', 'textile', 'media'], maths: 'not-required', fee: 195000, feeCategory: 'medium', logo: 'NIFT', url: 'https://www.nift.ac.in/' },
-  { id: 18, name: 'NID Ahmedabad', location: 'Ahmedabad, Gujarat', state: 'Gujarat', courses: ['design', 'industrial-design', 'communication-design'], maths: 'not-required', fee: 286000, feeCategory: 'medium', logo: 'NID', url: 'https://www.nid.edu/' },
-  { id: 19, name: 'St. Xavier\'s College Mumbai', location: 'Mumbai, Maharashtra', state: 'Maharashtra', courses: ['computer-science', 'economics', 'finance', 'marketing', 'psychology', 'mathematics', 'physics', 'chemistry'], maths: 'optional', fee: 125000, feeCategory: 'medium', logo: 'Xavier', url: 'https://www.xaviers.edu/' },
-  { id: 20, name: 'Lady Shri Ram College', location: 'New Delhi, Delhi', state: 'Delhi', courses: ['economics', 'business', 'finance', 'marketing', 'psychology', 'political-science', 'english'], maths: 'optional', fee: 35000, feeCategory: 'low', logo: 'LSR', url: 'https://www.lsr.edu.in/' }
-];
-
-function getCoursesDisplayName(courseValue) {
-  const course = CS_COURSES.find(c => c.value === courseValue);
-  return course ? course.label : courseValue;
-}
-
-function formatFee(fee) {
-  if (fee >= 100000) {
-    return '₹' + (fee / 100000).toFixed(1) + ' Lakh';
-  }
-  return '₹' + Math.round(fee / 1000) + 'K';
-}
-
-function performCSearch() {
-  const searchTerm = document.getElementById('csSearchInput')?.value.toLowerCase() || '';
-  const selectedCourse = document.getElementById('csCourseSelect')?.value || '';
-  const selectedState = document.getElementById('csStateSelect')?.value || '';
-  const selectedMaths = document.getElementById('csMathsSelect')?.value || '';
-  const selectedFee = document.getElementById('csFeeSelect')?.value || '';
-  
-  let results = [...SAMPLE_COLLEGES];
-  
-  // Filter by search term
-  if (searchTerm) {
-    results = results.filter(c => 
-      c.name.toLowerCase().includes(searchTerm) || 
-      c.location.toLowerCase().includes(searchTerm)
-    );
-  }
-  
-  // Filter by course
-  if (selectedCourse) {
-    results = results.filter(c => c.courses.includes(selectedCourse));
-  }
-  
-  // Filter by state
-  if (selectedState) {
-    results = results.filter(c => c.state === selectedState);
-  }
-  
-  // Filter by maths requirement
-  if (selectedMaths) {
-    results = results.filter(c => c.maths === selectedMaths);
-  }
-  
-  // Filter by fee range
-  if (selectedFee) {
-    results = results.filter(c => c.feeCategory === selectedFee);
-  }
-  
-  // Update results count
-  const countEl = document.getElementById('csResultsCount');
-  if (countEl) {
-    countEl.textContent = `${results.length} college${results.length !== 1 ? 's' : ''} found`;
-  }
-  
-  // Render results
-  const gridEl = document.getElementById('csResultsGrid');
-  if (gridEl) {
-    if (results.length === 0) {
-      gridEl.innerHTML = `
-        <div class="empty-state" style="grid-column: 1/-1; padding: 40px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <h3>No colleges found</h3>
-          <p>Try adjusting your filters or search terms</p>
-        </div>
-      `;
-    } else {
-      gridEl.innerHTML = results.map((college, i) => `
-        <div class="cs-card animate-in stagger-${Math.min(i, 5)}">
-          <div class="cs-card-header">
-            <div class="cs-card-logo">${college.logo}</div>
-            <div class="cs-card-info">
-              <div class="cs-card-name">${esc(college.name)}</div>
-              <div class="cs-card-location">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                ${esc(college.location)}
-              </div>
-            </div>
-          </div>
-          <div class="cs-card-body">
-            <div class="cs-card-tags">
-              ${college.courses.slice(0, 4).map(course => 
-                `<span class="cs-tag course">${getCoursesDisplayName(course)}</span>`
-              ).join('')}
-              ${college.courses.length > 4 ? `<span class="cs-tag">+${college.courses.length - 4} more</span>` : ''}
-            </div>
-            <div class="cs-card-meta">
-              <div class="cs-meta-item">
-                <span class="cs-meta-label">Maths</span>
-                <span class="cs-meta-value">${college.maths === 'mandatory' ? 'Mandatory' : college.maths === 'optional' ? 'Optional' : 'Not Required'}</span>
-              </div>
-              <div class="cs-meta-item">
-                <span class="cs-meta-label">Annual Fee</span>
-                <span class="cs-meta-value">${formatFee(college.fee)}</span>
-              </div>
-            </div>
-          </div>
-          <div class="cs-card-footer">
-            <span class="cs-tag fee">${formatFee(college.fee)}</span>
-            <a href="${college.url}" target="_blank" rel="noopener" class="cs-apply-link">
-              Visit Website
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </div>
-      `).join('');
-    }
-  }
 }
 
 // ─── MY LIST ───
