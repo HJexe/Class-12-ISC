@@ -1909,7 +1909,7 @@ async function load(){
   const el=document.getElementById('folders');
   el.innerHTML=`<div style="padding:10px 6px;display:flex;flex-direction:column;gap:3px;">${STREAMS.commerce.map(n=>`<div style="--subj-color:${COLORS[n]||'var(--accent)'};display:flex;align-items:center;gap:9px;padding:9px 12px 9px 10px;border-radius:8px;background:color-mix(in srgb,${COLORS[n]||'var(--accent)'} 6%,rgba(255,255,255,0.018));opacity:0.45;border:1px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 20%,transparent);border-left:2px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 80%,transparent)"><span class="s-icon" style="opacity:0.6">${SUBJECT_ICONS[n]||''}</span><span style="flex:1;font-size:13px;color:var(--fg2)">${n}</span><span style="width:26px;height:14px;background:var(--surface2);border-radius:8px;display:inline-block"></span></div>`).join('')}</div>`;
   const merged=new Map();
-  try{(await fetchIndexEntries()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
+  try{const r=await fetch('/files.json',{cache:'no-store'});if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
