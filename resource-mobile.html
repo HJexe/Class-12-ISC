@@ -589,10 +589,50 @@ function closeViewer(){
   document.getElementById('vFrame').src='';
 }
 
+
+async function loadLocalManifestFallback(merged){
+  const candidates=[];
+  const nested=['Notes/text','Papers/text','Worksheets/text','Official ISC/text','Miscellaneous/text','Revision Notes /text','text','text.'];
+  const allSubs=[...new Set(Object.values(STREAMS).flat())];
+  for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
+  await Promise.all(candidates.map(async tp=>{
+    try{
+      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      if(!tr.ok) return;
+      const txt=await tr.text();
+      if(!txt || txt.includes('<!DOCTYPE html')) return;
+      const dir=tp.split('/').slice(0,-1).join('/');
+      txt.trim().split('\n').filter(Boolean).forEach(line=>{
+        line=line.trim(); let name,url;
+        if(line.includes('|')){const i=line.indexOf('|');name=line.slice(0,i).trim();url=line.slice(i+1).trim();}
+        else if(/^https?:\/\//i.test(line)){url=line;name=dir.split('/').pop()||'File';}
+        else return;
+        if(!/^https?:\/\//i.test(url)) return;
+        const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
+        merged.set(key(entry),entry);
+      });
+    }catch{}
+  }));
+}
+
+
+async function fetchIndexEntries(){
+  const urls=['/files','/files.json'];
+  for(const u of urls){
+    try{
+      const r=await fetch(u,{cache:'no-store'});
+      if(!r.ok) continue;
+      const data=await r.json();
+      if(Array.isArray(data)) return data;
+    }catch{}
+  }
+  return [];
+}
+
 async function load(){
   render(); // show skeleton
   const merged=new Map();
-  try{const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/files.json`);if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
+  try{(await fetchIndexEntries()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
@@ -617,8 +657,9 @@ async function load(){
       }
     }
   }catch(e){}
+  if(!merged.size) await loadLocalManifestFallback(merged);
   allFiles=[...merged.values()];
-  render();
+  try{render();}catch(err){console.error('mobile render failed',err);document.getElementById('subjects').innerHTML=`<div style="padding:14px;color:var(--fg2);font-size:12px">Failed to render resources: ${String(err&&err.message||err)}</div>`;}
 }
 load();
 </script>

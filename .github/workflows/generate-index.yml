@@ -2,7 +2,7 @@ name: generate-index
 
 on:
   push:
-    branches: [main]
+    branches: [main, work]
   workflow_dispatch:
 
 jobs:
@@ -23,8 +23,13 @@ jobs:
           python3 - <<'EOF'
           import os, json
 
-          SUBJECTS = ["Economics", "Accounts", "Business Studies", "Maths-(creds-Abhinav)", "Commerce"]
-          ALLOWED = {".pdf", ".txt", ".png", ".jpg", ".jpeg", ".docx", ".xlsx"}
+          SUBJECTS = [
+            "English", "Economics", "Accounts", "Business Studies", "Commerce",
+            "Physics", "Chemistry", "Biology", "Maths", "Computer Science",
+            "Biotechnology", "Environmental Science", "History", "Political Science",
+            "Geography", "Sociology", "Psychology", "Fine Arts", "Home Science"
+          ]
+          ALLOWED = {".pdf", ".txt", ".png", ".jpg", ".jpeg", ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx"}
 
           files = []
           for subject in SUBJECTS:
@@ -33,11 +38,14 @@ jobs:
             for root, dirs, filenames in os.walk(subject):
               dirs[:] = [d for d in dirs if not d.startswith('.')]
               for fn in filenames:
-                if any(fn.lower().endswith(ext) for ext in ALLOWED):
-                  rel = os.path.join(root, fn).replace("\\", "/")
+                rel = os.path.join(root, fn).replace("\\", "/")
+                low = fn.lower()
+                if low in {"text", "text."} or low.startswith("text"):
+                  files.append(rel)
+                elif any(low.endswith(ext) for ext in ALLOWED):
                   files.append(rel)
 
-          files.sort()
+          files = sorted(set(files))
           with open("files.json", "w") as f:
             json.dump(files, f, indent=2)
           print(f"✓ Indexed {len(files)} files")
@@ -52,5 +60,5 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: update file index [skip ci]"
-            git push origin main
+            git push origin HEAD
           fi
