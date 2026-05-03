@@ -1863,13 +1863,53 @@ function resolveDeepLink(){
   if(entry){preview(entry);setTimeout(()=>{const a=document.querySelector('.file-link.active');if(!a)return;let n=a.parentElement;while(n&&n.id!=='folders'){if(n.tagName==='DETAILS')n.open=true;n=n.parentElement;}a.scrollIntoView({block:'nearest'});},150);return;}
   setTimeout(()=>{let st=null;document.querySelectorAll('details[data-folder]').forEach(det=>{const f=det.dataset.folder;if(path.startsWith(f+'/')||f===path){det.open=true;if(f===path)st=det;}});if(st)st.scrollIntoView({block:'start',behavior:'smooth'});},150);
 }
+
+async function loadLocalManifestFallback(merged){
+  const candidates=[];
+  const nested=['Notes/text','Papers/text','Worksheets/text','Official ISC/text','Miscellaneous/text','Revision Notes /text','text','text.'];
+  const allSubs=[...new Set(Object.values(STREAMS).flat())];
+  for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
+  await Promise.all(candidates.map(async tp=>{
+    try{
+      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      if(!tr.ok) return;
+      const txt=await tr.text();
+      if(!txt || txt.includes('<!DOCTYPE html')) return;
+      const dir=tp.split('/').slice(0,-1).join('/');
+      txt.trim().split('\n').filter(Boolean).forEach(line=>{
+        line=line.trim(); let name,url;
+        if(line.includes('|')){const i=line.indexOf('|');name=line.slice(0,i).trim();url=line.slice(i+1).trim();}
+        else if(/^https?:\/\//i.test(line)){url=line;name=dir.split('/').pop()||'File';}
+        else return;
+        if(!/^https?:\/\//i.test(url)) return;
+        const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
+        merged.set(key(entry),entry);
+      });
+    }catch{}
+  }));
+}
+
+
+async function fetchIndexEntries(){
+  const urls=['/files','/files.json'];
+  for(const u of urls){
+    try{
+      const r=await fetch(u,{cache:'no-store'});
+      if(!r.ok) continue;
+      const data=await r.json();
+      if(Array.isArray(data)) return data;
+    }catch{}
+  }
+  return [];
+}
+
 function shareFolderLink(folderPath){history.replaceState(null,'','/resource/'+folderPath.split('/').map(encodeURIComponent).join('/'));navigator.clipboard.writeText(location.href).then(()=>showToast('Folder link copied!')).catch(()=>showToast('Folder link copied!'));}
 
 async function load(){
   const el=document.getElementById('folders');
   el.innerHTML=`<div style="padding:10px 6px;display:flex;flex-direction:column;gap:3px;">${STREAMS.commerce.map(n=>`<div style="--subj-color:${COLORS[n]||'var(--accent)'};display:flex;align-items:center;gap:9px;padding:9px 12px 9px 10px;border-radius:8px;background:color-mix(in srgb,${COLORS[n]||'var(--accent)'} 6%,rgba(255,255,255,0.018));opacity:0.45;border:1px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 20%,transparent);border-left:2px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 80%,transparent)"><span class="s-icon" style="opacity:0.6">${SUBJECT_ICONS[n]||''}</span><span style="flex:1;font-size:13px;color:var(--fg2)">${n}</span><span style="width:26px;height:14px;background:var(--surface2);border-radius:8px;display:inline-block"></span></div>`).join('')}</div>`;
   const merged=new Map();
-  try{const r=await fetch('files.json');if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
+  try{(await fetchIndexEntries()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
@@ -1893,6 +1933,7 @@ async function load(){
       }
     }
   }catch(e){}
+  if(!merged.size) await loadLocalManifestFallback(merged);
   allFiles=[...merged.values()];
   if(!allFiles.length){el.innerHTML='<div class="msg">No resources found.</div>';return;}
   render();setTimeout(resolveDeepLink,150);
