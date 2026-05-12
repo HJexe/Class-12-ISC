@@ -597,7 +597,7 @@ async function loadLocalManifestFallback(merged){
   for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
   await Promise.all(candidates.map(async tp=>{
     try{
-      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
       if(!tr.ok) return;
       const txt=await tr.text();
       if(!txt || txt.includes('<!DOCTYPE html')) return;
@@ -611,7 +611,7 @@ async function loadLocalManifestFallback(merged){
         const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
         merged.set(key(entry),entry);
       });
-    }catch{}
+    }catch(e){console.error('Fallback fetch failed for',tp,e);} 
   }));
 }
 
@@ -633,13 +633,15 @@ async function load(){
   render(); // show skeleton
   const merged=new Map();
   try{
-    const r=await fetch('/files.json',{cache:'no-store'});
+    const r=await fetch('files.json',{cache:'no-store'});
     if(r.ok){
-      const seed=await r.json();
+      const rawText=await r.text();
+      if(rawText.includes('<!DOCTYPE html')) throw new Error('files.json returned HTML (likely 404 page)');
+      const seed=JSON.parse(rawText);
       seed.filter(p=>!(typeof p==='string'&&/\/text\.?$/i.test(p))).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));
       await Promise.all(seed.filter(p=>typeof p==='string'&&/\/text\.?$/i.test(p)).map(async tp=>{
         try{
-          const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+          const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
           if(!tr.ok) return;
           const txt=await tr.text();
           if(!txt || txt.includes('<!DOCTYPE html')) return;
@@ -653,10 +655,10 @@ async function load(){
             const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
             merged.set(key(entry),entry);
           });
-        }catch{}
+        }catch(e){console.error('Failed to parse file entry',tp,e);} 
       }));
     }
-  }catch(e){}
+  }catch(e){console.error('files.json fetch failed',e);} 
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
@@ -680,7 +682,7 @@ async function load(){
         }));
       }
     }
-  }catch(e){}
+  }catch(e){console.error('GitHub API fetch failed',e);} 
   if(!merged.size) await loadLocalManifestFallback(merged);
   allFiles=[...merged.values()];
   render();
