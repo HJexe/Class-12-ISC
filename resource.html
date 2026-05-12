@@ -1871,7 +1871,7 @@ async function loadLocalManifestFallback(merged){
   for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
   await Promise.all(candidates.map(async tp=>{
     try{
-      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
       if(!tr.ok) return;
       const txt=await tr.text();
       if(!txt || txt.includes('<!DOCTYPE html')) return;
@@ -1910,13 +1910,13 @@ async function load(){
   el.innerHTML=`<div style="padding:10px 6px;display:flex;flex-direction:column;gap:3px;">${STREAMS.commerce.map(n=>`<div style="--subj-color:${COLORS[n]||'var(--accent)'};display:flex;align-items:center;gap:9px;padding:9px 12px 9px 10px;border-radius:8px;background:color-mix(in srgb,${COLORS[n]||'var(--accent)'} 6%,rgba(255,255,255,0.018));opacity:0.45;border:1px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 20%,transparent);border-left:2px solid color-mix(in srgb,${COLORS[n]||'var(--accent)'} 80%,transparent)"><span class="s-icon" style="opacity:0.6">${SUBJECT_ICONS[n]||''}</span><span style="flex:1;font-size:13px;color:var(--fg2)">${n}</span><span style="width:26px;height:14px;background:var(--surface2);border-radius:8px;display:inline-block"></span></div>`).join('')}</div>`;
   const merged=new Map();
   try{
-    const r=await fetch('/files.json',{cache:'no-store'});
+    const r=await fetch('files.json',{cache:'no-store'});
     if(r.ok){
       const seed=await r.json();
       seed.filter(p=>!(typeof p==='string'&&/\/text\.?$/i.test(p))).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));
       await Promise.all(seed.filter(p=>typeof p==='string'&&/\/text\.?$/i.test(p)).map(async tp=>{
         try{
-          const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+          const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
           if(!tr.ok) return;
           const txt=await tr.text();
           if(!txt || txt.includes('<!DOCTYPE html')) return;

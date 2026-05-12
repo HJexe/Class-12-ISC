@@ -597,7 +597,7 @@ async function loadLocalManifestFallback(merged){
   for(const subj of allSubs){ for(const rel of nested){ candidates.push(`${subj}/${rel}`); } }
   await Promise.all(candidates.map(async tp=>{
     try{
-      const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+      const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
       if(!tr.ok) return;
       const txt=await tr.text();
       if(!txt || txt.includes('<!DOCTYPE html')) return;
@@ -633,13 +633,13 @@ async function load(){
   render(); // show skeleton
   const merged=new Map();
   try{
-    const r=await fetch('/files.json',{cache:'no-store'});
+    const r=await fetch('files.json',{cache:'no-store'});
     if(r.ok){
       const seed=await r.json();
       seed.filter(p=>!(typeof p==='string'&&/\/text\.?$/i.test(p))).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));
       await Promise.all(seed.filter(p=>typeof p==='string'&&/\/text\.?$/i.test(p)).map(async tp=>{
         try{
-          const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+          const tr=await fetch(tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
           if(!tr.ok) return;
           const txt=await tr.text();
           if(!txt || txt.includes('<!DOCTYPE html')) return;
