@@ -632,7 +632,31 @@ async function fetchIndexEntries(){
 async function load(){
   render(); // show skeleton
   const merged=new Map();
-  try{const r=await fetch('/files.json',{cache:'no-store'});if(r.ok)(await r.json()).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));}catch(e){}
+  try{
+    const r=await fetch('/files.json',{cache:'no-store'});
+    if(r.ok){
+      const seed=await r.json();
+      seed.filter(p=>!(typeof p==='string'&&/\/text\.?$/i.test(p))).map(normalize).filter(Boolean).forEach(f=>merged.set(key(f),f));
+      await Promise.all(seed.filter(p=>typeof p==='string'&&/\/text\.?$/i.test(p)).map(async tp=>{
+        try{
+          const tr=await fetch('/'+tp.split('/').map(encodeURIComponent).join('/'),{cache:'no-store'});
+          if(!tr.ok) return;
+          const txt=await tr.text();
+          if(!txt || txt.includes('<!DOCTYPE html')) return;
+          const dir=tp.split('/').slice(0,-1).join('/');
+          txt.trim().split('\n').filter(Boolean).forEach(line=>{
+            line=line.trim(); let name,url;
+            if(line.includes('|')){const i=line.indexOf('|');name=line.slice(0,i).trim();url=line.slice(i+1).trim();}
+            else if(/^https?:\/\//i.test(line)){url=line;name=dir.split('/').pop()||'File';}
+            else return;
+            if(!/^https?:\/\//i.test(url)) return;
+            const entry={path:dir+'/'+name,url,preview:drivePreview(url),source:'gdrive'};
+            merged.set(key(entry),entry);
+          });
+        }catch{}
+      }));
+    }
+  }catch(e){}
   try{
     const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,{headers:{Accept:'application/vnd.github+json'}});
     if(r.ok){
