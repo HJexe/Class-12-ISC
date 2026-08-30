@@ -1,0 +1,8 @@
+{
+  "name": "Class 12 ISC Resource Hub",
+  "description": "ISC.exe 2.0 — Curated Class 12 ISC notes, worksheets, past prelims, and revision resources.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
