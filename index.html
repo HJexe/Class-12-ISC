@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // Polyfill / safe wrapper to permit setting window.fetch in sandboxed iframe environments
+  (function() {
+    try {
+      var _f = typeof window.fetch === 'function' ? window.fetch.bind(window) : null;
+      Object.defineProperty(window, 'fetch', {
+        get: function() { return _f; },
+        set: function(val) { _f = val; },
+        configurable: true,
+        enumerable: true
+      });
+    } catch(e) {}
+  })();
+</script>
+<script src="/notes-data.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ISC.exe 2.0 — Class 12 ISC Notes, Past Prelims & Study Materials</title>
@@ -1938,8 +1953,19 @@ html, body {
       ]
     };
 
-    // Load initial data safely with XHR
+    // Load initial data safely with immediate fallback and network refresh
     function initApp() {
+      // 1. Immediately hydrate from embedded fallback data if available
+      if (typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined' && Array.isArray(window.__FALLBACK_NOTES_DATA__) && window.__FALLBACK_NOTES_DATA__.length > 0) {
+        allNotes = window.__FALLBACK_NOTES_DATA__;
+        const statEl = document.getElementById('statNotesCount');
+        if (statEl) {
+          statEl.textContent = allNotes.length.toLocaleString() + '+';
+        }
+        renderDirectoryTree();
+      }
+
+      // 2. Refresh from /api/notes or /notes-data.json
       try {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/api/notes', true);
@@ -1948,25 +1974,48 @@ html, body {
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 const data = JSON.parse(xhr.responseText);
-                allNotes = data.notes || [];
-                // Update stats counter on landing page
-                const statEl = document.getElementById('statNotesCount');
-                if (statEl && allNotes.length > 0) {
-                  statEl.textContent = allNotes.length.toLocaleString() + '+';
+                if (data && data.notes && data.notes.length > 0) {
+                  allNotes = data.notes;
+                  const statEl = document.getElementById('statNotesCount');
+                  if (statEl) {
+                    statEl.textContent = allNotes.length.toLocaleString() + '+';
+                  }
+                  renderDirectoryTree();
                 }
               } catch (e) {
                 console.warn('Failed to parse notes response:', e);
               }
+            } else if (allNotes.length === 0) {
+              // Try direct JSON file fetch
+              const fallbackXhr = new XMLHttpRequest();
+              fallbackXhr.open('GET', '/notes-data.json', true);
+              fallbackXhr.onload = function() {
+                if (fallbackXhr.status === 200) {
+                  try {
+                    const parsed = JSON.parse(fallbackXhr.responseText);
+                    if (Array.isArray(parsed)) {
+                      allNotes = parsed;
+                      renderDirectoryTree();
+                    }
+                  } catch(e) {}
+                }
+              };
+              fallbackXhr.send();
             }
-            renderDirectoryTree();
           }
         };
         xhr.onerror = function () {
+          if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
+            allNotes = window.__FALLBACK_NOTES_DATA__;
+          }
           renderDirectoryTree();
         };
         xhr.send();
       } catch (err) {
-        console.warn('XHR error loading notes:', err);
+        console.warn('Network error loading notes:', err);
+        if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
+          allNotes = window.__FALLBACK_NOTES_DATA__;
+        }
         renderDirectoryTree();
       }
 
@@ -2002,6 +2051,11 @@ html, body {
       currentStream = streamName;
       openSubjectNodes.clear();
       openSubfolderNodes.clear();
+      // Auto-open first subject so the user immediately sees notes
+      const subs = SUBJECT_CONFIGS[currentStream] || [];
+      if (subs.length > 0) {
+        openSubjectNodes.add(`sub_${subs[0].name}`);
+      }
       renderDirectoryTree();
       navigateTo('explorer');
       showToast(`Browsing ${streamName} Stream Notes`);
