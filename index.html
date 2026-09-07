@@ -14,6 +14,11 @@
       });
     } catch(e) {}
   })();
+
+  function onIframeLoaded() {
+    var spinner = document.getElementById('iframeLoadingSpinner');
+    if (spinner) spinner.classList.add('hidden');
+  }
 </script>
 <script src="/notes-data.js"></script>
 
@@ -1785,7 +1790,7 @@ html, body {
           <div class="pulse-spinner"></div>
           <div>Loading Google Drive Preview...</div>
         </div>
-        <iframe id="previewIframe" src="" allow="autoplay" loading="lazy" onload="onIframeLoaded()"></iframe>
+        <iframe id="previewIframe" src="" allow="autoplay" loading="lazy" onload="if(typeof onIframeLoaded==='function')onIframeLoaded()"></iframe>
       </div>
     </section>
   </div>
@@ -2107,6 +2112,45 @@ html, body {
         try { window.va('track', 'select_subject', { subject: subjName, stream: currentStream }); } catch(e) {}
       }
       renderActiveView();
+    }
+
+    // Select Category (e.g. from breadcrumbs)
+    function selectCategory(catName) {
+      if (!catName) return;
+      const searchInput = document.getElementById('sidebarSearchInput');
+      if (searchInput) {
+        searchInput.value = catName;
+      }
+      renderActiveView();
+    }
+
+    function setTagFilter(tag) {
+      if (!tag) return;
+      const searchInput = document.getElementById('sidebarSearchInput');
+      if (searchInput) {
+        searchInput.value = tag;
+      }
+      renderActiveView();
+    }
+
+    function setNavMode(mode) {
+      // Compatibility stub
+    }
+
+    function clearAllFilters() {
+      clearSearch();
+    }
+
+    function toggleAllFolders() {
+      // Compatibility stub
+    }
+
+    function toggleSubjectNode() {
+      // Compatibility stub
+    }
+
+    function toggleSubfolderNode() {
+      // Compatibility stub
     }
 
     // Master Render Method
