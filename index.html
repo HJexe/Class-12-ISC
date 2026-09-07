@@ -783,71 +783,219 @@ html, body {
   color: #f87171;
 }
 
-/* Horizontal Subject Selector Rail */
-.subject-horizontal-strip {
+/* Subject Dropdown Style Menu */
+.subject-dropdown-container {
+  padding: 0.35rem 0.9rem 0.55rem;
   display: flex;
-  overflow-x: auto;
-  padding: 0.2rem 1rem 0.55rem;
-  gap: 0.4rem;
-  scrollbar-width: thin;
-  scrollbar-color: #1a2a3a transparent;
+  flex-direction: column;
+  gap: 0.3rem;
   flex-shrink: 0;
   border-bottom: 1px solid #101c27;
-  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 50;
 }
 
-.subject-horizontal-strip::-webkit-scrollbar {
-  height: 3px;
-}
-.subject-horizontal-strip::-webkit-scrollbar-thumb {
-  background: #1a2a3a;
-  border-radius: 3px;
-}
-
-.subject-chip-btn {
-  display: inline-flex;
+.subject-dropdown-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  background: #0d1620;
-  border: 1px solid #182837;
-  color: #94a3b8;
-  padding: 0.35rem 0.65rem;
-  border-radius: 8px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
+  justify-content: space-between;
+}
+
+.subject-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.subject-dropdown-trigger {
+  width: 100%;
+  background: #09121a;
+  border: 1px solid #1c2e40;
+  border-radius: 9px;
+  padding: 0.52rem 0.75rem;
+  color: #f1f5f9;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
   transition: all 0.15s ease;
+  font-family: inherit;
+  outline: none;
+  text-align: left;
+}
+
+.subject-dropdown-trigger:hover,
+.subject-dropdown-trigger:focus-visible {
+  border-color: #38bdf8;
+  background: #0d1a26;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+}
+
+.subject-dropdown-trigger[aria-expanded="true"] {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+  background: #0d1a26;
+}
+
+.subj-trigger-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.subj-trigger-icon {
+  font-size: 1rem;
+  line-height: 1;
   flex-shrink: 0;
 }
 
-.subject-chip-btn:hover {
-  background: #132130;
-  color: #f1f5f9;
-  border-color: #243c52;
+.subj-trigger-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.subject-chip-btn.active {
-  background: #122434;
-  border-color: #38bdf8;
-  color: #38bdf8;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
-}
-
-.subject-chip-count {
+.subj-trigger-count {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  background: #081018;
-  padding: 0.08rem 0.35rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 0.1rem 0.45rem;
   border-radius: 999px;
-  color: #64748b;
-  border: 1px solid #142230;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.subject-chip-btn.active .subject-chip-count {
+.subj-trigger-chevron {
+  font-size: 0.75rem;
+  color: #64748b;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-trigger[aria-expanded="true"] .subj-trigger-chevron {
+  transform: rotate(180deg);
+  color: #38bdf8;
+}
+
+.subject-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  background: #08111a;
+  border: 1px solid #1e3347;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 189, 248, 0.15);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 120;
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  scrollbar-width: thin;
+  scrollbar-color: #1e3347 transparent;
+}
+
+.subject-dropdown-menu::-webkit-scrollbar {
+  width: 4px;
+}
+.subject-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #1e3347;
+  border-radius: 4px;
+}
+
+.subject-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.48rem 0.65rem;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.12s ease;
+  font-family: inherit;
+}
+
+.subject-dropdown-item:hover,
+.subject-dropdown-item:focus-visible {
+  background: #112233;
+  color: #f8fafc;
+}
+
+.subject-dropdown-item.active {
+  background: #12283e;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.subject-dropdown-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.subject-dropdown-item-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subject-dropdown-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #64748b;
+  background: #060c13;
+  border: 1px solid #142230;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item.active .subject-dropdown-item-badge {
   background: rgba(56, 189, 248, 0.15);
   color: #38bdf8;
   border-color: rgba(56, 189, 248, 0.3);
+}
+
+.subject-dropdown-check {
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 /* Clean Scrollable Notes Content */
@@ -857,44 +1005,173 @@ html, body {
   height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0.75rem 0.9rem 1.5rem;
+  padding: 0.6rem 0.9rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
 }
 
-/* Clean Folder Section */
-.clean-folder-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.clean-folder-header {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.04em;
-  padding: 0.2rem 0.3rem;
+/* Clean Folders Toolbar */
+.folders-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0.15rem 0.2rem 0.35rem;
+  border-bottom: 1px dashed #142230;
+  margin-bottom: 0.25rem;
+}
+
+.folders-toolbar-info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.folders-toolbar-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.folders-toolbar-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #94a3b8;
+  background: #0c1622;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #172838;
+}
+
+.folders-toolbar-toggle-btn {
+  background: #08121b;
+  border: 1px solid #192a3b;
+  border-radius: 6px;
+  padding: 0.22rem 0.55rem;
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.folders-toolbar-toggle-btn:hover {
+  background: #112233;
+  color: #38bdf8;
+  border-color: #2b4560;
+}
+
+/* Clean Folder Section & Accordion */
+.clean-folder-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.clean-folder-header {
+  width: 100%;
+  background: #0b141d;
+  border: 1px solid #142230;
+  border-radius: 8px;
+  padding: 0.48rem 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  color: #cbd5e1;
+  text-align: left;
+  outline: none;
+}
+
+.clean-folder-header:hover,
+.clean-folder-header:focus-visible {
+  background: #101f2e;
+  border-color: #223c54;
+  color: #f1f5f9;
+}
+
+.clean-folder-header.open {
+  background: #0e1b27;
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #f8fafc;
+}
+
+.clean-folder-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.folder-chevron {
+  display: inline-block;
+  font-size: 0.58rem;
+  color: #64748b;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s ease;
+  flex-shrink: 0;
+}
+
+.folder-chevron.open {
+  transform: rotate(90deg);
+  color: #38bdf8;
+}
+
+.folder-icon {
+  font-size: 0.88rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.folder-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clean-folder-header.open .folder-name {
+  color: #38bdf8;
 }
 
 .clean-folder-header .folder-count {
-  color: #64748b;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 500;
+  color: #64748b;
+  background: #060e15;
+  border: 1px solid #142230;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.clean-folder-header.open .folder-count {
+  color: #94a3b8;
+  border-color: #1f3448;
 }
 
 .clean-notes-list {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  padding: 0.25rem 0 0.2rem 0.5rem;
+  border-left: 1px solid #152636;
+  margin-left: 0.85rem;
+}
+
+.clean-notes-list.collapsed {
+  display: none;
 }
 
 /* Clean Note Card Item */
@@ -1733,9 +2010,30 @@ html, body {
         </div>
       </div>
 
-      <!-- Horizontal Subject Selector Rail -->
-      <div class="subject-horizontal-strip" id="subjectHorizontalStrip">
-        <!-- Dynamically filled with subject chips -->
+      <!-- Subject Dropdown Selector Menu -->
+      <div class="subject-dropdown-container" id="subjectDropdownContainer">
+        <label class="subject-dropdown-label" for="subjectDropdownBtn">Select Subject</label>
+        <div class="subject-dropdown-wrapper">
+          <button 
+            type="button" 
+            class="subject-dropdown-trigger" 
+            id="subjectDropdownBtn" 
+            onclick="toggleSubjectDropdown(event)"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+          >
+            <div class="subj-trigger-info">
+              <span class="subj-trigger-icon" id="subjTriggerIcon">📚</span>
+              <span class="subj-trigger-name" id="subjTriggerName">Select Subject</span>
+              <span class="subj-trigger-count" id="subjTriggerCount">0 notes</span>
+            </div>
+            <span class="subj-trigger-chevron" id="subjTriggerChevron">▾</span>
+          </button>
+          
+          <div class="subject-dropdown-menu" id="subjectDropdownMenu" role="listbox" style="display: none;">
+            <!-- Dynamically populated with subject options -->
+          </div>
+        </div>
       </div>
 
       <!-- Clean Notes List Area -->
@@ -2105,22 +2403,52 @@ html, body {
       showToast(`Stream: ${streamName}`);
     }
 
-    // Select Subject from Horizontal Rail
+    // Select Subject from Dropdown
     function selectSubject(subjName) {
       selectedSubject = subjName;
       if (window.va) {
         try { window.va('track', 'select_subject', { subject: subjName, stream: currentStream }); } catch(e) {}
       }
+      closeSubjectDropdown();
+      openSubfolderNodes.clear(); // All subfolders closed by default!
       renderActiveView();
+    }
+
+    // Toggle Subject Dropdown Menu
+    function toggleSubjectDropdown(e) {
+      if (e) {
+        e.stopPropagation();
+      }
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (!menu || !btn) return;
+      const isOpen = menu.style.display !== 'none';
+      if (isOpen) {
+        closeSubjectDropdown();
+      } else {
+        openSubjectDropdown();
+      }
+    }
+
+    function openSubjectDropdown() {
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (menu) menu.style.display = 'flex';
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeSubjectDropdown() {
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (menu) menu.style.display = 'none';
+      if (btn) btn.setAttribute('aria-expanded', 'false');
     }
 
     // Select Category (e.g. from breadcrumbs)
     function selectCategory(catName) {
       if (!catName) return;
-      const searchInput = document.getElementById('sidebarSearchInput');
-      if (searchInput) {
-        searchInput.value = catName;
-      }
+      const catKey = `${selectedSubject || 'ALL'}_${catName}`;
+      openSubfolderNodes.add(catKey);
       renderActiveView();
     }
 
@@ -2141,60 +2469,114 @@ html, body {
       clearSearch();
     }
 
+    // Toggle a single subfolder node (open/closed)
+    function toggleSubfolderNode(catKey) {
+      if (!catKey) return;
+      if (openSubfolderNodes.has(catKey)) {
+        openSubfolderNodes.delete(catKey);
+      } else {
+        openSubfolderNodes.add(catKey);
+      }
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectNotes(searchVal);
+    }
+
+    // Toggle all subfolders open or closed
+    function toggleAllSubfolders() {
+      const subjectNotes = currentFilteredNotes || [];
+      const categories = [...new Set(subjectNotes.map(n => n.category || 'General Notes'))];
+      const isSearching = Boolean(document.getElementById('sidebarSearchInput')?.value?.trim());
+      const allKeys = categories.map(c => `${selectedSubject || 'ALL'}_${c}`);
+      
+      const anyOpen = isSearching || allKeys.some(k => openSubfolderNodes.has(k));
+      if (anyOpen) {
+        // Collapse all
+        allKeys.forEach(k => openSubfolderNodes.delete(k));
+      } else {
+        // Expand all
+        allKeys.forEach(k => openSubfolderNodes.add(k));
+      }
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectNotes(searchVal);
+    }
+
     function toggleAllFolders() {
-      // Compatibility stub
+      toggleAllSubfolders();
     }
 
     function toggleSubjectNode() {
       // Compatibility stub
     }
 
-    function toggleSubfolderNode() {
-      // Compatibility stub
-    }
-
     // Master Render Method
     function renderActiveView() {
       const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
-      renderSubjectRail();
+      renderSubjectDropdown();
       renderSubjectNotes(searchVal);
     }
 
-    // 1. Render Horizontal Subject Selector Rail
-    function renderSubjectRail() {
-      const strip = document.getElementById('subjectHorizontalStrip');
-      if (!strip) return;
+    // 1. Render Subject Dropdown Style Menu
+    function renderSubjectDropdown() {
+      const menuEl = document.getElementById('subjectDropdownMenu');
+      const iconEl = document.getElementById('subjTriggerIcon');
+      const nameEl = document.getElementById('subjTriggerName');
+      const countEl = document.getElementById('subjTriggerCount');
 
       const subjects = SUBJECT_CONFIGS[currentStream] || SUBJECT_CONFIGS['Commerce'];
-      
-      let html = '';
-      subjects.forEach(sub => {
-        const count = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase()).length;
-        const isActive = (selectedSubject || '').toLowerCase() === sub.name.toLowerCase();
-        
-        html += `
-          <button 
-            class="subject-chip-btn ${isActive ? 'active' : ''}" 
-            onclick="selectSubject('${escapeAttr(sub.name)}')"
-            title="${sub.name} (${count} notes)"
-          >
-            <span>${sub.icon || '📚'}</span>
-            <span>${sub.name}</span>
-            <span class="subject-chip-count">${count}</span>
-          </button>
-        `;
-      });
+      if (!subjects || subjects.length === 0) return;
 
-      strip.innerHTML = html;
+      // Ensure valid selectedSubject exists in this stream
+      let activeSub = subjects.find(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase());
+      if (!activeSub) {
+        activeSub = subjects[0];
+        selectedSubject = activeSub.name;
+      }
+
+      const activeCount = allNotes.filter(n => n.subject && n.subject.toLowerCase() === activeSub.name.toLowerCase()).length;
+
+      if (iconEl) iconEl.textContent = activeSub.icon || '📚';
+      if (nameEl) nameEl.textContent = activeSub.name;
+      if (countEl) countEl.textContent = `${activeCount} notes`;
+
+      if (menuEl) {
+        let menuHtml = '';
+        subjects.forEach(sub => {
+          const count = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase()).length;
+          const isSelected = sub.name.toLowerCase() === activeSub.name.toLowerCase();
+          menuHtml += `
+            <button 
+              type="button" 
+              class="subject-dropdown-item ${isSelected ? 'active' : ''}" 
+              onclick="selectSubject('${escapeAttr(sub.name)}')"
+              role="option"
+              aria-selected="${isSelected ? 'true' : 'false'}"
+            >
+              <div class="subject-dropdown-item-left">
+                <span class="subject-dropdown-item-icon">${sub.icon || '📚'}</span>
+                <span class="subject-dropdown-item-text">${escapeHtml(sub.name)}</span>
+              </div>
+              <div class="subject-dropdown-item-right">
+                <span class="subject-dropdown-item-badge">${count} notes</span>
+                ${isSelected ? '<span class="subject-dropdown-check">✓</span>' : ''}
+              </div>
+            </button>
+          `;
+        });
+        menuEl.innerHTML = menuHtml;
+      }
     }
 
-    // 2. Render Clean Categorized Notes for Current Subject
+    // Alias for backwards compatibility
+    const renderSubjectRail = renderSubjectDropdown;
+
+    // 2. Render Clean Categorized Notes for Current Subject (Default Subfolders CLOSED)
     function renderSubjectNotes(searchQuery = '') {
       const container = document.getElementById('sidebarDirectoryTree');
       const footerHint = document.getElementById('footerNotesCountLabel');
       if (!container) return;
 
       const q = typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
+      const isSearching = Boolean(q && q.length > 0);
       
       // Filter notes by current stream & selected subject
       let subjectNotes = allNotes.filter(n => {
@@ -2227,7 +2609,7 @@ html, body {
         return;
       }
 
-      // Group notes by Category / Folder
+      // Group notes by Category / Subfolder
       const categoryMap = {};
       subjectNotes.forEach(note => {
         const cat = note.category || 'General Notes';
@@ -2235,18 +2617,56 @@ html, body {
         categoryMap[cat].push(note);
       });
 
-      let html = '';
       const categories = Object.keys(categoryMap).sort();
+
+      // Determine if any folders are currently open
+      const anyOpen = isSearching || categories.some(cat => {
+        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
+        return openSubfolderNodes.has(catKey);
+      });
+
+      let html = `
+        <div class="folders-toolbar">
+          <div class="folders-toolbar-info">
+            <span class="folders-toolbar-label">Subfolders</span>
+            <span class="folders-toolbar-count">${categories.length}</span>
+          </div>
+          <button 
+            type="button" 
+            class="folders-toolbar-toggle-btn" 
+            onclick="toggleAllSubfolders()" 
+            id="foldersToggleAllBtn"
+            title="${anyOpen ? 'Collapse all subfolders' : 'Expand all subfolders'}"
+          >
+            <span>${anyOpen ? '▲ Collapse All' : '▼ Expand All'}</span>
+          </button>
+        </div>
+      `;
 
       categories.forEach(cat => {
         const notes = categoryMap[cat];
+        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
+        // By default, subfolders are CLOSED unless opened by user or search query is active
+        const isOpen = isSearching || openSubfolderNodes.has(catKey);
+        const safeId = catKey.replace(/[^a-zA-Z0-9_-]/g, '_');
+
         html += `
-          <div class="clean-folder-section">
-            <div class="clean-folder-header">
-              <span>📁 ${cat}</span>
+          <div class="clean-folder-section ${isOpen ? 'open' : 'closed'}">
+            <button 
+              type="button" 
+              class="clean-folder-header ${isOpen ? 'open' : ''}" 
+              onclick="toggleSubfolderNode('${escapeAttr(catKey)}')"
+              aria-expanded="${isOpen ? 'true' : 'false'}"
+              title="Click to ${isOpen ? 'collapse' : 'expand'} folder"
+            >
+              <div class="clean-folder-header-left">
+                <span class="folder-chevron ${isOpen ? 'open' : ''}">▶</span>
+                <span class="folder-icon">${isOpen ? '📂' : '📁'}</span>
+                <span class="folder-name">${escapeHtml(cat)}</span>
+              </div>
               <span class="folder-count">${notes.length} ${notes.length === 1 ? 'note' : 'notes'}</span>
-            </div>
-            <div class="clean-notes-list">
+            </button>
+            <div class="clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
         `;
 
         notes.forEach(note => {
@@ -2260,7 +2680,7 @@ html, body {
             >
               <div class="clean-note-left">
                 <span class="file-type-pill ${fileExt === 'DOC' || fileExt === 'DOCX' ? 'doc' : ''}">${fileExt}</span>
-                <span class="clean-note-title">${note.title || 'Untitled Note'}</span>
+                <span class="clean-note-title">${escapeHtml(note.title || 'Untitled Note')}</span>
               </div>
             </div>
           `;
@@ -2339,6 +2759,14 @@ html, body {
 
       // Update Prev / Next button states
       updateViewerDocCounter();
+
+      // Auto-expand folder for current note and update active styling
+      if (note.category) {
+        const catKey = `${note.subject || selectedSubject || 'ALL'}_${note.category}`;
+        openSubfolderNodes.add(catKey);
+        const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+        renderSubjectNotes(searchVal);
+      }
 
       // Highlight active card or tree item
       document.querySelectorAll('.ergo-file-card').forEach(c => c.classList.remove('selected'));
@@ -2545,8 +2973,19 @@ html, body {
       return 'Notes';
     }
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     function escapeAttr(str) {
-      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
     }
 
     // Toolbar Actions
@@ -2677,7 +3116,16 @@ html, body {
         } else if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
           navigateNote(1);
         } else if (e.key === 'Escape') {
+          closeSubjectDropdown();
           document.querySelectorAll('.og-modal-backdrop.open').forEach(m => m.classList.remove('open'));
+        }
+      });
+
+      // Close subject dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        const wrap = document.getElementById('subjectDropdownContainer');
+        if (wrap && !wrap.contains(e.target)) {
+          closeSubjectDropdown();
         }
       });
     }
@@ -2689,6 +3137,9 @@ html, body {
     window.openStreamFromLanding = openStreamFromLanding;
     window.setStream = setStream;
     window.selectSubject = selectSubject;
+    window.toggleSubjectDropdown = toggleSubjectDropdown;
+    window.openSubjectDropdown = openSubjectDropdown;
+    window.closeSubjectDropdown = closeSubjectDropdown;
     window.selectCategory = selectCategory;
     window.setTagFilter = setTagFilter;
     window.setNavMode = setNavMode;
@@ -2696,6 +3147,7 @@ html, body {
     window.clearSearch = clearSearch;
     window.clearAllFilters = clearAllFilters;
     window.toggleAllFolders = toggleAllFolders;
+    window.toggleAllSubfolders = toggleAllSubfolders;
     window.toggleSubjectNode = toggleSubjectNode;
     window.toggleSubfolderNode = toggleSubfolderNode;
     window.previewFile = previewFile;
@@ -2711,6 +3163,8 @@ html, body {
     window.toggleFullscreenViewer = toggleFullscreenViewer;
     window.copyDiscordLink = copyDiscordLink;
     window.onIframeLoaded = onIframeLoaded;
+    window.escapeHtml = escapeHtml;
+    window.escapeAttr = escapeAttr;
 
     // Auto-init
     if (document.readyState === 'loading') {
