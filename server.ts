@@ -63,6 +63,19 @@ app.get(['/favicon-for-light.svg', '/favicon-for-dark.svg'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'favicon.svg'));
 });
 
+// Fallback endpoints for Vercel Analytics and Speed Insights in non-Vercel dev environments
+// (On Vercel, these routes are intercepted and served by Vercel edge infrastructure)
+app.get(['/_vercel/insights/script.js', '/_vercel/speed-insights/script.js'], (_req, res) => {
+  res.type('application/javascript').send(`
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  `);
+});
+
+app.post(['/_vercel/insights/view', '/_vercel/insights/event', '/_vercel/speed-insights/vitals'], (_req, res) => {
+  res.status(204).end();
+});
+
 // Static assets
 app.use(express.static(__dirname, {
   extensions: ['html', 'htm'],

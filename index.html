@@ -16,6 +16,19 @@
   })();
 </script>
 <script src="/notes-data.js"></script>
+
+<!-- Vercel Web Analytics & Speed Insights -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  window.onIframeLoaded = function() {
+    var spinner = document.getElementById('iframeLoadingSpinner');
+    if (spinner) spinner.classList.add('hidden');
+  };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ISC.exe 2.0 — Class 12 ISC Notes, Past Prelims & Study Materials</title>
@@ -204,17 +217,6 @@ html, body {
   transform: translateY(-1px);
 }
 
-.btn-nav-submit {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #38bdf8;
-}
-.btn-nav-submit:hover {
-  background: rgba(56, 189, 248, 0.2);
-  border-color: #38bdf8;
-  color: #bae6fd;
-}
-
 /* ─── VIEW 1: LANDING PAGE ─── */
 .view-landing {
   display: block;
@@ -337,36 +339,44 @@ html, body {
   transform: translateY(1px);
 }
 
-/* 2. SECOND BUTTON: Submit Notes (GDrive only) */
-.btn-glow-submit {
+/* Secondary Minimal Search Action */
+.btn-minimal-search {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
-  padding: 0.95rem 2rem;
+  gap: 0.55rem;
+  padding: 0.95rem 1.8rem;
   font-family: var(--font-sans);
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: #38bdf8;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #cbd5e1;
   background: rgba(13, 24, 38, 0.85);
-  border: 1px solid rgba(56, 189, 248, 0.45);
+  border: 1px solid #1f354a;
   border-radius: 12px;
   cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.2), 0 6px 16px rgba(0,0,0,0.25);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-glow-submit:hover {
+.btn-minimal-search:hover {
   background: rgba(20, 36, 56, 0.95);
   border-color: #38bdf8;
-  color: #e0f2fe;
+  color: #f1f5f9;
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.45), 0 10px 24px rgba(0,0,0,0.35);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25), 0 8px 20px rgba(0,0,0,0.3);
 }
 
-.btn-glow-submit:active {
+.btn-minimal-search:active {
   transform: translateY(1px);
+}
+
+.hero-kbd-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.45rem;
+  background: #142436;
+  border: 1px solid #233e58;
+  border-radius: 5px;
+  color: #7dd3fc;
 }
 
 .btn-icon-symbol {
@@ -528,66 +538,6 @@ html, body {
   margin-top: auto;
 }
 
-/* Submission Feature Banner */
-.submit-banner-card {
-  background: linear-gradient(135deg, #091522 0%, #0d1b2a 100%);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  border-radius: 16px;
-  padding: 2.25rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-}
-
-.submit-banner-card::before {
-  content: '';
-  position: absolute;
-  right: -50px;
-  bottom: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.submit-banner-content {
-  max-width: 620px;
-}
-
-.submit-gdrive-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.75rem;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #38bdf8;
-  margin-bottom: 0.75rem;
-}
-
-.submit-banner-title {
-  font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-}
-
-.submit-banner-desc {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  line-height: 1.6;
-}
-
 /* Landing Footer */
 .landing-footer {
   border-top: 1px solid #142230;
@@ -612,9 +562,9 @@ html, body {
 }
 
 .og-sidebar {
-  width: 380px;
-  min-width: 330px;
-  max-width: 450px;
+  width: 410px;
+  min-width: 350px;
+  max-width: 480px;
   height: 100%;
   min-height: 0;
   background: #081018;
@@ -627,11 +577,17 @@ html, body {
 }
 
 .sidebar-header-area {
-  padding: 1.1rem 1.15rem 0.5rem;
+  padding: 0.9rem 1rem 0.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.sidebar-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .sub-tag-resources {
@@ -643,120 +599,89 @@ html, body {
   text-transform: uppercase;
 }
 
-.main-sidebar-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #f8fafc;
-  letter-spacing: -0.02em;
+.quick-find-btn {
+  height: 24px;
+  padding: 0 0.55rem;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #0e1a26;
+  border: 1px solid #1f354a;
+  color: #38bdf8;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+.quick-find-btn:hover {
+  background: #142638;
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
 }
 
-.sidebar-sub-caption {
-  font-size: 0.75rem;
+/* Ergonomic Stream Switcher Bar */
+.stream-quick-bar {
+  display: flex;
+  background: #09121a;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid #142230;
+  gap: 3px;
+}
+
+.stream-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
   color: #64748b;
   font-family: var(--font-mono);
-}
-
-/* Stream Selector Card */
-.stream-selector-card {
-  margin: 0.5rem 1.15rem 0.75rem;
-  background: #0d1620;
-  border: 1px solid #1a2937;
-  border-radius: 10px;
-  padding: 0.65rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.35rem 0.2rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  flex-shrink: 0;
-}
-
-.stream-selector-card:hover {
-  background: #111c29;
-  border-color: #263c50;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-}
-
-.stream-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.stream-card-left {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.stream-icon-box {
-  width: 28px;
-  height: 28px;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  border-radius: 6px;
-  color: #fbbf24;
-  font-weight: 800;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stream-info-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.stream-label-mini {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #64748b;
-  letter-spacing: 0.06em;
-}
-
-.stream-active-name {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #f1f5f9;
-  line-height: 1.2;
-}
-
-.stream-chevron {
-  color: #64748b;
-  font-size: 0.8rem;
-  transition: transform 0.2s;
-}
-
-.stream-card-divider {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  color: #475569;
   text-align: center;
-  letter-spacing: 0.1em;
-  padding-top: 0.2rem;
-  border-top: 1px dashed #182532;
+  white-space: nowrap;
 }
 
-/* Search Box */
+.stream-tab-btn:hover {
+  color: #cbd5e1;
+  background: #0e1b27;
+}
+
+.stream-tab-btn.active {
+  background: #162638;
+  color: #34d399;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+/* Search Box with Clear Button */
 .sidebar-search-wrap {
-  padding: 0 1.15rem 0.75rem;
+  padding: 0.4rem 1rem 0.45rem;
   flex-shrink: 0;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-search-box {
   width: 100%;
-  height: 38px;
+  height: 36px;
   background: #091017;
   border: 1px solid #162431;
   border-radius: 8px;
-  padding: 0 0.75rem 0 2.1rem;
+  padding: 0 1.9rem 0 2rem;
   color: #f1f5f9;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-family: var(--font-sans);
   outline: none;
-  position: relative;
   transition: all 0.15s;
 }
 
@@ -764,10 +689,6 @@ html, body {
   border-color: #38bdf8;
   background: #0d1722;
   box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
-}
-
-.search-input-container {
-  position: relative;
 }
 
 .search-lens-icon {
@@ -780,284 +701,209 @@ html, body {
   font-size: 0.78rem;
 }
 
-/* Tree Controls & Heading */
-.tree-heading-row {
-  padding: 0 1.15rem 0.5rem;
+.search-clear-btn {
+  position: absolute;
+  right: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+  display: none;
+}
+.search-clear-btn:hover {
+  color: #f87171;
+}
+
+/* Horizontal Subject Selector Rail */
+.subject-horizontal-strip {
   display: flex;
+  overflow-x: auto;
+  padding: 0.2rem 1rem 0.55rem;
+  gap: 0.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: #1a2a3a transparent;
+  flex-shrink: 0;
+  border-bottom: 1px solid #101c27;
+  -webkit-overflow-scrolling: touch;
+}
+
+.subject-horizontal-strip::-webkit-scrollbar {
+  height: 3px;
+}
+.subject-horizontal-strip::-webkit-scrollbar-thumb {
+  background: #1a2a3a;
+  border-radius: 3px;
+}
+
+.subject-chip-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.4rem;
+  background: #0d1620;
+  border: 1px solid #182837;
+  color: #94a3b8;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
   flex-shrink: 0;
 }
 
-.tree-heading-text {
+.subject-chip-btn:hover {
+  background: #132130;
+  color: #f1f5f9;
+  border-color: #243c52;
+}
+
+.subject-chip-btn.active {
+  background: #122434;
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.subject-chip-count {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #475569;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tree-toggle-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.tree-action-btn {
-  background: none;
-  border: 1px solid #1c2e3d;
+  font-size: 0.65rem;
+  background: #081018;
+  padding: 0.08rem 0.35rem;
+  border-radius: 999px;
   color: #64748b;
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  padding: 0.12rem 0.45rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.tree-action-btn:hover {
-  color: #e2e8f0;
-  border-color: #284156;
-  background: #0d1620;
+  border: 1px solid #142230;
 }
 
-/* Hierarchical Tree Container */
+.subject-chip-btn.active .subject-chip-count {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* Clean Scrollable Notes Content */
 .sidebar-scroll-content {
   flex: 1 1 0px;
   min-height: 0;
   height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 1.15rem 1.5rem;
+  padding: 0.75rem 0.9rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.75rem;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
 }
 
-/* Subject Node */
-.subject-node {
-  border: 1px solid var(--border-card);
-  border-radius: 9px;
-  background: #0b131c;
-  overflow: hidden;
-  transition: border-color 0.15s;
-  flex-shrink: 0;
-}
-
-.subject-node:hover {
-  border-color: var(--border-highlight);
-}
-
-.subject-header-btn {
-  width: 100%;
+/* Clean Folder Section */
+.clean-folder-section {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 0.8rem;
-  background: #0d1620;
-  border: none;
-  cursor: pointer;
-  color: #e2e8f0;
-  text-align: left;
-  transition: background 0.15s;
-}
-
-.subject-header-btn:hover {
-  background: #121e2c;
-}
-
-.subject-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.88rem;
-  font-weight: 700;
-}
-
-.subject-icon {
-  font-size: 1.05rem;
-  line-height: 1;
-}
-
-.subject-header-right {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.subject-total-badge {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #64748b;
-  background: #14202d;
-  padding: 0.1rem 0.45rem;
-  border-radius: 999px;
-}
-
-.chevron-icon {
-  font-size: 0.72rem;
-  color: #64748b;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  display: inline-block;
-}
-
-.subject-node.open > .subject-header-btn .chevron-icon {
-  transform: rotate(90deg);
-  color: var(--accent-emerald-light);
-}
-
-.subject-subfolders-wrap {
-  display: none;
-  padding: 0.35rem 0.45rem 0.45rem;
-  background: #091017;
   flex-direction: column;
-  gap: 0.3rem;
-  border-top: 1px solid #14212e;
+  gap: 0.35rem;
 }
 
-.subject-node.open > .subject-subfolders-wrap {
-  display: flex;
-}
-
-/* Subfolder Node (Closed by default) */
-.subfolder-node {
-  border: 1px solid #15222f;
-  border-radius: 7px;
-  background: #0d151e;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.subfolder-node:hover {
-  border-color: #1f3244;
-}
-
-.subfolder-header-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0.65rem;
-  background: #0e1722;
-  border: none;
-  cursor: pointer;
-  color: #cbd5e1;
-  text-align: left;
-  font-size: 0.8rem;
-  font-weight: 600;
-  transition: background 0.12s;
-}
-
-.subfolder-header-btn:hover {
-  background: #132130;
-  color: #f1f5f9;
-}
-
-.subfolder-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.folder-state-icon {
-  font-size: 0.88rem;
-}
-
-.subfolder-count-tag {
+.clean-folder-header {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: #64748b;
-  background: #162432;
-  padding: 0.05rem 0.38rem;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-
-.subfolder-node.open > .subfolder-header-btn .chevron-icon {
-  transform: rotate(90deg);
-  color: #38bdf8;
-}
-
-.subfolder-files-wrap {
-  display: none;
-  padding: 0.25rem 0.35rem 0.35rem;
-  background: #080d13;
-  flex-direction: column;
-  gap: 0.25rem;
-  border-top: 1px solid #14202d;
-}
-
-.subfolder-node.open > .subfolder-files-wrap {
-  display: flex;
-}
-
-/* Individual File Item */
-.file-tree-item {
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.45rem 0.6rem;
-  background: #0a1118;
-  border: 1px solid #131e2b;
-  border-radius: 6px;
+}
+
+.clean-folder-header .folder-count {
+  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.clean-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Clean Note Card Item */
+.clean-note-card {
+  background: #0b141d;
+  border: 1px solid #142230;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
   cursor: pointer;
-  transition: all 0.12s;
-  text-align: left;
-  gap: 0.45rem;
-  flex-shrink: 0;
-}
-
-.file-tree-item:hover {
-  background: #111d29;
-  border-color: var(--border-highlight);
-}
-
-.file-tree-item.selected {
-  background: rgba(52, 211, 153, 0.08);
-  border-color: rgba(52, 211, 153, 0.5);
-}
-
-.file-tree-name-col {
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: space-between;
+  gap: 0.6rem;
+  position: relative;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.clean-note-card:hover {
+  background: #101c29;
+  border-color: #28445e;
+  transform: translateX(2px);
+}
+
+.clean-note-card.selected {
+  background: rgba(52, 211, 153, 0.09);
+  border-color: rgba(52, 211, 153, 0.55);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.15);
+}
+
+.clean-note-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   min-width: 0;
   flex: 1;
 }
 
+.clean-note-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clean-note-card.selected .clean-note-title {
+  color: #34d399;
+}
+
 .file-type-pill {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   font-weight: 800;
   color: #f87171;
   background: rgba(248, 113, 113, 0.12);
-  padding: 0.08rem 0.3rem;
+  padding: 0.06rem 0.3rem;
   border-radius: 4px;
   flex-shrink: 0;
+  letter-spacing: 0.02em;
 }
 
-.file-title-text {
-  font-size: 0.78rem;
-  color: #cbd5e1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.file-tree-item.selected .file-title-text {
-  color: #34d399;
-  font-weight: 600;
+.file-type-pill.doc {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
 }
 
 /* Status Bar */
 .sidebar-status-footer {
-  padding: 0.65rem 1.15rem;
+  padding: 0.55rem 1rem;
   border-top: 1px solid var(--border-subtle);
   background: #080e14;
   display: flex;
@@ -1075,6 +921,20 @@ html, body {
   gap: 0.4rem;
   color: #34d399;
   font-weight: 700;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: #34d399;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.footer-keyboard-hint {
+  font-size: 0.65rem;
+  color: #64748b;
 }
 
 /* ─── RIGHT VIEWER PANE ─── */
@@ -1097,20 +957,37 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.25rem;
+  padding: 0 1.15rem;
   flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.viewer-breadcrumb-wrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
 }
 
 .viewer-breadcrumb-label {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: #64748b;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.viewer-breadcrumb-label a, .viewer-breadcrumb-label span.crumb-btn {
+  color: #38bdf8;
+  cursor: pointer;
+  text-decoration: none;
+}
+.viewer-breadcrumb-label a:hover, .viewer-breadcrumb-label span.crumb-btn:hover {
+  text-decoration: underline;
 }
 
 .viewer-breadcrumb-label .active-file-tag {
@@ -1121,17 +998,66 @@ html, body {
 .viewer-actions-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Prev / Next Note Quick Flippers */
+.viewer-nav-arrows {
+  display: inline-flex;
+  align-items: center;
+  background: #0d1722;
+  border: 1px solid #1a2a3c;
+  border-radius: 999px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-action-arrow {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-action-arrow:hover:not(:disabled) {
+  background: #17283c;
+  color: #34d399;
+}
+
+.btn-action-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.viewer-doc-counter {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #64748b;
+  padding: 0 0.25rem;
+}
+
+.viewer-action-divider {
+  width: 1px;
+  height: 20px;
+  background: #142230;
+  margin: 0 0.2rem;
 }
 
 .btn-action-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  height: 32px;
-  padding: 0 0.8rem;
+  height: 30px;
+  padding: 0 0.75rem;
   border-radius: 999px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-family: var(--font-sans);
   font-weight: 600;
   cursor: pointer;
@@ -1182,6 +1108,107 @@ html, body {
   background: #142230;
   color: #f1f5f9;
   border-color: #334e68;
+}
+
+/* Spotlight Command Palette Modal */
+.spotlight-dialog {
+  background: #09131d;
+  border: 1px solid #1d3248;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 620px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotlight-search-header {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid #142436;
+  gap: 0.75rem;
+  background: #0c1724;
+}
+
+.spotlight-icon {
+  font-size: 1.1rem;
+  color: #38bdf8;
+}
+
+.spotlight-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+}
+
+.spotlight-esc-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: #142332;
+  border: 1px solid #23374d;
+  color: #94a3b8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.spotlight-results-scroll {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.spotlight-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  gap: 0.75rem;
+  border: 1px solid transparent;
+}
+
+.spotlight-item:hover, .spotlight-item.active-item {
+  background: #122131;
+  border-color: #243d54;
+}
+
+.spotlight-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.spotlight-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spotlight-item-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 /* Viewer Empty Canvas */
@@ -1364,45 +1391,6 @@ html, body {
   color: #cbd5e1;
 }
 
-/* Submit Modal Steps */
-.gdrive-rule-box {
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1.25rem;
-  display: flex;
-  gap: 0.75rem;
-}
-
-.gdrive-rule-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.submission-step-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  margin-bottom: 1rem;
-}
-
-.step-number-circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #142232;
-  border: 1px solid #233b52;
-  color: #38bdf8;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 /* Toast */
 .og-toast {
   position: fixed;
@@ -1430,8 +1418,6 @@ html, body {
 @media (max-width: 900px) {
   .stream-cards-grid { grid-template-columns: 1fr; }
   .hero-stats-bar { grid-template-columns: repeat(2, 1fr); }
-  .submit-banner-card { flex-direction: column; text-align: center; }
-  .submit-banner-card .hero-cta-group { justify-content: center; }
   .view-explorer { flex-direction: column; height: calc(100vh - 58px); }
   .og-sidebar { width: 100%; max-width: 100%; height: 50%; }
   .og-viewer-pane { width: 100%; height: 50%; }
@@ -1457,9 +1443,6 @@ html, body {
         <button class="nav-pill-btn" id="navBtnNotes" onclick="navigateTo('explorer')">
           <span>📚 Directory</span>
         </button>
-        <button class="nav-pill-btn" onclick="openModal('submitModal')">
-          <span>📤 Submit (GDrive)</span>
-        </button>
         <button class="nav-pill-btn nav-pill-disclaimer" onclick="openModal('disclaimerModal')">
           <span>⚠️ Disclaimer</span>
         </button>
@@ -1467,12 +1450,12 @@ html, body {
     </div>
 
     <div class="og-header-right">
-      <button class="nav-pill-btn btn-nav-submit" onclick="openModal('submitModal')">
-        <span>📤 Submit Notes</span>
+      <button class="nav-pill-btn" onclick="openSpotlightSearch()" title="Search all notes (⌘K)">
+        <span>🔍 Search <kbd style="font-size:0.65rem; padding:0.1rem 0.35rem; background:#162534; border-radius:4px; margin-left:0.25rem;">⌘K</kbd></span>
       </button>
 
       <button class="nav-pill-btn btn-nav-glow-notes" onclick="navigateTo('explorer')">
-        <span>⚡ Go to Notes</span>
+        <span>⚡ Explore Directory</span>
       </button>
 
       <button class="nav-pill-btn" onclick="openModal('discordModal')">
@@ -1482,7 +1465,7 @@ html, body {
   </header>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- VIEW 1: BEAUTIFUL LANDING PAGE -->
+  <!-- VIEW 1: CLEAN MINIMAL LANDING PAGE -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <main class="view-landing" id="viewLanding">
     <div class="landing-container">
@@ -1490,30 +1473,29 @@ html, body {
       <!-- Hero Section -->
       <section class="hero-section">
         <div class="hero-pill-tag">
-          <span>⚡ ISC.EXE 2.0 — CLASS 12 RESOURCE REVOLUTION</span>
+          <span>ISC CLASS 12 STUDY REPOSITORY</span>
         </div>
 
         <h1 class="hero-title">
-          Class 12 ISC Notes & Study Materials. <br/>
-          <span class="hero-title-gradient">Fast, Organized, 100% Free.</span>
+          Class 12 ISC Notes &amp; Study Materials. <br/>
+          <span class="hero-title-gradient">Fast, Organized, Free.</span>
         </h1>
 
         <p class="hero-subtitle">
-          Instant access to curated chapter notes, past prelim papers, formula sheets, specimen questions, and revision guides. Direct Google Drive previews with zero ads or paywalls.
+          Curated chapter notes, past prelim papers, formula sheets, and revision guides across Commerce, Science, and Humanities.
         </p>
 
         <!-- CTA Buttons -->
         <div class="hero-cta-group">
-          <!-- 1. Glowy Button: Go to notes -->
           <button class="btn-glow-primary" id="heroBtnGoToNotes" onclick="navigateTo('explorer')">
             <span class="btn-icon-symbol">⚡</span>
-            <span>Go to Notes</span>
+            <span>Browse Directory</span>
           </button>
 
-          <!-- 2. Second Button: Submit notes (Google Form / GDrive only) -->
-          <button class="btn-glow-submit" id="heroBtnSubmitNotes" onclick="openModal('submitModal')">
-            <span class="btn-icon-symbol">📤</span>
-            <span>Submit Notes (GDrive only)</span>
+          <button class="btn-minimal-search" onclick="openSpotlightSearch()">
+            <span>🔍</span>
+            <span>Quick Search</span>
+            <span class="hero-kbd-pill">⌘K</span>
           </button>
         </div>
       </section>
@@ -1521,27 +1503,27 @@ html, body {
       <!-- Key Platform Stats -->
       <div class="hero-stats-bar">
         <div class="stat-item-box">
-          <div class="stat-number emerald" id="statNotesCount">5,000+</div>
+          <div class="stat-number emerald" id="statNotesCount">820+</div>
           <div class="stat-label">Indexed Documents</div>
         </div>
         <div class="stat-item-box">
           <div class="stat-number cyan">15+</div>
-          <div class="stat-label">ISC Class 12 Subjects</div>
+          <div class="stat-label">Class 12 Subjects</div>
         </div>
         <div class="stat-item-box">
-          <div class="stat-number amber">100%</div>
-          <div class="stat-label">GDrive Hosted & Verified</div>
+          <div class="stat-number amber">3</div>
+          <div class="stat-label">Academic Streams</div>
         </div>
         <div class="stat-item-box">
-          <div class="stat-number purple">15,000+</div>
-          <div class="stat-label">Student Community</div>
+          <div class="stat-number purple">Drive</div>
+          <div class="stat-label">Instant Previews</div>
         </div>
       </div>
 
       <!-- Explore Streams Section -->
       <div class="landing-section-header">
-        <span class="landing-section-tag">CHOOSE YOUR STREAM</span>
-        <h2 class="landing-section-title">Explore Resources by Academic Track</h2>
+        <span class="landing-section-tag">ACADEMIC TRACKS</span>
+        <h2 class="landing-section-title">Select Your Stream</h2>
       </div>
 
       <div class="stream-cards-grid">
@@ -1600,27 +1582,10 @@ html, body {
         </div>
       </div>
 
-      <!-- Submit Notes Banner (Google Form CTA) -->
-      <div class="submit-banner-card">
-        <div class="submit-banner-content">
-          <div class="submit-gdrive-badge">
-            <span>📁 GOOGLE DRIVE SUBMISSION PIPELINE</span>
-          </div>
-          <h3 class="submit-banner-title">Have High-Quality ISC Notes? Contribute Today</h3>
-          <p class="submit-banner-desc">Help thousands of fellow Class 12 ISC candidates score 95%+ in their board exams. Submit links to your Google Drive folders and PDF notes via our streamlined Google Form.</p>
-        </div>
-        <div class="hero-cta-group" style="margin-top:0;">
-          <button class="btn-glow-submit" onclick="openModal('submitModal')">
-            <span class="btn-icon-symbol">📋</span>
-            <span>Open Submission Form</span>
-          </button>
-        </div>
-      </div>
-
       <!-- Landing Page Footer -->
       <footer class="landing-footer">
         <div>
-          <span>ISC.exe 2.0 — Built with ❤️ for ISC Class 12 Students</span>
+          <span>ISC.exe 2.0 — Class 12 Student Resource Repository</span>
         </div>
         <div style="display:flex; gap:1.25rem;">
           <a href="#" onclick="openModal('disclaimerModal'); return false;" style="color:#64748b; text-decoration:none;">Disclaimer</a>
@@ -1638,34 +1603,25 @@ html, body {
   <div class="view-explorer" id="viewExplorer">
 
     <!-- LEFT DIRECTORY SIDEBAR -->
-    <aside class="og-sidebar">
+    <aside class="og-sidebar" id="mainSidebar">
       
-      <!-- Resources Branding -->
+      <!-- Top Header Area -->
       <div class="sidebar-header-area">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span class="sub-tag-resources">ISC.EXE 2.0 DIRECTORY</span>
-          <button class="nav-pill-btn" style="height:24px; padding:0 0.5rem; font-size:0.7rem;" onclick="navigateTo('landing')">← Home</button>
+        <div class="sidebar-top-meta">
+          <span class="sub-tag-resources">ISC 12 NOTES DIRECTORY</span>
+          <button class="nav-pill-btn" style="height:24px; padding:0 0.6rem; font-size:0.72rem;" onclick="navigateTo('landing')">← Home</button>
         </div>
-        <h2 class="main-sidebar-title">Notes & Materials</h2>
-        <p class="sidebar-sub-caption">browse · search · preview</p>
+
+        <!-- Stream Switcher Tabs -->
+        <div class="stream-quick-bar" id="streamQuickBar">
+          <button class="stream-tab-btn active" id="strm_Commerce" onclick="setStream('Commerce')">Commerce</button>
+          <button class="stream-tab-btn" id="strm_Science" onclick="setStream('Science')">Science</button>
+          <button class="stream-tab-btn" id="strm_Humanities" onclick="setStream('Humanities')">Humanities</button>
+          <button class="stream-tab-btn" id="strm_All" onclick="setStream('All Streams')">All</button>
+        </div>
       </div>
 
-      <!-- Active Stream Card -->
-      <div class="stream-selector-card" id="streamSelectorCard" onclick="cycleStream()">
-        <div class="stream-card-top">
-          <div class="stream-card-left">
-            <div class="stream-icon-box" id="streamIconBadge">$</div>
-            <div class="stream-info-text">
-              <span class="stream-label-mini">ACTIVE STREAM</span>
-              <span class="stream-active-name" id="streamActiveName">Commerce</span>
-            </div>
-          </div>
-          <span class="stream-chevron">⌄</span>
-        </div>
-        <div class="stream-card-divider">--- TAP TO SWITCH STREAM ---</div>
-      </div>
-
-      <!-- Search Input -->
+      <!-- Simple Instant Search Input -->
       <div class="sidebar-search-wrap">
         <div class="search-input-container">
           <span class="search-lens-icon">🔍</span>
@@ -1673,34 +1629,31 @@ html, body {
             type="text" 
             id="sidebarSearchInput" 
             class="sidebar-search-box" 
-            placeholder="Search files, chapters, notes..." 
+            placeholder="Search notes, chapters, topics..." 
             autocomplete="off"
             oninput="handleSearch(this.value)"
           />
+          <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear filter">✕</button>
         </div>
       </div>
 
-      <!-- Directory Tree Heading & Toggle Controls -->
-      <div class="tree-heading-row">
-        <span class="tree-heading-text" id="treeHeadingLabel">DIRECTORIES & FOLDERS</span>
-        <div class="tree-toggle-actions">
-          <button class="tree-action-btn" onclick="toggleAllFolders(true)">Expand All</button>
-          <button class="tree-action-btn" onclick="toggleAllFolders(false)">Collapse All</button>
-        </div>
+      <!-- Horizontal Subject Selector Rail -->
+      <div class="subject-horizontal-strip" id="subjectHorizontalStrip">
+        <!-- Dynamically filled with subject chips -->
       </div>
 
-      <!-- Main Directory Tree Container (Subfolders CLOSED by default) -->
+      <!-- Clean Notes List Area -->
       <div class="sidebar-scroll-content" id="sidebarDirectoryTree">
-        <!-- Javascript dynamically fills hierarchical subject and category folders -->
+        <!-- Dynamically filled with folders and notes -->
       </div>
 
-      <!-- Bottom Status Line -->
+      <!-- Minimal Bottom Status Line -->
       <div class="sidebar-status-footer">
         <div class="status-optimal">
-          <span style="width:6px; height:6px; background:#34d399; border-radius:50%; display:inline-block; box-shadow:0 0 6px #34d399;"></span>
-          <span>SYSTEM STATUS OPTIMAL 100%</span>
+          <span class="status-dot"></span>
+          <span id="footerNotesCountLabel">Notes Ready</span>
         </div>
-        <span>⚡ ISC.exe 2.0</span>
+        <span class="footer-keyboard-hint" id="subjectNotesCountHint">Click any note to preview</span>
       </div>
     </aside>
 
@@ -1709,24 +1662,20 @@ html, body {
       
       <!-- Top Action Bar -->
       <div class="viewer-top-bar">
-        <div class="viewer-breadcrumb-label" id="viewerBreadcrumb">
-          <span>Select a file from any folder to preview</span>
+        <div class="viewer-breadcrumb-wrap">
+          <div class="viewer-breadcrumb-label" id="viewerBreadcrumb">
+            <span>Select a note from the left to preview</span>
+          </div>
         </div>
 
         <div class="viewer-actions-group">
-          <button class="btn-action-pill btn-act-open" id="btnActOpen" onclick="openDirectDrive()">
-            <span>↗ Open</span>
+          <button class="btn-action-pill btn-act-open" id="btnActOpen" onclick="openDirectDrive()" title="Open in Google Drive tab">
+            <span>↗ Open in Drive</span>
           </button>
-          <button class="btn-action-pill btn-act-download" id="btnActDownload" onclick="downloadCurrentFile()">
+          <button class="btn-action-pill btn-act-download" id="btnActDownload" onclick="downloadCurrentFile()" title="Download PDF">
             <span>⬇ Download</span>
           </button>
-          <button class="btn-action-pill btn-act-share" id="btnActShare" onclick="shareCurrentFile()">
-            <span>🔗 Share</span>
-          </button>
-          <button class="btn-action-pill btn-act-reload" id="btnActReload" onclick="reloadCurrentPreview()">
-            <span>🔄 Reload</span>
-          </button>
-          <button class="btn-action-pill btn-act-fullscreen" id="btnActFullscreen" onclick="toggleFullscreenViewer()">
+          <button class="btn-action-pill btn-act-fullscreen" id="btnActFullscreen" onclick="toggleFullscreenViewer()" title="Fullscreen mode">
             <span>⤢ Fullscreen</span>
           </button>
         </div>
@@ -1735,23 +1684,8 @@ html, body {
       <!-- Empty Canvas State -->
       <div class="viewer-empty-canvas" id="viewerEmptyCanvas">
         <div class="empty-book-glow">📖</div>
-        <h2 class="empty-state-title">Nothing open yet</h2>
-        <p class="empty-state-sub">pick a file from the sidebar folders</p>
-
-        <div class="hotkeys-helper-list">
-          <div class="hotkey-row">
-            <span class="hotkey-key-box">F</span>
-            <span>toggle fullscreen</span>
-          </div>
-          <div class="hotkey-row">
-            <span class="hotkey-key-box">R</span>
-            <span>reload preview</span>
-          </div>
-          <div class="hotkey-row">
-            <span class="hotkey-key-box">S</span>
-            <span>copy share link</span>
-          </div>
-        </div>
+        <h2 class="empty-state-title">Select a Note to Read</h2>
+        <p class="empty-state-sub">Choose any subject or chapter on the left to start studying.</p>
       </div>
 
       <!-- Embedded Iframe Preview -->
@@ -1769,75 +1703,35 @@ html, body {
   <!-- MODALS -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
 
-  <!-- 1. SUBMIT NOTES MODAL (GOOGLE FORM LINK & GDRIVE REQUIREMENTS) -->
-  <div class="og-modal-backdrop" id="submitModal">
-    <div class="og-modal-window">
-      <div class="og-modal-header">
-        <div class="og-modal-title">📤 Submit ISC Class 12 Notes</div>
-        <button class="og-modal-close" onclick="closeModal('submitModal')">✕</button>
+  <!-- 0. SPOTLIGHT COMMAND PALETTE MODAL (⌘K / Ctrl+K) -->
+  <div class="og-modal-backdrop" id="spotlightModal">
+    <div class="spotlight-dialog">
+      <div class="spotlight-search-header">
+        <span class="spotlight-icon">⚡</span>
+        <input 
+          type="text" 
+          id="spotlightSearchInput" 
+          class="spotlight-input" 
+          placeholder="Search 820+ notes, subjects, chapters, PYQs (e.g. 'Accounts Oswal', 'Physics formula')..." 
+          autocomplete="off"
+          oninput="handleSpotlightInput(this.value)"
+          onkeydown="handleSpotlightKey(event)"
+        />
+        <button class="spotlight-esc-pill" onclick="closeModal('spotlightModal')">ESC</button>
       </div>
-      <div class="og-modal-body">
-        
-        <!-- Google Drive Strict Warning Box -->
-        <div class="gdrive-rule-box">
-          <div class="gdrive-rule-icon">📁</div>
-          <div>
-            <strong style="color:#38bdf8; display:block; margin-bottom:0.25rem;">Google Drive Links Only</strong>
-            <span>All submissions must be shareable Google Drive links (PDF or Google Docs/Folders). Direct file uploads or non-GDrive links will be rejected.</span>
-          </div>
-        </div>
-
-        <h4 style="color:#f1f5f9; margin-bottom:0.75rem; font-size:0.95rem;">Submission Instructions:</h4>
-
-        <div class="submission-step-row">
-          <div class="step-number-circle">1</div>
-          <div>
-            <strong style="color:#e2e8f0;">Upload to your Google Drive</strong>
-            <p style="font-size:0.84rem; color:#94a3b8;">Save your notes, past prelim papers, formula sheets, or chapter summaries in your personal Google Drive.</p>
-          </div>
-        </div>
-
-        <div class="submission-step-row">
-          <div class="step-number-circle">2</div>
-          <div>
-            <strong style="color:#e2e8f0;">Set Permission to "Anyone with the link"</strong>
-            <p style="font-size:0.84rem; color:#94a3b8;">Right-click file &gt; Share &gt; Change General Access to <em>"Anyone with the link can view"</em>.</p>
-          </div>
-        </div>
-
-        <div class="submission-step-row">
-          <div class="step-number-circle">3</div>
-          <div>
-            <strong style="color:#e2e8f0;">Fill the Google Form</strong>
-            <p style="font-size:0.84rem; color:#94a3b8;">Specify the Subject, Chapter / Topic Name, Stream (Commerce/Science/Humanities), and paste your GDrive URL.</p>
-          </div>
-        </div>
-
-        <!-- Google Form Direct Action Buttons -->
-        <div style="background:#09121a; border:1px solid #1c2e40; border-radius:12px; padding:1.25rem; margin-top:1.25rem; text-align:center;">
-          <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:1rem;">Ready with your Google Drive link?</p>
-          <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
-            <!-- Google Form Link -->
-            <a 
-              href="https://docs.google.com/forms/d/e/1FAIpQLSdc2Y4G4h3p5q-ISC-Notes-Submission-Form/viewform" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="btn-glow-submit" 
-              style="padding:0.7rem 1.4rem; font-size:0.9rem;"
-            >
-              <span>📋 Open Google Form ↗</span>
-            </a>
-            <button class="nav-pill-btn" onclick="copyFormLink()" style="height:42px; padding:0 1rem;">
-              <span>🔗 Copy Form URL</span>
-            </button>
-          </div>
-        </div>
-
+      <div class="spotlight-results-scroll" id="spotlightResultsList">
+        <!-- Dynamically populated live results -->
+      </div>
+      <div class="sidebar-status-footer" style="background:#0c1622; border-top:1px solid #16283a; padding:0.5rem 1rem;">
+        <span style="color:#64748b; font-family:var(--font-mono); font-size:0.65rem;">
+          Use <b>↑ ↓</b> to navigate · <b>↵ Enter</b> to preview · <b>ESC</b> to exit
+        </span>
+        <span id="spotlightCountBadge" style="color:#38bdf8; font-family:var(--font-mono); font-size:0.68rem;">Ready</span>
       </div>
     </div>
   </div>
 
-  <!-- 2. DISCLAIMER MODAL -->
+  <!-- 1. DISCLAIMER MODAL -->
   <div class="og-modal-backdrop" id="disclaimerModal">
     <div class="og-modal-window">
       <div class="og-modal-header">
@@ -1903,10 +1797,17 @@ html, body {
 
     let allNotes = [];
     let currentStream = 'Commerce';
+    let selectedSubject = 'Economics';
+    let selectedCategory = 'ALL';
+    let selectedTag = 'ALL';
+    let navMode = 'focus'; // 'focus' | 'tree'
     let activeFile = null;
     let currentView = 'landing'; // 'landing' | 'explorer'
+    let currentFilteredNotes = []; // currently visible notes array for prev/next navigation
+    let spotlightSearchResults = [];
+    let spotlightSelectedIdx = 0;
     
-    // Track open/closed states for Subject and Subfolder accordions
+    // Track open/closed states for Subject and Subfolder accordions in Tree Mode
     const openSubjectNodes = new Set();
     const openSubfolderNodes = new Set();
 
@@ -1914,11 +1815,11 @@ html, body {
 
     const SUBJECT_CONFIGS = {
       'Commerce': [
-        { name: 'English', icon: '📖' },
         { name: 'Economics', icon: '📊' },
         { name: 'Accounts', icon: '🧮' },
-        { name: 'Business Studies', icon: '💼' },
         { name: 'Commerce', icon: '🛍️' },
+        { name: 'Business Studies', icon: '💼' },
+        { name: 'English', icon: '📖' },
         { name: 'Maths', icon: '𝝿' }
       ],
       'Science': [
@@ -1938,12 +1839,12 @@ html, body {
       ],
       'All Streams': [
         { name: 'Economics', icon: '📊' },
-        { name: 'English', icon: '📖' },
-        { name: 'Maths', icon: '𝝿' },
         { name: 'Physics', icon: '⚡' },
         { name: 'Chemistry', icon: '🧪' },
         { name: 'Accounts', icon: '🧮' },
         { name: 'Commerce', icon: '🛍️' },
+        { name: 'Maths', icon: '𝝿' },
+        { name: 'English', icon: '📖' },
         { name: 'Computer Science', icon: '💻' },
         { name: 'Biology', icon: '🧬' },
         { name: 'Business Studies', icon: '💼' },
@@ -1955,14 +1856,11 @@ html, body {
 
     // Load initial data safely with immediate fallback and network refresh
     function initApp() {
-      // 1. Immediately hydrate from embedded fallback data if available
+      // 1. Immediately hydrate from embedded fallback data
       if (typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined' && Array.isArray(window.__FALLBACK_NOTES_DATA__) && window.__FALLBACK_NOTES_DATA__.length > 0) {
         allNotes = window.__FALLBACK_NOTES_DATA__;
-        const statEl = document.getElementById('statNotesCount');
-        if (statEl) {
-          statEl.textContent = allNotes.length.toLocaleString() + '+';
-        }
-        renderDirectoryTree();
+        updateGlobalCounts();
+        renderActiveView();
       }
 
       // 2. Refresh from /api/notes or /notes-data.json
@@ -1976,17 +1874,13 @@ html, body {
                 const data = JSON.parse(xhr.responseText);
                 if (data && data.notes && data.notes.length > 0) {
                   allNotes = data.notes;
-                  const statEl = document.getElementById('statNotesCount');
-                  if (statEl) {
-                    statEl.textContent = allNotes.length.toLocaleString() + '+';
-                  }
-                  renderDirectoryTree();
+                  updateGlobalCounts();
+                  renderActiveView();
                 }
               } catch (e) {
                 console.warn('Failed to parse notes response:', e);
               }
             } else if (allNotes.length === 0) {
-              // Try direct JSON file fetch
               const fallbackXhr = new XMLHttpRequest();
               fallbackXhr.open('GET', '/notes-data.json', true);
               fallbackXhr.onload = function() {
@@ -1995,7 +1889,8 @@ html, body {
                     const parsed = JSON.parse(fallbackXhr.responseText);
                     if (Array.isArray(parsed)) {
                       allNotes = parsed;
-                      renderDirectoryTree();
+                      updateGlobalCounts();
+                      renderActiveView();
                     }
                   } catch(e) {}
                 }
@@ -2008,19 +1903,28 @@ html, body {
           if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
             allNotes = window.__FALLBACK_NOTES_DATA__;
           }
-          renderDirectoryTree();
+          updateGlobalCounts();
+          renderActiveView();
         };
         xhr.send();
       } catch (err) {
-        console.warn('Network error loading notes:', err);
         if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
           allNotes = window.__FALLBACK_NOTES_DATA__;
         }
-        renderDirectoryTree();
+        updateGlobalCounts();
+        renderActiveView();
       }
 
       setupHotkeys();
       handleInitialHash();
+    }
+
+    function updateGlobalCounts() {
+      const count = allNotes.length;
+      const statEl = document.getElementById('statNotesCount');
+      if (statEl) statEl.textContent = count.toLocaleString() + '+';
+      const footerEl = document.getElementById('footerNotesCountLabel');
+      if (footerEl) footerEl.textContent = `${count} Notes Indexed`;
     }
 
     // View Navigation Handler
@@ -2031,6 +1935,10 @@ html, body {
       const navBtnLanding = document.getElementById('navBtnLanding');
       const navBtnNotes = document.getElementById('navBtnNotes');
 
+      if (window.va) {
+        try { window.va('track', 'navigate_view', { view: view }); } catch(e) {}
+      }
+
       if (view === 'explorer') {
         if (landingEl) landingEl.style.display = 'none';
         if (explorerEl) explorerEl.style.display = 'flex';
@@ -2038,6 +1946,7 @@ html, body {
         if (navBtnNotes) navBtnNotes.classList.add('active');
         window.location.hash = 'notes';
         window.scrollTo(0, 0);
+        renderActiveView();
       } else {
         if (landingEl) landingEl.style.display = 'block';
         if (explorerEl) explorerEl.style.display = 'none';
@@ -2049,138 +1958,174 @@ html, body {
 
     function openStreamFromLanding(streamName) {
       currentStream = streamName;
+      selectedCategory = 'ALL';
+      selectedTag = 'ALL';
+      const subs = SUBJECT_CONFIGS[currentStream] || [];
+      if (subs.length > 0) {
+        selectedSubject = subs[0].name;
+      }
       openSubjectNodes.clear();
       openSubfolderNodes.clear();
-      // Auto-open first subject so the user immediately sees notes
-      const subs = SUBJECT_CONFIGS[currentStream] || [];
       if (subs.length > 0) {
         openSubjectNodes.add(`sub_${subs[0].name}`);
       }
-      renderDirectoryTree();
       navigateTo('explorer');
-      showToast(`Browsing ${streamName} Stream Notes`);
+      showToast(`Browsing ${streamName} Stream`);
     }
 
     function handleInitialHash() {
       if (window.location.hash === '#notes' || window.location.hash === '#directory') {
         navigateTo('explorer');
-      } else if (window.location.hash === '#submit') {
-        openModal('submitModal');
       }
     }
 
-    // Render Hierarchical Tree with Subfolders Closed by default
-    function renderDirectoryTree(searchQuery = '') {
-      const container = document.getElementById('sidebarDirectoryTree');
-      if (!container) return;
+    // Switch active Stream tab
+    function setStream(streamName) {
+      currentStream = streamName;
+      selectedCategory = 'ALL';
+      selectedTag = 'ALL';
+
+      if (window.va) {
+        try { window.va('track', 'select_stream', { stream: streamName }); } catch(e) {}
+      }
+
+      // Update stream buttons UI
+      document.querySelectorAll('.stream-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeTab = document.getElementById(`strm_${streamName.replace(/\s+/g, '')}`);
+      if (activeTab) activeTab.classList.add('active');
+
+      const subs = SUBJECT_CONFIGS[currentStream] || [];
+      if (subs.length > 0 && !subs.some(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase())) {
+        selectedSubject = subs[0].name;
+      }
+
+      openSubjectNodes.clear();
+      openSubfolderNodes.clear();
+      if (selectedSubject) {
+        openSubjectNodes.add(`sub_${selectedSubject}`);
+      }
+
+      renderActiveView();
+      showToast(`Stream: ${streamName}`);
+    }
+
+    // Select Subject from Horizontal Rail
+    function selectSubject(subjName) {
+      selectedSubject = subjName;
+      if (window.va) {
+        try { window.va('track', 'select_subject', { subject: subjName, stream: currentStream }); } catch(e) {}
+      }
+      renderActiveView();
+    }
+
+    // Master Render Method
+    function renderActiveView() {
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectRail();
+      renderSubjectNotes(searchVal);
+    }
+
+    // 1. Render Horizontal Subject Selector Rail
+    function renderSubjectRail() {
+      const strip = document.getElementById('subjectHorizontalStrip');
+      if (!strip) return;
 
       const subjects = SUBJECT_CONFIGS[currentStream] || SUBJECT_CONFIGS['Commerce'];
       
-      // Update Stream Card UI
-      const nameEl = document.getElementById('streamActiveName');
-      const iconEl = document.getElementById('streamIconBadge');
-      if (nameEl) nameEl.textContent = currentStream;
-      if (iconEl) {
-        if (currentStream === 'Commerce') iconEl.textContent = '$';
-        else if (currentStream === 'Science') iconEl.textContent = '⚛';
-        else if (currentStream === 'Humanities') iconEl.textContent = '🏛';
-        else iconEl.textContent = '⚡';
-      }
+      let html = '';
+      subjects.forEach(sub => {
+        const count = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase()).length;
+        const isActive = (selectedSubject || '').toLowerCase() === sub.name.toLowerCase();
+        
+        html += `
+          <button 
+            class="subject-chip-btn ${isActive ? 'active' : ''}" 
+            onclick="selectSubject('${escapeAttr(sub.name)}')"
+            title="${sub.name} (${count} notes)"
+          >
+            <span>${sub.icon || '📚'}</span>
+            <span>${sub.name}</span>
+            <span class="subject-chip-count">${count}</span>
+          </button>
+        `;
+      });
+
+      strip.innerHTML = html;
+    }
+
+    // 2. Render Clean Categorized Notes for Current Subject
+    function renderSubjectNotes(searchQuery = '') {
+      const container = document.getElementById('sidebarDirectoryTree');
+      const footerHint = document.getElementById('footerNotesCountLabel');
+      if (!container) return;
 
       const q = typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
+      
+      // Filter notes by current stream & selected subject
+      let subjectNotes = allNotes.filter(n => {
+        if (selectedSubject && (!n.subject || n.subject.toLowerCase() !== selectedSubject.toLowerCase())) {
+          return false;
+        }
+        if (q) {
+          const matchTitle = (n.title || '').toLowerCase().includes(q);
+          const matchCat = (n.category || '').toLowerCase().includes(q);
+          const matchSub = (n.subject || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchCat && !matchSub) return false;
+        }
+        return true;
+      });
+
+      currentFilteredNotes = subjectNotes;
+      if (footerHint) {
+        footerHint.textContent = `${subjectNotes.length} Notes Available`;
+      }
+
+      if (subjectNotes.length === 0) {
+        container.innerHTML = `
+          <div style="padding:2.5rem 1rem; text-align:center; color:#64748b; font-family:var(--font-mono); font-size:0.8rem;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div>
+            <div style="color:#e2e8f0; font-weight:600; margin-bottom:0.25rem;">No notes found</div>
+            <div>Try clearing the search query or pick another subject.</div>
+            <button class="nav-pill-btn" onclick="clearSearch()" style="margin-top:0.75rem; height:28px; padding:0 0.8rem;">Clear Search</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Group notes by Category / Folder
+      const categoryMap = {};
+      subjectNotes.forEach(note => {
+        const cat = note.category || 'General Notes';
+        if (!categoryMap[cat]) categoryMap[cat] = [];
+        categoryMap[cat].push(note);
+      });
 
       let html = '';
+      const categories = Object.keys(categoryMap).sort();
 
-      subjects.forEach(sub => {
-        const subNotes = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase());
-        if (subNotes.length === 0) return;
-
-        // Group notes by category (subfolders)
-        const categories = {};
-        subNotes.forEach(note => {
-          const cat = note.category || 'General';
-          if (!categories[cat]) categories[cat] = [];
-          categories[cat].push(note);
-        });
-
-        // Filter if search query is active
-        let matchingNotesCount = 0;
-        const filteredCategories = {};
-
-        Object.keys(categories).forEach(cat => {
-          const files = categories[cat].filter(f => {
-            if (!q) return true;
-            return (f.title && f.title.toLowerCase().includes(q)) ||
-                   (f.subject && f.subject.toLowerCase().includes(q)) ||
-                   (f.category && f.category.toLowerCase().includes(q));
-          });
-
-          if (files.length > 0) {
-            filteredCategories[cat] = files;
-            matchingNotesCount += files.length;
-          }
-        });
-
-        if (q && matchingNotesCount === 0) return;
-
-        const subjectKey = `sub_${sub.name}`;
-        // If searching, auto-expand; otherwise respect user closed/open state (default closed)
-        const isSubjectOpen = q ? true : openSubjectNodes.has(subjectKey);
-
+      categories.forEach(cat => {
+        const notes = categoryMap[cat];
         html += `
-          <div class="subject-node ${isSubjectOpen ? 'open' : ''}" id="node_${subjectKey}">
-            <button class="subject-header-btn" onclick="toggleSubjectNode('${subjectKey}')">
-              <div class="subject-header-left">
-                <span class="subject-icon">${sub.icon}</span>
-                <span>${sub.name}</span>
-              </div>
-              <div class="subject-header-right">
-                <span class="subject-total-badge">${q ? matchingNotesCount : subNotes.length}</span>
-                <span class="chevron-icon">▸</span>
-              </div>
-            </button>
-
-            <div class="subject-subfolders-wrap">
+          <div class="clean-folder-section">
+            <div class="clean-folder-header">
+              <span>📁 ${cat}</span>
+              <span class="folder-count">${notes.length} ${notes.length === 1 ? 'note' : 'notes'}</span>
+            </div>
+            <div class="clean-notes-list">
         `;
 
-        // Render each Subfolder (Category) inside this subject
-        Object.keys(filteredCategories).forEach(cat => {
-          const files = filteredCategories[cat];
-          const subfolderKey = `sub_${sub.name}_cat_${cat}`;
-          const isSubfolderOpen = q ? true : openSubfolderNodes.has(subfolderKey);
-
+        notes.forEach(note => {
+          const isSelected = activeFile && activeFile.id === note.id;
+          const fileExt = (note.fileType || 'PDF').toUpperCase();
           html += `
-            <div class="subfolder-node ${isSubfolderOpen ? 'open' : ''}" id="node_${subfolderKey}">
-              <button class="subfolder-header-btn" onclick="toggleSubfolderNode('${subfolderKey}')">
-                <div class="subfolder-header-left">
-                  <span class="folder-state-icon">${isSubfolderOpen ? '📂' : '📁'}</span>
-                  <span>${cat}</span>
-                </div>
-                <div class="subject-header-right">
-                  <span class="subfolder-count-tag">${files.length}</span>
-                  <span class="chevron-icon">▸</span>
-                </div>
-              </button>
-
-              <div class="subfolder-files-wrap">
-          `;
-
-          // Render files inside the subfolder
-          files.forEach(file => {
-            const isSelected = activeFile && activeFile.id === file.id ? 'selected' : '';
-            const safeTitle = (file.title || '').replace(/"/g, '&quot;');
-            html += `
-              <div class="file-tree-item ${isSelected}" onclick="previewFile('${file.id}')" title="${safeTitle}">
-                <div class="file-tree-name-col">
-                  <span class="file-type-pill">${file.fileType || 'PDF'}</span>
-                  <span class="file-title-text">${file.title || 'Untitled'}</span>
-                </div>
-                <span style="font-size:0.65rem; color:#475569;">📄</span>
-              </div>
-            `;
-          });
-
-          html += `
+            <div 
+              class="clean-note-card ${isSelected ? 'selected' : ''}" 
+              onclick="previewFile('${note.id}')"
+              title="${escapeAttr(note.title)}"
+            >
+              <div class="clean-note-left">
+                <span class="file-type-pill ${fileExt === 'DOC' || fileExt === 'DOCX' ? 'doc' : ''}">${fileExt}</span>
+                <span class="clean-note-title">${note.title || 'Untitled Note'}</span>
               </div>
             </div>
           `;
@@ -2192,100 +2137,90 @@ html, body {
         `;
       });
 
-      if (!html) {
-        html = `
-          <div style="font-family:var(--font-mono); font-size:0.8rem; color:#64748b; padding:2rem 1rem; text-align:center;">
-            No files found matching "${searchQuery}"
-          </div>
-        `;
-      }
-
       container.innerHTML = html;
     }
 
-    // Toggle Subject level folder (Direct DOM class toggle to preserve scroll state)
-    function toggleSubjectNode(key) {
-      const node = document.getElementById('node_' + key);
-      if (openSubjectNodes.has(key)) {
-        openSubjectNodes.delete(key);
-        if (node) node.classList.remove('open');
-      } else {
-        openSubjectNodes.add(key);
-        if (node) node.classList.add('open');
-      }
-    }
-
-    // Toggle Subfolder (Category) level folder
-    function toggleSubfolderNode(key) {
-      const node = document.getElementById('node_' + key);
-      const icon = node ? node.querySelector('.folder-state-icon') : null;
-      if (openSubfolderNodes.has(key)) {
-        openSubfolderNodes.delete(key);
-        if (node) node.classList.remove('open');
-        if (icon) icon.textContent = '📁';
-      } else {
-        openSubfolderNodes.add(key);
-        if (node) node.classList.add('open');
-        if (icon) icon.textContent = '📂';
-      }
-    }
-
-    // Expand All / Collapse All button handlers
-    function toggleAllFolders(expand) {
-      const container = document.getElementById('sidebarDirectoryTree');
-      const prevScroll = container ? container.scrollTop : 0;
-
-      const subjects = SUBJECT_CONFIGS[currentStream] || SUBJECT_CONFIGS['Commerce'];
-      
-      openSubjectNodes.clear();
-      openSubfolderNodes.clear();
-
-      if (expand) {
-        subjects.forEach(sub => {
-          openSubjectNodes.add(`sub_${sub.name}`);
-          const subNotes = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase());
-          subNotes.forEach(n => {
-            const cat = n.category || 'General';
-            openSubfolderNodes.add(`sub_${sub.name}_cat_${cat}`);
-          });
-        });
-        showToast('All subjects and subfolders expanded');
-      } else {
-        showToast('All subfolders closed');
-      }
-
-      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
-      renderDirectoryTree(searchVal);
-      if (container) container.scrollTop = prevScroll;
-    }
-
-    // Switch stream on tap
-    function cycleStream() {
-      const currentIndex = STREAMS.indexOf(currentStream);
-      const nextIndex = (currentIndex + 1) % STREAMS.length;
-      currentStream = STREAMS[nextIndex];
-      openSubjectNodes.clear();
-      openSubfolderNodes.clear();
-      renderDirectoryTree();
-      showToast(`Switched stream to ${currentStream}`);
-    }
-
-    // Handle Search input
+    // Search Handler
     function handleSearch(query) {
-      renderDirectoryTree(query);
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = query && query.length > 0 ? 'block' : 'none';
+      }
+      renderSubjectNotes(query);
     }
 
-    // Preview File in Right Viewer Pane
+    function clearSearch() {
+      const input = document.getElementById('sidebarSearchInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      handleSearch('');
+    }
+
+    // Select Category (filters/searches by category)
+    function selectCategory(catName) {
+      if (!catName) return;
+      const input = document.getElementById('sidebarSearchInput');
+      if (input) {
+        input.value = catName;
+      }
+      handleSearch(catName);
+      if (window.va) {
+        try { window.va('track', 'select_category', { category: catName, subject: selectedSubject }); } catch(e) {}
+      }
+      showToast(`Filter: ${catName}`);
+    }
+
+    function clearAllFilters() {
+      clearSearch();
+    }
+
+    function setTagFilter(tag) {
+      if (!tag || tag === 'ALL') {
+        clearSearch();
+      } else {
+        handleSearch(tag);
+      }
+    }
+
+    function setNavMode(mode) {
+      renderActiveView();
+    }
+
+    function toggleAllFolders(expand) {}
+    function toggleSubjectNode(nodeId) {}
+    function toggleSubfolderNode(subfolderId) {}
+
+    // Preview Note
     function previewFile(noteId) {
       const note = allNotes.find(n => n.id === noteId);
       if (!note) return;
 
       activeFile = note;
 
-      // Update right top breadcrumb
+      if (window.va) {
+        try {
+          window.va('track', 'preview_note', {
+            id: note.id,
+            title: note.title,
+            subject: note.subject,
+            category: note.category || 'General',
+            stream: currentStream
+          });
+        } catch(e) {}
+      }
+
+      // Update interactive breadcrumb
       const breadcrumb = document.getElementById('viewerBreadcrumb');
       if (breadcrumb) {
-        breadcrumb.innerHTML = `<span>${note.subject || ''}</span> <span>/</span> <span>${note.category || ''}</span> <span>/</span> <span class="active-file-tag">${note.title || ''}</span>`;
+        breadcrumb.innerHTML = `
+          <span class="crumb-btn" onclick="selectSubject('${escapeAttr(note.subject || '')}')">${note.subject || ''}</span> 
+          <span>/</span> 
+          <span class="crumb-btn" onclick="selectCategory('${escapeAttr(note.category || '')}')">${note.category || 'General'}</span> 
+          <span>/</span> 
+          <span class="active-file-tag">${note.title || ''}</span>
+        `;
       }
 
       // Hide empty canvas, show iframe
@@ -2301,10 +2236,60 @@ html, body {
         iframe.src = note.embedUrl || `https://drive.google.com/file/d/${note.fileId}/preview`;
       }
 
-      // Highlight selected file in tree
-      document.querySelectorAll('.file-tree-item').forEach(item => item.classList.remove('selected'));
-      const activeEl = document.querySelector(`.file-tree-item[title="${CSS.escape(note.title)}"]`);
-      if (activeEl) activeEl.classList.add('selected');
+      // Update Prev / Next button states
+      updateViewerDocCounter();
+
+      // Highlight active card or tree item
+      document.querySelectorAll('.ergo-file-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.file-tree-item').forEach(i => i.classList.remove('selected'));
+
+      const activeErgo = document.querySelector(`.ergo-file-card[title="${CSS.escape(note.title)}"]`);
+      if (activeErgo) activeErgo.classList.add('selected');
+
+      const activeTree = document.querySelector(`.file-tree-item[title="${CSS.escape(note.title)}"]`);
+      if (activeTree) activeTree.classList.add('selected');
+    }
+
+    // Navigate to Prev (-1) or Next (+1) document in current list
+    function navigateNote(direction) {
+      if (!currentFilteredNotes || currentFilteredNotes.length === 0) return;
+
+      let currentIndex = -1;
+      if (activeFile) {
+        currentIndex = currentFilteredNotes.findIndex(n => n.id === activeFile.id);
+      }
+
+      let nextIndex = currentIndex + direction;
+      if (nextIndex < 0) nextIndex = 0;
+      if (nextIndex >= currentFilteredNotes.length) nextIndex = currentFilteredNotes.length - 1;
+
+      if (nextIndex !== currentIndex && currentFilteredNotes[nextIndex]) {
+        previewFile(currentFilteredNotes[nextIndex].id);
+      }
+    }
+
+    function updateViewerDocCounter() {
+      const counterEl = document.getElementById('viewerDocCounter');
+      const prevBtn = document.getElementById('btnPrevNote');
+      const nextBtn = document.getElementById('btnNextNote');
+
+      if (!activeFile || !currentFilteredNotes || currentFilteredNotes.length === 0) {
+        if (counterEl) counterEl.textContent = '--/--';
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
+        return;
+      }
+
+      const idx = currentFilteredNotes.findIndex(n => n.id === activeFile.id);
+      if (idx === -1) {
+        if (counterEl) counterEl.textContent = `1/${currentFilteredNotes.length}`;
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = currentFilteredNotes.length <= 1;
+      } else {
+        if (counterEl) counterEl.textContent = `${idx + 1}/${currentFilteredNotes.length}`;
+        if (prevBtn) prevBtn.disabled = idx <= 0;
+        if (nextBtn) nextBtn.disabled = idx >= currentFilteredNotes.length - 1;
+      }
     }
 
     function onIframeLoaded() {
@@ -2312,7 +2297,158 @@ html, body {
       if (spinner) spinner.classList.add('hidden');
     }
 
-    // Viewer Toolbar Actions
+    // ─── SPOTLIGHT SEARCH (⌘K / Ctrl+K) ───
+    function openSpotlightSearch() {
+      openModal('spotlightModal');
+      const input = document.getElementById('spotlightSearchInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      handleSpotlightInput('');
+    }
+
+    function handleSpotlightInput(val) {
+      const q = val.trim().toLowerCase();
+      const listEl = document.getElementById('spotlightResultsList');
+      const badge = document.getElementById('spotlightCountBadge');
+      if (!listEl) return;
+
+      let matches = [];
+      if (!q) {
+        // Show recent / featured items
+        matches = allNotes.slice(0, 15);
+      } else {
+        matches = allNotes.filter(n => {
+          return (n.title || '').toLowerCase().includes(q) ||
+                 (n.subject || '').toLowerCase().includes(q) ||
+                 (n.category || '').toLowerCase().includes(q);
+        }).slice(0, 30);
+      }
+
+      spotlightSearchResults = matches;
+      spotlightSelectedIdx = 0;
+      if (badge) badge.textContent = `${matches.length} found`;
+
+      if (matches.length === 0) {
+        listEl.innerHTML = `
+          <div style="padding:2rem; text-align:center; color:#64748b; font-family:var(--font-mono); font-size:0.85rem;">
+            No notes found matching "${escapeAttr(q)}".
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      matches.forEach((note, idx) => {
+        const fileExt = (note.fileType || 'PDF').toUpperCase();
+        html += `
+          <div 
+            class="spotlight-item ${idx === 0 ? 'active-item' : ''}" 
+            id="spotItem_${idx}"
+            onclick="selectSpotlightNote('${note.id}')"
+          >
+            <div class="spotlight-item-left">
+              <span class="spotlight-item-title">${note.title || 'Untitled Note'}</span>
+              <div class="spotlight-item-meta">
+                <span style="color:#38bdf8;">${note.subject || ''}</span>
+                <span>•</span>
+                <span>${note.category || 'General'}</span>
+              </div>
+            </div>
+            <span class="file-type-pill">${fileExt}</span>
+          </div>
+        `;
+      });
+
+      listEl.innerHTML = html;
+    }
+
+    function handleSpotlightKey(e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (spotlightSearchResults.length > 0) {
+          spotlightSelectedIdx = (spotlightSelectedIdx + 1) % spotlightSearchResults.length;
+          highlightSpotlightItem();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (spotlightSearchResults.length > 0) {
+          spotlightSelectedIdx = (spotlightSelectedIdx - 1 + spotlightSearchResults.length) % spotlightSearchResults.length;
+          highlightSpotlightItem();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (spotlightSearchResults[spotlightSelectedIdx]) {
+          selectSpotlightNote(spotlightSearchResults[spotlightSelectedIdx].id);
+        }
+      } else if (e.key === 'Escape') {
+        closeModal('spotlightModal');
+      }
+    }
+
+    function highlightSpotlightItem() {
+      document.querySelectorAll('.spotlight-item').forEach((item, idx) => {
+        if (idx === spotlightSelectedIdx) {
+          item.classList.add('active-item');
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.classList.remove('active-item');
+        }
+      });
+    }
+
+    function selectSpotlightNote(noteId) {
+      closeModal('spotlightModal');
+      navigateTo('explorer');
+      const note = allNotes.find(n => n.id === noteId);
+      if (note) {
+        if (note.subject) {
+          selectedSubject = note.subject;
+        }
+        if (note.category) {
+          selectedCategory = note.category;
+        }
+        renderActiveView();
+        previewFile(note.id);
+      }
+    }
+
+    // Helper functions for tags
+    function isPYQ(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('pyq') || text.includes('specimen') || text.includes('past paper') || text.includes('board paper') || text.includes('prelim');
+    }
+
+    function isCFQ(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('cfq') || text.includes('competency') || text.includes('practice') || text.includes('worksheet') || text.includes('qbank') || text.includes('question bank');
+    }
+
+    function isRevision(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('revision') || text.includes('summary') || text.includes('formula') || text.includes('cheat sheet') || text.includes('quick');
+    }
+
+    function getTagClass(note) {
+      if (isPYQ(note)) return 'tag-pyq';
+      if (isCFQ(note)) return 'tag-cfq';
+      if (isRevision(note)) return 'tag-rev';
+      return 'tag-syl';
+    }
+
+    function getTagLabel(note) {
+      if (isPYQ(note)) return 'PYQ';
+      if (isCFQ(note)) return 'Practice/CFQ';
+      if (isRevision(note)) return 'Revision';
+      return 'Notes';
+    }
+
+    function escapeAttr(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Toolbar Actions
     function openDirectDrive() {
       if (!activeFile) {
         showToast('Please select a file first');
@@ -2328,9 +2464,18 @@ html, body {
         showToast('Please select a file first');
         return;
       }
+      if (window.va) {
+        try {
+          window.va('track', 'download_note', {
+            id: activeFile.id,
+            title: activeFile.title,
+            subject: activeFile.subject
+          });
+        } catch(e) {}
+      }
       const downloadUrl = `https://drive.google.com/uc?export=download&id=${activeFile.fileId}`;
       window.open(downloadUrl, '_blank');
-      showToast('Opening download link in new tab...');
+      showToast('Opening download link...');
     }
 
     function shareCurrentFile() {
@@ -2338,10 +2483,19 @@ html, body {
         showToast('Please select a file first');
         return;
       }
+      if (window.va) {
+        try {
+          window.va('track', 'share_note', {
+            id: activeFile.id,
+            title: activeFile.title,
+            subject: activeFile.subject
+          });
+        } catch(e) {}
+      }
       if (navigator.clipboard) {
         navigator.clipboard.writeText(activeFile.url || window.location.href);
       }
-      showToast('Link copied to clipboard! 📋');
+      showToast('Share link copied to clipboard! 📋');
     }
 
     function reloadCurrentPreview() {
@@ -2361,7 +2515,7 @@ html, body {
       if (!elem) return;
       if (!document.fullscreenElement) {
         elem.requestFullscreen().catch(err => {
-          showToast(`Fullscreen error: ${err.message}`);
+          showToast(`Fullscreen: ${err.message}`);
         });
       } else {
         document.exitFullscreen();
@@ -2386,14 +2540,6 @@ html, body {
       showToast('Discord invite copied! https://discord.gg/isc-class-12');
     }
 
-    function copyFormLink() {
-      const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdc2Y4G4h3p5q-ISC-Notes-Submission-Form/viewform';
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(formUrl);
-      }
-      showToast('Google Form link copied to clipboard! 📋');
-    }
-
     function showToast(msg) {
       const toast = document.getElementById('ogToast');
       const toastMsg = document.getElementById('toastMsg');
@@ -2404,9 +2550,16 @@ html, body {
       }
     }
 
-    // Hotkeys setup
+    // Hotkeys setup (⌘K / Ctrl+K, Arrow Keys, F, R, S, Escape)
     function setupHotkeys() {
       window.addEventListener('keydown', (e) => {
+        // Handle Command+K / Ctrl+K for Spotlight search anytime
+        if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+          e.preventDefault();
+          openSpotlightSearch();
+          return;
+        }
+
         if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
 
         if (e.key === 'r' || e.key === 'R') {
@@ -2418,6 +2571,10 @@ html, body {
         } else if (e.key === 's' || e.key === 'S') {
           e.preventDefault();
           shareCurrentFile();
+        } else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
+          navigateNote(-1);
+        } else if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
+          navigateNote(1);
         } else if (e.key === 'Escape') {
           document.querySelectorAll('.og-modal-backdrop.open').forEach(m => m.classList.remove('open'));
         }
@@ -2429,19 +2586,29 @@ html, body {
     window.closeModal = closeModal;
     window.navigateTo = navigateTo;
     window.openStreamFromLanding = openStreamFromLanding;
-    window.cycleStream = cycleStream;
+    window.setStream = setStream;
+    window.selectSubject = selectSubject;
+    window.selectCategory = selectCategory;
+    window.setTagFilter = setTagFilter;
+    window.setNavMode = setNavMode;
     window.handleSearch = handleSearch;
+    window.clearSearch = clearSearch;
+    window.clearAllFilters = clearAllFilters;
     window.toggleAllFolders = toggleAllFolders;
     window.toggleSubjectNode = toggleSubjectNode;
     window.toggleSubfolderNode = toggleSubfolderNode;
     window.previewFile = previewFile;
+    window.navigateNote = navigateNote;
+    window.openSpotlightSearch = openSpotlightSearch;
+    window.handleSpotlightInput = handleSpotlightInput;
+    window.handleSpotlightKey = handleSpotlightKey;
+    window.selectSpotlightNote = selectSpotlightNote;
     window.openDirectDrive = openDirectDrive;
     window.downloadCurrentFile = downloadCurrentFile;
     window.shareCurrentFile = shareCurrentFile;
     window.reloadCurrentPreview = reloadCurrentPreview;
     window.toggleFullscreenViewer = toggleFullscreenViewer;
     window.copyDiscordLink = copyDiscordLink;
-    window.copyFormLink = copyFormLink;
     window.onIframeLoaded = onIframeLoaded;
 
     // Auto-init

@@ -26,7 +26,7 @@ The repository currently organizes resources across three main academic streams:
 ## ✨ Features
 * **🗂️ Organized Structure:** Content is strictly categorized by subject and chapter.
 * **💨 Lightning Fast:** Built with a minimal UI to ensure resources load instantly on any connection.
-* **📥 Direct Downloads:** Get the PDFs and notes you need with zero paywalls or redirects.
+* **📥 Direct Downloads:** Get the PDFs and notes you need directly from Google Drive.
 
 ## 🤝 Contributing
 Built and maintained by Hrishiraj Nagawade. If you have better notes, mock papers, or want to help improve the site layout, your contributions are highly appreciated! 
