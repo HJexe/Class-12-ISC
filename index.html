@@ -185,39 +185,2829 @@ body::before {
 .submit-banner-desc { color: #9ca3af; }
 
 /* Landing Footer */
-.landing-footer { border-top: 1px solid rgba(255,255,255,0.08); color: #9ca3af; }
-
-/* Shared theme accents for other pages */
-.nav-link:hover, .nav-link.active { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); box-shadow: 0 0 16px var(--accent-glow), inset 0 1px 0 color-mix(in srgb, var(--accent) 15%, transparent); }
-.nav-link-pip { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
-.nav-link--glow { border-color: var(--accent-border); background: var(--accent-lo); color: rgba(255,255,255,0.88); }
-.nav-link--glow:hover { color: var(--accent-on); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow), 0 0 44px rgba(0,0,0,0.1); }
-.nav-badge-new { background: var(--accent); color: var(--accent-on); }
-.subject > summary { border-left-color: color-mix(in srgb, var(--subj-color, var(--accent)) 80%, transparent); }
-.subject[open] > summary { color: var(--subj-color, var(--accent-text)); }
-.s-count { color: color-mix(in srgb, var(--subj-color, var(--accent)) 90%, var(--fg)); border-color: color-mix(in srgb, var(--subj-color, var(--accent)) 40%, var(--border2)); }
-.file-link.active { background: var(--accent-lo); border-color: var(--accent-border); color: var(--fg); }
-.search-box:focus-within { border-color: var(--accent-border); }
-.vi-chip.src-repo { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); }
-#btnOpen { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); box-shadow: 0 0 10px var(--accent-glow), inset 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent); }
-#btnOpen:hover { color: var(--accent-on); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 24px var(--accent-glow), 0 4px 16px rgba(0,0,0,0.35); }
-.color-trigger:hover, .color-trigger.open, .picker-panel, .apply-btn, .brand-dot, .nav-item.active, .nav-active-bg, .sidebar-label, .hero-title .l2, .eyebrow em, .stat-delta.up, .subject-chip.active, .focus-toggle, .chart-bar.today, .sg-fill, .sg-val, .pip-dot.running, .pip-ring-progress, .pip-link, .row-today .td-date::before { }
-
-/* responsive */
-@media (max-width: 900px) {
-  .hero-stats-bar { grid-template-columns: repeat(2, 1fr); }
-  .stream-cards-grid { grid-template-columns: 1fr; }
+.landing-footer {
+  border-top: 1px solid #142230;
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-@media (max-width: 640px) {
-  .landing-container { padding-inline: 1rem; }
-  .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
-  .hero-cta-group { flex-direction: column; }
-  .btn-glow-primary, .btn-glow-submit { width: 100%; }
-  .hero-stats-bar { grid-template-columns: 1fr 1fr; }
-  .stat-item-box { padding: 1.4rem 1rem; }
+
+/* ─── VIEW 2: SPLIT WORKSPACE NOTES EXPLORER ─── */
+.view-explorer {
+  display: none;
+  height: calc(100vh - 58px);
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+.og-sidebar {
+  width: 410px;
+  min-width: 350px;
+  max-width: 480px;
+  height: 100%;
+  min-height: 0;
+  background: #081018;
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sidebar-header-area {
+  padding: 0.9rem 1rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sidebar-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-tag-resources {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #34d399;
+  text-transform: uppercase;
+}
+
+.quick-find-btn {
+  height: 24px;
+  padding: 0 0.55rem;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #0e1a26;
+  border: 1px solid #1f354a;
+  color: #38bdf8;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+.quick-find-btn:hover {
+  background: #142638;
+  border-color: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* ANIMATED STREAM SWITCHER (Interactive Floating Glider Pill)   */
+/* ═══════════════════════════════════════════════════════════════ */
+.stream-quick-bar {
+  position: relative;
+  display: flex;
+  background: #070d14;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.25);
+  gap: 3px;
+  overflow: hidden;
+}
+
+/* Floating Animated Glider Pill */
+.stream-slider-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0px;
+  border-radius: 7px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(14, 165, 233, 0.1));
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.28s ease,
+              border-color 0.28s ease,
+              box-shadow 0.28s ease;
+}
+
+/* Dynamic theme glow per stream */
+.stream-quick-bar[data-active-stream="Commerce"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(5, 150, 105, 0.12));
+  border-color: rgba(52, 211, 153, 0.55);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="Science"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(2, 132, 199, 0.12));
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="Humanities"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24), rgba(217, 119, 6, 0.12));
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="All Streams"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.24), rgba(109, 40, 217, 0.12));
+  border-color: rgba(167, 139, 250, 0.55);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-tab-btn {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.42rem 0.2rem;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: color 0.18s ease, transform 0.12s ease;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+}
+
+.stream-tab-btn .strm-icon {
+  font-size: 0.8rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stream-tab-btn:hover {
+  color: #cbd5e1;
+}
+
+.stream-tab-btn:hover .strm-icon {
+  transform: scale(1.18) translateY(-1px);
+}
+
+.stream-tab-btn:active {
+  transform: scale(0.95);
+}
+
+.stream-tab-btn.active {
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.stream-tab-btn.active#strm_Commerce {
+  color: #34d399;
+}
+.stream-tab-btn.active#strm_Science {
+  color: #38bdf8;
+}
+.stream-tab-btn.active#strm_Humanities {
+  color: #fbbf24;
+}
+.stream-tab-btn.active#strm_All {
+  color: #a78bfa;
+}
+
+/* Animated Entrance for the Directory Tree */
+.tree-animate-in {
+  animation: treeFadeSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes treeFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search Box with Clear Button */
+.sidebar-search-wrap {
+  padding: 0.4rem 1rem 0.45rem;
+  flex-shrink: 0;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-search-box {
+  width: 100%;
+  height: 36px;
+  background: #091017;
+  border: 1px solid #162431;
+  border-radius: 8px;
+  padding: 0 1.9rem 0 2rem;
+  color: #f1f5f9;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: all 0.15s;
+}
+
+.sidebar-search-box:focus {
+  border-color: #38bdf8;
+  background: #0d1722;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+}
+
+.search-lens-icon {
+  position: absolute;
+  left: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #475569;
+  pointer-events: none;
+  font-size: 0.78rem;
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+  display: none;
+}
+.search-clear-btn:hover {
+  color: #f87171;
+}
+
+/* Subject Dropdown Style Menu */
+.subject-dropdown-container {
+  padding: 0.35rem 0.9rem 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid #101c27;
+  position: relative;
+  z-index: 50;
+}
+
+.subject-dropdown-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subject-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.subject-dropdown-trigger {
+  width: 100%;
+  background: #09121a;
+  border: 1px solid #1c2e40;
+  border-radius: 9px;
+  padding: 0.52rem 0.75rem;
+  color: #f1f5f9;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  outline: none;
+  text-align: left;
+}
+
+.subject-dropdown-trigger:hover,
+.subject-dropdown-trigger:focus-visible {
+  border-color: #38bdf8;
+  background: #0d1a26;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+}
+
+.subject-dropdown-trigger[aria-expanded="true"] {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+  background: #0d1a26;
+}
+
+.subj-trigger-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.subj-trigger-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.subj-trigger-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subj-trigger-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.subj-trigger-chevron {
+  font-size: 0.75rem;
+  color: #64748b;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-trigger[aria-expanded="true"] .subj-trigger-chevron {
+  transform: rotate(180deg);
+  color: #38bdf8;
+}
+
+.subject-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  background: #08111a;
+  border: 1px solid #1e3347;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 189, 248, 0.15);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 120;
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  scrollbar-width: thin;
+  scrollbar-color: #1e3347 transparent;
+}
+
+.subject-dropdown-menu::-webkit-scrollbar {
+  width: 4px;
+}
+.subject-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #1e3347;
+  border-radius: 4px;
+}
+
+.subject-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.48rem 0.65rem;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.12s ease;
+  font-family: inherit;
+}
+
+.subject-dropdown-item:hover,
+.subject-dropdown-item:focus-visible {
+  background: #112233;
+  color: #f8fafc;
+}
+
+.subject-dropdown-item.active {
+  background: #12283e;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.subject-dropdown-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.subject-dropdown-item-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subject-dropdown-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #64748b;
+  background: #060c13;
+  border: 1px solid #142230;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.subject-dropdown-item.active .subject-dropdown-item-badge {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.subject-dropdown-check {
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Clean Scrollable Notes Content */
+.sidebar-scroll-content {
+  flex: 1 1 0px;
+  min-height: 0;
+  height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.6rem 0.9rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+/* Clean Folders Toolbar */
+.folders-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.15rem 0.2rem 0.35rem;
+  border-bottom: 1px dashed #142230;
+  margin-bottom: 0.25rem;
+}
+
+.folders-toolbar-info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.folders-toolbar-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.folders-toolbar-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #94a3b8;
+  background: #0c1622;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #172838;
+}
+
+.folders-toolbar-toggle-btn {
+  background: #08121b;
+  border: 1px solid #192a3b;
+  border-radius: 6px;
+  padding: 0.22rem 0.55rem;
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.folders-toolbar-toggle-btn:hover {
+  background: #112233;
+  color: #38bdf8;
+  border-color: #2b4560;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* MODERN MINIMALIST FILE TREE (Directly Inspired by Reference)   */
+/* ═══════════════════════════════════════════════════════════════ */
+.file-tree-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  user-select: none;
+}
+
+/* Tree Folder Section Node */
+.tree-folder-node {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Tree Folder Header / Row */
+.tree-folder-row {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.38rem 0.55rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  color: #cbd5e1;
+  text-align: left;
+  outline: none;
+}
+
+.tree-folder-row:hover,
+.tree-folder-row:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+}
+
+.tree-folder-row.open {
+  color: #f8fafc;
+}
+
+.tree-folder-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Thin Outline Chevron Arrow */
+.tree-chevron {
+  width: 13px;
+  height: 13px;
+  stroke: #64748b;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.18s ease;
+}
+
+.tree-folder-row:hover .tree-chevron {
+  stroke: #94a3b8;
+}
+
+.tree-folder-row.open .tree-chevron,
+.tree-chevron.open {
+  transform: rotate(90deg);
+  stroke: #38bdf8;
+}
+
+/* Thin Outline Folder Icon */
+.tree-folder-icon {
+  width: 16px;
+  height: 16px;
+  stroke: #94a3b8;
+  flex-shrink: 0;
+  transition: stroke 0.18s ease, transform 0.15s ease;
+}
+
+.tree-folder-row:hover .tree-folder-icon {
+  stroke: #38bdf8;
+}
+
+.tree-folder-row.open .tree-folder-icon,
+.tree-folder-icon.open {
+  stroke: #38bdf8;
+}
+
+.tree-folder-title {
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.tree-folder-row.open .tree-folder-title {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.tree-folder-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: #64748b;
+  background: #081018;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.06rem 0.4rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  margin-left: 0.35rem;
+}
+
+.tree-folder-row.open .tree-folder-badge {
+  color: #94a3b8;
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+/* Vertical Tree Guideline & Children Area */
+.tree-children-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 1.05rem;
+  padding-left: 0.65rem;
+  border-left: 1px solid rgba(148, 163, 184, 0.16);
+  position: relative;
+  transition: border-color 0.18s ease;
+}
+
+.tree-children-wrap:hover {
+  border-left-color: rgba(56, 189, 248, 0.35);
+}
+
+.tree-children-wrap.collapsed {
+  display: none;
+}
+
+/* Tree File Row */
+.tree-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.36rem 0.5rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #cbd5e1;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 0.81rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  text-align: left;
+  outline: none;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.tree-file-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+}
+
+.tree-file-row:hover .tree-file-icon {
+  stroke: #38bdf8;
+}
+
+.tree-file-row.selected {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.12);
+}
+
+.tree-file-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Thin Outline File Icon */
+.tree-file-icon {
+  width: 15px;
+  height: 15px;
+  stroke: #94a3b8;
+  flex-shrink: 0;
+  transition: stroke 0.15s ease;
+}
+
+.tree-file-icon.pdf {
+  stroke: #fb7185;
+}
+
+.tree-file-icon.doc,
+.tree-file-icon.docx {
+  stroke: #38bdf8;
+}
+
+.tree-file-row.selected .tree-file-icon {
+  stroke: #38bdf8;
+}
+
+.tree-file-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.tree-file-row.selected .tree-file-title {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.tree-ext-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.05rem 0.32rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+  text-transform: lowercase;
+}
+
+.tree-ext-badge.pdf {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.tree-ext-badge.doc,
+.tree-ext-badge.docx {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.tree-file-row.selected .tree-ext-badge {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+}
+
+/* Backward compatibility classes */
+.clean-folder-section { display: flex; flex-direction: column; width: 100%; }
+.clean-folder-header { composes: tree-folder-row; }
+.clean-notes-list { composes: tree-children-wrap; }
+.clean-note-card { composes: tree-file-row; }
+
+/* Status Bar */
+.sidebar-status-footer {
+  padding: 0.55rem 1rem;
+  border-top: 1px solid var(--border-subtle);
+  background: #080e14;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.status-optimal {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #34d399;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: #34d399;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.footer-keyboard-hint {
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+/* ─── RIGHT VIEWER PANE ─── */
+.og-viewer-pane {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  background: #04080c;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.viewer-top-bar {
+  height: 52px;
+  background: #080f15;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.15rem;
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.viewer-breadcrumb-wrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.viewer-breadcrumb-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewer-breadcrumb-label a, .viewer-breadcrumb-label span.crumb-btn {
+  color: #38bdf8;
+  cursor: pointer;
+  text-decoration: none;
+}
+.viewer-breadcrumb-label a:hover, .viewer-breadcrumb-label span.crumb-btn:hover {
+  text-decoration: underline;
+}
+
+.viewer-breadcrumb-label .active-file-tag {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.viewer-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Prev / Next Note Quick Flippers */
+.viewer-nav-arrows {
+  display: inline-flex;
+  align-items: center;
+  background: #0d1722;
+  border: 1px solid #1a2a3c;
+  border-radius: 999px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.btn-action-arrow {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-action-arrow:hover:not(:disabled) {
+  background: #17283c;
+  color: #34d399;
+}
+
+.btn-action-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.viewer-doc-counter {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #64748b;
+  padding: 0 0.25rem;
+}
+
+.viewer-action-divider {
+  width: 1px;
+  height: 20px;
+  background: #142230;
+  margin: 0 0.2rem;
+}
+
+.btn-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 30px;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  background: transparent;
+}
+
+.btn-act-open {
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #34d399;
+}
+.btn-act-open:hover {
+  background: rgba(52, 211, 153, 0.12);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+}
+
+.btn-act-download {
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+.btn-act-download:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.btn-act-share {
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  color: #c084fc;
+}
+.btn-act-share:hover {
+  background: rgba(192, 132, 252, 0.12);
+}
+
+.btn-act-reload {
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+}
+.btn-act-reload:hover {
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.btn-act-fullscreen {
+  border: 1px solid #1f3142;
+  color: #94a3b8;
+  background: #0d1720;
+}
+.btn-act-fullscreen:hover {
+  background: #142230;
+  color: #f1f5f9;
+  border-color: #334e68;
+}
+
+/* Spotlight Command Palette Modal */
+.spotlight-dialog {
+  background: #09131d;
+  border: 1px solid #1d3248;
+  border-radius: 14px;
+  width: 92%;
+  max-width: 620px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotlight-search-header {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid #142436;
+  gap: 0.75rem;
+  background: #0c1724;
+}
+
+.spotlight-icon {
+  font-size: 1.1rem;
+  color: #38bdf8;
+}
+
+.spotlight-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+}
+
+.spotlight-esc-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: #142332;
+  border: 1px solid #23374d;
+  color: #94a3b8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.spotlight-results-scroll {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.spotlight-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  gap: 0.75rem;
+  border: 1px solid transparent;
+}
+
+.spotlight-item:hover, .spotlight-item.active-item {
+  background: #122131;
+  border-color: #243d54;
+}
+
+.spotlight-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.spotlight-item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spotlight-item-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Viewer Empty Canvas */
+.viewer-empty-canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(52, 211, 153, 0.03) 0%, transparent 65%);
+}
+
+.empty-book-glow {
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 0 24px rgba(52, 211, 153, 0.4));
+  opacity: 0.75;
+}
+
+.empty-state-title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.45rem;
+}
+
+.empty-state-sub {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+.hotkeys-helper-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.hotkey-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.hotkey-key-box {
+  background: #0d1620;
+  border: 1px solid #1c2e3e;
+  color: #94a3b8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 700;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* Active Iframe Canvas */
+.viewer-iframe-canvas {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: relative;
+  background: #000;
+}
+
+.viewer-iframe-canvas iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.iframe-loading-spinner {
+  position: absolute;
+  inset: 0;
+  background: #060a0e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #64748b;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  z-index: 10;
+  transition: opacity 0.25s ease;
+}
+
+.iframe-loading-spinner.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pulse-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #162432;
+  border-top-color: #34d399;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── MODALS ─── */
+.og-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(14px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.og-modal-backdrop.open { display: flex; }
+
+.og-modal-window {
+  background: #0d1622;
+  border: 1px solid #22374a;
+  border-radius: 16px;
+  width: min(680px, 94vw);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.85);
+  animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.og-modal-header {
+  padding: 1.1rem 1.35rem;
+  background: #101c2a;
+  border-bottom: 1px solid #1c2e40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.og-modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.og-modal-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+.og-modal-close:hover { color: #f1f5f9; background: #1a2a3a; }
+
+.og-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+/* Submit Modal Steps */
+.gdrive-rule-box {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.gdrive-rule-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.submission-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.step-number-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #142232;
+  border: 1px solid #233b52;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Toast */
+.og-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #13212e;
+  border: 1px solid #284156;
+  padding: 0.65rem 1.35rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #f1f5f9;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  z-index: 200;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.og-toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .stream-cards-grid { grid-template-columns: 1fr; }
+  .hero-stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .submit-banner-card { flex-direction: column; text-align: center; }
+  .submit-banner-card .hero-cta-group { justify-content: center; }
+  .view-explorer { flex-direction: column; height: calc(100vh - 58px); }
+  .og-sidebar { width: 100%; max-width: 100%; height: 50%; }
+  .og-viewer-pane { width: 100%; height: 50%; }
+  .header-nav-links { display: none; }
 }
 </style>
 </head>
 <body>
-<!-- content omitted: existing page structure remains, only theme/layout CSS updated for the prototype -->
-</body></html>
+
+  <!-- TOP NAVIGATION HEADER -->
+  <header class="og-header">
+    <div class="og-header-left">
+      <div class="og-logo-btn" onclick="navigateTo('landing')">
+        <span class="og-logo-dot"></span>
+        <span>ISC.exe</span>
+        <span class="version-badge">2.0</span>
+      </div>
+
+      <nav class="header-nav-links">
+        <button class="nav-pill-btn active" id="navBtnLanding" onclick="navigateTo('landing')">
+          <span>🏠 Home</span>
+        </button>
+        <button class="nav-pill-btn" id="navBtnNotes" onclick="navigateTo('explorer')">
+          <span>📚 Directory</span>
+        </button>
+        <button class="nav-pill-btn nav-pill-disclaimer" onclick="openModal('disclaimerModal')">
+          <span>⚠️ Disclaimer</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="og-header-right">
+      <button class="nav-pill-btn btn-nav-glow-notes" onclick="navigateTo('explorer')">
+        <span>⚡ Go to Notes</span>
+      </button>
+
+      <button class="nav-pill-btn" onclick="openModal('discordModal')">
+        <span>👾 Discord</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- VIEW 1: BEAUTIFUL LANDING PAGE -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <main class="view-landing" id="viewLanding">
+    <div class="landing-container">
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-pill-tag">
+          <span>⚡ ISC.EXE 2.0 — CLASS 12 RESOURCE REVOLUTION</span>
+        </div>
+
+        <h1 class="hero-title">
+          Class 12 ISC Notes & Study Materials. <br/>
+          <span class="hero-title-gradient">Fast, Organized, 100% Free.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Instant access to curated chapter notes, past prelim papers, formula sheets, specimen questions, and revision guides. Direct Google Drive previews.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+          <!-- 1. Glowy Button: Go to notes -->
+          <button class="btn-glow-primary" id="heroBtnGoToNotes" onclick="navigateTo('explorer')">
+            <span class="btn-icon-symbol">⚡</span>
+            <span>Go to Notes</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Key Platform Stats -->
+      <div class="hero-stats-bar">
+        <div class="stat-item-box">
+          <div class="stat-number emerald" id="statNotesCount">5,000+</div>
+          <div class="stat-label">Indexed Documents</div>
+        </div>
+        <div class="stat-item-box">
+          <div class="stat-number cyan">15+</div>
+          <div class="stat-label">ISC Class 12 Subjects</div>
+        </div>
+        <div class="stat-item-box">
+          <div class="stat-number amber">100%</div>
+          <div class="stat-label">GDrive Hosted & Verified</div>
+        </div>
+        <div class="stat-item-box">
+          <div class="stat-number purple">15,000+</div>
+          <div class="stat-label">Student Community</div>
+        </div>
+      </div>
+
+      <!-- Explore Streams Section -->
+      <div class="landing-section-header">
+        <span class="landing-section-tag">CHOOSE YOUR STREAM</span>
+        <h2 class="landing-section-title">Explore Resources by Academic Track</h2>
+      </div>
+
+      <div class="stream-cards-grid">
+        <!-- Commerce Card -->
+        <div class="landing-stream-card" onclick="openStreamFromLanding('Commerce')">
+          <div class="stream-card-top-icon icon-commerce">$</div>
+          <h3 class="landing-stream-name">Commerce Stream</h3>
+          <p class="landing-stream-desc">Comprehensive notes for Accounts, Economics, Commerce, Business Studies, and Mathematics with past board solutions.</p>
+          <div class="stream-subject-tags">
+            <span class="stream-tag-pill">Accounts</span>
+            <span class="stream-tag-pill">Economics</span>
+            <span class="stream-tag-pill">Commerce</span>
+            <span class="stream-tag-pill">Maths</span>
+            <span class="stream-tag-pill">English</span>
+          </div>
+          <div class="stream-open-action">
+            <span>Browse Commerce Notes</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        <!-- Science Card -->
+        <div class="landing-stream-card" onclick="openStreamFromLanding('Science')">
+          <div class="stream-card-top-icon icon-science">⚛</div>
+          <h3 class="landing-stream-name">Science Stream</h3>
+          <p class="landing-stream-desc">High-yield revision sheets for Physics, Chemistry, Mathematics, Biology, and Computer Science with derivation sheets.</p>
+          <div class="stream-subject-tags">
+            <span class="stream-tag-pill">Physics</span>
+            <span class="stream-tag-pill">Chemistry</span>
+            <span class="stream-tag-pill">Maths</span>
+            <span class="stream-tag-pill">Biology</span>
+            <span class="stream-tag-pill">Comp Sci</span>
+          </div>
+          <div class="stream-open-action">
+            <span>Browse Science Notes</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        <!-- Humanities Card -->
+        <div class="landing-stream-card" onclick="openStreamFromLanding('Humanities')">
+          <div class="stream-card-top-icon icon-humanities">🏛</div>
+          <h3 class="landing-stream-name">Humanities Stream</h3>
+          <p class="landing-stream-desc">Structured study notes, key terms, case studies, and essay structures for Geography, Psychology, Sociology, and Economics.</p>
+          <div class="stream-subject-tags">
+            <span class="stream-tag-pill">Economics</span>
+            <span class="stream-tag-pill">Geography</span>
+            <span class="stream-tag-pill">Psychology</span>
+            <span class="stream-tag-pill">Sociology</span>
+            <span class="stream-tag-pill">English</span>
+          </div>
+          <div class="stream-open-action">
+            <span>Browse Humanities Notes</span>
+            <span>→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Landing Page Footer -->
+      <footer class="landing-footer">
+        <div>
+          <span>ISC.exe 2.0 — Built with ❤️ for ISC Class 12 Students</span>
+        </div>
+        <div style="display:flex; gap:1.25rem;">
+          <a href="#" onclick="openModal('disclaimerModal'); return false;" style="color:#64748b; text-decoration:none;">Disclaimer</a>
+          <a href="#" onclick="openModal('discordModal'); return false;" style="color:#64748b; text-decoration:none;">Discord</a>
+          <a href="#" onclick="openModal('redditModal'); return false;" style="color:#64748b; text-decoration:none;">Reddit</a>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- VIEW 2: SPLIT WORKSPACE NOTES EXPLORER -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="view-explorer" id="viewExplorer">
+
+    <!-- LEFT DIRECTORY SIDEBAR -->
+    <aside class="og-sidebar" id="mainSidebar">
+      
+      <!-- Top Header Area -->
+      <div class="sidebar-header-area">
+        <div class="sidebar-top-meta">
+          <span class="sub-tag-resources">ISC 12 NOTES DIRECTORY</span>
+          <button class="nav-pill-btn" style="height:24px; padding:0 0.6rem; font-size:0.72rem;" onclick="navigateTo('landing')">← Home</button>
+        </div>
+
+        <!-- Stream Switcher Tabs with Animated Sliding Glider -->
+        <div class="stream-quick-bar" id="streamQuickBar" data-active-stream="Commerce" role="tablist" aria-label="Academic Streams">
+          <div class="stream-slider-glider" id="streamSliderGlider"></div>
+          <button class="stream-tab-btn active" id="strm_Commerce" onclick="setStream('Commerce')" role="tab" aria-selected="true" data-stream="Commerce" title="Commerce Stream">
+            <span class="strm-icon">💼</span>
+            <span class="strm-name">Commerce</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_Science" onclick="setStream('Science')" role="tab" aria-selected="false" data-stream="Science" title="Science Stream">
+            <span class="strm-icon">⚡</span>
+            <span class="strm-name">Science</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_Humanities" onclick="setStream('Humanities')" role="tab" aria-selected="false" data-stream="Humanities" title="Humanities Stream">
+            <span class="strm-icon">🏛️</span>
+            <span class="strm-name">Humanities</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_All" onclick="setStream('All Streams')" role="tab" aria-selected="false" data-stream="All Streams" title="All Streams">
+            <span class="strm-icon">🌐</span>
+            <span class="strm-name">All</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Simple Instant Search Input -->
+      <div class="sidebar-search-wrap">
+        <div class="search-input-container">
+          <span class="search-lens-icon">🔍</span>
+          <input 
+            type="text" 
+            id="sidebarSearchInput" 
+            class="sidebar-search-box" 
+            placeholder="Search notes, chapters, topics..." 
+            autocomplete="off"
+            oninput="handleSearch(this.value)"
+          />
+          <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear filter">✕</button>
+        </div>
+      </div>
+
+      <!-- Subject Dropdown Selector Menu -->
+      <div class="subject-dropdown-container" id="subjectDropdownContainer">
+        <label class="subject-dropdown-label" for="subjectDropdownBtn">Select Subject</label>
+        <div class="subject-dropdown-wrapper">
+          <button 
+            type="button" 
+            class="subject-dropdown-trigger" 
+            id="subjectDropdownBtn" 
+            onclick="toggleSubjectDropdown(event)"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+          >
+            <div class="subj-trigger-info">
+              <span class="subj-trigger-icon" id="subjTriggerIcon">📚</span>
+              <span class="subj-trigger-name" id="subjTriggerName">Select Subject</span>
+              <span class="subj-trigger-count" id="subjTriggerCount">0 notes</span>
+            </div>
+            <span class="subj-trigger-chevron" id="subjTriggerChevron">▾</span>
+          </button>
+          
+          <div class="subject-dropdown-menu" id="subjectDropdownMenu" role="listbox" style="display: none;">
+            <!-- Dynamically populated with subject options -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Clean Notes List Area -->
+      <div class="sidebar-scroll-content" id="sidebarDirectoryTree">
+        <!-- Dynamically filled with folders and notes -->
+      </div>
+
+      <!-- Minimal Bottom Status Line -->
+      <div class="sidebar-status-footer">
+        <div class="status-optimal">
+          <span class="status-dot"></span>
+          <span id="footerNotesCountLabel">Notes Ready</span>
+        </div>
+        <span class="footer-keyboard-hint" id="subjectNotesCountHint">Click any note to preview</span>
+      </div>
+    </aside>
+
+    <!-- RIGHT VIEWER PANE -->
+    <section class="og-viewer-pane" id="viewerPane">
+      
+      <!-- Top Action Bar -->
+      <div class="viewer-top-bar">
+        <div class="viewer-breadcrumb-wrap">
+          <div class="viewer-breadcrumb-label" id="viewerBreadcrumb">
+            <span>Select a note from the left to preview</span>
+          </div>
+        </div>
+
+        <div class="viewer-actions-group">
+          <button class="btn-action-pill btn-act-open" id="btnActOpen" onclick="openDirectDrive()" title="Open in Google Drive tab">
+            <span>↗ Open in Drive</span>
+          </button>
+          <button class="btn-action-pill btn-act-download" id="btnActDownload" onclick="downloadCurrentFile()" title="Download PDF">
+            <span>⬇ Download</span>
+          </button>
+          <button class="btn-action-pill btn-act-fullscreen" id="btnActFullscreen" onclick="toggleFullscreenViewer()" title="Fullscreen mode">
+            <span>⤢ Fullscreen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty Canvas State -->
+      <div class="viewer-empty-canvas" id="viewerEmptyCanvas">
+        <div class="empty-book-glow">📖</div>
+        <h2 class="empty-state-title">Select a Note to Read</h2>
+        <p class="empty-state-sub">Choose any subject or chapter on the left to start studying.</p>
+      </div>
+
+      <!-- Embedded Iframe Preview -->
+      <div class="viewer-iframe-canvas" id="viewerIframeCanvas">
+        <div class="iframe-loading-spinner" id="iframeLoadingSpinner">
+          <div class="pulse-spinner"></div>
+          <div>Loading Google Drive Preview...</div>
+        </div>
+        <iframe id="previewIframe" src="" allow="autoplay" loading="lazy" onload="if(typeof onIframeLoaded==='function')onIframeLoaded()"></iframe>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- MODALS -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <!-- 0. SPOTLIGHT COMMAND PALETTE MODAL (⌘K / Ctrl+K) -->
+  <div class="og-modal-backdrop" id="spotlightModal">
+    <div class="spotlight-dialog">
+      <div class="spotlight-search-header">
+        <span class="spotlight-icon">⚡</span>
+        <input 
+          type="text" 
+          id="spotlightSearchInput" 
+          class="spotlight-input" 
+          placeholder="Search 820+ notes, subjects, chapters, PYQs (e.g. 'Accounts Oswal', 'Physics formula')..." 
+          autocomplete="off"
+          oninput="handleSpotlightInput(this.value)"
+          onkeydown="handleSpotlightKey(event)"
+        />
+        <button class="spotlight-esc-pill" onclick="closeModal('spotlightModal')">ESC</button>
+      </div>
+      <div class="spotlight-results-scroll" id="spotlightResultsList">
+        <!-- Dynamically populated live results -->
+      </div>
+      <div class="sidebar-status-footer" style="background:#0c1622; border-top:1px solid #16283a; padding:0.5rem 1rem;">
+        <span style="color:#64748b; font-family:var(--font-mono); font-size:0.65rem;">
+          Use <b>↑ ↓</b> to navigate · <b>↵ Enter</b> to preview · <b>ESC</b> to exit
+        </span>
+        <span id="spotlightCountBadge" style="color:#38bdf8; font-family:var(--font-mono); font-size:0.68rem;">Ready</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. DISCLAIMER MODAL -->
+  <div class="og-modal-backdrop" id="disclaimerModal">
+    <div class="og-modal-window">
+      <div class="og-modal-header">
+        <div class="og-modal-title">⚠️ ISC.exe 2.0 Disclaimer & Notice</div>
+        <button class="og-modal-close" onclick="closeModal('disclaimerModal')">✕</button>
+      </div>
+      <div class="og-modal-body">
+        <p style="margin-bottom: 0.8rem;"><strong>ISC.exe 2.0</strong> is an independent open-access student resource directory created by and for ISC Class 12 candidates. We are not officially affiliated with or endorsed by CISCE (Council for the Indian School Certificate Examinations).</p>
+        <p style="margin-bottom: 0.8rem;">All study notes, revision guides, practice worksheets, and prelim papers belong to their respective student contributors, schools, and teachers. All materials are hosted on Google Drive and indexed strictly for non-commercial educational review under fair use.</p>
+        <p>If you are an author or copyright holder and wish to have a specific resource updated or removed, please contact us via Discord or email.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. DISCORD MODAL -->
+  <div class="og-modal-backdrop" id="discordModal">
+    <div class="og-modal-window">
+      <div class="og-modal-header">
+        <div class="og-modal-title">👾 ISC.exe Discord Community</div>
+        <button class="og-modal-close" onclick="closeModal('discordModal')">✕</button>
+      </div>
+      <div class="og-modal-body" style="text-align:center; padding:1.5rem;">
+        <div style="font-size:2.2rem; margin-bottom:0.75rem;">👾</div>
+        <h3 style="color:#f1f5f9; margin-bottom:0.4rem;">Join 15,000+ Class 12 ISC Students</h3>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:1.25rem;">Discuss doubt-clearing, share notes, ask prelim paper questions, and prepare for board exams together.</p>
+        <button class="btn-action-pill btn-act-open" onclick="copyDiscordLink()" style="height:38px; padding:0 1.25rem; font-size:0.85rem;">
+          <span>🔗 Copy Discord Invite</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. REDDIT MODAL -->
+  <div class="og-modal-backdrop" id="redditModal">
+    <div class="og-modal-window">
+      <div class="og-modal-header">
+        <div class="og-modal-title">👽 r/ISC Community on Reddit</div>
+        <button class="og-modal-close" onclick="closeModal('redditModal')">✕</button>
+      </div>
+      <div class="og-modal-body" style="text-align:center; padding:1.5rem;">
+        <div style="font-size:2.2rem; margin-bottom:0.75rem;">👽</div>
+        <h3 style="color:#f1f5f9; margin-bottom:0.4rem;">Reddit ISC Class 12 Discussions</h3>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:1.25rem;">Browse exam advice, project guides, syllabus updates, and peer recommendations on r/ISC.</p>
+        <a href="https://www.reddit.com/r/ISC/" target="_blank" rel="noopener noreferrer" class="btn-action-pill btn-act-download" style="height:38px; padding:0 1.25rem; font-size:0.85rem;">
+          <span>↗ Open r/ISC on Reddit</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIER -->
+  <div class="og-toast" id="ogToast">
+    <span id="toastIcon">ℹ️</span>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- MAIN APPLICATION JAVASCRIPT -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    'use strict';
+
+    let allNotes = [];
+    let currentStream = 'Commerce';
+    let selectedSubject = 'Economics';
+    let selectedCategory = 'ALL';
+    let selectedTag = 'ALL';
+    let navMode = 'focus'; // 'focus' | 'tree'
+    let activeFile = null;
+    let currentView = 'landing'; // 'landing' | 'explorer'
+    let currentFilteredNotes = []; // currently visible notes array for prev/next navigation
+    let spotlightSearchResults = [];
+    let spotlightSelectedIdx = 0;
+    
+    // Track open/closed states for Subject and Subfolder accordions in Tree Mode
+    const openSubjectNodes = new Set();
+    const openSubfolderNodes = new Set();
+
+    const STREAMS = ['Commerce', 'Science', 'Humanities', 'All Streams'];
+
+    const SUBJECT_CONFIGS = {
+      'Commerce': [
+        { name: 'Economics', icon: '📊' },
+        { name: 'Accounts', icon: '🧮' },
+        { name: 'Commerce', icon: '🛍️' },
+        { name: 'Business Studies', icon: '💼' },
+        { name: 'English', icon: '📖' },
+        { name: 'Maths', icon: '𝝿' }
+      ],
+      'Science': [
+        { name: 'Physics', icon: '⚡' },
+        { name: 'Chemistry', icon: '🧪' },
+        { name: 'Maths', icon: '𝝿' },
+        { name: 'Biology', icon: '🧬' },
+        { name: 'Computer Science', icon: '💻' },
+        { name: 'English', icon: '📖' }
+      ],
+      'Humanities': [
+        { name: 'Economics', icon: '📊' },
+        { name: 'Geography', icon: '🌍' },
+        { name: 'Psychology', icon: '🧠' },
+        { name: 'Sociology', icon: '🏛️' },
+        { name: 'English', icon: '📖' }
+      ],
+      'All Streams': [
+        { name: 'Economics', icon: '📊' },
+        { name: 'Physics', icon: '⚡' },
+        { name: 'Chemistry', icon: '🧪' },
+        { name: 'Accounts', icon: '🧮' },
+        { name: 'Commerce', icon: '🛍️' },
+        { name: 'Maths', icon: '𝝿' },
+        { name: 'English', icon: '📖' },
+        { name: 'Computer Science', icon: '💻' },
+        { name: 'Biology', icon: '🧬' },
+        { name: 'Business Studies', icon: '💼' },
+        { name: 'Geography', icon: '🌍' },
+        { name: 'Psychology', icon: '🧠' },
+        { name: 'Sociology', icon: '🏛️' }
+      ]
+    };
+
+    // Load initial data safely with immediate fallback and network refresh
+    function initApp() {
+      // 1. Immediately hydrate from embedded fallback data
+      if (typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined' && Array.isArray(window.__FALLBACK_NOTES_DATA__) && window.__FALLBACK_NOTES_DATA__.length > 0) {
+        allNotes = window.__FALLBACK_NOTES_DATA__;
+        updateGlobalCounts();
+        renderActiveView();
+      }
+
+      // 2. Refresh from /api/notes or /notes-data.json
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/notes', true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try {
+                const data = JSON.parse(xhr.responseText);
+                if (data && data.notes && data.notes.length > 0) {
+                  allNotes = data.notes;
+                  updateGlobalCounts();
+                  renderActiveView();
+                }
+              } catch (e) {
+                console.warn('Failed to parse notes response:', e);
+              }
+            } else if (allNotes.length === 0) {
+              const fallbackXhr = new XMLHttpRequest();
+              fallbackXhr.open('GET', '/notes-data.json', true);
+              fallbackXhr.onload = function() {
+                if (fallbackXhr.status === 200) {
+                  try {
+                    const parsed = JSON.parse(fallbackXhr.responseText);
+                    if (Array.isArray(parsed)) {
+                      allNotes = parsed;
+                      updateGlobalCounts();
+                      renderActiveView();
+                    }
+                  } catch(e) {}
+                }
+              };
+              fallbackXhr.send();
+            }
+          }
+        };
+        xhr.onerror = function () {
+          if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
+            allNotes = window.__FALLBACK_NOTES_DATA__;
+          }
+          updateGlobalCounts();
+          renderActiveView();
+        };
+        xhr.send();
+      } catch (err) {
+        if (allNotes.length === 0 && typeof window.__FALLBACK_NOTES_DATA__ !== 'undefined') {
+          allNotes = window.__FALLBACK_NOTES_DATA__;
+        }
+        updateGlobalCounts();
+        renderActiveView();
+      }
+
+      setupHotkeys();
+      handleInitialHash();
+      window.addEventListener('resize', () => updateStreamGlider(false));
+      setTimeout(() => updateStreamGlider(false), 100);
+    }
+
+    function updateGlobalCounts() {
+      const count = allNotes.length;
+      const statEl = document.getElementById('statNotesCount');
+      if (statEl) statEl.textContent = count.toLocaleString() + '+';
+      const footerEl = document.getElementById('footerNotesCountLabel');
+      if (footerEl) footerEl.textContent = `${count} Notes Indexed`;
+    }
+
+    // View Navigation Handler
+    function navigateTo(view) {
+      currentView = view;
+      const landingEl = document.getElementById('viewLanding');
+      const explorerEl = document.getElementById('viewExplorer');
+      const navBtnLanding = document.getElementById('navBtnLanding');
+      const navBtnNotes = document.getElementById('navBtnNotes');
+
+      if (window.va) {
+        try { window.va('track', 'navigate_view', { view: view }); } catch(e) {}
+      }
+
+      if (view === 'explorer') {
+        if (landingEl) landingEl.style.display = 'none';
+        if (explorerEl) explorerEl.style.display = 'flex';
+        if (navBtnLanding) navBtnLanding.classList.remove('active');
+        if (navBtnNotes) navBtnNotes.classList.add('active');
+        window.location.hash = 'notes';
+        window.scrollTo(0, 0);
+        renderActiveView();
+        setTimeout(() => updateStreamGlider(false), 50);
+      } else {
+        if (landingEl) landingEl.style.display = 'block';
+        if (explorerEl) explorerEl.style.display = 'none';
+        if (navBtnLanding) navBtnLanding.classList.add('active');
+        if (navBtnNotes) navBtnNotes.classList.remove('active');
+        window.location.hash = '';
+      }
+    }
+
+    function openStreamFromLanding(streamName) {
+      currentStream = streamName;
+      selectedCategory = 'ALL';
+      selectedTag = 'ALL';
+      const subs = SUBJECT_CONFIGS[currentStream] || [];
+      if (subs.length > 0) {
+        selectedSubject = subs[0].name;
+      }
+      openSubjectNodes.clear();
+      openSubfolderNodes.clear();
+      if (subs.length > 0) {
+        openSubjectNodes.add(`sub_${subs[0].name}`);
+      }
+      navigateTo('explorer');
+      showToast(`Browsing ${streamName} Stream`);
+    }
+
+    function handleInitialHash() {
+      if (window.location.hash === '#notes' || window.location.hash === '#directory') {
+        navigateTo('explorer');
+      }
+    }
+
+    // Update position and width of floating slider glider
+    function updateStreamGlider(animate = true) {
+      const container = document.getElementById('streamQuickBar');
+      const glider = document.getElementById('streamSliderGlider');
+      if (!container || !glider) return;
+      const activeBtn = container.querySelector('.stream-tab-btn.active');
+      if (!activeBtn) return;
+
+      if (!animate) {
+        glider.style.transition = 'none';
+      } else {
+        glider.style.transition = 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease';
+      }
+
+      const left = activeBtn.offsetLeft;
+      const width = activeBtn.offsetWidth;
+
+      if (width > 0) {
+        glider.style.transform = `translateX(${left}px)`;
+        glider.style.width = `${width}px`;
+      }
+
+      const streamKey = activeBtn.getAttribute('data-stream') || 'Commerce';
+      container.setAttribute('data-active-stream', streamKey);
+    }
+
+    // Switch active Stream tab
+    function setStream(streamName) {
+      currentStream = streamName;
+      selectedCategory = 'ALL';
+      selectedTag = 'ALL';
+
+      if (window.va) {
+        try { window.va('track', 'select_stream', { stream: streamName }); } catch(e) {}
+      }
+
+      // Update stream buttons UI & accessibility attributes
+      document.querySelectorAll('.stream-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      const activeTab = document.getElementById(`strm_${streamName.replace(/\s+/g, '')}`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+        activeTab.setAttribute('aria-selected', 'true');
+      }
+
+      // Animate glider
+      updateStreamGlider(true);
+
+      const subs = SUBJECT_CONFIGS[currentStream] || [];
+      if (subs.length > 0 && !subs.some(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase())) {
+        selectedSubject = subs[0].name;
+      }
+
+      openSubjectNodes.clear();
+      openSubfolderNodes.clear();
+      if (selectedSubject) {
+        openSubjectNodes.add(`sub_${selectedSubject}`);
+      }
+
+      // Trigger animated entrance for the file tree
+      const treeContainer = document.getElementById('sidebarDirectoryTree');
+      if (treeContainer) {
+        treeContainer.classList.remove('tree-animate-in');
+        void treeContainer.offsetWidth; // force reflow
+        treeContainer.classList.add('tree-animate-in');
+      }
+
+      renderActiveView();
+      showToast(`Stream: ${streamName}`);
+    }
+
+    // Select Subject from Dropdown
+    function selectSubject(subjName) {
+      selectedSubject = subjName;
+      if (window.va) {
+        try { window.va('track', 'select_subject', { subject: subjName, stream: currentStream }); } catch(e) {}
+      }
+      closeSubjectDropdown();
+      openSubfolderNodes.clear(); // All subfolders closed by default!
+      renderActiveView();
+    }
+
+    // Toggle Subject Dropdown Menu
+    function toggleSubjectDropdown(e) {
+      if (e) {
+        e.stopPropagation();
+      }
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (!menu || !btn) return;
+      const isOpen = menu.style.display !== 'none';
+      if (isOpen) {
+        closeSubjectDropdown();
+      } else {
+        openSubjectDropdown();
+      }
+    }
+
+    function openSubjectDropdown() {
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (menu) menu.style.display = 'flex';
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeSubjectDropdown() {
+      const menu = document.getElementById('subjectDropdownMenu');
+      const btn = document.getElementById('subjectDropdownBtn');
+      if (menu) menu.style.display = 'none';
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Select Category (e.g. from breadcrumbs)
+    function selectCategory(catName) {
+      if (!catName) return;
+      const catKey = `${selectedSubject || 'ALL'}_${catName}`;
+      openSubfolderNodes.add(catKey);
+      renderActiveView();
+    }
+
+    function setTagFilter(tag) {
+      if (!tag) return;
+      const searchInput = document.getElementById('sidebarSearchInput');
+      if (searchInput) {
+        searchInput.value = tag;
+      }
+      renderActiveView();
+    }
+
+    function setNavMode(mode) {
+      // Compatibility stub
+    }
+
+    function clearAllFilters() {
+      clearSearch();
+    }
+
+    // Toggle a single subfolder node (open/closed)
+    function toggleSubfolderNode(catKey) {
+      if (!catKey) return;
+      if (openSubfolderNodes.has(catKey)) {
+        openSubfolderNodes.delete(catKey);
+      } else {
+        openSubfolderNodes.add(catKey);
+      }
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectNotes(searchVal);
+    }
+
+    // Toggle all subfolders open or closed
+    function toggleAllSubfolders() {
+      const subjectNotes = currentFilteredNotes || [];
+      const categories = [...new Set(subjectNotes.map(n => n.category || 'General Notes'))];
+      const isSearching = Boolean(document.getElementById('sidebarSearchInput')?.value?.trim());
+      const allKeys = categories.map(c => `${selectedSubject || 'ALL'}_${c}`);
+      
+      const anyOpen = isSearching || allKeys.some(k => openSubfolderNodes.has(k));
+      if (anyOpen) {
+        // Collapse all
+        allKeys.forEach(k => openSubfolderNodes.delete(k));
+      } else {
+        // Expand all
+        allKeys.forEach(k => openSubfolderNodes.add(k));
+      }
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectNotes(searchVal);
+    }
+
+    function toggleAllFolders() {
+      toggleAllSubfolders();
+    }
+
+    function toggleSubjectNode() {
+      // Compatibility stub
+    }
+
+    // Master Render Method
+    function renderActiveView() {
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectDropdown();
+      renderSubjectNotes(searchVal);
+    }
+
+    // 1. Render Subject Dropdown Style Menu
+    function renderSubjectDropdown() {
+      const menuEl = document.getElementById('subjectDropdownMenu');
+      const iconEl = document.getElementById('subjTriggerIcon');
+      const nameEl = document.getElementById('subjTriggerName');
+      const countEl = document.getElementById('subjTriggerCount');
+
+      const subjects = SUBJECT_CONFIGS[currentStream] || SUBJECT_CONFIGS['Commerce'];
+      if (!subjects || subjects.length === 0) return;
+
+      // Ensure valid selectedSubject exists in this stream
+      let activeSub = subjects.find(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase());
+      if (!activeSub) {
+        activeSub = subjects[0];
+        selectedSubject = activeSub.name;
+      }
+
+      const activeCount = allNotes.filter(n => n.subject && n.subject.toLowerCase() === activeSub.name.toLowerCase()).length;
+
+      if (iconEl) iconEl.textContent = activeSub.icon || '📚';
+      if (nameEl) nameEl.textContent = activeSub.name;
+      if (countEl) countEl.textContent = `${activeCount} notes`;
+
+      if (menuEl) {
+        let menuHtml = '';
+        subjects.forEach(sub => {
+          const count = allNotes.filter(n => n.subject && n.subject.toLowerCase() === sub.name.toLowerCase()).length;
+          const isSelected = sub.name.toLowerCase() === activeSub.name.toLowerCase();
+          menuHtml += `
+            <button 
+              type="button" 
+              class="subject-dropdown-item ${isSelected ? 'active' : ''}" 
+              onclick="selectSubject('${escapeAttr(sub.name)}')"
+              role="option"
+              aria-selected="${isSelected ? 'true' : 'false'}"
+            >
+              <div class="subject-dropdown-item-left">
+                <span class="subject-dropdown-item-icon">${sub.icon || '📚'}</span>
+                <span class="subject-dropdown-item-text">${escapeHtml(sub.name)}</span>
+              </div>
+              <div class="subject-dropdown-item-right">
+                <span class="subject-dropdown-item-badge">${count} notes</span>
+                ${isSelected ? '<span class="subject-dropdown-check">✓</span>' : ''}
+              </div>
+            </button>
+          `;
+        });
+        menuEl.innerHTML = menuHtml;
+      }
+    }
+
+    // Alias for backwards compatibility
+    const renderSubjectRail = renderSubjectDropdown;
+
+    // 2. Render Clean Categorized Notes for Current Subject (Default Subfolders CLOSED)
+    function renderSubjectNotes(searchQuery = '') {
+      const container = document.getElementById('sidebarDirectoryTree');
+      const footerHint = document.getElementById('footerNotesCountLabel');
+      if (!container) return;
+
+      const q = typeof searchQuery === 'string' ? searchQuery.trim().toLowerCase() : '';
+      const isSearching = Boolean(q && q.length > 0);
+      
+      // Filter notes by current stream & selected subject
+      let subjectNotes = allNotes.filter(n => {
+        if (selectedSubject && (!n.subject || n.subject.toLowerCase() !== selectedSubject.toLowerCase())) {
+          return false;
+        }
+        if (q) {
+          const matchTitle = (n.title || '').toLowerCase().includes(q);
+          const matchCat = (n.category || '').toLowerCase().includes(q);
+          const matchSub = (n.subject || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchCat && !matchSub) return false;
+        }
+        return true;
+      });
+
+      currentFilteredNotes = subjectNotes;
+      if (footerHint) {
+        footerHint.textContent = `${subjectNotes.length} Notes Available`;
+      }
+
+      if (subjectNotes.length === 0) {
+        container.innerHTML = `
+          <div style="padding:2.5rem 1rem; text-align:center; color:#64748b; font-family:var(--font-mono); font-size:0.8rem;">
+            <div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div>
+            <div style="color:#e2e8f0; font-weight:600; margin-bottom:0.25rem;">No notes found</div>
+            <div>Try clearing the search query or pick another subject.</div>
+            <button class="nav-pill-btn" onclick="clearSearch()" style="margin-top:0.75rem; height:28px; padding:0 0.8rem;">Clear Search</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Group notes by Category / Subfolder
+      const categoryMap = {};
+      subjectNotes.forEach(note => {
+        const cat = note.category || 'General Notes';
+        if (!categoryMap[cat]) categoryMap[cat] = [];
+        categoryMap[cat].push(note);
+      });
+
+      const categories = Object.keys(categoryMap).sort();
+
+      // Determine if any folders are currently open
+      const anyOpen = isSearching || categories.some(cat => {
+        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
+        return openSubfolderNodes.has(catKey);
+      });
+
+      let html = `
+        <div class="folders-toolbar">
+          <div class="folders-toolbar-info">
+            <span class="folders-toolbar-label">Explorer</span>
+            <span class="folders-toolbar-count">${categories.length} folders • ${subjectNotes.length} files</span>
+          </div>
+          <button 
+            type="button" 
+            class="folders-toolbar-toggle-btn" 
+            onclick="toggleAllSubfolders()" 
+            id="foldersToggleAllBtn"
+            title="${anyOpen ? 'Collapse all folders' : 'Expand all folders'}"
+          >
+            <span>${anyOpen ? '▲ Collapse All' : '▼ Expand All'}</span>
+          </button>
+        </div>
+        <div class="file-tree-container">
+      `;
+
+      categories.forEach(cat => {
+        const notes = categoryMap[cat];
+        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
+        // By default, subfolders are CLOSED unless opened by user or search query is active
+        const isOpen = isSearching || openSubfolderNodes.has(catKey);
+        const safeId = catKey.replace(/[^a-zA-Z0-9_-]/g, '_');
+
+        html += `
+          <div class="tree-folder-node clean-folder-section ${isOpen ? 'open' : 'closed'}">
+            <button 
+              type="button" 
+              class="tree-folder-row clean-folder-header ${isOpen ? 'open' : ''}" 
+              onclick="toggleSubfolderNode('${escapeAttr(catKey)}')"
+              aria-expanded="${isOpen ? 'true' : 'false'}"
+              title="Click to ${isOpen ? 'collapse' : 'expand'} ${escapeAttr(cat)}"
+            >
+              <div class="tree-folder-left clean-folder-header-left">
+                <svg class="tree-chevron ${isOpen ? 'open' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                ${isOpen 
+                  ? `<svg class="tree-folder-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-6h13.5l-2.5 10H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.69.9H18a2 2 0 0 1 2 2v2"></path></svg>`
+                  : `<svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>`
+                }
+                <span class="tree-folder-title folder-name">${escapeHtml(cat)}</span>
+              </div>
+              <span class="tree-folder-badge folder-count">${notes.length}</span>
+            </button>
+            <div class="tree-children-wrap clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
+        `;
+
+        notes.forEach(note => {
+          const isSelected = activeFile && activeFile.id === note.id;
+          const fileExt = (note.fileType || 'PDF').toLowerCase();
+          const extClass = (fileExt === 'doc' || fileExt === 'docx') ? 'doc' : (fileExt === 'pdf' ? 'pdf' : 'other');
+          const displayTitle = note.title || 'Untitled Note';
+
+          html += `
+            <div 
+              class="tree-file-row clean-note-card ${isSelected ? 'selected' : ''}" 
+              data-note-id="${escapeAttr(note.id)}"
+              onclick="previewFile('${note.id}')"
+              title="${escapeAttr(displayTitle)}"
+            >
+              <div class="tree-file-left clean-note-left">
+                <svg class="tree-file-icon ${extClass}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span class="tree-file-title clean-note-title">${escapeHtml(displayTitle)}</span>
+              </div>
+              <span class="tree-ext-badge ${extClass}">.${fileExt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    // Search Handler
+    function handleSearch(query) {
+      const clearBtn = document.getElementById('searchClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = query && query.length > 0 ? 'block' : 'none';
+      }
+      renderSubjectNotes(query);
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('sidebarSearchInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      handleSearch('');
+    }
+
+    // Preview Note
+    function previewFile(noteId) {
+      const note = allNotes.find(n => n.id === noteId);
+      if (!note) return;
+
+      activeFile = note;
+
+      if (window.va) {
+        try {
+          window.va('track', 'preview_note', {
+            id: note.id,
+            title: note.title,
+            subject: note.subject,
+            category: note.category || 'General',
+            stream: currentStream
+          });
+        } catch(e) {}
+      }
+
+      // Update interactive breadcrumb
+      const breadcrumb = document.getElementById('viewerBreadcrumb');
+      if (breadcrumb) {
+        breadcrumb.innerHTML = `
+          <span class="crumb-btn" onclick="selectSubject('${escapeAttr(note.subject || '')}')">${note.subject || ''}</span> 
+          <span>/</span> 
+          <span class="crumb-btn" onclick="selectCategory('${escapeAttr(note.category || '')}')">${note.category || 'General'}</span> 
+          <span>/</span> 
+          <span class="active-file-tag">${note.title || ''}</span>
+        `;
+      }
+
+      // Hide empty canvas, show iframe
+      document.getElementById('viewerEmptyCanvas').style.display = 'none';
+      const iframeCanvas = document.getElementById('viewerIframeCanvas');
+      iframeCanvas.style.display = 'block';
+
+      const spinner = document.getElementById('iframeLoadingSpinner');
+      if (spinner) spinner.classList.remove('hidden');
+
+      const iframe = document.getElementById('previewIframe');
+      if (iframe) {
+        iframe.src = note.embedUrl || `https://drive.google.com/file/d/${note.fileId}/preview`;
+      }
+
+      // Update Prev / Next button states
+      updateViewerDocCounter();
+
+      // Auto-expand folder for current note and update active styling
+      if (note.category) {
+        const catKey = `${note.subject || selectedSubject || 'ALL'}_${note.category}`;
+        openSubfolderNodes.add(catKey);
+        const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+        renderSubjectNotes(searchVal);
+      }
+
+      // Highlight active card or tree item
+      document.querySelectorAll('.tree-file-row').forEach(r => r.classList.remove('selected'));
+      document.querySelectorAll('.clean-note-card').forEach(c => c.classList.remove('selected'));
+
+      const activeTree = document.querySelector(`.tree-file-row[data-note-id="${CSS.escape(note.id)}"]`);
+      if (activeTree) activeTree.classList.add('selected');
+    }
+
+    // Navigate to Prev (-1) or Next (+1) document in current list
+    function navigateNote(direction) {
+      if (!currentFilteredNotes || currentFilteredNotes.length === 0) return;
+
+      let currentIndex = -1;
+      if (activeFile) {
+        currentIndex = currentFilteredNotes.findIndex(n => n.id === activeFile.id);
+      }
+
+      let nextIndex = currentIndex + direction;
+      if (nextIndex < 0) nextIndex = 0;
+      if (nextIndex >= currentFilteredNotes.length) nextIndex = currentFilteredNotes.length - 1;
+
+      if (nextIndex !== currentIndex && currentFilteredNotes[nextIndex]) {
+        previewFile(currentFilteredNotes[nextIndex].id);
+      }
+    }
+
+    function updateViewerDocCounter() {
+      const counterEl = document.getElementById('viewerDocCounter');
+      const prevBtn = document.getElementById('btnPrevNote');
+      const nextBtn = document.getElementById('btnNextNote');
+
+      if (!activeFile || !currentFilteredNotes || currentFilteredNotes.length === 0) {
+        if (counterEl) counterEl.textContent = '--/--';
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
+        return;
+      }
+
+      const idx = currentFilteredNotes.findIndex(n => n.id === activeFile.id);
+      if (idx === -1) {
+        if (counterEl) counterEl.textContent = `1/${currentFilteredNotes.length}`;
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = currentFilteredNotes.length <= 1;
+      } else {
+        if (counterEl) counterEl.textContent = `${idx + 1}/${currentFilteredNotes.length}`;
+        if (prevBtn) prevBtn.disabled = idx <= 0;
+        if (nextBtn) nextBtn.disabled = idx >= currentFilteredNotes.length - 1;
+      }
+    }
+
+    function onIframeLoaded() {
+      const spinner = document.getElementById('iframeLoadingSpinner');
+      if (spinner) spinner.classList.add('hidden');
+    }
+
+    // ─── SPOTLIGHT SEARCH (⌘K / Ctrl+K) ───
+    function openSpotlightSearch() {
+      openModal('spotlightModal');
+      const input = document.getElementById('spotlightSearchInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      handleSpotlightInput('');
+    }
+
+    function handleSpotlightInput(val) {
+      const q = val.trim().toLowerCase();
+      const listEl = document.getElementById('spotlightResultsList');
+      const badge = document.getElementById('spotlightCountBadge');
+      if (!listEl) return;
+
+      let matches = [];
+      if (!q) {
+        // Show recent / featured items
+        matches = allNotes.slice(0, 15);
+      } else {
+        matches = allNotes.filter(n => {
+          return (n.title || '').toLowerCase().includes(q) ||
+                 (n.subject || '').toLowerCase().includes(q) ||
+                 (n.category || '').toLowerCase().includes(q);
+        }).slice(0, 30);
+      }
+
+      spotlightSearchResults = matches;
+      spotlightSelectedIdx = 0;
+      if (badge) badge.textContent = `${matches.length} found`;
+
+      if (matches.length === 0) {
+        listEl.innerHTML = `
+          <div style="padding:2rem; text-align:center; color:#64748b; font-family:var(--font-mono); font-size:0.85rem;">
+            No notes found matching "${escapeAttr(q)}".
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      matches.forEach((note, idx) => {
+        const fileExt = (note.fileType || 'PDF').toUpperCase();
+        html += `
+          <div 
+            class="spotlight-item ${idx === 0 ? 'active-item' : ''}" 
+            id="spotItem_${idx}"
+            onclick="selectSpotlightNote('${note.id}')"
+          >
+            <div class="spotlight-item-left">
+              <span class="spotlight-item-title">${note.title || 'Untitled Note'}</span>
+              <div class="spotlight-item-meta">
+                <span style="color:#38bdf8;">${note.subject || ''}</span>
+                <span>•</span>
+                <span>${note.category || 'General'}</span>
+              </div>
+            </div>
+            <span class="file-type-pill">${fileExt}</span>
+          </div>
+        `;
+      });
+
+      listEl.innerHTML = html;
+    }
+
+    function handleSpotlightKey(e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (spotlightSearchResults.length > 0) {
+          spotlightSelectedIdx = (spotlightSelectedIdx + 1) % spotlightSearchResults.length;
+          highlightSpotlightItem();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (spotlightSearchResults.length > 0) {
+          spotlightSelectedIdx = (spotlightSelectedIdx - 1 + spotlightSearchResults.length) % spotlightSearchResults.length;
+          highlightSpotlightItem();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (spotlightSearchResults[spotlightSelectedIdx]) {
+          selectSpotlightNote(spotlightSearchResults[spotlightSelectedIdx].id);
+        }
+      } else if (e.key === 'Escape') {
+        closeModal('spotlightModal');
+      }
+    }
+
+    function highlightSpotlightItem() {
+      document.querySelectorAll('.spotlight-item').forEach((item, idx) => {
+        if (idx === spotlightSelectedIdx) {
+          item.classList.add('active-item');
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.classList.remove('active-item');
+        }
+      });
+    }
+
+    function selectSpotlightNote(noteId) {
+      closeModal('spotlightModal');
+      navigateTo('explorer');
+      const note = allNotes.find(n => n.id === noteId);
+      if (note) {
+        if (note.subject) {
+          selectedSubject = note.subject;
+        }
+        if (note.category) {
+          selectedCategory = note.category;
+        }
+        renderActiveView();
+        previewFile(note.id);
+      }
+    }
+
+    // Helper functions for tags
+    function isPYQ(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('pyq') || text.includes('specimen') || text.includes('past paper') || text.includes('board paper') || text.includes('prelim');
+    }
+
+    function isCFQ(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('cfq') || text.includes('competency') || text.includes('practice') || text.includes('worksheet') || text.includes('qbank') || text.includes('question bank');
+    }
+
+    function isRevision(note) {
+      const text = `${note.title || ''} ${note.category || ''}`.toLowerCase();
+      return text.includes('revision') || text.includes('summary') || text.includes('formula') || text.includes('cheat sheet') || text.includes('quick');
+    }
+
+    function getTagClass(note) {
+      if (isPYQ(note)) return 'tag-pyq';
+      if (isCFQ(note)) return 'tag-cfq';
+      if (isRevision(note)) return 'tag-rev';
+      return 'tag-syl';
+    }
+
+    function getTagLabel(note) {
+      if (isPYQ(note)) return 'PYQ';
+      if (isCFQ(note)) return 'Practice/CFQ';
+      if (isRevision(note)) return 'Revision';
+      return 'Notes';
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttr(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Toolbar Actions
+    function openDirectDrive() {
+      if (!activeFile) {
+        showToast('Please select a file first');
+        return;
+      }
+      if (activeFile.url) {
+        window.open(activeFile.url, '_blank');
+      }
+    }
+
+    function downloadCurrentFile() {
+      if (!activeFile) {
+        showToast('Please select a file first');
+        return;
+      }
+      if (window.va) {
+        try {
+          window.va('track', 'download_note', {
+            id: activeFile.id,
+            title: activeFile.title,
+            subject: activeFile.subject
+          });
+        } catch(e) {}
+      }
+      const downloadUrl = `https://drive.google.com/uc?export=download&id=${activeFile.fileId}`;
+      window.open(downloadUrl, '_blank');
+      showToast('Opening download link...');
+    }
+
+    function shareCurrentFile() {
+      if (!activeFile) {
+        showToast('Please select a file first');
+        return;
+      }
+      if (window.va) {
+        try {
+          window.va('track', 'share_note', {
+            id: activeFile.id,
+            title: activeFile.title,
+            subject: activeFile.subject
+          });
+        } catch(e) {}
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(activeFile.url || window.location.href);
+      }
+      showToast('Share link copied to clipboard! 📋');
+    }
+
+    function reloadCurrentPreview() {
+      if (!activeFile) {
+        showToast('No active document to reload');
+        return;
+      }
+      const iframe = document.getElementById('previewIframe');
+      const spinner = document.getElementById('iframeLoadingSpinner');
+      if (spinner) spinner.classList.remove('hidden');
+      if (iframe) iframe.src = iframe.src;
+      showToast('Reloading document preview...');
+    }
+
+    function toggleFullscreenViewer() {
+      const elem = document.getElementById('viewerPane');
+      if (!elem) return;
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(err => {
+          showToast(`Fullscreen: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Modal helpers
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('open');
+    }
+
+    function copyDiscordLink() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText('https://discord.gg/isc-class-12');
+      }
+      showToast('Discord invite copied! https://discord.gg/isc-class-12');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('ogToast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (toast && toastMsg) {
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      }
+    }
+
+    // Hotkeys setup (⌘K / Ctrl+K, Arrow Keys, F, R, S, Escape)
+    function setupHotkeys() {
+      window.addEventListener('keydown', (e) => {
+        // Handle Command+K / Ctrl+K for Spotlight search anytime
+        if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+          e.preventDefault();
+          openSpotlightSearch();
+          return;
+        }
+
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+        if (e.key === 'r' || e.key === 'R') {
+          e.preventDefault();
+          reloadCurrentPreview();
+        } else if (e.key === 'f' || e.key === 'F') {
+          e.preventDefault();
+          toggleFullscreenViewer();
+        } else if (e.key === 's' || e.key === 'S') {
+          e.preventDefault();
+          shareCurrentFile();
+        } else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
+          navigateNote(-1);
+        } else if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
+          navigateNote(1);
+        } else if (e.key === 'Escape') {
+          closeSubjectDropdown();
+          document.querySelectorAll('.og-modal-backdrop.open').forEach(m => m.classList.remove('open'));
+        }
+      });
+
+      // Close subject dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        const wrap = document.getElementById('subjectDropdownContainer');
+        if (wrap && !wrap.contains(e.target)) {
+          closeSubjectDropdown();
+        }
+      });
+    }
+
+    // Expose handlers explicitly to window for HTML inline events
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.navigateTo = navigateTo;
+    window.openStreamFromLanding = openStreamFromLanding;
+    window.setStream = setStream;
+    window.selectSubject = selectSubject;
+    window.toggleSubjectDropdown = toggleSubjectDropdown;
+    window.openSubjectDropdown = openSubjectDropdown;
+    window.closeSubjectDropdown = closeSubjectDropdown;
+    window.selectCategory = selectCategory;
+    window.setTagFilter = setTagFilter;
+    window.setNavMode = setNavMode;
+    window.handleSearch = handleSearch;
+    window.clearSearch = clearSearch;
+    window.clearAllFilters = clearAllFilters;
+    window.toggleAllFolders = toggleAllFolders;
+    window.toggleAllSubfolders = toggleAllSubfolders;
+    window.toggleSubjectNode = toggleSubjectNode;
+    window.toggleSubfolderNode = toggleSubfolderNode;
+    window.previewFile = previewFile;
+    window.navigateNote = navigateNote;
+    window.openSpotlightSearch = openSpotlightSearch;
+    window.handleSpotlightInput = handleSpotlightInput;
+    window.handleSpotlightKey = handleSpotlightKey;
+    window.selectSpotlightNote = selectSpotlightNote;
+    window.openDirectDrive = openDirectDrive;
+    window.downloadCurrentFile = downloadCurrentFile;
+    window.shareCurrentFile = shareCurrentFile;
+    window.reloadCurrentPreview = reloadCurrentPreview;
+    window.toggleFullscreenViewer = toggleFullscreenViewer;
+    window.copyDiscordLink = copyDiscordLink;
+    window.onIframeLoaded = onIframeLoaded;
+    window.escapeHtml = escapeHtml;
+    window.escapeAttr = escapeAttr;
+
+    // Auto-init
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  })();
+  </script>
+</body>
+</html>
