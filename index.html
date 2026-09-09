@@ -2090,13 +2090,26 @@ body::before {
         </div>
 
         <div class="viewer-actions-group">
+          <!-- Prev / Next Note Quick Flippers -->
+          <div class="viewer-nav-arrows">
+            <button class="btn-action-arrow" id="btnPrevNote" onclick="navigateNote(-1)" title="Previous Note (← or P)" disabled>‹ Prev</button>
+            <span class="viewer-doc-counter" id="viewerDocCounter">--/--</span>
+            <button class="btn-action-arrow" id="btnNextNote" onclick="navigateNote(1)" title="Next Note (→ or N)" disabled>Next ›</button>
+          </div>
+          <div class="viewer-action-divider"></div>
           <button class="btn-action-pill btn-act-open" id="btnActOpen" onclick="openDirectDrive()" title="Open in Google Drive tab">
             <span>↗ Open in Drive</span>
           </button>
           <button class="btn-action-pill btn-act-download" id="btnActDownload" onclick="downloadCurrentFile()" title="Download PDF">
             <span>⬇ Download</span>
           </button>
-          <button class="btn-action-pill btn-act-fullscreen" id="btnActFullscreen" onclick="toggleFullscreenViewer()" title="Fullscreen mode">
+          <button class="btn-action-pill btn-act-share" id="btnActShare" onclick="shareCurrentFile()" title="Copy Share Link (S)">
+            <span>⎘ Share</span>
+          </button>
+          <button class="btn-action-pill btn-act-reload" id="btnActReload" onclick="reloadCurrentPreview()" title="Reload Preview (R)">
+            <span>↻ Reload</span>
+          </button>
+          <button class="btn-action-pill btn-act-fullscreen" id="btnActFullscreen" onclick="toggleFullscreenViewer()" title="Fullscreen mode (F)">
             <span>⤢ Fullscreen</span>
           </button>
         </div>
@@ -2115,7 +2128,7 @@ body::before {
           <div class="pulse-spinner"></div>
           <div>Loading Google Drive Preview...</div>
         </div>
-        <iframe id="previewIframe" src="" allow="autoplay" loading="lazy" onload="if(typeof onIframeLoaded==='function')onIframeLoaded()"></iframe>
+        <iframe id="previewIframe" src="" allow="autoplay; fullscreen" loading="lazy" onload="if(typeof onIframeLoaded==='function')onIframeLoaded()"></iframe>
       </div>
     </section>
   </div>
@@ -2800,6 +2813,55 @@ body::before {
       handleSearch('');
     }
 
+    // Helper to resolve Google Drive ID from any note record
+    function getNoteDriveId(note) {
+      if (!note) return null;
+      if (note.driveId) return note.driveId;
+      if (note.fileId) return note.fileId;
+      const candidates = [note.previewUrl, note.url, note.downloadUrl, note.embedUrl];
+      for (const u of candidates) {
+        if (!u) continue;
+        const match = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/id=([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) return match[1];
+      }
+      return null;
+    }
+
+    // Helper to resolve working Google Drive preview embed URL
+    function getNotePreviewUrl(note) {
+      if (!note) return '';
+      if (note.previewUrl) return note.previewUrl;
+      const driveId = getNoteDriveId(note);
+      if (driveId) {
+        return `https://drive.google.com/file/d/${driveId}/preview`;
+      }
+      return note.embedUrl || note.url || '';
+    }
+
+    // Helper to resolve working Google Drive view URL for new tab
+    function getNoteViewUrl(note) {
+      if (!note) return '';
+      if (note.url) return note.url;
+      const driveId = getNoteDriveId(note);
+      if (driveId) {
+        return `https://drive.google.com/file/d/${driveId}/view`;
+      }
+      return note.previewUrl || '';
+    }
+
+    // Helper to resolve direct download URL
+    function getNoteDownloadUrl(note) {
+      if (!note) return '';
+      if (note.downloadUrl) return note.downloadUrl;
+      const driveId = getNoteDriveId(note);
+      if (driveId) {
+        return `https://drive.google.com/uc?export=download&id=${driveId}`;
+      }
+      return note.url || '';
+    }
+
+    let iframeLoadTimeout = null;
+
     // Preview Note
     function previewFile(noteId) {
       const note = allNotes.find(n => n.id === noteId);
@@ -2841,8 +2903,16 @@ body::before {
 
       const iframe = document.getElementById('previewIframe');
       if (iframe) {
-        iframe.src = note.embedUrl || `https://drive.google.com/file/d/${note.fileId}/preview`;
+        const previewUrl = getNotePreviewUrl(note);
+        iframe.src = previewUrl;
       }
+
+      // Safety timer: hide spinner after 3s so it never blocks the document
+      if (iframeLoadTimeout) clearTimeout(iframeLoadTimeout);
+      iframeLoadTimeout = setTimeout(() => {
+        const sp = document.getElementById('iframeLoadingSpinner');
+        if (sp) sp.classList.add('hidden');
+      }, 3000);
 
       // Update Prev / Next button states
       updateViewerDocCounter();
@@ -2906,6 +2976,7 @@ body::before {
     }
 
     function onIframeLoaded() {
+      if (iframeLoadTimeout) clearTimeout(iframeLoadTimeout);
       const spinner = document.getElementById('iframeLoadingSpinner');
       if (spinner) spinner.classList.add('hidden');
     }
@@ -3078,8 +3149,9 @@ body::before {
         showToast('Please select a file first');
         return;
       }
-      if (activeFile.url) {
-        window.open(activeFile.url, '_blank');
+      const viewUrl = getNoteViewUrl(activeFile);
+      if (viewUrl) {
+        window.open(viewUrl, '_blank');
       }
     }
 
@@ -3097,9 +3169,11 @@ body::before {
           });
         } catch(e) {}
       }
-      const downloadUrl = `https://drive.google.com/uc?export=download&id=${activeFile.fileId}`;
-      window.open(downloadUrl, '_blank');
-      showToast('Opening download link...');
+      const downloadUrl = getNoteDownloadUrl(activeFile);
+      if (downloadUrl) {
+        window.open(downloadUrl, '_blank');
+        showToast('Opening download link...');
+      }
     }
 
     function shareCurrentFile() {
@@ -3116,8 +3190,9 @@ body::before {
           });
         } catch(e) {}
       }
+      const shareUrl = getNoteViewUrl(activeFile) || window.location.href;
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(activeFile.url || window.location.href);
+        navigator.clipboard.writeText(shareUrl);
       }
       showToast('Share link copied to clipboard! 📋');
     }
