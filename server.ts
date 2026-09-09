@@ -14,10 +14,26 @@ app.use(express.json());
 // Load notes data into memory
 let notesData: any[] = [];
 try {
-  const raw = fs.readFileSync(path.join(__dirname, 'notes-data.json'), 'utf8');
-  notesData = JSON.parse(raw);
+  const jsonPath = path.join(__dirname, 'notes-data.json');
+  if (fs.existsSync(jsonPath)) {
+    const raw = fs.readFileSync(jsonPath, 'utf8');
+    notesData = JSON.parse(raw);
+  }
 } catch (e) {
   console.error('Error loading notes-data.json:', e);
+}
+
+if (!notesData || notesData.length === 0) {
+  try {
+    const jsPath = path.join(__dirname, 'notes-data.js');
+    if (fs.existsSync(jsPath)) {
+      const jsRaw = fs.readFileSync(jsPath, 'utf8');
+      const cleanJson = jsRaw.replace(/^window\.__FALLBACK_NOTES_DATA__\s*=\s*/, '').replace(/;\s*$/, '');
+      notesData = JSON.parse(cleanJson);
+    }
+  } catch (err) {
+    console.error('Error loading fallback notes-data.js:', err);
+  }
 }
 
 // API endpoint for notes
