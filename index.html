@@ -1954,10 +1954,11 @@ body::before {
         <div class="landing-stream-card" onclick="openStreamFromLanding('Humanities')">
           <div class="stream-card-top-icon icon-humanities">🏛</div>
           <h3 class="landing-stream-name">Humanities Stream</h3>
-          <p class="landing-stream-desc">Structured study notes, key terms, case studies, and essay structures for Geography, Psychology, Sociology, and Economics.</p>
+          <p class="landing-stream-desc">Structured study notes, key terms, case studies, and essay structures for Geography, History, Psychology, Sociology, and Economics.</p>
           <div class="stream-subject-tags">
             <span class="stream-tag-pill">Economics</span>
             <span class="stream-tag-pill">Geography</span>
+            <span class="stream-tag-pill">History</span>
             <span class="stream-tag-pill">Psychology</span>
             <span class="stream-tag-pill">Sociology</span>
             <span class="stream-tag-pill">English</span>
@@ -2050,7 +2051,6 @@ body::before {
             aria-expanded="false"
           >
             <div class="subj-trigger-info">
-              <span class="subj-trigger-icon" id="subjTriggerIcon">📚</span>
               <span class="subj-trigger-name" id="subjTriggerName">Select Subject</span>
               <span class="subj-trigger-count" id="subjTriggerCount">0 notes</span>
             </div>
@@ -2236,42 +2236,44 @@ body::before {
 
     const SUBJECT_CONFIGS = {
       'Commerce': [
-        { name: 'Economics', icon: '📊' },
-        { name: 'Accounts', icon: '🧮' },
-        { name: 'Commerce', icon: '🛍️' },
-        { name: 'Business Studies', icon: '💼' },
-        { name: 'English', icon: '📖' },
-        { name: 'Maths', icon: '𝝿' }
+        { name: 'Economics' },
+        { name: 'Accounts' },
+        { name: 'Commerce' },
+        { name: 'Business Studies' },
+        { name: 'English' },
+        { name: 'Maths' }
       ],
       'Science': [
-        { name: 'Physics', icon: '⚡' },
-        { name: 'Chemistry', icon: '🧪' },
-        { name: 'Maths', icon: '𝝿' },
-        { name: 'Biology', icon: '🧬' },
-        { name: 'Computer Science', icon: '💻' },
-        { name: 'English', icon: '📖' }
+        { name: 'Physics' },
+        { name: 'Chemistry' },
+        { name: 'Maths' },
+        { name: 'Biology' },
+        { name: 'Computer Science' },
+        { name: 'English' }
       ],
       'Humanities': [
-        { name: 'Economics', icon: '📊' },
-        { name: 'Geography', icon: '🌍' },
-        { name: 'Psychology', icon: '🧠' },
-        { name: 'Sociology', icon: '🏛️' },
-        { name: 'English', icon: '📖' }
+        { name: 'Economics' },
+        { name: 'Geography' },
+        { name: 'History' },
+        { name: 'Psychology' },
+        { name: 'Sociology' },
+        { name: 'English' }
       ],
       'All Streams': [
-        { name: 'Economics', icon: '📊' },
-        { name: 'Physics', icon: '⚡' },
-        { name: 'Chemistry', icon: '🧪' },
-        { name: 'Accounts', icon: '🧮' },
-        { name: 'Commerce', icon: '🛍️' },
-        { name: 'Maths', icon: '𝝿' },
-        { name: 'English', icon: '📖' },
-        { name: 'Computer Science', icon: '💻' },
-        { name: 'Biology', icon: '🧬' },
-        { name: 'Business Studies', icon: '💼' },
-        { name: 'Geography', icon: '🌍' },
-        { name: 'Psychology', icon: '🧠' },
-        { name: 'Sociology', icon: '🏛️' }
+        { name: 'Economics' },
+        { name: 'Physics' },
+        { name: 'Chemistry' },
+        { name: 'Accounts' },
+        { name: 'Commerce' },
+        { name: 'Maths' },
+        { name: 'English' },
+        { name: 'Computer Science' },
+        { name: 'Biology' },
+        { name: 'Business Studies' },
+        { name: 'Geography' },
+        { name: 'History' },
+        { name: 'Psychology' },
+        { name: 'Sociology' }
       ]
     };
 
@@ -2591,7 +2593,6 @@ body::before {
     // 1. Render Subject Dropdown Style Menu
     function renderSubjectDropdown() {
       const menuEl = document.getElementById('subjectDropdownMenu');
-      const iconEl = document.getElementById('subjTriggerIcon');
       const nameEl = document.getElementById('subjTriggerName');
       const countEl = document.getElementById('subjTriggerCount');
 
@@ -2607,7 +2608,6 @@ body::before {
 
       const activeCount = allNotes.filter(n => n.subject && n.subject.toLowerCase() === activeSub.name.toLowerCase()).length;
 
-      if (iconEl) iconEl.textContent = activeSub.icon || '📚';
       if (nameEl) nameEl.textContent = activeSub.name;
       if (countEl) countEl.textContent = `${activeCount} notes`;
 
@@ -2625,7 +2625,6 @@ body::before {
               aria-selected="${isSelected ? 'true' : 'false'}"
             >
               <div class="subject-dropdown-item-left">
-                <span class="subject-dropdown-item-icon">${sub.icon || '📚'}</span>
                 <span class="subject-dropdown-item-text">${escapeHtml(sub.name)}</span>
               </div>
               <div class="subject-dropdown-item-right">
