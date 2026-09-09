@@ -19,7 +19,7 @@ The repository currently organizes resources across three main academic streams:
 
 * **Commerce:** Accounts, Commerce, Economics, Business Studies, Mathematics
 * **Science:** Physics, Chemistry, Biology, Computer Science, Mathematics
-* **Humanities & Arts:** English, Psychology, Sociology, Geography
+* **Humanities & Arts:** English, History, Psychology, Sociology, Geography
 
 *(Note: See the repository images for full subject clusters).*
 
