@@ -1,289 +1,62 @@
-/**
- * ISC.exe — Smart Accent CSS Patch
- * ==================================
- * Add this stylesheet (or paste its contents) to any ISC page.
- * It overrides the places where raw --accent was used directly on text or borders,
- * replacing them with the safer derived tokens from theme-color-system.js:
- *
- *   --accent-text    = readable on dark bg (always ≥ 4.5:1 contrast)
- *   --accent-on      = text ON a solid accent background (#000 or #fff)
- *   --accent-border  = desaturated border, never garish
- *   --accent-lo      = 9% alpha tint  (backgrounds, hover fills)
- *   --accent-md      = 18% alpha tint (stronger hover states)
- *   --accent-hi      = 35% alpha tint (active rings, strong glows)
- *   --accent-glow    = 22% alpha (box-shadow glow)
- *   --accent-subtle  = 3% alpha (card background micro-tint)
- *
- * Fallbacks are provided so the page still works if the JS hasn't run yet.
- */
-
-/* ─── FALLBACK DEFAULTS (overridden by JS) ──────────────────────────────────── */
+/* Add this stylesheet to any ISC page. It overrides raw accent usage with safer derived tokens from theme-color-system.js. */
 :root {
-  --accent-text:   var(--accent, #3bff6c);
-  --accent-on:     #000;
+  --accent-text: var(--accent, #3bff6c);
+  --accent-on: #000;
   --accent-border: rgba(59, 255, 108, 0.28);
-  --accent-glow:   rgba(59, 255, 108, 0.22);
-  --accent-hi:     rgba(59, 255, 108, 0.35);
+  --accent-glow: rgba(59, 255, 108, 0.22);
+  --accent-hi: rgba(59, 255, 108, 0.35);
   --accent-subtle: rgba(59, 255, 108, 0.03);
-  --accent-nav:    var(--accent, #3bff6c);
+  --accent-nav: var(--accent, #3bff6c);
 }
-
-/* ─── NAV LINKS ─────────────────────────────────────────────────────────────── */
-/* Active / hover state text uses --accent-text (contrast-safe) not raw --accent */
 .nav-link:hover,
-.nav-link.active {
-  color: var(--accent-text);
-  border-color: var(--accent-border);
-  background: var(--accent-lo);
-  box-shadow:
-    0 0 16px var(--accent-glow),
-    inset 0 1px 0 color-mix(in srgb, var(--accent) 15%, transparent);
-}
-
-/* Nav pip dots: always use raw accent (decorative, not text) */
-.nav-link-pip {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
-}
-
-/* Dashboard glow button */
-.nav-link--glow {
-  border-color: var(--accent-border);
-  background: var(--accent-lo);
-  color: rgba(255, 255, 255, 0.88);
-}
-.nav-link--glow:hover {
-  color: var(--accent-on);
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow:
-    0 0 20px var(--accent-glow),
-    0 0 44px rgba(0,0,0,0.1);
-}
-.nav-badge-new {
-  background: var(--accent);
-  color: var(--accent-on);
-}
-
-/* ─── SIDEBAR SUBJECT ROWS ──────────────────────────────────────────────────── */
-/* Subject name text uses --subj-color (per-subject override), not --accent directly */
-/* But the count pill and open state use safe tints */
-.subject > summary {
-  border-left-color: color-mix(in srgb, var(--subj-color, var(--accent)) 80%, transparent);
-}
-.subject[open] > summary {
-  color: var(--subj-color, var(--accent-text));
-}
-.s-count {
-  color: color-mix(in srgb, var(--subj-color, var(--accent)) 90%, var(--fg));
-  border-color: color-mix(in srgb, var(--subj-color, var(--accent)) 40%, var(--border2));
-}
-
-/* ─── ACTIVE FILE LINK ───────────────────────────────────────────────────────── */
-.file-link.active {
-  background: var(--accent-lo);
-  border-color: var(--accent-border);
-  color: var(--fg); /* keep text white/fg, not accent */
-}
-
-/* ─── SEARCH BOX FOCUS ──────────────────────────────────────────────────────── */
-.search-box:focus-within {
-  border-color: var(--accent-border);
-}
-
-/* ─── VIEWER INFOBAR CHIPS ──────────────────────────────────────────────────── */
-.vi-chip.src-repo {
-  color: var(--accent-text);
-  border-color: var(--accent-border);
-  background: var(--accent-lo);
-}
-
-/* ─── TOOLBAR OPEN BUTTON ───────────────────────────────────────────────────── */
-#btnOpen {
-  color: var(--accent-text);
-  border-color: var(--accent-border);
-  background: var(--accent-lo);
-  box-shadow:
-    0 0 10px var(--accent-glow),
-    inset 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent);
-}
-#btnOpen:hover {
-  color: var(--accent-on);
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 24px var(--accent-glow), 0 4px 16px rgba(0,0,0,0.35);
-}
-#btnOpen.file-loaded {
-  animation: btnOpenGlow 2.5s ease-in-out infinite;
-}
-@keyframes btnOpenGlow {
-  0%,100% { box-shadow: 0 0 10px var(--accent-glow); }
-  50%      { box-shadow: 0 0 22px var(--accent-hi); }
-}
-
-/* ─── THEME PICKER ──────────────────────────────────────────────────────────── */
-.color-trigger:hover,
-.color-trigger.open {
-  border-color: var(--accent);
-  color: var(--fg);
-  background: var(--accent-lo);
-}
-.picker-panel {
-  border-top-color: var(--accent);
-}
-.apply-btn {
-  background: var(--accent);
-  color: var(--accent-on);
-}
-
-/* ─── SIDEBAR FOOTER ────────────────────────────────────────────────────────── */
-.sys-status-val {
-  color: var(--accent-text);
-}
-
-/* ─── STREAM TRIGGER (resource.html) ────────────────────────────────────────── */
-/* The left accent strip uses raw accent (decorative) */
-.stream-trigger::after {
-  background: var(--stream-color, var(--accent));
-  box-shadow:
-    0 0 16px var(--stream-color, var(--accent)),
-    0 0 40px color-mix(in srgb, var(--stream-color, var(--accent)) 40%, transparent);
-}
-/* Trigger icon uses stream-color, which is per-stream not per-accent */
-.stream-trigger-icon-panel svg {
-  color: var(--stream-color, var(--accent-text));
-}
-
-/* ─── TIMETABLE TICKER ──────────────────────────────────────────────────────── */
-.ticker-time {
-  color: var(--amber); /* timetable ticker is amber, not accent */
-}
-
-/* ─── EXAM ALERT ────────────────────────────────────────────────────────────── */
-.ea-subject { color: #ffd060; } /* amber, not accent */
-.ea-days strong { color: #ffd060; }
-
-/* ─── HERO PAGE ELEMENTS ─────────────────────────────────────────────────────── */
-.eyebrow em,
-.hero-title .l2 {
-  color: var(--accent-text);
-}
-
-/* ─── STAT DELTAS (dashboard) ──────────────────────────────────────────────── */
-.stat-delta.up {
-  color: var(--accent-text);
-  background: var(--accent-lo);
-}
-
-/* ─── SUBJECT CHIPS (dashboard timer) ──────────────────────────────────────── */
-.subject-chip.active {
-  background: var(--accent);
-  color: var(--accent-on);
-  border-color: var(--accent);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 0 12px var(--accent-lo);
-}
-
-/* ─── FOCUS CARD / TOGGLE (dashboard) ──────────────────────────────────────── */
-.focus-toggle {
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-lo);
-}
-.focus-toggle.off {
-  background: var(--border2);
-  box-shadow: none;
-}
-
-/* ─── CHART BAR (today) ─────────────────────────────────────────────────────── */
-.chart-bar.today {
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-lo);
-}
-
-/* ─── SESSION GOAL FILL ─────────────────────────────────────────────────────── */
-.sg-fill {
-  background: var(--accent);
-}
-.sg-val {
-  color: var(--accent-text);
-}
-
-/* ─── SIDEBAR STREAK (dashboard) ───────────────────────────────────────────── */
-/* streak val is amber color, leave alone */
-
-/* ─── TIMETABLE: TODAY ROW ──────────────────────────────────────────────────── */
-.row-today {
-  background: var(--accent-subtle) !important;
-  border-left-color: var(--accent) !important;
-}
-.row-today .td-date::before {
-  color: var(--accent-text) !important;
-}
-
-/* ─── CHANNELS: STAR RATING ZONE ──────────────────────────────────────────── */
-/* Stars use amber (#f5c842), not accent — leave alone */
-
-/* ─── NEXT EXAM BANNER ──────────────────────────────────────────────────────── */
-/* neb-days uses --amber — leave alone */
-.neb-inner {
-  border-left-color: var(--amber);
-}
-
-/* ─── SCROLLBAR THUMB ───────────────────────────────────────────────────────── */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-border);
-}
-
-/* ─── FOCUS RING (accessibility) ────────────────────────────────────────────── */
-:focus-visible {
-  outline: 2px solid var(--accent-text);
-  outline-offset: 2px;
-}
-
-/* ─── PiP TIMER ─────────────────────────────────────────────────────────────── */
-.pip-dot.running {
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-}
-.pip-ring-progress {
-  stroke: var(--accent);
-}
-.pip-link {
-  color: var(--accent-text);
-}
-.pip-link:hover {
-  background: var(--accent-lo);
-}
-
-/* ─── COMMUNITY BUTTONS (mobile) ───────────────────────────────────────────── */
-.brand-dot {
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-lo);
-}
-
-/* ─── BOTTOM NAV (mobile) ──────────────────────────────────────────────────── */
-.nav-item.active {
-  color: var(--accent-text);
-}
-.nav-active-bg {
-  background: var(--accent-lo);
-  border-color: var(--accent-border);
-}
-
-/* ─── RESOURCE PAGE: cluster label ─────────────────────────────────────────── */
-.sidebar-label {
-  color: var(--accent-text);
-}
-
-/* ─── GRADIENT MODE overrides ───────────────────────────────────────────────── */
-/* When grad-mode is active, the JS already set --accent to the first stop.
-   The CSS variables naturally pick up the right values through the cascade.
-   We only need a few cosmetic overrides for gradient-text elements. */
+.nav-link.active { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); box-shadow: 0 0 16px var(--accent-glow), inset 0 1px 0 color-mix(in srgb, var(--accent) 15%, transparent); }
+.nav-link-pip { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.nav-link--glow { border-color: var(--accent-border); background: var(--accent-lo); color: rgba(255, 255, 255, 0.88); }
+.nav-link--glow:hover { color: var(--accent-on); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow), 0 0 44px rgba(0,0,0,0.1); }
+.nav-badge-new { background: var(--accent); color: var(--accent-on); }
+.subject > summary { border-left-color: color-mix(in srgb, var(--subj-color, var(--accent)) 80%, transparent); }
+.subject[open] > summary { color: var(--subj-color, var(--accent-text)); }
+.s-count { color: color-mix(in srgb, var(--subj-color, var(--accent)) 90%, var(--fg)); border-color: color-mix(in srgb, var(--subj-color, var(--accent)) 40%, var(--border2)); }
+.file-link.active { background: var(--accent-lo); border-color: var(--accent-border); color: var(--fg); }
+.search-box:focus-within { border-color: var(--accent-border); }
+.vi-chip.src-repo { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); }
+#btnOpen { color: var(--accent-text); border-color: var(--accent-border); background: var(--accent-lo); box-shadow: 0 0 10px var(--accent-glow), inset 0 1px 0 color-mix(in srgb, var(--accent) 10%, transparent); }
+#btnOpen:hover { color: var(--accent-on); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 24px var(--accent-glow), 0 4px 16px rgba(0,0,0,0.35); }
+#btnOpen.file-loaded { animation: btnOpenGlow 2.5s ease-in-out infinite; }
+@keyframes btnOpenGlow { 0%,100% { box-shadow: 0 0 10px var(--accent-glow); } 50% { box-shadow: 0 0 22px var(--accent-hi); } }
+.color-trigger:hover, .color-trigger.open { border-color: var(--accent); color: var(--fg); background: var(--accent-lo); }
+.picker-panel { border-top-color: var(--accent); }
+.apply-btn { background: var(--accent); color: var(--accent-on); }
+.sys-status-val { color: var(--accent-text); }
+.stream-trigger::after { background: var(--stream-color, var(--accent)); box-shadow: 0 0 16px var(--stream-color, var(--accent)), 0 0 40px color-mix(in srgb, var(--stream-color, var(--accent)) 40%, transparent); }
+.stream-trigger-icon-panel svg { color: var(--stream-color, var(--accent-text)); }
+.eyebrow em, .hero-title .l2 { color: var(--accent-text); }
+.stat-delta.up { color: var(--accent-text); background: var(--accent-lo); }
+.subject-chip.active { background: var(--accent); color: var(--accent-on); border-color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 0 12px var(--accent-lo); }
+.focus-toggle { background: var(--accent); box-shadow: 0 0 8px var(--accent-lo); }
+.focus-toggle.off { background: var(--border2); box-shadow: none; }
+.chart-bar.today { background: var(--accent); box-shadow: 0 0 12px var(--accent-lo); }
+.sg-fill { background: var(--accent); }
+.sg-val { color: var(--accent-text); }
+.row-today { background: var(--accent-subtle) !important; border-left-color: var(--accent) !important; }
+.row-today .td-date::before { color: var(--accent-text) !important; }
+.neb-inner { border-left-color: var(--amber); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-border); }
+:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.pip-dot.running { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.pip-ring-progress { stroke: var(--accent); }
+.pip-link { color: var(--accent-text); }
+.pip-link:hover { background: var(--accent-lo); }
+.brand-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-lo); }
+.nav-item.active { color: var(--accent-text); }
+.nav-active-bg { background: var(--accent-lo); border-color: var(--accent-border); }
+.sidebar-label { color: var(--accent-text); }
 body.grad-mode .hero-title .l2 {
   background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent; /* reset fallback */
+  color: transparent;
 }
 body.grad-mode .eyebrow em {
   background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
@@ -291,10 +64,5 @@ body.grad-mode .eyebrow em {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-body.grad-mode .nav-brand-mark {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  box-shadow: 0 0 12px var(--grad-a);
-}
-body.grad-mode .trigger-swatch {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-}
+body.grad-mode .nav-brand-mark { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); box-shadow: 0 0 12px var(--grad-a); }
+body.grad-mode .trigger-swatch { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
