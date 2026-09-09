@@ -684,43 +684,141 @@ html, body {
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
 }
 
-/* Ergonomic Stream Switcher Bar */
+/* ═══════════════════════════════════════════════════════════════ */
+/* ANIMATED STREAM SWITCHER (Interactive Floating Glider Pill)   */
+/* ═══════════════════════════════════════════════════════════════ */
 .stream-quick-bar {
+  position: relative;
   display: flex;
-  background: #09121a;
-  padding: 3px;
-  border-radius: 8px;
-  border: 1px solid #142230;
+  background: #070d14;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.25);
   gap: 3px;
+  overflow: hidden;
+}
+
+/* Floating Animated Glider Pill */
+.stream-slider-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0px;
+  border-radius: 7px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(14, 165, 233, 0.1));
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.28s ease,
+              border-color 0.28s ease,
+              box-shadow 0.28s ease;
+}
+
+/* Dynamic theme glow per stream */
+.stream-quick-bar[data-active-stream="Commerce"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(5, 150, 105, 0.12));
+  border-color: rgba(52, 211, 153, 0.55);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="Science"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(2, 132, 199, 0.12));
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="Humanities"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24), rgba(217, 119, 6, 0.12));
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.stream-quick-bar[data-active-stream="All Streams"] .stream-slider-glider {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.24), rgba(109, 40, 217, 0.12));
+  border-color: rgba(167, 139, 250, 0.55);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .stream-tab-btn {
+  position: relative;
+  z-index: 2;
   flex: 1;
   background: transparent;
   border: none;
   color: #64748b;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 0.74rem;
   font-weight: 600;
-  padding: 0.35rem 0.2rem;
-  border-radius: 6px;
+  padding: 0.42rem 0.2rem;
+  border-radius: 7px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: color 0.18s ease, transform 0.12s ease;
   text-align: center;
   white-space: nowrap;
+  user-select: none;
+  outline: none;
+}
+
+.stream-tab-btn .strm-icon {
+  font-size: 0.8rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .stream-tab-btn:hover {
   color: #cbd5e1;
-  background: #0e1b27;
+}
+
+.stream-tab-btn:hover .strm-icon {
+  transform: scale(1.18) translateY(-1px);
+}
+
+.stream-tab-btn:active {
+  transform: scale(0.95);
 }
 
 .stream-tab-btn.active {
-  background: #162638;
-  color: #34d399;
+  color: #f8fafc;
   font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.stream-tab-btn.active#strm_Commerce {
+  color: #34d399;
+}
+.stream-tab-btn.active#strm_Science {
+  color: #38bdf8;
+}
+.stream-tab-btn.active#strm_Humanities {
+  color: #fbbf24;
+}
+.stream-tab-btn.active#strm_All {
+  color: #a78bfa;
+}
+
+/* Animated Entrance for the Directory Tree */
+.tree-animate-in {
+  animation: treeFadeSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes treeFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Search Box with Clear Button */
@@ -1067,24 +1165,36 @@ html, body {
   border-color: #2b4560;
 }
 
-/* Clean Folder Section & Accordion */
-.clean-folder-section {
+/* ═══════════════════════════════════════════════════════════════ */
+/* MODERN MINIMALIST FILE TREE (Directly Inspired by Reference)   */
+/* ═══════════════════════════════════════════════════════════════ */
+.file-tree-container {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 3px;
+  width: 100%;
+  user-select: none;
 }
 
-.clean-folder-header {
+/* Tree Folder Section Node */
+.tree-folder-node {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  background: #0b141d;
-  border: 1px solid #142230;
-  border-radius: 8px;
-  padding: 0.48rem 0.65rem;
+}
+
+/* Tree Folder Header / Row */
+.tree-folder-row {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.38rem 0.55rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.45rem;
   transition: all 0.15s ease;
   font-family: inherit;
   color: #cbd5e1;
@@ -1092,20 +1202,17 @@ html, body {
   outline: none;
 }
 
-.clean-folder-header:hover,
-.clean-folder-header:focus-visible {
-  background: #101f2e;
-  border-color: #223c54;
+.tree-folder-row:hover,
+.tree-folder-row:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
   color: #f1f5f9;
 }
 
-.clean-folder-header.open {
-  background: #0e1b27;
-  border-color: rgba(56, 189, 248, 0.35);
+.tree-folder-row.open {
   color: #f8fafc;
 }
 
-.clean-folder-header-left {
+.tree-folder-left {
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -1113,134 +1220,209 @@ html, body {
   flex: 1;
 }
 
-.folder-chevron {
-  display: inline-block;
-  font-size: 0.58rem;
-  color: #64748b;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s ease;
+/* Thin Outline Chevron Arrow */
+.tree-chevron {
+  width: 13px;
+  height: 13px;
+  stroke: #64748b;
   flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.18s ease;
 }
 
-.folder-chevron.open {
+.tree-folder-row:hover .tree-chevron {
+  stroke: #94a3b8;
+}
+
+.tree-folder-row.open .tree-chevron,
+.tree-chevron.open {
   transform: rotate(90deg);
-  color: #38bdf8;
+  stroke: #38bdf8;
 }
 
-.folder-icon {
-  font-size: 0.88rem;
-  line-height: 1;
+/* Thin Outline Folder Icon */
+.tree-folder-icon {
+  width: 16px;
+  height: 16px;
+  stroke: #94a3b8;
   flex-shrink: 0;
+  transition: stroke 0.18s ease, transform 0.15s ease;
 }
 
-.folder-name {
-  font-size: 0.78rem;
-  font-weight: 600;
+.tree-folder-row:hover .tree-folder-icon {
+  stroke: #38bdf8;
+}
+
+.tree-folder-row.open .tree-folder-icon,
+.tree-folder-icon.open {
+  stroke: #38bdf8;
+}
+
+.tree-folder-title {
+  font-size: 0.81rem;
+  font-weight: 500;
   color: #e2e8f0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
-.clean-folder-header.open .folder-name {
-  color: #38bdf8;
+.tree-folder-row.open .tree-folder-title {
+  color: #f8fafc;
+  font-weight: 600;
 }
 
-.clean-folder-header .folder-count {
-  font-family: var(--font-mono);
+.tree-folder-badge {
+  font-family: var(--font-mono, monospace);
   font-size: 0.65rem;
   color: #64748b;
-  background: #060e15;
-  border: 1px solid #142230;
-  padding: 0.08rem 0.4rem;
+  background: #081018;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.06rem 0.4rem;
   border-radius: 999px;
   flex-shrink: 0;
+  margin-left: 0.35rem;
 }
 
-.clean-folder-header.open .folder-count {
+.tree-folder-row.open .tree-folder-badge {
   color: #94a3b8;
-  border-color: #1f3448;
+  border-color: rgba(56, 189, 248, 0.2);
 }
 
-.clean-notes-list {
+/* Vertical Tree Guideline & Children Area */
+.tree-children-wrap {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  padding: 0.25rem 0 0.2rem 0.5rem;
-  border-left: 1px solid #152636;
-  margin-left: 0.85rem;
+  gap: 2px;
+  margin-left: 1.05rem;
+  padding-left: 0.65rem;
+  border-left: 1px solid rgba(148, 163, 184, 0.16);
+  position: relative;
+  transition: border-color 0.18s ease;
 }
 
-.clean-notes-list.collapsed {
+.tree-children-wrap:hover {
+  border-left-color: rgba(56, 189, 248, 0.35);
+}
+
+.tree-children-wrap.collapsed {
   display: none;
 }
 
-/* Clean Note Card Item */
-.clean-note-card {
-  background: #0b141d;
-  border: 1px solid #142230;
-  border-radius: 8px;
-  padding: 0.55rem 0.75rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
+/* Tree File Row */
+.tree-file-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.6rem;
-  position: relative;
-  flex-shrink: 0;
+  width: 100%;
+  padding: 0.36rem 0.5rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #cbd5e1;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: 0.81rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
   text-align: left;
+  outline: none;
+  gap: 0.5rem;
+  position: relative;
 }
 
-.clean-note-card:hover {
-  background: #101c29;
-  border-color: #28445e;
-  transform: translateX(2px);
+.tree-file-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
 }
 
-.clean-note-card.selected {
-  background: rgba(52, 211, 153, 0.09);
-  border-color: rgba(52, 211, 153, 0.55);
-  box-shadow: 0 0 12px rgba(52, 211, 153, 0.15);
+.tree-file-row:hover .tree-file-icon {
+  stroke: #38bdf8;
 }
 
-.clean-note-left {
+.tree-file-row.selected {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.12);
+}
+
+.tree-file-left {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   min-width: 0;
   flex: 1;
 }
 
-.clean-note-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  line-height: 1.35;
+/* Thin Outline File Icon */
+.tree-file-icon {
+  width: 15px;
+  height: 15px;
+  stroke: #94a3b8;
+  flex-shrink: 0;
+  transition: stroke 0.15s ease;
+}
+
+.tree-file-icon.pdf {
+  stroke: #fb7185;
+}
+
+.tree-file-icon.doc,
+.tree-file-icon.docx {
+  stroke: #38bdf8;
+}
+
+.tree-file-row.selected .tree-file-icon {
+  stroke: #38bdf8;
+}
+
+.tree-file-title {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.8rem;
+  line-height: 1.3;
 }
 
-.clean-note-card.selected .clean-note-title {
-  color: #34d399;
-}
-
-.file-type-pill {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  font-weight: 800;
-  color: #f87171;
-  background: rgba(248, 113, 113, 0.12);
-  padding: 0.06rem 0.3rem;
-  border-radius: 4px;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-}
-
-.file-type-pill.doc {
+.tree-file-row.selected .tree-file-title {
   color: #38bdf8;
-  background: rgba(56, 189, 248, 0.12);
+  font-weight: 600;
 }
+
+.tree-ext-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.05rem 0.32rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+  text-transform: lowercase;
+}
+
+.tree-ext-badge.pdf {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.tree-ext-badge.doc,
+.tree-ext-badge.docx {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.tree-file-row.selected .tree-ext-badge {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+}
+
+/* Backward compatibility classes */
+.clean-folder-section { display: flex; flex-direction: column; width: 100%; }
+.clean-folder-header { composes: tree-folder-row; }
+.clean-notes-list { composes: tree-children-wrap; }
+.clean-note-card { composes: tree-file-row; }
 
 /* Status Bar */
 .sidebar-status-footer {
@@ -1985,12 +2167,25 @@ html, body {
           <button class="nav-pill-btn" style="height:24px; padding:0 0.6rem; font-size:0.72rem;" onclick="navigateTo('landing')">← Home</button>
         </div>
 
-        <!-- Stream Switcher Tabs -->
-        <div class="stream-quick-bar" id="streamQuickBar">
-          <button class="stream-tab-btn active" id="strm_Commerce" onclick="setStream('Commerce')">Commerce</button>
-          <button class="stream-tab-btn" id="strm_Science" onclick="setStream('Science')">Science</button>
-          <button class="stream-tab-btn" id="strm_Humanities" onclick="setStream('Humanities')">Humanities</button>
-          <button class="stream-tab-btn" id="strm_All" onclick="setStream('All Streams')">All</button>
+        <!-- Stream Switcher Tabs with Animated Sliding Glider -->
+        <div class="stream-quick-bar" id="streamQuickBar" data-active-stream="Commerce" role="tablist" aria-label="Academic Streams">
+          <div class="stream-slider-glider" id="streamSliderGlider"></div>
+          <button class="stream-tab-btn active" id="strm_Commerce" onclick="setStream('Commerce')" role="tab" aria-selected="true" data-stream="Commerce" title="Commerce Stream">
+            <span class="strm-icon">💼</span>
+            <span class="strm-name">Commerce</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_Science" onclick="setStream('Science')" role="tab" aria-selected="false" data-stream="Science" title="Science Stream">
+            <span class="strm-icon">⚡</span>
+            <span class="strm-name">Science</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_Humanities" onclick="setStream('Humanities')" role="tab" aria-selected="false" data-stream="Humanities" title="Humanities Stream">
+            <span class="strm-icon">🏛️</span>
+            <span class="strm-name">Humanities</span>
+          </button>
+          <button class="stream-tab-btn" id="strm_All" onclick="setStream('All Streams')" role="tab" aria-selected="false" data-stream="All Streams" title="All Streams">
+            <span class="strm-icon">🌐</span>
+            <span class="strm-name">All</span>
+          </button>
         </div>
       </div>
 
@@ -2311,6 +2506,8 @@ html, body {
 
       setupHotkeys();
       handleInitialHash();
+      window.addEventListener('resize', () => updateStreamGlider(false));
+      setTimeout(() => updateStreamGlider(false), 100);
     }
 
     function updateGlobalCounts() {
@@ -2341,6 +2538,7 @@ html, body {
         window.location.hash = 'notes';
         window.scrollTo(0, 0);
         renderActiveView();
+        setTimeout(() => updateStreamGlider(false), 50);
       } else {
         if (landingEl) landingEl.style.display = 'block';
         if (explorerEl) explorerEl.style.display = 'none';
@@ -2373,6 +2571,32 @@ html, body {
       }
     }
 
+    // Update position and width of floating slider glider
+    function updateStreamGlider(animate = true) {
+      const container = document.getElementById('streamQuickBar');
+      const glider = document.getElementById('streamSliderGlider');
+      if (!container || !glider) return;
+      const activeBtn = container.querySelector('.stream-tab-btn.active');
+      if (!activeBtn) return;
+
+      if (!animate) {
+        glider.style.transition = 'none';
+      } else {
+        glider.style.transition = 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease';
+      }
+
+      const left = activeBtn.offsetLeft;
+      const width = activeBtn.offsetWidth;
+
+      if (width > 0) {
+        glider.style.transform = `translateX(${left}px)`;
+        glider.style.width = `${width}px`;
+      }
+
+      const streamKey = activeBtn.getAttribute('data-stream') || 'Commerce';
+      container.setAttribute('data-active-stream', streamKey);
+    }
+
     // Switch active Stream tab
     function setStream(streamName) {
       currentStream = streamName;
@@ -2383,10 +2607,19 @@ html, body {
         try { window.va('track', 'select_stream', { stream: streamName }); } catch(e) {}
       }
 
-      // Update stream buttons UI
-      document.querySelectorAll('.stream-tab-btn').forEach(btn => btn.classList.remove('active'));
+      // Update stream buttons UI & accessibility attributes
+      document.querySelectorAll('.stream-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
       const activeTab = document.getElementById(`strm_${streamName.replace(/\s+/g, '')}`);
-      if (activeTab) activeTab.classList.add('active');
+      if (activeTab) {
+        activeTab.classList.add('active');
+        activeTab.setAttribute('aria-selected', 'true');
+      }
+
+      // Animate glider
+      updateStreamGlider(true);
 
       const subs = SUBJECT_CONFIGS[currentStream] || [];
       if (subs.length > 0 && !subs.some(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase())) {
@@ -2397,6 +2630,14 @@ html, body {
       openSubfolderNodes.clear();
       if (selectedSubject) {
         openSubjectNodes.add(`sub_${selectedSubject}`);
+      }
+
+      // Trigger animated entrance for the file tree
+      const treeContainer = document.getElementById('sidebarDirectoryTree');
+      if (treeContainer) {
+        treeContainer.classList.remove('tree-animate-in');
+        void treeContainer.offsetWidth; // force reflow
+        treeContainer.classList.add('tree-animate-in');
       }
 
       renderActiveView();
@@ -2628,19 +2869,20 @@ html, body {
       let html = `
         <div class="folders-toolbar">
           <div class="folders-toolbar-info">
-            <span class="folders-toolbar-label">Subfolders</span>
-            <span class="folders-toolbar-count">${categories.length}</span>
+            <span class="folders-toolbar-label">Explorer</span>
+            <span class="folders-toolbar-count">${categories.length} folders • ${subjectNotes.length} files</span>
           </div>
           <button 
             type="button" 
             class="folders-toolbar-toggle-btn" 
             onclick="toggleAllSubfolders()" 
             id="foldersToggleAllBtn"
-            title="${anyOpen ? 'Collapse all subfolders' : 'Expand all subfolders'}"
+            title="${anyOpen ? 'Collapse all folders' : 'Expand all folders'}"
           >
             <span>${anyOpen ? '▲ Collapse All' : '▼ Expand All'}</span>
           </button>
         </div>
+        <div class="file-tree-container">
       `;
 
       categories.forEach(cat => {
@@ -2651,37 +2893,50 @@ html, body {
         const safeId = catKey.replace(/[^a-zA-Z0-9_-]/g, '_');
 
         html += `
-          <div class="clean-folder-section ${isOpen ? 'open' : 'closed'}">
+          <div class="tree-folder-node clean-folder-section ${isOpen ? 'open' : 'closed'}">
             <button 
               type="button" 
-              class="clean-folder-header ${isOpen ? 'open' : ''}" 
+              class="tree-folder-row clean-folder-header ${isOpen ? 'open' : ''}" 
               onclick="toggleSubfolderNode('${escapeAttr(catKey)}')"
               aria-expanded="${isOpen ? 'true' : 'false'}"
-              title="Click to ${isOpen ? 'collapse' : 'expand'} folder"
+              title="Click to ${isOpen ? 'collapse' : 'expand'} ${escapeAttr(cat)}"
             >
-              <div class="clean-folder-header-left">
-                <span class="folder-chevron ${isOpen ? 'open' : ''}">▶</span>
-                <span class="folder-icon">${isOpen ? '📂' : '📁'}</span>
-                <span class="folder-name">${escapeHtml(cat)}</span>
+              <div class="tree-folder-left clean-folder-header-left">
+                <svg class="tree-chevron ${isOpen ? 'open' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                ${isOpen 
+                  ? `<svg class="tree-folder-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-6h13.5l-2.5 10H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.69.9H18a2 2 0 0 1 2 2v2"></path></svg>`
+                  : `<svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>`
+                }
+                <span class="tree-folder-title folder-name">${escapeHtml(cat)}</span>
               </div>
-              <span class="folder-count">${notes.length} ${notes.length === 1 ? 'note' : 'notes'}</span>
+              <span class="tree-folder-badge folder-count">${notes.length}</span>
             </button>
-            <div class="clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
+            <div class="tree-children-wrap clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
         `;
 
         notes.forEach(note => {
           const isSelected = activeFile && activeFile.id === note.id;
-          const fileExt = (note.fileType || 'PDF').toUpperCase();
+          const fileExt = (note.fileType || 'PDF').toLowerCase();
+          const extClass = (fileExt === 'doc' || fileExt === 'docx') ? 'doc' : (fileExt === 'pdf' ? 'pdf' : 'other');
+          const displayTitle = note.title || 'Untitled Note';
+
           html += `
             <div 
-              class="clean-note-card ${isSelected ? 'selected' : ''}" 
+              class="tree-file-row clean-note-card ${isSelected ? 'selected' : ''}" 
+              data-note-id="${escapeAttr(note.id)}"
               onclick="previewFile('${note.id}')"
-              title="${escapeAttr(note.title)}"
+              title="${escapeAttr(displayTitle)}"
             >
-              <div class="clean-note-left">
-                <span class="file-type-pill ${fileExt === 'DOC' || fileExt === 'DOCX' ? 'doc' : ''}">${fileExt}</span>
-                <span class="clean-note-title">${escapeHtml(note.title || 'Untitled Note')}</span>
+              <div class="tree-file-left clean-note-left">
+                <svg class="tree-file-icon ${extClass}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span class="tree-file-title clean-note-title">${escapeHtml(displayTitle)}</span>
               </div>
+              <span class="tree-ext-badge ${extClass}">.${fileExt}</span>
             </div>
           `;
         });
@@ -2692,6 +2947,7 @@ html, body {
         `;
       });
 
+      html += `</div>`;
       container.innerHTML = html;
     }
 
@@ -2769,13 +3025,10 @@ html, body {
       }
 
       // Highlight active card or tree item
-      document.querySelectorAll('.ergo-file-card').forEach(c => c.classList.remove('selected'));
-      document.querySelectorAll('.file-tree-item').forEach(i => i.classList.remove('selected'));
+      document.querySelectorAll('.tree-file-row').forEach(r => r.classList.remove('selected'));
+      document.querySelectorAll('.clean-note-card').forEach(c => c.classList.remove('selected'));
 
-      const activeErgo = document.querySelector(`.ergo-file-card[title="${CSS.escape(note.title)}"]`);
-      if (activeErgo) activeErgo.classList.add('selected');
-
-      const activeTree = document.querySelector(`.file-tree-item[title="${CSS.escape(note.title)}"]`);
+      const activeTree = document.querySelector(`.tree-file-row[data-note-id="${CSS.escape(note.id)}"]`);
       if (activeTree) activeTree.classList.add('selected');
     }
 
