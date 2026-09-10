@@ -95,11 +95,7 @@ html, body {
 
 body {
   position: relative;
-  background:
-    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px),
-    #050507;
-  background-size: 48px 48px, 48px 48px, auto;
+  background-color: #050507;
 }
 
 body::before {
@@ -107,7 +103,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 12%, rgba(255,255,255,0.035), transparent 55%);
+  background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.025), transparent 65%);
   z-index: 0;
 }
 
@@ -274,16 +270,118 @@ body::before {
 .view-landing {
   display: block;
   min-height: calc(100vh - 60px);
-  background: transparent;
+  background: #000000;
+  position: relative;
+  overflow: hidden;
 }
-.landing-container { max-width: 1200px; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; position: relative; z-index: 1; }
-.hero-section { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; max-width: 860px; margin: 0 auto 3.5rem; padding-top: 1rem; }
+
+/* ─── SPOTLIGHT NEW (ACETERNITY UI) ─── */
+.spotlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1440px;
+  height: 640px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.spotlight-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Ambient glow cones */
+.spotlight-beam-ambient-left {
+  position: absolute;
+  top: -120px;
+  left: 8%;
+  width: 520px;
+  height: 680px;
+  background: radial-gradient(ellipse at 25% 0%, rgba(255, 255, 255, 0.22) 0%, rgba(241, 245, 249, 0.08) 38%, transparent 75%);
+  transform: rotate(22deg);
+  transform-origin: top left;
+  filter: blur(52px);
+  opacity: 0.85;
+  animation: spotlightPulseLeft 8s ease-in-out infinite alternate;
+}
+
+.spotlight-beam-ambient-right {
+  position: absolute;
+  top: -120px;
+  right: 8%;
+  width: 520px;
+  height: 680px;
+  background: radial-gradient(ellipse at 75% 0%, rgba(255, 255, 255, 0.22) 0%, rgba(241, 245, 249, 0.08) 38%, transparent 75%);
+  transform: rotate(-22deg);
+  transform-origin: top right;
+  filter: blur(52px);
+  opacity: 0.85;
+  animation: spotlightPulseRight 8s ease-in-out infinite alternate;
+}
+
+.spotlight-beam-ambient-center {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 760px;
+  height: 380px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.18) 0%, rgba(226, 232, 240, 0.06) 45%, transparent 75%);
+  filter: blur(42px);
+  opacity: 0.9;
+  animation: spotlightPulseCenter 6s ease-in-out infinite alternate;
+}
+
+@keyframes spotlightPulseLeft {
+  0% { opacity: 0.72; transform: rotate(20deg) translateY(0); }
+  100% { opacity: 0.95; transform: rotate(24deg) translateY(12px); }
+}
+
+@keyframes spotlightPulseRight {
+  0% { opacity: 0.72; transform: rotate(-20deg) translateY(0); }
+  100% { opacity: 0.95; transform: rotate(-24deg) translateY(12px); }
+}
+
+@keyframes spotlightPulseCenter {
+  0% { opacity: 0.8; transform: translateX(-50%) scale(0.96); }
+  100% { opacity: 1.0; transform: translateX(-50%) scale(1.04); }
+}
+
+.landing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 920px;
+  margin: 0 auto 3.5rem;
+  padding-top: 1.25rem;
+  position: relative;
+  z-index: 10;
+}
+
 .hero-pill-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 1.05rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   font-family: var(--font-mono);
@@ -292,25 +390,48 @@ body::before {
   color: #e5e7eb;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  backdrop-filter: blur(8px);
 }
+
+/* Landing page text effect from Aceternity Spotlight New */
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  font-size: clamp(2.5rem, 6vw, 4.65rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.04em;
-  color: #f8fafc;
-}
-.hero-title-gradient {
-  background: linear-gradient(135deg, #34d399 0%, #38bdf8 50%, #c084fc 100%);
+  text-align: center;
+  /* bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 */
+  background: linear-gradient(180deg, #ffffff 0%, rgba(250, 250, 250, 0.95) 28%, rgba(212, 212, 216, 0.8) 65%, rgba(163, 163, 163, 0.6) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.08);
+  margin: 0 auto;
+  max-width: 960px;
 }
+
+.hero-title-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(228, 232, 240, 0.9) 35%, rgba(161, 161, 170, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 .hero-subtitle {
-  font-size: clamp(1rem, 2vw, 1.16rem);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  font-weight: 400;
   line-height: 1.65;
-  color: #9ca3af;
-  max-width: 680px;
+  /* text-neutral-300 max-w-lg text-center mx-auto */
+  color: #d4d4d8;
+  max-width: 620px;
+  text-align: center;
+  margin: 0.25rem auto 0;
+  position: relative;
+  z-index: 10;
 }
 .hero-cta-group {
   display: flex;
@@ -1861,6 +1982,45 @@ body::before {
   <!-- VIEW 1: BEAUTIFUL LANDING PAGE -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <main class="view-landing" id="viewLanding">
+    <!-- Spotlight New (Aceternity UI Effect) -->
+    <div class="spotlight-wrapper" aria-hidden="true">
+      <svg class="spotlight-svg" viewBox="0 0 1440 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#spotlight-filter)">
+          <!-- Left spotlight beam -->
+          <path d="M720 0 L260 640 L80 640 Z" fill="url(#spotlight-beam-left-grad)" opacity="0.35" />
+          <!-- Right spotlight beam -->
+          <path d="M720 0 L1180 640 L1360 640 Z" fill="url(#spotlight-beam-right-grad)" opacity="0.35" />
+          <!-- Center top ambient glow -->
+          <ellipse cx="720" cy="40" rx="460" ry="240" fill="url(#spotlight-beam-center-rad)" opacity="0.45" />
+        </g>
+        <defs>
+          <filter id="spotlight-filter" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+            <feGaussianBlur stdDeviation="64" />
+          </filter>
+          <linearGradient id="spotlight-beam-left-grad" x1="720" y1="0" x2="170" y2="640" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+            <stop offset="35%" stop-color="#f8fafc" stop-opacity="0.35" />
+            <stop offset="70%" stop-color="#cbd5e1" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#94a3b8" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="spotlight-beam-right-grad" x1="720" y1="0" x2="1270" y2="640" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+            <stop offset="35%" stop-color="#f8fafc" stop-opacity="0.35" />
+            <stop offset="70%" stop-color="#cbd5e1" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#94a3b8" stop-opacity="0" />
+          </linearGradient>
+          <radialGradient id="spotlight-beam-center-rad" cx="50%" cy="0%" r="75%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
+            <stop offset="45%" stop-color="#f8fafc" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#64748b" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+      <div class="spotlight-beam-ambient-left"></div>
+      <div class="spotlight-beam-ambient-right"></div>
+      <div class="spotlight-beam-ambient-center"></div>
+    </div>
+
     <div class="landing-container">
 
       <!-- Hero Section -->
