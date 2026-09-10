@@ -69,9 +69,9 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
-// Routes
-app.get(['/notes', '/notes.html', '/workspace'], (_req, res) => {
-  res.sendFile(path.join(__dirname, 'notes.html'));
+// Routes - serve main application index.html for notes & workspace routes
+app.get(['/notes', '/workspace'], (_req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Favicon aliases

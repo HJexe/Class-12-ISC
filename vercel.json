@@ -11,6 +11,8 @@
     }
   ],
   "rewrites": [
+    { "source": "/notes/:path*", "destination": "/index.html" },
+    { "source": "/notes", "destination": "/index.html" },
     { "source": "/resource/:path*", "destination": "/resource" },
     { "source": "/guide", "destination": "/guide" }
   ]

@@ -1907,16 +1907,352 @@ body::before {
 }
 .og-toast.show { transform: translateX(-50%) translateY(0); }
 
-/* Responsive layout */
+/* ───────────────────────────────────────────────────────────── */
+/* RESPONSIVE & MOBILE DESIGN SYSTEM */
+/* ───────────────────────────────────────────────────────────── */
+
+/* Desktop defaults for mobile-only controls */
+.mobile-explorer-switch {
+  display: none !important;
+}
+.mobile-back-btn {
+  display: none !important;
+}
+.viewer-top-mobile-row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
 @media (max-width: 900px) {
-  .stream-cards-grid { grid-template-columns: 1fr; }
-  .hero-stats-bar { grid-template-columns: repeat(2, 1fr); }
-  .submit-banner-card { flex-direction: column; text-align: center; }
-  .submit-banner-card .hero-cta-group { justify-content: center; }
-  .view-explorer { flex-direction: column; height: calc(100vh - 60px); }
-  .og-sidebar { width: 100%; max-width: 100%; height: 50%; }
-  .og-viewer-pane { width: 100%; height: 50%; }
-  .og-header { padding: 0 0.85rem; }
+  /* Prevent horizontal scroll globally */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Header adjustments */
+  .og-header {
+    padding: 0 0.85rem;
+    height: 54px;
+  }
+  .header-nav-links {
+    gap: 0.35rem;
+  }
+  .nav-pill-btn {
+    height: 32px;
+    padding: 0 0.65rem;
+    font-size: 0.78rem;
+  }
+  .btn-nav-glow-notes {
+    display: none !important;
+  }
+
+  /* Landing Page adjustments */
+  .landing-container {
+    padding: 1.5rem 1rem 3.5rem;
+  }
+  .spotlight-wrapper {
+    min-height: 480px;
+    padding: 2.2rem 1rem 3rem;
+  }
+  .hero-pill-tag {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .hero-title {
+    font-size: clamp(1.9rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .hero-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-top: 0.6rem;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .hero-cta-group .btn-glow-primary,
+  .hero-cta-group .btn-glow-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hero Stats Bar: Clean 2x2 Grid */
+  .hero-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2.5rem;
+    border-radius: 14px;
+  }
+  .stat-item-box {
+    padding: 1.25rem 1rem;
+  }
+  .stat-item-box:nth-child(2) {
+    border-right: none;
+  }
+  .stat-item-box:nth-child(1),
+  .stat-item-box:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .stat-number {
+    font-size: 1.45rem;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+  }
+
+  /* Stream Cards & Banners */
+  .stream-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .landing-stream-card {
+    padding: 1.25rem;
+  }
+  .submit-banner-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+    margin-bottom: 2.5rem;
+    gap: 1.25rem;
+  }
+  .submit-banner-left {
+    align-items: center;
+  }
+  .submit-gdrive-badge {
+    margin: 0 auto;
+  }
+  .landing-footer {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  /* ───────────────────────────────────────────────────────── */
+  /* WORKSPACE EXPLORER MOBILE OPTIMIZATIONS */
+  /* ───────────────────────────────────────────────────────── */
+  .view-explorer {
+    flex-direction: column !important;
+    height: calc(100vh - 54px) !important;
+    overflow: hidden !important;
+    position: relative;
+  }
+
+  /* Mobile Switcher Bar */
+  .mobile-explorer-switch {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: #080b11;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 10px;
+    gap: 8px;
+    width: 100%;
+    flex-shrink: 0;
+    z-index: 30;
+  }
+
+  .mobile-tab-btn {
+    flex: 1;
+    max-width: 220px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #94a3b8;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .mobile-tab-btn.active {
+    background: #ffffff;
+    color: #050507;
+    font-weight: 700;
+    border-color: #ffffff;
+    box-shadow: 0 2px 12px rgba(255, 255, 255, 0.18);
+  }
+
+  .mobile-active-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #38bdf8;
+    display: none;
+    box-shadow: 0 0 6px #38bdf8;
+  }
+
+  /* Mobile Fullscreen Pane Toggling */
+  .og-sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    border-right: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .og-viewer-pane {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    display: none !important;
+  }
+
+  /* When showing viewer on mobile */
+  .view-explorer.mobile-show-viewer .og-sidebar {
+    display: none !important;
+  }
+  .view-explorer.mobile-show-viewer .og-viewer-pane {
+    display: flex !important;
+  }
+
+  /* When showing directory on mobile */
+  .view-explorer.mobile-show-directory .og-sidebar {
+    display: flex !important;
+  }
+  .view-explorer.mobile-show-directory .og-viewer-pane {
+    display: none !important;
+  }
+
+  /* Sidebar touch optimizations */
+  .sidebar-header-area {
+    padding: 0.65rem 0.85rem 0.5rem;
+  }
+  .sidebar-search-wrap {
+    padding: 0.4rem 0.85rem 0.45rem;
+  }
+  .subject-dropdown-container {
+    padding: 0.35rem 0.85rem 0.5rem;
+  }
+  .sidebar-scroll-content {
+    padding: 0.5rem 0.85rem 2rem;
+  }
+
+  /* Comfortable Mobile Touch Targets (at least 44px) */
+  .tree-file-row {
+    padding: 0.6rem 0.75rem;
+    min-height: 44px;
+    font-size: 0.85rem;
+  }
+  .tree-folder-row {
+    padding: 0.6rem 0.75rem;
+    min-height: 44px;
+    font-size: 0.88rem;
+  }
+  .subject-dropdown-trigger {
+    min-height: 44px;
+    padding: 0.6rem 0.85rem;
+  }
+  .subject-dropdown-item {
+    min-height: 42px;
+    padding: 0.55rem 0.75rem;
+  }
+
+  /* Viewer Top Bar on Mobile */
+  .viewer-top-bar {
+    height: auto;
+    min-height: 52px;
+    padding: 0.55rem 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .viewer-top-mobile-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .mobile-back-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .viewer-actions-group {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    justify-content: flex-start;
+  }
+  .viewer-actions-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-action-pill {
+    height: 30px;
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Modals on mobile */
+  .og-modal-window {
+    width: 95vw !important;
+    max-height: 86vh !important;
+    border-radius: 14px;
+  }
+  .og-modal-header {
+    padding: 0.85rem 1rem;
+  }
+  .og-modal-close {
+    padding: 0.4rem 0.75rem;
+    font-size: 1.25rem;
+  }
+  .og-modal-body {
+    padding: 1.15rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .version-badge {
+    display: none;
+  }
+  .hero-title {
+    font-size: 1.95rem;
+  }
+  .stat-item-box {
+    padding: 1rem 0.75rem;
+  }
+  .stat-number {
+    font-size: 1.35rem;
+  }
+  .glass-radio-group label {
+    font-size: 12px;
+    padding: 0.65rem 0.25rem;
+  }
 }
 </style>
 </head>
@@ -2125,7 +2461,18 @@ body::before {
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- VIEW 2: SPLIT WORKSPACE NOTES EXPLORER -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="view-explorer" id="viewExplorer">
+  <div class="view-explorer mobile-show-directory" id="viewExplorer">
+
+    <!-- MOBILE EXPLORER SUB-NAV (Visible on mobile screens <= 900px) -->
+    <div class="mobile-explorer-switch" id="mobileExplorerSwitch">
+      <button class="mobile-tab-btn active" id="mobileTabBtnDirectory" onclick="switchMobilePane('directory')">
+        <span>📁 Notes Directory</span>
+      </button>
+      <button class="mobile-tab-btn" id="mobileTabBtnViewer" onclick="switchMobilePane('viewer')">
+        <span>📄 Document Preview</span>
+        <span class="mobile-active-dot" id="mobileActiveDot"></span>
+      </button>
+    </div>
 
     <!-- LEFT DIRECTORY SIDEBAR -->
     <aside class="og-sidebar" id="mainSidebar">
@@ -2213,9 +2560,14 @@ body::before {
       
       <!-- Top Action Bar -->
       <div class="viewer-top-bar">
-        <div class="viewer-breadcrumb-wrap">
-          <div class="viewer-breadcrumb-label" id="viewerBreadcrumb">
-            <span>Select a note from the left to preview</span>
+        <div class="viewer-top-mobile-row">
+          <button class="mobile-back-btn" id="mobileBackBtn" onclick="switchMobilePane('directory')" title="Back to Notes Directory">
+            <span>← Directory</span>
+          </button>
+          <div class="viewer-breadcrumb-wrap">
+            <div class="viewer-breadcrumb-label" id="viewerBreadcrumb">
+              <span>Select a note from the left to preview</span>
+            </div>
           </div>
         </div>
 
@@ -2442,6 +2794,7 @@ body::before {
                   allNotes = data.notes;
                   updateGlobalCounts();
                   renderActiveView();
+                  applyRoute(window.location.hash);
                 }
               } catch (e) {
                 console.warn('Failed to parse notes response:', e);
@@ -2457,6 +2810,7 @@ body::before {
                       allNotes = parsed;
                       updateGlobalCounts();
                       renderActiveView();
+                      applyRoute(window.location.hash);
                     }
                   } catch(e) {}
                 }
@@ -2471,6 +2825,7 @@ body::before {
           }
           updateGlobalCounts();
           renderActiveView();
+          applyRoute(window.location.hash);
         };
         xhr.send();
       } catch (err) {
@@ -2479,9 +2834,12 @@ body::before {
         }
         updateGlobalCounts();
         renderActiveView();
+        applyRoute(window.location.hash);
       }
 
       setupHotkeys();
+      window.addEventListener('hashchange', () => applyRoute(window.location.hash));
+      window.addEventListener('popstate', () => applyRoute(window.location.hash));
       handleInitialHash();
       window.addEventListener('resize', () => updateStreamGlider(false));
       setTimeout(() => updateStreamGlider(false), 100);
@@ -2503,8 +2861,267 @@ body::before {
       }
     }
 
+    // Mobile Master-Detail Pane Switcher (<= 900px)
+    let mobileActivePane = 'directory';
+    function switchMobilePane(pane) {
+      mobileActivePane = pane;
+      const explorer = document.getElementById('viewExplorer');
+      const btnDir = document.getElementById('mobileTabBtnDirectory');
+      const btnViewer = document.getElementById('mobileTabBtnViewer');
+      if (!explorer) return;
+
+      if (pane === 'viewer') {
+        explorer.classList.add('mobile-show-viewer');
+        explorer.classList.remove('mobile-show-directory');
+        if (btnViewer) btnViewer.classList.add('active');
+        if (btnDir) btnDir.classList.remove('active');
+      } else {
+        explorer.classList.add('mobile-show-directory');
+        explorer.classList.remove('mobile-show-viewer');
+        if (btnDir) btnDir.classList.add('active');
+        if (btnViewer) btnViewer.classList.remove('active');
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // URL ROUTING & DEEP-LINKING SYSTEM
+    // Supports:
+    //  - Home: #/
+    //  - Stream: #/notes/commerce, #/notes/science, #/notes/humanities
+    //  - Subject: #/notes/commerce/accounts, #/notes/science/physics, etc.
+    //  - Specific Note: #/notes/commerce/accounts?note=15x2Q... or #/note/15x2Q...
+    //  - Legacy hash compatibility: #notes, #directory
+    // ─────────────────────────────────────────────────────────────
+
+    let isRouteHandling = false;
+
+    function toSlug(text) {
+      return String(text || '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function parseHash(hashStr) {
+      const clean = (hashStr || '').replace(/^#\/?/, '');
+      const [pathPart, queryPart] = clean.split('?');
+      const segments = pathPart ? pathPart.split('/').map(decodeURIComponent).filter(Boolean) : [];
+      const params = new URLSearchParams(queryPart || '');
+      return { segments, params };
+    }
+
+    function getStreamBySlug(slug) {
+      if (!slug) return null;
+      const s = String(slug).toLowerCase();
+      if (s === 'commerce') return 'Commerce';
+      if (s === 'science') return 'Science';
+      if (s === 'humanities') return 'Humanities';
+      return null;
+    }
+
+    function findSubjectBySlug(slug, preferredStream) {
+      if (!slug) return null;
+      const targetSlug = toSlug(slug);
+
+      // Check in preferred stream first
+      if (preferredStream && SUBJECT_CONFIGS[preferredStream]) {
+        const found = SUBJECT_CONFIGS[preferredStream].find(sub => toSlug(sub.name) === targetSlug || sub.name.toLowerCase() === targetSlug);
+        if (found) return { subject: found.name, stream: preferredStream };
+      }
+
+      // Check across all streams
+      for (const stream of ['Commerce', 'Science', 'Humanities']) {
+        const list = SUBJECT_CONFIGS[stream] || [];
+        const found = list.find(sub => toSlug(sub.name) === targetSlug || sub.name.toLowerCase() === targetSlug);
+        if (found) return { subject: found.name, stream };
+      }
+      return null;
+    }
+
+    function findNoteByIdOrSlug(idOrSlug) {
+      if (!idOrSlug) return null;
+      const decoded = decodeURIComponent(idOrSlug).trim();
+      // Match exact id
+      let note = allNotes.find(n => n.id === decoded);
+      if (note) return note;
+      // Match slug of id
+      const targetSlug = toSlug(decoded);
+      note = allNotes.find(n => toSlug(n.id) === targetSlug || toSlug(n.title) === targetSlug);
+      return note || null;
+    }
+
+    function updateAppUrl(pushHistory = false) {
+      if (isRouteHandling) return;
+      let newHash = '';
+      if (currentView === 'landing') {
+        newHash = '#/';
+        document.title = 'ISC.exe 2.0 — Class 12 ISC Notes, Past Prelims & Study Materials';
+      } else {
+        const streamSlug = (currentStream || 'commerce').toLowerCase();
+        const subjectSlug = (selectedSubject && selectedSubject !== 'ALL') ? toSlug(selectedSubject) : '';
+
+        if (activeFile) {
+          const noteSubjSlug = toSlug(activeFile.subject || selectedSubject || '');
+          newHash = `#/notes/${streamSlug}/${noteSubjSlug || subjectSlug || 'all'}?note=${encodeURIComponent(activeFile.id)}`;
+          document.title = `${activeFile.title} — ${activeFile.subject || currentStream} | ISC.exe 2.0`;
+        } else if (subjectSlug) {
+          newHash = `#/notes/${streamSlug}/${subjectSlug}`;
+          document.title = `${selectedSubject} Notes (${currentStream}) — ISC.exe 2.0`;
+        } else {
+          newHash = `#/notes/${streamSlug}`;
+          document.title = `${currentStream} Notes — ISC.exe 2.0`;
+        }
+      }
+
+      if (window.location.hash !== newHash) {
+        if (pushHistory) {
+          history.pushState(null, '', newHash);
+        } else {
+          history.replaceState(null, '', newHash);
+        }
+      }
+    }
+
+    function applyRoute(hash) {
+      isRouteHandling = true;
+      try {
+        const { segments, params } = parseHash(hash);
+        const noteParam = params.get('note') || params.get('id');
+
+        // 1. Home / Landing
+        if (segments.length === 0 || segments[0] === 'landing' || segments[0] === '') {
+          navigateTo('landing', false);
+          activeFile = null;
+          isRouteHandling = false;
+          return;
+        }
+
+        // 2. Direct Note link: #/note/:id
+        if (segments[0] === 'note' && segments[1]) {
+          const note = findNoteByIdOrSlug(segments[1]);
+          if (note) {
+            openNoteInRoute(note);
+            isRouteHandling = false;
+            return;
+          }
+        }
+
+        // 3. Notes Directory routes: #/notes or #/notes/:stream or #/notes/:stream/:subject
+        if (segments[0] === 'notes' || segments[0] === 'directory') {
+          let stream = getStreamBySlug(segments[1]) || params.get('stream');
+          let subjectSlug = segments[2] || params.get('subject');
+
+          // If segments[1] is actually a subject (e.g. #/notes/physics)
+          if (!stream && segments[1]) {
+            const subMatch = findSubjectBySlug(segments[1]);
+            if (subMatch) {
+              stream = subMatch.stream;
+              subjectSlug = subMatch.subject;
+            }
+          }
+
+          if (stream) {
+            currentStream = stream;
+            const radio = document.getElementById(`glass-${stream.toLowerCase()}`);
+            if (radio) radio.checked = true;
+          }
+
+          if (subjectSlug) {
+            const subMatch = findSubjectBySlug(subjectSlug, currentStream);
+            if (subMatch) {
+              selectedSubject = subMatch.subject;
+              if (!stream) currentStream = subMatch.stream;
+            }
+          } else {
+            const subs = SUBJECT_CONFIGS[currentStream] || [];
+            if (subs.length > 0) {
+              selectedSubject = subs[0].name;
+            }
+          }
+
+          // Check if a note is requested
+          const targetNoteId = noteParam || segments[3];
+          if (targetNoteId) {
+            const note = findNoteByIdOrSlug(targetNoteId);
+            if (note) {
+              openNoteInRoute(note);
+              isRouteHandling = false;
+              return;
+            }
+          }
+
+          // Open explorer at this stream and subject
+          navigateTo('explorer', false);
+          activeFile = null;
+          renderActiveView();
+          updateAppUrl(false);
+          isRouteHandling = false;
+          return;
+        }
+
+        // 4. Direct stream slug: #/commerce or #/science or #/humanities
+        const directStream = getStreamBySlug(segments[0]);
+        if (directStream) {
+          currentStream = directStream;
+          const radio = document.getElementById(`glass-${directStream.toLowerCase()}`);
+          if (radio) radio.checked = true;
+
+          if (segments[1]) {
+            const subMatch = findSubjectBySlug(segments[1], directStream);
+            if (subMatch) selectedSubject = subMatch.subject;
+          } else {
+            const subs = SUBJECT_CONFIGS[directStream] || [];
+            if (subs.length > 0) selectedSubject = subs[0].name;
+          }
+
+          if (noteParam) {
+            const note = findNoteByIdOrSlug(noteParam);
+            if (note) {
+              openNoteInRoute(note);
+              isRouteHandling = false;
+              return;
+            }
+          }
+
+          navigateTo('explorer', false);
+          activeFile = null;
+          renderActiveView();
+          updateAppUrl(false);
+          isRouteHandling = false;
+          return;
+        }
+
+        // Default: Landing
+        navigateTo('landing', false);
+      } finally {
+        isRouteHandling = false;
+      }
+    }
+
+    function openNoteInRoute(note) {
+      if (note.streams && note.streams.length > 0) {
+        const validStream = note.streams.find(s => ['Commerce', 'Science', 'Humanities'].includes(s));
+        if (validStream) currentStream = validStream;
+      }
+      if (note.subject) {
+        selectedSubject = note.subject;
+      }
+      if (note.category) {
+        selectedCategory = note.category;
+      }
+
+      const radio = document.getElementById(`glass-${(currentStream || 'Commerce').toLowerCase()}`);
+      if (radio) radio.checked = true;
+
+      navigateTo('explorer', false);
+      renderActiveView();
+      previewFile(note.id, false);
+      updateAppUrl(false);
+    }
+
     // View Navigation Handler
-    function navigateTo(view) {
+    function navigateTo(view, updateUrl = true) {
       currentView = view;
       const landingEl = document.getElementById('viewLanding');
       const explorerEl = document.getElementById('viewExplorer');
@@ -2520,16 +3137,22 @@ body::before {
         if (explorerEl) explorerEl.style.display = 'flex';
         if (navBtnLanding) navBtnLanding.classList.remove('active');
         if (navBtnNotes) navBtnNotes.classList.add('active');
-        window.location.hash = 'notes';
         window.scrollTo(0, 0);
         renderActiveView();
         setTimeout(() => updateStreamGlider(false), 50);
+        if (window.innerWidth <= 900 && !activeFile) {
+          switchMobilePane('directory');
+        }
       } else {
         if (landingEl) landingEl.style.display = 'block';
         if (explorerEl) explorerEl.style.display = 'none';
         if (navBtnLanding) navBtnLanding.classList.add('active');
         if (navBtnNotes) navBtnNotes.classList.remove('active');
-        window.location.hash = '';
+        activeFile = null;
+      }
+
+      if (updateUrl) {
+        updateAppUrl(true);
       }
     }
 
@@ -2556,14 +3179,16 @@ body::before {
       if (subs.length > 0) {
         openSubjectNodes.add(`sub_${subs[0].name}`);
       }
-      navigateTo('explorer');
+      navigateTo('explorer', false);
+      if (window.innerWidth <= 900) {
+        switchMobilePane('directory');
+      }
       showToast(`Browsing ${streamName} Stream`);
+      updateAppUrl(true);
     }
 
     function handleInitialHash() {
-      if (window.location.hash === '#notes' || window.location.hash === '#directory') {
-        navigateTo('explorer');
-      }
+      applyRoute(window.location.hash);
     }
 
     // Switch active Stream tab via Glass Radio Group
@@ -2606,6 +3231,7 @@ body::before {
 
       renderActiveView();
       showToast(`Stream: ${streamName}`);
+      updateAppUrl(true);
     }
 
     // Select Subject from Dropdown
@@ -2617,6 +3243,7 @@ body::before {
       closeSubjectDropdown();
       openSubfolderNodes.clear(); // All subfolders closed by default!
       renderActiveView();
+      updateAppUrl(true);
     }
 
     // Toggle Subject Dropdown Menu
@@ -2980,11 +3607,22 @@ body::before {
     let iframeLoadTimeout = null;
 
     // Preview Note
-    function previewFile(noteId) {
+    function previewFile(noteId, updateUrl = true) {
       const note = allNotes.find(n => n.id === noteId);
       if (!note) return;
 
       activeFile = note;
+
+      // On mobile screens, automatically show the preview pane
+      if (window.innerWidth <= 900) {
+        switchMobilePane('viewer');
+      }
+      const dot = document.getElementById('mobileActiveDot');
+      if (dot) dot.style.display = 'inline-block';
+
+      if (updateUrl) {
+        updateAppUrl(true);
+      }
 
       if (window.va) {
         try {
@@ -3064,7 +3702,7 @@ body::before {
       if (nextIndex >= currentFilteredNotes.length) nextIndex = currentFilteredNotes.length - 1;
 
       if (nextIndex !== currentIndex && currentFilteredNotes[nextIndex]) {
-        previewFile(currentFilteredNotes[nextIndex].id);
+        previewFile(currentFilteredNotes[nextIndex].id, true);
       }
     }
 
@@ -3201,17 +3839,24 @@ body::before {
 
     function selectSpotlightNote(noteId) {
       closeModal('spotlightModal');
-      navigateTo('explorer');
       const note = allNotes.find(n => n.id === noteId);
       if (note) {
+        if (note.streams && note.streams.length > 0) {
+          const validStream = note.streams.find(s => ['Commerce', 'Science', 'Humanities'].includes(s));
+          if (validStream) currentStream = validStream;
+        }
         if (note.subject) {
           selectedSubject = note.subject;
         }
         if (note.category) {
           selectedCategory = note.category;
         }
+        const radio = document.getElementById(`glass-${(currentStream || 'Commerce').toLowerCase()}`);
+        if (radio) radio.checked = true;
+
+        navigateTo('explorer', false);
         renderActiveView();
-        previewFile(note.id);
+        previewFile(note.id, true);
       }
     }
 
@@ -3307,11 +3952,19 @@ body::before {
           });
         } catch(e) {}
       }
-      const shareUrl = getNoteViewUrl(activeFile) || window.location.href;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(shareUrl);
+      const streamSlug = (currentStream || 'commerce').toLowerCase();
+      const subjectSlug = toSlug(activeFile.subject || selectedSubject || 'all');
+      const shareUrl = `${window.location.origin}${window.location.pathname}#/notes/${streamSlug}/${subjectSlug}?note=${encodeURIComponent(activeFile.id)}`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('Unique note URL copied to clipboard! 📋');
+        }).catch(() => {
+          prompt('Copy note URL:', shareUrl);
+        });
+      } else {
+        prompt('Copy note URL:', shareUrl);
       }
-      showToast('Share link copied to clipboard! 📋');
     }
 
     function reloadCurrentPreview() {
@@ -3437,6 +4090,9 @@ body::before {
     window.shareCurrentFile = shareCurrentFile;
     window.reloadCurrentPreview = reloadCurrentPreview;
     window.toggleFullscreenViewer = toggleFullscreenViewer;
+    window.switchMobilePane = switchMobilePane;
+    window.applyRoute = applyRoute;
+    window.updateAppUrl = updateAppUrl;
     window.copyDiscordLink = copyDiscordLink;
     window.onIframeLoaded = onIframeLoaded;
     window.escapeHtml = escapeHtml;
