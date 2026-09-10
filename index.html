@@ -504,9 +504,9 @@ body::before {
 .landing-stream-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.09); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; position: relative; overflow: hidden; }
 .landing-stream-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.18); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
 .stream-card-top-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 1rem; }
-.icon-commerce { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #f8fafc; }
-.icon-science { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #f8fafc; }
-.icon-humanities { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #f8fafc; }
+.icon-commerce { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.25); color: #34d399; }
+.icon-science { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); color: #38bdf8; }
+.icon-humanities { background: rgba(192, 132, 252, 0.1); border: 1px solid rgba(192, 132, 252, 0.25); color: #c084fc; }
 .landing-stream-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.45rem; }
 .landing-stream-desc { font-size: 0.88rem; line-height: 1.6; color: #9ca3af; margin-bottom: 1.2rem; flex: 1; }
 .stream-subject-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
@@ -613,122 +613,99 @@ body::before {
 /* ═══════════════════════════════════════════════════════════════ */
 /* ANIMATED STREAM SWITCHER (Interactive Floating Glider Pill)   */
 /* ═══════════════════════════════════════════════════════════════ */
-.stream-quick-bar {
-  position: relative;
+/* ═══════════════════════════════════════════════════════════════ */
+/* STREAM SELECTION: GLASS RADIO GROUP (Uiverse.io by chase2k25) */
+/* ═══════════════════════════════════════════════════════════════ */
+.glass-radio-group {
+  --bg: rgba(255, 255, 255, 0.06);
+  --text: #e5e5e5;
+
   display: flex;
-  background: #070d14;
-  padding: 4px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.25);
-  gap: 3px;
-  overflow: hidden;
-}
-
-/* Floating Animated Glider Pill */
-.stream-slider-glider {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 0;
-  width: 0px;
-  border-radius: 7px;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(14, 165, 233, 0.1));
-  border: 1px solid rgba(56, 189, 248, 0.5);
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.28s ease,
-              border-color 0.28s ease,
-              box-shadow 0.28s ease;
-}
-
-/* Dynamic theme glow per stream */
-.stream-quick-bar[data-active-stream="Commerce"] .stream-slider-glider {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(5, 150, 105, 0.12));
-  border-color: rgba(52, 211, 153, 0.55);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.stream-quick-bar[data-active-stream="Science"] .stream-slider-glider {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(2, 132, 199, 0.12));
-  border-color: rgba(56, 189, 248, 0.55);
-  box-shadow: 0 0 16px rgba(14, 165, 233, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.stream-quick-bar[data-active-stream="Humanities"] .stream-slider-glider {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24), rgba(217, 119, 6, 0.12));
-  border-color: rgba(251, 191, 36, 0.55);
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.stream-quick-bar[data-active-stream="All Streams"] .stream-slider-glider {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.24), rgba(109, 40, 217, 0.12));
-  border-color: rgba(167, 139, 250, 0.55);
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-}
-
-.stream-tab-btn {
   position: relative;
-  z-index: 2;
+  background: var(--bg);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+    inset -1px -1px 6px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  width: 100%;
+}
+
+.glass-radio-group input {
+  display: none;
+}
+
+.glass-radio-group label {
   flex: 1;
-  background: transparent;
-  border: none;
-  color: #64748b;
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-  font-size: 0.74rem;
-  font-weight: 600;
-  padding: 0.42rem 0.2rem;
-  border-radius: 7px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  transition: color 0.18s ease, transform 0.12s ease;
-  text-align: center;
+  min-width: 80px;
+  font-size: 13.5px;
+  padding: 0.72rem 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--text);
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease-in-out;
   white-space: nowrap;
   user-select: none;
-  outline: none;
 }
 
-.stream-tab-btn .strm-icon {
-  font-size: 0.8rem;
-  line-height: 1;
-  display: inline-block;
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+.glass-radio-group label:hover {
+  color: white;
 }
 
-.stream-tab-btn:hover {
-  color: #cbd5e1;
-}
-
-.stream-tab-btn:hover .strm-icon {
-  transform: scale(1.18) translateY(-1px);
-}
-
-.stream-tab-btn:active {
-  transform: scale(0.95);
-}
-
-.stream-tab-btn.active {
-  color: #f8fafc;
+.glass-radio-group input:checked + label {
+  color: #ffffff;
   font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
-.stream-tab-btn.active#strm_Commerce {
-  color: #34d399;
+.glass-glider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(100% / 3);
+  border-radius: 1rem;
+  z-index: 1;
+  pointer-events: none;
+  transition:
+    transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+    background 0.4s ease-in-out,
+    box-shadow 0.4s ease-in-out;
 }
-.stream-tab-btn.active#strm_Science {
-  color: #38bdf8;
+
+/* Stream 1: Commerce — Emerald Green for Accounts, Economics, Finance */
+#glass-commerce:checked ~ .glass-glider {
+  transform: translateX(0%);
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.75), rgba(52, 211, 153, 0.95));
+  box-shadow:
+    0 0 20px rgba(52, 211, 153, 0.55),
+    0 0 10px rgba(167, 243, 208, 0.35) inset;
 }
-.stream-tab-btn.active#strm_Humanities {
-  color: #fbbf24;
+
+/* Stream 2: Science — Electric Azure & Cyan for Physics, Chemistry, Tech */
+#glass-science:checked ~ .glass-glider {
+  transform: translateX(100%);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.75), rgba(56, 189, 248, 0.95));
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.55),
+    0 0 10px rgba(186, 230, 253, 0.35) inset;
 }
-.stream-tab-btn.active#strm_All {
-  color: #a78bfa;
+
+/* Stream 3: Humanities — Royal Amethyst & Purple for History, Literature, Arts */
+#glass-humanities:checked ~ .glass-glider {
+  transform: translateX(200%);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.75), rgba(192, 132, 252, 0.95));
+  box-shadow:
+    0 0 20px rgba(192, 132, 252, 0.55),
+    0 0 10px rgba(233, 213, 255, 0.35) inset;
 }
 
 /* Animated Entrance for the Directory Tree */
@@ -2160,25 +2137,18 @@ body::before {
           <button class="nav-pill-btn" style="height:24px; padding:0 0.6rem; font-size:0.72rem;" onclick="navigateTo('landing')">← Home</button>
         </div>
 
-        <!-- Stream Switcher Tabs with Animated Sliding Glider -->
-        <div class="stream-quick-bar" id="streamQuickBar" data-active-stream="Commerce" role="tablist" aria-label="Academic Streams">
-          <div class="stream-slider-glider" id="streamSliderGlider"></div>
-          <button class="stream-tab-btn active" id="strm_Commerce" onclick="setStream('Commerce')" role="tab" aria-selected="true" data-stream="Commerce" title="Commerce Stream">
-            <span class="strm-icon">💼</span>
-            <span class="strm-name">Commerce</span>
-          </button>
-          <button class="stream-tab-btn" id="strm_Science" onclick="setStream('Science')" role="tab" aria-selected="false" data-stream="Science" title="Science Stream">
-            <span class="strm-icon">⚡</span>
-            <span class="strm-name">Science</span>
-          </button>
-          <button class="stream-tab-btn" id="strm_Humanities" onclick="setStream('Humanities')" role="tab" aria-selected="false" data-stream="Humanities" title="Humanities Stream">
-            <span class="strm-icon">🏛️</span>
-            <span class="strm-name">Humanities</span>
-          </button>
-          <button class="stream-tab-btn" id="strm_All" onclick="setStream('All Streams')" role="tab" aria-selected="false" data-stream="All Streams" title="All Streams">
-            <span class="strm-icon">🌐</span>
-            <span class="strm-name">All</span>
-          </button>
+        <!-- Stream Selection (Glass Radio Group - Uiverse.io by chase2k25) -->
+        <div class="glass-radio-group" id="streamQuickBar" role="radiogroup" aria-label="Stream Selection">
+          <input type="radio" name="stream-radio" id="glass-commerce" value="Commerce" checked onchange="setStream('Commerce')">
+          <label for="glass-commerce" id="lbl_Commerce">Commerce</label>
+
+          <input type="radio" name="stream-radio" id="glass-science" value="Science" onchange="setStream('Science')">
+          <label for="glass-science" id="lbl_Science">Science</label>
+
+          <input type="radio" name="stream-radio" id="glass-humanities" value="Humanities" onchange="setStream('Humanities')">
+          <label for="glass-humanities" id="lbl_Humanities">Humanities</label>
+
+          <div class="glass-glider"></div>
         </div>
       </div>
 
@@ -2405,7 +2375,7 @@ body::before {
     const openSubjectNodes = new Set();
     const openSubfolderNodes = new Set();
 
-    const STREAMS = ['Commerce', 'Science', 'Humanities', 'All Streams'];
+    const STREAMS = ['Commerce', 'Science', 'Humanities'];
 
     const SUBJECT_CONFIGS = {
       'Commerce': [
@@ -2525,6 +2495,14 @@ body::before {
       if (footerEl) footerEl.textContent = `${count} Notes Indexed`;
     }
 
+    // Keep stream radio selection synced with currentStream
+    function updateStreamGlider() {
+      const radio = document.getElementById(`glass-${(currentStream || 'Commerce').toLowerCase()}`);
+      if (radio && !radio.checked) {
+        radio.checked = true;
+      }
+    }
+
     // View Navigation Handler
     function navigateTo(view) {
       currentView = view;
@@ -2556,9 +2534,19 @@ body::before {
     }
 
     function openStreamFromLanding(streamName) {
+      if (!streamName || streamName === 'All' || streamName === 'All Streams') {
+        streamName = 'Commerce';
+      }
       currentStream = streamName;
       selectedCategory = 'ALL';
       selectedTag = 'ALL';
+
+      // Sync glass radio group input
+      const radio = document.getElementById(`glass-${streamName.toLowerCase()}`);
+      if (radio) {
+        radio.checked = true;
+      }
+
       const subs = SUBJECT_CONFIGS[currentStream] || [];
       if (subs.length > 0) {
         selectedSubject = subs[0].name;
@@ -2578,34 +2566,11 @@ body::before {
       }
     }
 
-    // Update position and width of floating slider glider
-    function updateStreamGlider(animate = true) {
-      const container = document.getElementById('streamQuickBar');
-      const glider = document.getElementById('streamSliderGlider');
-      if (!container || !glider) return;
-      const activeBtn = container.querySelector('.stream-tab-btn.active');
-      if (!activeBtn) return;
-
-      if (!animate) {
-        glider.style.transition = 'none';
-      } else {
-        glider.style.transition = 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease';
-      }
-
-      const left = activeBtn.offsetLeft;
-      const width = activeBtn.offsetWidth;
-
-      if (width > 0) {
-        glider.style.transform = `translateX(${left}px)`;
-        glider.style.width = `${width}px`;
-      }
-
-      const streamKey = activeBtn.getAttribute('data-stream') || 'Commerce';
-      container.setAttribute('data-active-stream', streamKey);
-    }
-
-    // Switch active Stream tab
+    // Switch active Stream tab via Glass Radio Group
     function setStream(streamName) {
+      if (!streamName || streamName === 'All' || streamName === 'All Streams') {
+        streamName = 'Commerce';
+      }
       currentStream = streamName;
       selectedCategory = 'ALL';
       selectedTag = 'ALL';
@@ -2614,19 +2579,11 @@ body::before {
         try { window.va('track', 'select_stream', { stream: streamName }); } catch(e) {}
       }
 
-      // Update stream buttons UI & accessibility attributes
-      document.querySelectorAll('.stream-tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      const activeTab = document.getElementById(`strm_${streamName.replace(/\s+/g, '')}`);
-      if (activeTab) {
-        activeTab.classList.add('active');
-        activeTab.setAttribute('aria-selected', 'true');
+      // Sync glass radio input checked state
+      const radio = document.getElementById(`glass-${streamName.toLowerCase()}`);
+      if (radio) {
+        radio.checked = true;
       }
-
-      // Animate glider
-      updateStreamGlider(true);
 
       const subs = SUBJECT_CONFIGS[currentStream] || [];
       if (subs.length > 0 && !subs.some(s => s.name.toLowerCase() === (selectedSubject || '').toLowerCase())) {
