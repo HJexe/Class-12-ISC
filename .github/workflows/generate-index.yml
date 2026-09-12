@@ -56,17 +56,21 @@ jobs:
         with:
           node-version: 20
 
-      - name: Sync Notes Data
+      - name: Sync Notes Data & Generate Notifications
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_REF: ${{ github.ref_name }}
+          GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: node scripts/sync-notes.js
 
-      - name: Commit files.json and notes data
+      - name: Commit files.json, notes data, and notifications
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add files.json notes-data.json notes-data.js
+          git add files.json notes-data.json notes-data.js notifications.json notifications.js
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update file index and notes-data [skip ci]"
+            git commit -m "chore: update file index, notes-data, and notifications [skip ci]"
             git push origin HEAD
           fi

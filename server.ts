@@ -52,6 +52,22 @@ app.post('/api/sync-notes', (_req, res) => {
   }
 });
 
+// API endpoint for resource notifications / changelog
+app.get('/api/notifications', (_req, res) => {
+  try {
+    const notifPath = path.join(__dirname, 'notifications.json');
+    if (fs.existsSync(notifPath)) {
+      const raw = fs.readFileSync(notifPath, 'utf8');
+      const updates = JSON.parse(raw);
+      res.setHeader('Cache-Control', 'public, max-age=60');
+      return res.json({ success: true, updates });
+    }
+    return res.json({ success: true, updates: [] });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message, updates: [] });
+  }
+});
+
 // API endpoint for notes
 app.get('/api/notes', (req, res) => {
   const { stream, subject, category, tag, q } = req.query;
