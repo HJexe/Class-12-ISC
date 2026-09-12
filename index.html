@@ -2506,10 +2506,6 @@ body::before {
       <button class="nav-pill-btn btn-nav-glow-notes" id="topNavBtnGoToNotes" onclick="navigateTo('explorer')">
         <span>Go to Notes</span>
       </button>
-
-      <button class="nav-pill-btn" onclick="openModal('discordModal')">
-        <span>Discord</span>
-      </button>
     </div>
   </header>
 
@@ -2675,9 +2671,7 @@ body::before {
           <span>ISC.exe 2.0 — Built for ISC Class 12 Students</span>
         </div>
         <div style="display:flex; gap:1.25rem;">
-          <a href="#" onclick="openNotificationsModal(); return false;" style="color:#10b981; text-decoration:none; font-weight:600;">🔔 Updates</a>
           <a href="#" onclick="openModal('disclaimerModal'); return false;" style="color:#64748b; text-decoration:none;">Disclaimer</a>
-          <a href="#" onclick="openModal('discordModal'); return false;" style="color:#64748b; text-decoration:none;">Discord</a>
           <a href="#" onclick="openModal('redditModal'); return false;" style="color:#64748b; text-decoration:none;">Reddit</a>
         </div>
       </footer>
@@ -2891,30 +2885,12 @@ body::before {
       <div class="og-modal-body">
         <p style="margin-bottom: 0.8rem;"><strong>ISC.exe 2.0</strong> is an independent open-access student resource directory created by and for ISC Class 12 candidates. We are not officially affiliated with or endorsed by CISCE (Council for the Indian School Certificate Examinations).</p>
         <p style="margin-bottom: 0.8rem;">All study notes, revision guides, practice worksheets, and prelim papers belong to their respective student contributors, schools, and teachers. All materials are hosted on Google Drive and indexed strictly for non-commercial educational review under fair use.</p>
-        <p>If you are an author or copyright holder and wish to have a specific resource updated or removed, please contact us via Discord or email.</p>
+        <p>If you are an author or copyright holder and wish to have a specific resource updated or removed, please contact us via email.</p>
       </div>
     </div>
   </div>
 
-  <!-- 3. DISCORD MODAL -->
-  <div class="og-modal-backdrop" id="discordModal">
-    <div class="og-modal-window">
-      <div class="og-modal-header">
-        <div class="og-modal-title">👾 ISC.exe Discord Community</div>
-        <button class="og-modal-close" onclick="closeModal('discordModal')">✕</button>
-      </div>
-      <div class="og-modal-body" style="text-align:center; padding:1.5rem;">
-        <div style="font-size:2.2rem; margin-bottom:0.75rem;">👾</div>
-        <h3 style="color:#f1f5f9; margin-bottom:0.4rem;">Join 15,000+ Class 12 ISC Students</h3>
-        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:1.25rem;">Discuss doubt-clearing, share notes, ask prelim paper questions, and prepare for board exams together.</p>
-        <button class="btn-action-pill btn-act-open" onclick="copyDiscordLink()" style="height:38px; padding:0 1.25rem; font-size:0.85rem;">
-          <span>🔗 Copy Discord Invite</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. REDDIT MODAL -->
+  <!-- 3. REDDIT MODAL -->
   <div class="og-modal-backdrop" id="redditModal">
     <div class="og-modal-window">
       <div class="og-modal-header">
@@ -4524,13 +4500,6 @@ body::before {
       if (modal) modal.classList.remove('open');
     }
 
-    function copyDiscordLink() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText('https://discord.gg/isc-class-12');
-      }
-      showToast('Discord invite copied! https://discord.gg/isc-class-12');
-    }
-
     function showToast(msg) {
       const toast = document.getElementById('ogToast');
       const toastMsg = document.getElementById('toastMsg');
@@ -4615,7 +4584,6 @@ body::before {
     window.switchMobilePane = switchMobilePane;
     window.applyRoute = applyRoute;
     window.updateAppUrl = updateAppUrl;
-    window.copyDiscordLink = copyDiscordLink;
     window.openNotificationsModal = openNotificationsModal;
     window.markAllNotificationsRead = markAllNotificationsRead;
     window.filterNotifStream = filterNotifStream;
