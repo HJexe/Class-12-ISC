@@ -1,8 +1,342 @@
 window.__NOTIFICATIONS_DATA__ = [
   {
+    "id": "push-1789214510065",
+    "timestamp": "2026-09-12T12:01:50.065Z",
+    "isLatest": true,
+    "commit": {
+      "sha": "a9965de3168eab3693032a46be2940c5fbf8e05a",
+      "shortSha": "a9965de",
+      "branch": "main",
+      "message": "Add multiple commerce-related PDF links"
+    },
+    "title": "21 New Resources Added",
+    "summary": "Indexed 21 new resource(s) across: Commerce (21)",
+    "addedCount": 21,
+    "subjects": [
+      "Commerce"
+    ],
+    "resources": [
+      {
+        "id": "isc-851",
+        "title": "banking 12 isc commerce",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-/view",
+        "previewUrl": "https://drive.google.com/file/d/13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-"
+      },
+      {
+        "id": "isc-852",
+        "title": "Banking-Latest trends_Commerce_Percentage Booster",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78/view",
+        "previewUrl": "https://drive.google.com/file/d/1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78"
+      },
+      {
+        "id": "isc-853",
+        "title": "commerce_Importance_of_finance_for_business_percentage_booster",
+        "subject": "Commerce",
+        "category": "Commerce",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w/view",
+        "previewUrl": "https://drive.google.com/file/d/1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w"
+      },
+      {
+        "id": "isc-854",
+        "title": "Commerce_sources of finance_Percentage booster (1)",
+        "subject": "Commerce",
+        "category": "Commerce",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F/view",
+        "previewUrl": "https://drive.google.com/file/d/1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F"
+      },
+      {
+        "id": "isc-855",
+        "title": "CONSUMER PROTECTION",
+        "subject": "Commerce",
+        "category": "Consumer Protection",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1Syae56CH4FIEt3WfJwc_OXyHIseboCnL/view",
+        "previewUrl": "https://drive.google.com/file/d/1Syae56CH4FIEt3WfJwc_OXyHIseboCnL/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Syae56CH4FIEt3WfJwc_OXyHIseboCnL"
+      },
+      {
+        "id": "isc-856",
+        "title": "CONSUMER PROTECTION ACT 2019 (COLOUR)",
+        "subject": "Commerce",
+        "category": "Consumer Protection",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO/view",
+        "previewUrl": "https://drive.google.com/file/d/1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO"
+      },
+      {
+        "id": "isc-857",
+        "title": "CONTROLLING",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx/view",
+        "previewUrl": "https://drive.google.com/file/d/1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx"
+      },
+      {
+        "id": "isc-858",
+        "title": "Coordination_Commerce_Percentage Booster",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR/view",
+        "previewUrl": "https://drive.google.com/file/d/1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR"
+      },
+      {
+        "id": "isc-859",
+        "title": "Directing",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF/view",
+        "previewUrl": "https://drive.google.com/file/d/1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF"
+      },
+      {
+        "id": "isc-860",
+        "title": "Entire ISC Commerce Class 12",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi/view",
+        "previewUrl": "https://drive.google.com/file/d/1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi"
+      },
+      {
+        "id": "isc-861",
+        "title": "Equity_share_&_Preference_share_Commerce_Percentage_Booster_",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4/view",
+        "previewUrl": "https://drive.google.com/file/d/10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4"
+      },
+      {
+        "id": "isc-862",
+        "title": "Management class 12",
+        "subject": "Commerce",
+        "category": "Management",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9/view",
+        "previewUrl": "https://drive.google.com/file/d/1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9"
+      },
+      {
+        "id": "isc-863",
+        "title": "Management_Meaning,_Nature_&_Importance_Commerce_Percentage_Booster",
+        "subject": "Commerce",
+        "category": "Management",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9/view",
+        "previewUrl": "https://drive.google.com/file/d/1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9"
+      },
+      {
+        "id": "isc-864",
+        "title": "MARKETING CONCEPT AND FUNCTIONS",
+        "subject": "Commerce",
+        "category": "Marketing",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r/view",
+        "previewUrl": "https://drive.google.com/file/d/1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r"
+      },
+      {
+        "id": "isc-865",
+        "title": "MARKETING MIX",
+        "subject": "Commerce",
+        "category": "Marketing",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA/view",
+        "previewUrl": "https://drive.google.com/file/d/1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA"
+      },
+      {
+        "id": "isc-866",
+        "title": "ORGANISING",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku/view",
+        "previewUrl": "https://drive.google.com/file/d/1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku"
+      },
+      {
+        "id": "isc-867",
+        "title": "PLANNING",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr/view",
+        "previewUrl": "https://drive.google.com/file/d/1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr"
+      },
+      {
+        "id": "isc-868",
+        "title": "PRINCIPLES OF MANAGEMENT",
+        "subject": "Commerce",
+        "category": "Principles Of Management",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M/view",
+        "previewUrl": "https://drive.google.com/file/d/1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M"
+      },
+      {
+        "id": "isc-869",
+        "title": "Principles of management_Commerce_Percentage Booster",
+        "subject": "Commerce",
+        "category": "Principles Of Management",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA/view",
+        "previewUrl": "https://drive.google.com/file/d/1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA"
+      },
+      {
+        "id": "isc-870",
+        "title": "SOURCES OF FINANCE FOR A JOINT STOCK COMPANY",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-/view",
+        "previewUrl": "https://drive.google.com/file/d/1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-"
+      },
+      {
+        "id": "isc-871",
+        "title": "Staffing",
+        "subject": "Commerce",
+        "category": "Chapter Notes",
+        "streams": [
+          "Commerce"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Commerce/text",
+        "url": "https://drive.google.com/file/d/1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT/view",
+        "previewUrl": "https://drive.google.com/file/d/1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT"
+      }
+    ]
+  },
+  {
     "id": "update-econ-24",
     "timestamp": "2026-09-12T06:46:42.510Z",
-    "isLatest": true,
+    "isLatest": false,
     "commit": {
       "sha": "7f93a1c4b2",
       "shortSha": "7f93a1c",

@@ -3213,6 +3213,363 @@ window.__FALLBACK_NOTES_DATA__ = [
     ]
   },
   {
+    "id": "isc-851",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "banking 12 isc commerce",
+    "fullFileName": "banking 12 isc commerce.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-/view",
+    "previewUrl": "https://drive.google.com/file/d/13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-",
+    "driveId": "13bWKso6rhZwNCBlw0rKxL3-gegqmWIx-",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-852",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Banking-Latest trends_Commerce_Percentage Booster",
+    "fullFileName": "Banking-Latest trends_Commerce_Percentage Booster.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78/view",
+    "previewUrl": "https://drive.google.com/file/d/1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78",
+    "driveId": "1AB-3eqrJeg_JlrT1DxX13XXD2lG-DN78",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-853",
+    "subject": "Commerce",
+    "category": "Commerce",
+    "title": "commerce_Importance_of_finance_for_business_percentage_booster",
+    "fullFileName": "commerce_Importance_of_finance_for_business_percentage_booster.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w/view",
+    "previewUrl": "https://drive.google.com/file/d/1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w",
+    "driveId": "1png2fDjhVzQrjG9czvGxT6MMRJDMzv5w",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-854",
+    "subject": "Commerce",
+    "category": "Commerce",
+    "title": "Commerce_sources of finance_Percentage booster (1)",
+    "fullFileName": "Commerce_sources of finance_Percentage booster (1).pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F/view",
+    "previewUrl": "https://drive.google.com/file/d/1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F",
+    "driveId": "1i5Y09TGBh4VbfBpmbOG-NjU7f2o-BY7F",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-855",
+    "subject": "Commerce",
+    "category": "Consumer Protection",
+    "title": "CONSUMER PROTECTION",
+    "fullFileName": "CONSUMER PROTECTION.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1Syae56CH4FIEt3WfJwc_OXyHIseboCnL/view",
+    "previewUrl": "https://drive.google.com/file/d/1Syae56CH4FIEt3WfJwc_OXyHIseboCnL/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Syae56CH4FIEt3WfJwc_OXyHIseboCnL",
+    "driveId": "1Syae56CH4FIEt3WfJwc_OXyHIseboCnL",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-856",
+    "subject": "Commerce",
+    "category": "Consumer Protection",
+    "title": "CONSUMER PROTECTION ACT 2019 (COLOUR)",
+    "fullFileName": "CONSUMER PROTECTION ACT 2019 (COLOUR).pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO/view",
+    "previewUrl": "https://drive.google.com/file/d/1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO",
+    "driveId": "1iQzvvYXlPd23xNKSecvrtSJWYaB8RizO",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-857",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "CONTROLLING",
+    "fullFileName": "CONTROLLING.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx/view",
+    "previewUrl": "https://drive.google.com/file/d/1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx",
+    "driveId": "1skEjuP1WT5MOqkaM_-g_KxUp27Udn0gx",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-858",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Coordination_Commerce_Percentage Booster",
+    "fullFileName": "Coordination_Commerce_Percentage Booster.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR/view",
+    "previewUrl": "https://drive.google.com/file/d/1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR",
+    "driveId": "1zMv5pXFzfD28Xu1apkv_-dbBpCNrTDzR",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-859",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Directing",
+    "fullFileName": "Directing.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF/view",
+    "previewUrl": "https://drive.google.com/file/d/1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF",
+    "driveId": "1RiPft4jCOHKZdsl2uBY7sx15hfuv2KsF",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-860",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Entire ISC Commerce Class 12",
+    "fullFileName": "Entire ISC Commerce Class 12.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi/view",
+    "previewUrl": "https://drive.google.com/file/d/1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi",
+    "driveId": "1qGtuulKDkqPK5_UR6jqgqK1Xwr4p5Hvi",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-861",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Equity_share_&_Preference_share_Commerce_Percentage_Booster_",
+    "fullFileName": "Equity_share_&_Preference_share_Commerce_Percentage_Booster_.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4/view",
+    "previewUrl": "https://drive.google.com/file/d/10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4",
+    "driveId": "10p7HCrHlVpyfMyuzmRjRagJ0Ll4Hu0b4",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-862",
+    "subject": "Commerce",
+    "category": "Management",
+    "title": "Management class 12",
+    "fullFileName": "Management class 12.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9/view",
+    "previewUrl": "https://drive.google.com/file/d/1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9",
+    "driveId": "1taN4-0GpugUOwYIvWz61YRb97aeTZ3F9",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-863",
+    "subject": "Commerce",
+    "category": "Management",
+    "title": "Management_Meaning,_Nature_&_Importance_Commerce_Percentage_Booster",
+    "fullFileName": "Management_Meaning,_Nature_&_Importance_Commerce_Percentage_Booster.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9/view",
+    "previewUrl": "https://drive.google.com/file/d/1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9",
+    "driveId": "1lvqmw4R7YKUeHCVPO0L2Ju-OauAuPaG9",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-864",
+    "subject": "Commerce",
+    "category": "Marketing",
+    "title": "MARKETING CONCEPT AND FUNCTIONS",
+    "fullFileName": "MARKETING CONCEPT AND FUNCTIONS.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r/view",
+    "previewUrl": "https://drive.google.com/file/d/1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r",
+    "driveId": "1Uon7tJxT_5nXXpAzbwwVo7TmSxUppc1r",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-865",
+    "subject": "Commerce",
+    "category": "Marketing",
+    "title": "MARKETING MIX",
+    "fullFileName": "MARKETING MIX.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA/view",
+    "previewUrl": "https://drive.google.com/file/d/1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA",
+    "driveId": "1ywPvbUE19OTP7uDhDw7V8K1kHOnSVtQA",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-866",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "ORGANISING",
+    "fullFileName": "ORGANISING.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku/view",
+    "previewUrl": "https://drive.google.com/file/d/1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku",
+    "driveId": "1ApLaAPCUeW9t9nc4xVHXEu99t7DqUkku",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-867",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "PLANNING",
+    "fullFileName": "PLANNING.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr/view",
+    "previewUrl": "https://drive.google.com/file/d/1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr",
+    "driveId": "1-F7f-RWkvAMtIDSfrwj58egSjATqkRgr",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-868",
+    "subject": "Commerce",
+    "category": "Principles Of Management",
+    "title": "PRINCIPLES OF MANAGEMENT",
+    "fullFileName": "PRINCIPLES OF MANAGEMENT.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M/view",
+    "previewUrl": "https://drive.google.com/file/d/1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M",
+    "driveId": "1TFwVzVev7B_Nyx4Mb300YIbkUFwukE8M",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-869",
+    "subject": "Commerce",
+    "category": "Principles Of Management",
+    "title": "Principles of management_Commerce_Percentage Booster",
+    "fullFileName": "Principles of management_Commerce_Percentage Booster.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA/view",
+    "previewUrl": "https://drive.google.com/file/d/1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA",
+    "driveId": "1e-uPbOdElR6O9FxkKk-pxaCtWvE6hypA",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-870",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "SOURCES OF FINANCE FOR A JOINT STOCK COMPANY",
+    "fullFileName": "SOURCES OF FINANCE FOR A JOINT STOCK COMPANY.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-/view",
+    "previewUrl": "https://drive.google.com/file/d/1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-",
+    "driveId": "1jhz4Urmnb8KgP9_6E6VzdQrfz-o3kyd-",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-871",
+    "subject": "Commerce",
+    "category": "Chapter Notes",
+    "title": "Staffing",
+    "fullFileName": "Staffing.pdf",
+    "rawPath": "Commerce/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT/view",
+    "previewUrl": "https://drive.google.com/file/d/1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT",
+    "driveId": "1GDHzRJcC0aPJGE5lS97o0ulWFp4EbztT",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
     "id": "isc-190",
     "subject": "Computer Science",
     "category": "Miscellaneous",
