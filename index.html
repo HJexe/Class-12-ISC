@@ -43,6 +43,16 @@
 
 <script src="/theme-color-system.js"></script>
 <script src="/theme-picker.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  try {
+    tailwind.config = {
+      corePlugins: {
+        preflight: false
+      }
+    };
+  } catch (e) {}
+</script>
 <link rel="stylesheet" href="/smart-accent.css">
 
 <style>
@@ -811,6 +821,74 @@ body::before {
 .subject-dropdown-wrapper {
   position: relative;
   width: 100%;
+}
+
+/* From Uiverse.io by mahiatlinux - Stylized Subject Button */
+.uiverse-subject-outer {
+  background: linear-gradient(to bottom, rgba(31, 41, 55, 0.4), transparent);
+  padding: 4px;
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.uiverse-subject-btn {
+  width: 100%;
+  padding: 4px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(to bottom, #374151, #4b5563) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7) !important;
+  border: none !important;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  text-align: left;
+  box-sizing: border-box;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.uiverse-subject-btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6) !important;
+}
+
+.uiverse-subject-btn:active {
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.8) !important;
+  transform: scale(0.995) !important;
+}
+
+.uiverse-subject-btn[aria-expanded="true"] {
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.45), 0 4px 10px rgba(0, 0, 0, 0.75) !important;
+}
+
+.uiverse-subject-inner {
+  background: linear-gradient(to bottom, #4b5563, #374151);
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.uiverse-subject-inner .subj-trigger-name {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+}
+
+.uiverse-subject-inner .subj-trigger-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .subject-dropdown-trigger {
@@ -2519,20 +2597,27 @@ body::before {
       <div class="subject-dropdown-container" id="subjectDropdownContainer">
         <label class="subject-dropdown-label" for="subjectDropdownBtn">Select Subject</label>
         <div class="subject-dropdown-wrapper">
-          <button 
-            type="button" 
-            class="subject-dropdown-trigger" 
-            id="subjectDropdownBtn" 
-            onclick="toggleSubjectDropdown(event)"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-          >
-            <div class="subj-trigger-info">
-              <span class="subj-trigger-name" id="subjTriggerName">Select Subject</span>
-              <span class="subj-trigger-count" id="subjTriggerCount">0 notes</span>
-            </div>
-            <span class="subj-trigger-chevron" id="subjTriggerChevron">▾</span>
-          </button>
+          <!-- From Uiverse.io by mahiatlinux -->
+          <div class="bg-gradient-to-b from-gray-800/40 to-transparent p-[4px] rounded-[16px] uiverse-subject-outer">
+            <button 
+              type="button" 
+              class="group p-[4px] rounded-[12px] bg-gradient-to-b from-gray-700 to-gray-600 shadow-[0_2px_4px_rgba(0,0,0,0.7)] hover:shadow-[0_4px_8px_rgba(0,0,0,0.6)] active:shadow-[0_0px_1px_rgba(0,0,0,0.8)] active:scale-[0.995] transition-all duration-200 uiverse-subject-btn subject-dropdown-trigger" 
+              id="subjectDropdownBtn" 
+              onclick="toggleSubjectDropdown(event)"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <div class="bg-gradient-to-b from-gray-600 to-gray-700 rounded-[8px] px-3 py-2 uiverse-subject-inner">
+                <div class="flex gap-2 items-center justify-between w-full">
+                  <div class="subj-trigger-info">
+                    <span class="font-semibold text-white subj-trigger-name" id="subjTriggerName">Economics</span>
+                    <span class="subj-trigger-count" id="subjTriggerCount">183 notes</span>
+                  </div>
+                  <span class="subj-trigger-chevron" id="subjTriggerChevron">▾</span>
+                </div>
+              </div>
+            </button>
+          </div>
           
           <div class="subject-dropdown-menu" id="subjectDropdownMenu" role="listbox" style="display: none;">
             <!-- Dynamically populated with subject options -->
