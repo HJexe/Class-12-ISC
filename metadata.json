@@ -1,6 +1,6 @@
 {
   "name": "Class 12 ISC Resource Hub",
-  "description": "ISC.exe 2.0 — Curated Class 12 ISC notes, worksheets, past prelims, and revision resources.",
+  "description": "Free Class 12 ISC notes, past prelim papers, formula sheets, and revision guides. 5,000+ curated study materials across Commerce, Science, and Humanities.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

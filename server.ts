@@ -119,6 +119,15 @@ app.get(['/favicon-for-light.svg', '/favicon-for-dark.svg'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'favicon.svg'));
 });
 
+// SEO routes
+app.get('/robots.txt', (_req, res) => {
+  res.type('text/plain').sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (_req, res) => {
+  res.type('application/xml').sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 // Fallback endpoints for Vercel Analytics and Speed Insights in non-Vercel dev environments
 // (On Vercel, these routes are intercepted and served by Vercel edge infrastructure)
 app.get(['/_vercel/insights/script.js', '/_vercel/speed-insights/script.js'], (_req, res) => {

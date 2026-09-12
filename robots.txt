@@ -1,0 +1,6 @@
+# robots.txt for ISC.exe 2.0 / Class 12 ISC Resource Hub
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://isc-exe.vercel.app/sitemap.xml
