@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { buildNotesData } from './scripts/sync-notes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,16 +12,21 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Load notes data into memory
+// Load & sync notes data into memory
 let notesData: any[] = [];
 try {
-  const jsonPath = path.join(__dirname, 'notes-data.json');
-  if (fs.existsSync(jsonPath)) {
-    const raw = fs.readFileSync(jsonPath, 'utf8');
-    notesData = JSON.parse(raw);
-  }
+  notesData = buildNotesData();
 } catch (e) {
-  console.error('Error loading notes-data.json:', e);
+  console.error('buildNotesData failed on startup, loading existing notes-data.json:', e);
+  try {
+    const jsonPath = path.join(__dirname, 'notes-data.json');
+    if (fs.existsSync(jsonPath)) {
+      const raw = fs.readFileSync(jsonPath, 'utf8');
+      notesData = JSON.parse(raw);
+    }
+  } catch (err) {
+    console.error('Error loading notes-data.json:', err);
+  }
 }
 
 if (!notesData || notesData.length === 0) {
@@ -35,6 +41,16 @@ if (!notesData || notesData.length === 0) {
     console.error('Error loading fallback notes-data.js:', err);
   }
 }
+
+// Endpoint to force re-sync notes without restarting
+app.post('/api/sync-notes', (_req, res) => {
+  try {
+    notesData = buildNotesData();
+    res.json({ success: true, count: notesData.length });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 // API endpoint for notes
 app.get('/api/notes', (req, res) => {

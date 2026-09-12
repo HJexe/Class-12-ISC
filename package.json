@@ -4,10 +4,11 @@
   "description": "A clean and simple website built to organize ISC Class 12 study materials.",
   "type": "module",
   "scripts": {
-    "dev": "node server.ts",
-    "build": "tsc --noEmit || true",
+    "dev": "node scripts/sync-notes.js && node server.ts",
+    "build": "node scripts/sync-notes.js && (tsc --noEmit || true)",
     "lint": "tsc --noEmit || true",
     "start": "node server.ts",
+    "sync:notes": "node scripts/sync-notes.js",
     "sync:channels": "tsx scripts/update-channels.ts"
   },
   "devDependencies": {

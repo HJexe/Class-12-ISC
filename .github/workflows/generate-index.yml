@@ -51,14 +51,22 @@ jobs:
           print(f"✓ Indexed {len(files)} files")
           EOF
 
-      - name: Commit files.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync Notes Data
+        run: node scripts/sync-notes.js
+
+      - name: Commit files.json and notes data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add files.json
+          git add files.json notes-data.json notes-data.js
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update file index [skip ci]"
+            git commit -m "chore: update file index and notes-data [skip ci]"
             git push origin HEAD
           fi
