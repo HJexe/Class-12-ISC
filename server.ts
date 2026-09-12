@@ -56,15 +56,23 @@ app.post('/api/sync-notes', (_req, res) => {
 app.get('/api/notifications', (_req, res) => {
   try {
     const notifPath = path.join(__dirname, 'notifications.json');
+    let batches = [];
     if (fs.existsSync(notifPath)) {
       const raw = fs.readFileSync(notifPath, 'utf8');
-      const updates = JSON.parse(raw);
-      res.setHeader('Cache-Control', 'public, max-age=60');
-      return res.json({ success: true, updates });
+      const parsed = JSON.parse(raw);
+      batches = Array.isArray(parsed) ? parsed : (parsed.recentBatches || parsed.updates || []);
     }
-    return res.json({ success: true, updates: [] });
+    const totalCount = notesData?.length || 850;
+    res.setHeader('Cache-Control', 'public, max-age=60');
+    return res.json({
+      success: true,
+      generatedAt: new Date().toISOString(),
+      totalResourcesTracked: totalCount,
+      recentBatches: batches,
+      updates: batches
+    });
   } catch (err: any) {
-    return res.status(500).json({ success: false, error: err.message, updates: [] });
+    return res.status(500).json({ success: false, error: err.message, recentBatches: [], updates: [] });
   }
 });
 

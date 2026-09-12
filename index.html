@@ -2018,500 +2018,107 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 0 0.65rem !important;
+  color: #a1a1aa;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.btn-updates-quick:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 .notification-dot {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 7px;
-  height: 7px;
-  background: #10b981;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
 }
 
 .notif-modal-window {
-  width: min(860px, 95vw);
-  max-height: 88vh;
-  background: #0b1118;
-  border: 1px solid #1f2d3d;
-  border-radius: 14px;
+  width: min(460px, 92vw);
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.95);
   overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9);
 }
 
 .notif-modal-header {
-  padding: 1rem 1.35rem;
-  background: #0f1722;
-  border-bottom: 1px solid #1c2b3c;
+  padding: 0.85rem 1.15rem;
+  background: #09090b;
+  border-bottom: 1px solid #27272a;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
 }
 
-.notif-header-title-group {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.notif-header-bell {
-  font-size: 1.15rem;
-}
-
-.notif-sync-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
+.notif-header-title {
+  font-size: 0.88rem;
   font-weight: 600;
-  color: #34d399;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.notif-sync-pill .sync-dot {
-  width: 6px;
-  height: 6px;
-  background: #10b981;
-  border-radius: 50%;
-  animation: pulseDot 2s infinite;
-}
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.notif-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  color: #fafafa;
+  letter-spacing: -0.01em;
 }
 
 .notif-read-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.35rem 0.7rem;
-  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #27272a;
+  color: #a1a1aa;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
 }
 .notif-read-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #f1f5f9;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
 }
 
-.notif-toolbar {
-  background: #0d1520;
-  border-bottom: 1px solid #182535;
-  padding: 0.75rem 1.35rem;
+.notif-list-compact {
+  padding: 0.25rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-}
-@media (min-width: 640px) {
-  .notif-toolbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
 }
 
-.notif-search-wrap {
-  position: relative;
-  flex: 1;
-  max-width: 440px;
-  display: flex;
-  align-items: center;
-}
-.notif-search-icon {
-  position: absolute;
-  left: 0.75rem;
-  font-size: 0.8rem;
-  color: #64748b;
-  pointer-events: none;
-}
-.notif-search-input {
-  width: 100%;
-  background: #090e14;
-  border: 1px solid #203244;
-  color: #f1f5f9;
-  font-size: 0.82rem;
-  padding: 0.45rem 2rem 0.45rem 2.1rem;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-.notif-search-input:focus {
-  border-color: #38bdf8;
-}
-.notif-search-clear {
-  position: absolute;
-  right: 0.6rem;
-  background: none;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  font-size: 0.75rem;
-  padding: 0.2rem;
-}
-.notif-search-clear:hover { color: #f1f5f9; }
-
-.notif-filter-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.notif-pill-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.15s ease;
-}
-.notif-pill-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f1f5f9;
-}
-.notif-pill-btn.active {
-  background: #1e293b;
-  border-color: #38bdf8;
-  color: #38bdf8;
-  font-weight: 600;
-}
-
-.notif-modal-body {
-  padding: 1.15rem 1.35rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-  background: #080c12;
-  flex: 1;
-}
-
-.notif-card {
-  background: #0e1622;
-  border: 1px solid #1a2838;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border-color 0.15s ease;
-}
-.notif-card.is-unread {
-  border-color: rgba(16, 185, 129, 0.4);
-  background: #0f1926;
-}
-
-.notif-card-header {
-  padding: 0.9rem 1.1rem;
-  background: #111b29;
-  border-bottom: 1px solid #1a2737;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.notif-meta-chips {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.35rem;
-  flex-wrap: wrap;
-}
-.notif-unread-pill {
-  background: #059669;
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 0.12rem 0.45rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-.notif-git-chip {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 0.12rem 0.45rem;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-.notif-time-chip {
-  color: #64748b;
-  font-size: 0.72rem;
-  white-space: nowrap;
-}
-
-.notif-card-title {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #f8fafc;
-  margin-bottom: 0.2rem;
-}
-.notif-card-summary {
-  font-size: 0.82rem;
-  color: #94a3b8;
-  line-height: 1.45;
-}
-
-.notif-count-tag {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #38bdf8;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.25rem 0.55rem;
-  border-radius: 6px;
-  white-space: nowrap;
-}
-
-.notif-card-location-banner {
-  padding: 0.5rem 1.1rem;
-  background: #0b121b;
-  border-bottom: 1px solid #162230;
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-}
-.notif-location-label {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-.notif-location-tags {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-.notif-subj-badge {
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.12rem 0.45rem;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-.notif-subj-badge-econ {
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #34d399;
-}
-.notif-subj-badge-accounts {
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #38bdf8;
-}
-.notif-subj-badge-science {
-  background: rgba(167, 139, 250, 0.12);
-  border: 1px solid rgba(167, 139, 250, 0.3);
-  color: #c4b5fd;
-}
-.notif-subj-badge-default {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #e2e8f0;
-}
-.notif-path-chip {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-.notif-resources-table {
-  display: flex;
-  flex-direction: column;
-  max-height: 380px;
-  overflow-y: auto;
-}
-.notif-res-row {
-  padding: 0.65rem 1.1rem;
+.notif-row-compact {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.85rem;
-  border-bottom: 1px solid #141f2d;
+  padding: 0.6rem 1.15rem;
+  cursor: pointer;
   transition: background 0.12s ease;
+  border-bottom: 1px solid #141416;
+  text-decoration: none;
 }
-.notif-res-row:last-child {
+.notif-row-compact:last-child {
   border-bottom: none;
 }
-.notif-res-row:hover {
-  background: rgba(255, 255, 255, 0.025);
+.notif-row-compact:hover {
+  background: #18181b;
 }
-.notif-res-left {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  min-width: 0;
-  flex: 1;
-}
-.notif-file-icon {
-  font-size: 1rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.notif-res-details {
-  min-width: 0;
-  flex: 1;
-}
-.notif-res-title {
-  font-size: 0.83rem;
-  font-weight: 600;
-  color: #f1f5f9;
+
+.notif-row-title {
+  font-size: 0.82rem;
+  color: #f4f4f5;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 0.15rem;
-}
-.notif-res-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.7rem;
-  color: #64748b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.notif-res-subj {
-  font-weight: 600;
-  color: #cbd5e1;
-}
-.notif-res-sep {
-  color: #475569;
-}
-.notif-res-cat {
-  color: #94a3b8;
-}
-.notif-res-tag {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-  font-size: 0.65rem;
-  padding: 0.05rem 0.35rem;
-  border-radius: 3px;
-}
-.notif-res-stream {
-  color: #64748b;
-  font-size: 0.65rem;
+  flex: 1;
 }
 
-.notif-res-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+.notif-row-subj {
+  font-size: 0.72rem;
+  color: #a1a1aa;
+  white-space: nowrap;
   flex-shrink: 0;
-}
-.notif-btn-preview {
-  background: #14283b;
-  border: 1px solid #234664;
-  color: #38bdf8;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.3rem 0.65rem;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.15s ease;
-}
-.notif-btn-preview:hover {
-  background: #193853;
-  color: #7dd3fc;
-  border-color: #38bdf8;
-}
-.notif-btn-icon {
-  width: 26px;
-  height: 26px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
-  font-size: 0.72rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: all 0.15s ease;
-}
-.notif-btn-icon:hover {
-  background: rgba(255, 255, 255, 0.09);
-  color: #f1f5f9;
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.notif-modal-footer {
-  padding: 0.75rem 1.35rem;
-  background: #0d1520;
-  border-top: 1px solid #182535;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.75rem;
-  color: #64748b;
-  flex-wrap: wrap;
-}
-.notif-footer-stats b {
-  color: #cbd5e1;
-}
-
-.notif-empty-state {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  color: #94a3b8;
-}
-.notif-empty-icon {
-  font-size: 2.2rem;
-  margin-bottom: 0.75rem;
-  opacity: 0.6;
-}
-.notif-empty-state h4 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #f1f5f9;
-  margin-bottom: 0.35rem;
-}
-.notif-empty-state p {
-  font-size: 0.85rem;
-  max-width: 420px;
-  margin: 0 auto;
-  line-height: 1.5;
 }
 
 /* ───────────────────────────────────────────────────────────── */
@@ -2881,11 +2488,6 @@ body::before {
         <button class="nav-pill-btn" id="navBtnNotes" onclick="navigateTo('explorer')">
           <span>Directory</span>
         </button>
-        <button class="nav-pill-btn nav-pill-updates" id="navBtnUpdates" onclick="openNotificationsModal()" title="View Recent Resource Additions & Updates">
-          <span class="nav-bell-icon">🔔</span>
-          <span>Updates</span>
-          <span class="notification-badge" id="headerNotificationBadge">24 New</span>
-        </button>
         <button class="nav-pill-btn nav-pill-disclaimer" onclick="openModal('disclaimerModal')">
           <span>Disclaimer</span>
         </button>
@@ -2893,6 +2495,14 @@ body::before {
     </div>
 
     <div class="og-header-right">
+      <button class="nav-pill-btn btn-updates-quick" id="btnQuickUpdates" onclick="openNotificationsModal()" title="View Recent Resource Additions" aria-label="Updates">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span class="notification-dot" id="headerNotificationDot"></span>
+      </button>
+
       <button class="nav-pill-btn btn-nav-glow-notes" id="topNavBtnGoToNotes" onclick="navigateTo('explorer')">
         <span>Go to Notes</span>
       </button>
@@ -3322,60 +2932,20 @@ body::before {
     </div>
   </div>
 
-  <!-- 5. RESOURCE NOTIFICATIONS & GITHUB CHANGELOG MODAL -->
+  <!-- 5. RESOURCE NOTIFICATIONS MODAL -->
   <div class="og-modal-backdrop" id="notificationsModal">
     <div class="og-modal-window notif-modal-window">
-      <div class="og-modal-header notif-modal-header">
-        <div class="notif-header-title-group">
-          <span class="notif-header-bell">🔔</span>
-          <span class="og-modal-title" style="font-size:1.05rem; margin:0;">Resource Updates & Additions</span>
-          <span class="notif-sync-pill" title="Automated index and changelog sync running on every push to GitHub">
-            <span class="sync-dot"></span> GitHub Live Sync
-          </span>
-        </div>
-        <div class="notif-header-actions">
-          <button class="notif-read-btn" id="notifMarkReadBtn" onclick="markAllNotificationsRead()" title="Mark all updates as seen">
-            ✓ Mark all as read
-          </button>
+      <div class="notif-modal-header">
+        <span class="notif-header-title">Recently Added</span>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <button class="notif-read-btn" id="notifMarkReadBtn" onclick="markAllNotificationsRead()" title="Mark as read">Mark read</button>
           <button class="og-modal-close" onclick="closeModal('notificationsModal')">✕</button>
         </div>
       </div>
 
-      <!-- Toolbar: Instant Search & Stream Filters -->
-      <div class="notif-toolbar">
-        <div class="notif-search-wrap">
-          <span class="notif-search-icon">🔍</span>
-          <input 
-            type="text" 
-            id="notifSearchInput" 
-            class="notif-search-input" 
-            placeholder="Search added resources, chapters, topics (e.g. 'Banking', 'Accounts')..." 
-            oninput="handleNotifSearch(this.value)"
-          />
-          <button class="notif-search-clear" id="notifSearchClearBtn" onclick="clearNotifSearch()" style="display:none;">✕</button>
-        </div>
-
-        <div class="notif-filter-pills" id="notifStreamFilters">
-          <button class="notif-pill-btn active" data-stream="ALL" onclick="filterNotifStream('ALL')">All Streams</button>
-          <button class="notif-pill-btn" data-stream="Commerce" onclick="filterNotifStream('Commerce')">Commerce</button>
-          <button class="notif-pill-btn" data-stream="Science" onclick="filterNotifStream('Science')">Science</button>
-          <button class="notif-pill-btn" data-stream="Humanities" onclick="filterNotifStream('Humanities')">Humanities</button>
-        </div>
-      </div>
-
-      <!-- Dynamic Updates Feed Container -->
-      <div class="notif-modal-body" id="notifListContainer">
+      <!-- Concise small list: File Name and Subject only -->
+      <div class="notif-list-compact" id="notifListContainer">
         <!-- Rendered dynamically via renderNotificationsModal() -->
-      </div>
-
-      <!-- Footer Info -->
-      <div class="notif-modal-footer">
-        <div class="notif-footer-stats" id="notifFooterStats">
-          Loading updates...
-        </div>
-        <div class="notif-footer-tip">
-          <span>Click <b>Preview Note</b> to immediately open any resource in the viewer</span>
-        </div>
       </div>
     </div>
   </div>
@@ -4693,14 +4263,60 @@ body::before {
     let notifSearchQuery = '';
     const SEEN_NOTIFS_KEY = 'isc_seen_notification_batches_v1';
 
+    function normalizeNotifications(raw) {
+      if (!raw) {
+        return {
+          generatedAt: new Date().toISOString(),
+          totalResourcesTracked: (typeof allNotes !== 'undefined' ? allNotes.length : 850),
+          recentBatches: []
+        };
+      }
+      let batches = [];
+      let totalTracked = (typeof allNotes !== 'undefined' ? allNotes.length : 850);
+
+      if (Array.isArray(raw)) {
+        batches = raw;
+      } else if (raw.recentBatches && Array.isArray(raw.recentBatches)) {
+        batches = raw.recentBatches;
+        if (raw.totalResourcesTracked) totalTracked = raw.totalResourcesTracked;
+      } else if (raw.updates && Array.isArray(raw.updates)) {
+        batches = raw.updates;
+        if (raw.totalResourcesTracked) totalTracked = raw.totalResourcesTracked;
+      }
+
+      const normalizedBatches = batches.map(b => {
+        const rawItems = b.items || b.resources || [];
+        const items = rawItems.map(item => {
+          const streams = Array.isArray(item.streams) ? item.streams : (item.stream ? [item.stream] : ['Commerce']);
+          return {
+            ...item,
+            streams,
+            stream: item.stream || streams[0] || 'Commerce'
+          };
+        });
+        return {
+          ...b,
+          items,
+          resources: items,
+          itemsCount: items.length
+        };
+      });
+
+      return {
+        generatedAt: raw.generatedAt || new Date().toISOString(),
+        totalResourcesTracked: totalTracked,
+        recentBatches: normalizedBatches
+      };
+    }
+
     function initNotifications() {
-      // 1. Initial hydration from window.__NOTIFICATIONS_DATA__ if available
-      if (typeof window.__NOTIFICATIONS_DATA__ !== 'undefined' && window.__NOTIFICATIONS_DATA__.recentBatches) {
-        notificationsData = window.__NOTIFICATIONS_DATA__;
+      // 1. Hydrate from window.__NOTIFICATIONS_DATA__ if available
+      if (typeof window.__NOTIFICATIONS_DATA__ !== 'undefined') {
+        notificationsData = normalizeNotifications(window.__NOTIFICATIONS_DATA__);
         updateNotificationBadges();
       }
 
-      // 2. Fetch fresh notifications from /api/notifications or fallback to /notifications.json
+      // 2. Fetch fresh updates from API or fallback
       fetchNotifications();
     }
 
@@ -4713,30 +4329,26 @@ body::before {
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 const parsed = JSON.parse(xhr.responseText);
-                if (parsed && Array.isArray(parsed.recentBatches)) {
-                  notificationsData = parsed;
-                  updateNotificationBadges();
-                  if (document.getElementById('notificationsModal')?.classList.contains('open')) {
-                    renderNotificationsModal();
-                  }
+                notificationsData = normalizeNotifications(parsed);
+                updateNotificationBadges();
+                if (document.getElementById('notificationsModal')?.classList.contains('open')) {
+                  renderNotificationsModal();
                 }
               } catch (e) {
-                console.warn('Failed to parse /api/notifications response:', e);
+                console.warn('Failed to parse /api/notifications:', e);
               }
             } else {
-              // Try static /notifications.json
+              // Fallback to static /notifications.json
               const fallbackXhr = new XMLHttpRequest();
               fallbackXhr.open('GET', '/notifications.json', true);
               fallbackXhr.onload = function() {
                 if (fallbackXhr.status === 200) {
                   try {
                     const parsed = JSON.parse(fallbackXhr.responseText);
-                    if (parsed && Array.isArray(parsed.recentBatches)) {
-                      notificationsData = parsed;
-                      updateNotificationBadges();
-                      if (document.getElementById('notificationsModal')?.classList.contains('open')) {
-                        renderNotificationsModal();
-                      }
+                    notificationsData = normalizeNotifications(parsed);
+                    updateNotificationBadges();
+                    if (document.getElementById('notificationsModal')?.classList.contains('open')) {
+                      renderNotificationsModal();
                     }
                   } catch(e) {}
                 }
@@ -4747,14 +4359,14 @@ body::before {
         };
         xhr.onerror = function() {
           if (typeof window.__NOTIFICATIONS_DATA__ !== 'undefined') {
-            notificationsData = window.__NOTIFICATIONS_DATA__;
+            notificationsData = normalizeNotifications(window.__NOTIFICATIONS_DATA__);
             updateNotificationBadges();
           }
         };
         xhr.send();
       } catch (err) {
         if (typeof window.__NOTIFICATIONS_DATA__ !== 'undefined') {
-          notificationsData = window.__NOTIFICATIONS_DATA__;
+          notificationsData = normalizeNotifications(window.__NOTIFICATIONS_DATA__);
           updateNotificationBadges();
         }
       }
@@ -4782,28 +4394,8 @@ body::before {
     }
 
     function updateNotificationBadges() {
-      const batches = notificationsData?.recentBatches || [];
       const unseenCount = getUnseenBatchesCount();
-      const badgeEl = document.getElementById('headerNotificationBadge');
       const dotEl = document.getElementById('headerNotificationDot');
-
-      const totalNewItems = batches.reduce((acc, b) => acc + (b.itemsCount || b.items?.length || 0), 0);
-
-      if (badgeEl) {
-        if (unseenCount > 0) {
-          badgeEl.textContent = `${totalNewItems} New`;
-          badgeEl.style.display = 'inline-block';
-          badgeEl.style.background = '#059669';
-          badgeEl.style.color = '#ffffff';
-          badgeEl.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.4)';
-        } else {
-          badgeEl.textContent = `${batches.length} Updates`;
-          badgeEl.style.background = '#1e293b';
-          badgeEl.style.color = '#94a3b8';
-          badgeEl.style.boxShadow = 'none';
-        }
-      }
-
       if (dotEl) {
         dotEl.style.display = unseenCount > 0 ? 'block' : 'none';
       }
@@ -4854,7 +4446,7 @@ body::before {
       renderNotificationsModal();
     }
 
-    function openNoteFromNotification(noteId) {
+    function openNoteFromNotification(noteId, directUrl) {
       closeModal('notificationsModal');
       const note = findNoteByIdOrSlug(noteId);
       if (note) {
@@ -4868,189 +4460,57 @@ body::before {
         previewFile(note);
         showToast(`Opened: ${note.title || note.name}`);
       } else {
-        const fallback = allNotes.find(n => n.id === noteId || n.name === noteId);
+        const fallback = allNotes.find(n => n.id === noteId || n.name === noteId || (n.title && n.title.toLowerCase() === (noteId || '').toLowerCase()));
         if (fallback) {
           navigateTo('explorer');
           if (fallback.stream) setStream(fallback.stream);
           if (fallback.subject) selectSubject(fallback.subject);
           previewFile(fallback);
           showToast(`Opened: ${fallback.title || fallback.name}`);
+        } else if (directUrl && directUrl !== '#') {
+          window.open(directUrl, '_blank');
         } else {
-          showToast('Note resource previewing in directory...');
           navigateTo('explorer');
         }
       }
     }
 
-    function formatRelativeDate(isoStr) {
-      if (!isoStr) return '';
-      try {
-        const date = new Date(isoStr);
-        const now = new Date();
-        const diffMs = now - date;
-        const diffMins = Math.floor(diffMs / 60000);
-        const diffHours = Math.floor(diffMins / 60);
-        const diffDays = Math.floor(diffHours / 24);
-
-        if (diffMins < 1) return 'Just now';
-        if (diffMins < 60) return `${diffMins}m ago`;
-        if (diffHours < 24) return `${diffHours}h ago`;
-        if (diffDays === 1) return 'Yesterday';
-        if (diffDays < 30) return `${diffDays}d ago`;
-        return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-      } catch(e) {
-        return isoStr;
-      }
-    }
-
-    function getSubjectBadgeClass(subj) {
-      const s = (subj || '').toLowerCase();
-      if (s.includes('econ')) return 'notif-subj-badge-econ';
-      if (s.includes('account') || s.includes('commerce') || s.includes('business')) return 'notif-subj-badge-accounts';
-      if (s.includes('physic') || s.includes('chem') || s.includes('comp') || s.includes('math') || s.includes('bio')) return 'notif-subj-badge-science';
-      return 'notif-subj-badge-default';
-    }
-
     function renderNotificationsModal() {
       const container = document.getElementById('notifListContainer');
-      const statsEl = document.getElementById('notifFooterStats');
       if (!container) return;
 
       const batches = notificationsData?.recentBatches || [];
-      const seen = new Set(getSeenBatchIds());
+      const addedFiles = [];
 
-      const filteredBatches = [];
-      let totalVisibleItems = 0;
-
-      batches.forEach(batch => {
-        let items = batch.items || [];
-
-        if (notifSelectedStream !== 'ALL') {
-          items = items.filter(item => {
-            const s = (item.stream || batch.stream || '').toLowerCase();
-            return s === notifSelectedStream.toLowerCase();
+      for (const batch of batches) {
+        const items = batch.items || batch.resources || [];
+        for (const item of items) {
+          addedFiles.push({
+            id: item.id || '',
+            title: item.title || item.name || 'Untitled Note',
+            subject: item.subject || 'General',
+            url: item.url || item.driveUrl || (item.fileId ? `https://drive.google.com/file/d/${item.fileId}/view` : '#')
           });
+          if (addedFiles.length >= 7) break;
         }
-
-        if (notifSearchQuery) {
-          items = items.filter(item => {
-            const str = `${item.title || item.name || ''} ${item.subject || ''} ${item.category || ''} ${item.chapter || ''} ${item.tag || ''}`.toLowerCase();
-            return str.includes(notifSearchQuery);
-          });
-        }
-
-        if (items.length > 0) {
-          totalVisibleItems += items.length;
-          filteredBatches.push({
-            ...batch,
-            items: items
-          });
-        }
-      });
-
-      if (statsEl) {
-        statsEl.innerHTML = `Showing <b>${totalVisibleItems}</b> added resources across <b>${filteredBatches.length}</b> GitHub updates (Total tracked: <b>${notificationsData.totalResourcesTracked || allNotes.length}</b>)`;
+        if (addedFiles.length >= 7) break;
       }
 
-      if (filteredBatches.length === 0) {
+      if (addedFiles.length === 0) {
         container.innerHTML = `
-          <div class="notif-empty-state">
-            <div class="notif-empty-icon">🔔</div>
-            <h4>No resource updates match your filter</h4>
-            <p>${notifSearchQuery ? `No resources found matching "<b>${escapeHtml(notifSearchQuery)}</b>" in ${notifSelectedStream === 'ALL' ? 'any stream' : notifSelectedStream}. Try a different search term or stream filter.` : 'Every push to GitHub automatically scans for new documents and lists them here.'}</p>
+          <div style="padding: 1.25rem; text-align: center; color: #71717a; font-size: 0.8rem;">
+            No recently added files
           </div>
         `;
         return;
       }
 
-      let html = '';
-
-      filteredBatches.forEach(batch => {
-        const isUnread = !seen.has(batch.id);
-        const relTime = formatRelativeDate(batch.timestamp);
-        const gitCommitShort = batch.commitSha ? batch.commitSha.substring(0, 7) : 'push';
-
-        const subjectsInBatch = [...new Set(batch.items.map(i => i.subject).filter(Boolean))];
-        const streamsInBatch = [...new Set(batch.items.map(i => i.stream).filter(Boolean))];
-
-        html += `
-          <div class="notif-card ${isUnread ? 'is-unread' : ''}">
-            <div class="notif-card-header">
-              <div>
-                <div class="notif-meta-chips">
-                  ${isUnread ? '<span class="notif-unread-pill">NEW ADDITION</span>' : ''}
-                  <span class="notif-git-chip" title="Git Commit SHA: ${escapeAttr(batch.commitSha || '')}">
-                    ⎇ ${escapeHtml(gitCommitShort)}
-                  </span>
-                  <span class="notif-time-chip" title="${escapeAttr(batch.timestamp || '')}">
-                    🕒 ${escapeHtml(relTime)}
-                  </span>
-                </div>
-                <div class="notif-card-title">${escapeHtml(batch.title || 'New Notes Added')}</div>
-                <div class="notif-card-summary">${escapeHtml(batch.summary || '')}</div>
-              </div>
-              <div class="notif-count-tag">
-                +${batch.items.length} ${batch.items.length === 1 ? 'file' : 'files'}
-              </div>
-            </div>
-
-            <div class="notif-card-location-banner">
-              <span class="notif-location-label">📍 Destination:</span>
-              <div class="notif-location-tags">
-                ${streamsInBatch.map(s => `<span class="notif-path-chip">📁 ${escapeHtml(s)}</span>`).join('')}
-                ${subjectsInBatch.map(s => `<span class="notif-subj-badge ${getSubjectBadgeClass(s)}">${escapeHtml(s)}</span>`).join('')}
-              </div>
-            </div>
-
-            <div class="notif-resources-table">
-              ${batch.items.map(item => {
-                const icon = item.type === 'notes' ? '📝' : item.type === 'solutions' ? '💡' : item.type === 'pyq' ? '📋' : '📄';
-                const fileDriveUrl = item.driveUrl || (item.fileId ? `https://drive.google.com/file/d/${item.fileId}/view` : '#');
-                return `
-                  <div class="notif-res-row">
-                    <div class="notif-res-left">
-                      <span class="notif-file-icon">${icon}</span>
-                      <div class="notif-res-details">
-                        <div class="notif-res-title" title="${escapeAttr(item.title || item.name || '')}">
-                          ${escapeHtml(item.title || item.name || 'Untitled Document')}
-                        </div>
-                        <div class="notif-res-meta">
-                          <span class="notif-res-subj">${escapeHtml(item.subject || 'General')}</span>
-                          <span class="notif-res-sep">•</span>
-                          <span class="notif-res-cat">${escapeHtml(item.category || 'General')}</span>
-                          ${item.tag ? `<span class="notif-res-tag">${escapeHtml(item.tag)}</span>` : ''}
-                          <span class="notif-res-sep">•</span>
-                          <span class="notif-res-stream">${escapeHtml(item.stream || '')}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="notif-res-actions">
-                      <button 
-                        class="notif-btn-preview" 
-                        onclick="openNoteFromNotification('${escapeAttr(item.id || '')}')"
-                        title="Open this note in the interactive viewer"
-                      >
-                        Preview Note
-                      </button>
-                      <a 
-                        href="${escapeAttr(fileDriveUrl)}" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        class="notif-btn-icon" 
-                        title="Open original file in Google Drive"
-                      >
-                        ↗
-                      </a>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
+      container.innerHTML = addedFiles.map(file => `
+        <div class="notif-row-compact" onclick="openNoteFromNotification('${escapeAttr(file.id)}', '${escapeAttr(file.url)}')" title="Open ${escapeAttr(file.title)}">
+          <span class="notif-row-title">${escapeHtml(file.title)}</span>
+          <span class="notif-row-subj">${escapeHtml(file.subject)}</span>
+        </div>
+      `).join('');
     }
 
     // Modal helpers
