@@ -85,304 +85,15 @@ window.__FALLBACK_NOTES_DATA__ = [
     ]
   },
   {
-    "id": "isc-872",
+    "id": "isc-906",
     "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "1",
-    "fullFileName": "1",
+    "category": "Fundamentals",
+    "title": "Fundamentals_Accountancy_Percentage Booster",
+    "fullFileName": "Fundamentals_Accountancy_Percentage Booster.pdf",
     "rawPath": "Accounts/text",
     "fileType": "PDF",
     "tag": "Study Notes",
-    "url": "Account Question Bank e-book.pdf|https://drive.google.com/file/d/1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF/view",
-    "previewUrl": "https://drive.google.com/file/d/1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF",
-    "driveId": "1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-873",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "2",
-    "fullFileName": "2",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Accountancy-goodwill-percentage Booster.pdf|https://drive.google.com/file/d/10pXMcIF-oU4sSn709iPY18mF5I6g2COI/view",
-    "previewUrl": "https://drive.google.com/file/d/10pXMcIF-oU4sSn709iPY18mF5I6g2COI/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=10pXMcIF-oU4sSn709iPY18mF5I6g2COI",
-    "driveId": "10pXMcIF-oU4sSn709iPY18mF5I6g2COI",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-874",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "3",
-    "fullFileName": "3",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Admission of a partner_Accountancy_Percentage Booster.pdf|https://drive.google.com/file/d/1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR/view",
-    "previewUrl": "https://drive.google.com/file/d/1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR",
-    "driveId": "1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-875",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "4",
-    "fullFileName": "4",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "An Aid to Accountancy SQP/An-Aid ISC-XII - Copy.pdf|https://drive.google.com/file/d/1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM/view",
-    "previewUrl": "https://drive.google.com/file/d/1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM",
-    "driveId": "1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-876",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "5",
-    "fullFileName": "5",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "An Aid to Accountancy SQP/An-Aid ISC-XII.pdf|https://drive.google.com/file/d/1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n/view",
-    "previewUrl": "https://drive.google.com/file/d/1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n",
-    "driveId": "1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-877",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "6",
-    "fullFileName": "6",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/ARIHANT ACCOUNTS 1.pdf|https://drive.google.com/file/d/1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK/view",
-    "previewUrl": "https://drive.google.com/file/d/1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK",
-    "driveId": "1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-878",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "7",
-    "fullFileName": "7",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/FINAL 50 Arihant Questions .pdf|https://drive.google.com/file/d/1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln/view",
-    "previewUrl": "https://drive.google.com/file/d/1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln",
-    "driveId": "1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-879",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "8",
-    "fullFileName": "8",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/Final 50 Solutions.pdf|https://drive.google.com/file/d/1luokTmMM6MFftosV2PTrTRkUF1DXMYDg/view",
-    "previewUrl": "https://drive.google.com/file/d/1luokTmMM6MFftosV2PTrTRkUF1DXMYDg/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1luokTmMM6MFftosV2PTrTRkUF1DXMYDg",
-    "driveId": "1luokTmMM6MFftosV2PTrTRkUF1DXMYDg",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-880",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "9",
-    "fullFileName": "9",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/Sample Paper 10 Solutions.pdf|https://drive.google.com/file/d/1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF/view",
-    "previewUrl": "https://drive.google.com/file/d/1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF",
-    "driveId": "1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-881",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "10",
-    "fullFileName": "10",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/Sample Paper 11 Solutions.pdf|https://drive.google.com/file/d/10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK/view",
-    "previewUrl": "https://drive.google.com/file/d/10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK",
-    "driveId": "10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-882",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "11",
-    "fullFileName": "11",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Arihant/The Finisher Solutions.pdf|https://drive.google.com/file/d/1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03/view",
-    "previewUrl": "https://drive.google.com/file/d/1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03",
-    "driveId": "1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-883",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "12",
-    "fullFileName": "12",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Cash flow statement_accountancy_Percentage booster.pdf|https://drive.google.com/file/d/1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS/view",
-    "previewUrl": "https://drive.google.com/file/d/1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS",
-    "driveId": "1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-884",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "13",
-    "fullFileName": "13",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Company Accounts/COMPANY ACCOUNTS (1)-converted (1).pdf|https://drive.google.com/file/d/159en2vqlWostss-hWiYohCk1c5mi4Jil/view",
-    "previewUrl": "https://drive.google.com/file/d/159en2vqlWostss-hWiYohCk1c5mi4Jil/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=159en2vqlWostss-hWiYohCk1c5mi4Jil",
-    "driveId": "159en2vqlWostss-hWiYohCk1c5mi4Jil",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-885",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "14",
-    "fullFileName": "14",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Company Accounts/Company Accounts_Accountacy_Percentage Booster.pdf|https://drive.google.com/file/d/11xmG1N-5rlq69yShDXcZcAEjTFhGglXe/view",
-    "previewUrl": "https://drive.google.com/file/d/11xmG1N-5rlq69yShDXcZcAEjTFhGglXe/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=11xmG1N-5rlq69yShDXcZcAEjTFhGglXe",
-    "driveId": "11xmG1N-5rlq69yShDXcZcAEjTFhGglXe",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-886",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "15",
-    "fullFileName": "15",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "COMPARATIVE_STATEMENTS_AND_COMMON_SIZE_STATEMENTS_Accountancy_Percentage.pdf|https://drive.google.com/file/d/1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46/view",
-    "previewUrl": "https://drive.google.com/file/d/1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46",
-    "driveId": "1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-887",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "16",
-    "fullFileName": "16",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Dissolution_of_a_partnership_firm_Accountancy_percentage_booster.pdf|https://drive.google.com/file/d/1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA/view",
-    "previewUrl": "https://drive.google.com/file/d/1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA",
-    "driveId": "1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-888",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "17",
-    "fullFileName": "17",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "FINAL ACCOUNTS OF COMPANIES_ACCOUNTANCY_PERCENTAGE BOOSTER.pdf|https://drive.google.com/file/d/1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W/view",
-    "previewUrl": "https://drive.google.com/file/d/1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W",
-    "driveId": "1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-889",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "18",
-    "fullFileName": "18",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Fundamentals_Accountancy_Percentage Booster.pdf|https://drive.google.com/file/d/1ZWofmgga6mT7jSAtHo2nZylG__i7wo-o/view",
+    "url": "https://drive.google.com/file/d/1ZWofmgga6mT7jSAtHo2nZylG__i7wo-o/view",
     "previewUrl": "https://drive.google.com/file/d/1ZWofmgga6mT7jSAtHo2nZylG__i7wo-o/preview",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZWofmgga6mT7jSAtHo2nZylG__i7wo-o",
     "driveId": "1ZWofmgga6mT7jSAtHo2nZylG__i7wo-o",
@@ -391,236 +102,32 @@ window.__FALLBACK_NOTES_DATA__ = [
     ]
   },
   {
-    "id": "isc-890",
+    "id": "isc-907",
     "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "19",
-    "fullFileName": "19",
+    "category": "Fundamentals",
+    "title": "Account Question Bank e-book",
+    "fullFileName": "Account Question Bank e-book.pdf",
     "rawPath": "Accounts/text",
     "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Important Notes/BALANCE SHEET OF A JOINT STOCK COMPANY.pdf|https://drive.google.com/file/d/11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL/view",
-    "previewUrl": "https://drive.google.com/file/d/11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL",
-    "driveId": "11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL",
+    "tag": "Practice / CFQ",
+    "url": "https://drive.google.com/file/d/1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF/view",
+    "previewUrl": "https://drive.google.com/file/d/1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF",
+    "driveId": "1Cipf1M_2FaBdn9pkzGuofP1fVh-IK9kF",
     "streams": [
       "Commerce"
     ]
   },
   {
-    "id": "isc-891",
+    "id": "isc-908",
     "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "20",
-    "fullFileName": "20",
+    "category": "Fundamentals",
+    "title": "SIR Shubham Jagdish's Accounts Theory Booklet",
+    "fullFileName": "SIR Shubham Jagdish's Accounts Theory Booklet.pdf",
     "rawPath": "Accounts/text",
     "fileType": "PDF",
     "tag": "Study Notes",
-    "url": "Important Notes/Cash Flow Statement- Format ISC.pdf|https://drive.google.com/file/d/1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW/view",
-    "previewUrl": "https://drive.google.com/file/d/1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW",
-    "driveId": "1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-892",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "21",
-    "fullFileName": "21",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Important Notes/Main  Heads and Sub-heads in financial Statements.pdf|https://drive.google.com/file/d/10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w/view",
-    "previewUrl": "https://drive.google.com/file/d/10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w",
-    "driveId": "10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-893",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "22",
-    "fullFileName": "22",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Miscellaneous/Handwritten Accountancy Theory.pdf|https://drive.google.com/file/d/18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j/view",
-    "previewUrl": "https://drive.google.com/file/d/18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j",
-    "driveId": "18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-894",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "23",
-    "fullFileName": "23",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Miscellaneous/RATIO ANALYSIS  FORMULA SHEET-4.pdf|https://drive.google.com/file/d/1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_/view",
-    "previewUrl": "https://drive.google.com/file/d/1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_",
-    "driveId": "1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-895",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "24",
-    "fullFileName": "24",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Miscellaneous/SIR Shubham Jagdish's Accounts Theory Booklet.pdf|https://drive.google.com/file/d/1V4N3VtzscXQpEwgiU273M8ZvGlRhUKr6/view",
-    "previewUrl": "https://drive.google.com/file/d/1V4N3VtzscXQpEwgiU273M8ZvGlRhUKr6/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1V4N3VtzscXQpEwgiU273M8ZvGlRhUKr6",
-    "driveId": "1V4N3VtzscXQpEwgiU273M8ZvGlRhUKr6",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-896",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "25",
-    "fullFileName": "25",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Oswal/1. Partnership.pdf|https://drive.google.com/file/d/1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi/view",
-    "previewUrl": "https://drive.google.com/file/d/1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi",
-    "driveId": "1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-897",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "26",
-    "fullFileName": "26",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Oswal/2. Company.pdf|https://drive.google.com/file/d/1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE/view",
-    "previewUrl": "https://drive.google.com/file/d/1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE",
-    "driveId": "1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-898",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "27",
-    "fullFileName": "27",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Oswal/Question Bank.pdf|https://drive.google.com/file/d/1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN/view",
-    "previewUrl": "https://drive.google.com/file/d/1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN",
-    "driveId": "1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-899",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "28",
-    "fullFileName": "28",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Oswal/Specimen Question Paper.pdf|https://drive.google.com/file/d/1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw/view",
-    "previewUrl": "https://drive.google.com/file/d/1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw",
-    "driveId": "1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-900",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "29",
-    "fullFileName": "29",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Ratio analysis_accountancy_percentage booster.pdf|https://drive.google.com/file/d/1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm/view",
-    "previewUrl": "https://drive.google.com/file/d/1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm",
-    "driveId": "1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-901",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "30",
-    "fullFileName": "30",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "Redemption of debenture_Accountancy_Percentage Booster.pdf|https://drive.google.com/file/d/1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5/view",
-    "previewUrl": "https://drive.google.com/file/d/1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5",
-    "driveId": "1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-902",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "31",
-    "fullFileName": "31",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "RETIREMENT_AND_DEATH_OF_A_PARTNER_Accountancy_Percentage_Booster.pdf|https://drive.google.com/file/d/13EP_VAi9crdY22JelkzGx8VeOkEsPoYV/view",
-    "previewUrl": "https://drive.google.com/file/d/13EP_VAi9crdY22JelkzGx8VeOkEsPoYV/preview",
-    "downloadUrl": "https://drive.google.com/uc?export=download&id=13EP_VAi9crdY22JelkzGx8VeOkEsPoYV",
-    "driveId": "13EP_VAi9crdY22JelkzGx8VeOkEsPoYV",
-    "streams": [
-      "Commerce"
-    ]
-  },
-  {
-    "id": "isc-903",
-    "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "32",
-    "fullFileName": "32",
-    "rawPath": "Accounts/text",
-    "fileType": "PDF",
-    "tag": "Study Notes",
-    "url": "SIR Shubham Jagdish's Accounts Theory Booklet.pdf|https://drive.google.com/file/d/1J7qG_t479RljEjTBeHgHSNMZDndiUi2H/view",
+    "url": "https://drive.google.com/file/d/1J7qG_t479RljEjTBeHgHSNMZDndiUi2H/view",
     "previewUrl": "https://drive.google.com/file/d/1J7qG_t479RljEjTBeHgHSNMZDndiUi2H/preview",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1J7qG_t479RljEjTBeHgHSNMZDndiUi2H",
     "driveId": "1J7qG_t479RljEjTBeHgHSNMZDndiUi2H",
@@ -629,15 +136,491 @@ window.__FALLBACK_NOTES_DATA__ = [
     ]
   },
   {
-    "id": "isc-904",
+    "id": "isc-909",
     "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "33",
-    "fullFileName": "33",
+    "category": "Fundamentals / Important Notes",
+    "title": "Main Heads and Sub-heads in financial Statements",
+    "fullFileName": "Main Heads and Sub-heads in financial Statements.pdf",
     "rawPath": "Accounts/text",
     "fileType": "PDF",
     "tag": "Study Notes",
-    "url": "Together With/Sample Papers.pdf|https://drive.google.com/file/d/1LTJ2q4aWximmBzUTvKknKUYikspIwVi1/view",
+    "url": "https://drive.google.com/file/d/10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w/view",
+    "previewUrl": "https://drive.google.com/file/d/10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w",
+    "driveId": "10S7yCyanL7NVo0xc26zDpIZnjRf-bs1w",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-910",
+    "subject": "Accounts",
+    "category": "Partnership Accounts",
+    "title": "Admission of a partner_Accountancy_Percentage Booster",
+    "fullFileName": "Admission of a partner_Accountancy_Percentage Booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR/view",
+    "previewUrl": "https://drive.google.com/file/d/1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR",
+    "driveId": "1SUmbXKgIbJa9m1nUT9h1-apyg7ZsgLdR",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-911",
+    "subject": "Accounts",
+    "category": "Partnership Accounts / Oswal",
+    "title": "1. Partnership",
+    "fullFileName": "1. Partnership.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi/view",
+    "previewUrl": "https://drive.google.com/file/d/1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi",
+    "driveId": "1H9xduIXIrmJm8in9xM1WulVXjZkdfwEi",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-912",
+    "subject": "Accounts",
+    "category": "Partnership Accounts",
+    "title": "Accountancy-goodwill-percentage Booster",
+    "fullFileName": "Accountancy-goodwill-percentage Booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/10pXMcIF-oU4sSn709iPY18mF5I6g2COI/view",
+    "previewUrl": "https://drive.google.com/file/d/10pXMcIF-oU4sSn709iPY18mF5I6g2COI/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=10pXMcIF-oU4sSn709iPY18mF5I6g2COI",
+    "driveId": "10pXMcIF-oU4sSn709iPY18mF5I6g2COI",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-913",
+    "subject": "Accounts",
+    "category": "Partnership Accounts",
+    "title": "RETIREMENT_AND_DEATH_OF_A_PARTNER_Accountancy_Percentage_Booster",
+    "fullFileName": "RETIREMENT_AND_DEATH_OF_A_PARTNER_Accountancy_Percentage_Booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/13EP_VAi9crdY22JelkzGx8VeOkEsPoYV/view",
+    "previewUrl": "https://drive.google.com/file/d/13EP_VAi9crdY22JelkzGx8VeOkEsPoYV/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=13EP_VAi9crdY22JelkzGx8VeOkEsPoYV",
+    "driveId": "13EP_VAi9crdY22JelkzGx8VeOkEsPoYV",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-914",
+    "subject": "Accounts",
+    "category": "Partnership Accounts",
+    "title": "Dissolution_of_a_partnership_firm_Accountancy_percentage_booster",
+    "fullFileName": "Dissolution_of_a_partnership_firm_Accountancy_percentage_booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA/view",
+    "previewUrl": "https://drive.google.com/file/d/1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA",
+    "driveId": "1xINuOfU01iOUqLpOBmXBUMjkvKQ537eA",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-915",
+    "subject": "Accounts",
+    "category": "Company Accounts / Company Accounts",
+    "title": "COMPANY ACCOUNTS (1)-converted (1)",
+    "fullFileName": "COMPANY ACCOUNTS (1)-converted (1).pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/159en2vqlWostss-hWiYohCk1c5mi4Jil/view",
+    "previewUrl": "https://drive.google.com/file/d/159en2vqlWostss-hWiYohCk1c5mi4Jil/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=159en2vqlWostss-hWiYohCk1c5mi4Jil",
+    "driveId": "159en2vqlWostss-hWiYohCk1c5mi4Jil",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-916",
+    "subject": "Accounts",
+    "category": "Company Accounts / Company Accounts",
+    "title": "Company Accounts_Accountacy_Percentage Booster",
+    "fullFileName": "Company Accounts_Accountacy_Percentage Booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/11xmG1N-5rlq69yShDXcZcAEjTFhGglXe/view",
+    "previewUrl": "https://drive.google.com/file/d/11xmG1N-5rlq69yShDXcZcAEjTFhGglXe/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=11xmG1N-5rlq69yShDXcZcAEjTFhGglXe",
+    "driveId": "11xmG1N-5rlq69yShDXcZcAEjTFhGglXe",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-917",
+    "subject": "Accounts",
+    "category": "Company Accounts",
+    "title": "FINAL ACCOUNTS OF COMPANIES_ACCOUNTANCY_PERCENTAGE BOOSTER",
+    "fullFileName": "FINAL ACCOUNTS OF COMPANIES_ACCOUNTANCY_PERCENTAGE BOOSTER.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W/view",
+    "previewUrl": "https://drive.google.com/file/d/1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W",
+    "driveId": "1YE3xr8wjfZeFEVMY8HFQfqxAwNUMFa3W",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-918",
+    "subject": "Accounts",
+    "category": "Company Accounts / Oswal",
+    "title": "2. Company",
+    "fullFileName": "2. Company.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE/view",
+    "previewUrl": "https://drive.google.com/file/d/1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE",
+    "driveId": "1-nQ_-Uq1mIhNKUARTTECEpVcvViW70rE",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-919",
+    "subject": "Accounts",
+    "category": "Company Accounts / Important Notes",
+    "title": "BALANCE SHEET OF A JOINT STOCK COMPANY",
+    "fullFileName": "BALANCE SHEET OF A JOINT STOCK COMPANY.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL/view",
+    "previewUrl": "https://drive.google.com/file/d/11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL",
+    "driveId": "11lwIieRaLMvHYYzB9eqSViHa5EQtFmgL",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-920",
+    "subject": "Accounts",
+    "category": "Analysis of Financial Statements",
+    "title": "Ratio analysis_accountancy_percentage booster",
+    "fullFileName": "Ratio analysis_accountancy_percentage booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm/view",
+    "previewUrl": "https://drive.google.com/file/d/1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm",
+    "driveId": "1q3jCkOU8gZ5m8yYKTErckZqPJRmMZpBm",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-921",
+    "subject": "Accounts",
+    "category": "Analysis of Financial Statements",
+    "title": "COMPARATIVE_STATEMENTS_AND_COMMON_SIZE_STATEMENTS_Accountancy_Percentage",
+    "fullFileName": "COMPARATIVE_STATEMENTS_AND_COMMON_SIZE_STATEMENTS_Accountancy_Percentage.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46/view",
+    "previewUrl": "https://drive.google.com/file/d/1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46",
+    "driveId": "1vnhhtWYBcZbrqodE0S9CWULwpJf3bo46",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-922",
+    "subject": "Accounts",
+    "category": "Analysis of Financial Statements / Miscellaneous",
+    "title": "RATIO ANALYSIS FORMULA SHEET-4",
+    "fullFileName": "RATIO ANALYSIS FORMULA SHEET-4.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Quick Revision",
+    "url": "https://drive.google.com/file/d/1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_/view",
+    "previewUrl": "https://drive.google.com/file/d/1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_",
+    "driveId": "1AofYkHwdfbOwFIBiV_eQ4-zTmfVByxT_",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-923",
+    "subject": "Accounts",
+    "category": "Cash Flow Statement",
+    "title": "Cash flow statement_accountancy_Percentage booster",
+    "fullFileName": "Cash flow statement_accountancy_Percentage booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS/view",
+    "previewUrl": "https://drive.google.com/file/d/1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS",
+    "driveId": "1cmVHxNPb1P8sPQeBn8zTLChOYgo-VOOS",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-924",
+    "subject": "Accounts",
+    "category": "Cash Flow Statement / Important Notes",
+    "title": "Cash Flow Statement- Format ISC",
+    "fullFileName": "Cash Flow Statement- Format ISC.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW/view",
+    "previewUrl": "https://drive.google.com/file/d/1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW",
+    "driveId": "1aAAt9GInFj39CNsHP8u3oM96bp5fIBzW",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-925",
+    "subject": "Accounts",
+    "category": "Debentures & Redemption",
+    "title": "Redemption of debenture_Accountancy_Percentage Booster",
+    "fullFileName": "Redemption of debenture_Accountancy_Percentage Booster.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5/view",
+    "previewUrl": "https://drive.google.com/file/d/1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5",
+    "driveId": "1Yqkqh_siqN98V8jeaznmIFmj2dxTqPV5",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-926",
+    "subject": "Accounts",
+    "category": "Miscellaneous / An Aid to Accountancy SQP",
+    "title": "An-Aid ISC-XII - Copy",
+    "fullFileName": "An-Aid ISC-XII - Copy.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM/view",
+    "previewUrl": "https://drive.google.com/file/d/1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM",
+    "driveId": "1PLz6ut-EkyJIYV7AYQ05Tmel95_p60ZM",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-927",
+    "subject": "Accounts",
+    "category": "Miscellaneous / An Aid to Accountancy SQP",
+    "title": "An-Aid ISC-XII",
+    "fullFileName": "An-Aid ISC-XII.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n/view",
+    "previewUrl": "https://drive.google.com/file/d/1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n",
+    "driveId": "1-JllcWAQdFlE7lrnUmDdcdXw2Wsxof0n",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-928",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "ARIHANT ACCOUNTS 1",
+    "fullFileName": "ARIHANT ACCOUNTS 1.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK/view",
+    "previewUrl": "https://drive.google.com/file/d/1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK",
+    "driveId": "1L93lHNWWa6qZhSDmeIumUFe0Ik_2LuEK",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-929",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "FINAL 50 Arihant Questions",
+    "fullFileName": "FINAL 50 Arihant Questions .pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln/view",
+    "previewUrl": "https://drive.google.com/file/d/1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln",
+    "driveId": "1kcljdJ_NWwGut4bsgvO4kcjONGYbF8ln",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-930",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "Final 50 Solutions",
+    "fullFileName": "Final 50 Solutions.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1luokTmMM6MFftosV2PTrTRkUF1DXMYDg/view",
+    "previewUrl": "https://drive.google.com/file/d/1luokTmMM6MFftosV2PTrTRkUF1DXMYDg/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1luokTmMM6MFftosV2PTrTRkUF1DXMYDg",
+    "driveId": "1luokTmMM6MFftosV2PTrTRkUF1DXMYDg",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-931",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "Sample Paper 10 Solutions",
+    "fullFileName": "Sample Paper 10 Solutions.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "PYQ / Specimen",
+    "url": "https://drive.google.com/file/d/1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF/view",
+    "previewUrl": "https://drive.google.com/file/d/1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF",
+    "driveId": "1c-LsSEdXtQTvlO5x_AilS7wg9V0if1YF",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-932",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "Sample Paper 11 Solutions",
+    "fullFileName": "Sample Paper 11 Solutions.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "PYQ / Specimen",
+    "url": "https://drive.google.com/file/d/10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK/view",
+    "previewUrl": "https://drive.google.com/file/d/10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK",
+    "driveId": "10ZCrdPOtPa8JBmdiG6lWTYGRDNOXn5IK",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-933",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Arihant",
+    "title": "The Finisher Solutions",
+    "fullFileName": "The Finisher Solutions.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03/view",
+    "previewUrl": "https://drive.google.com/file/d/1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03",
+    "driveId": "1loMjKvrhPvGzyS8s80ug6qwDxpOPEN03",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-934",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Miscellaneous",
+    "title": "Handwritten Accountancy Theory",
+    "fullFileName": "Handwritten Accountancy Theory.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Study Notes",
+    "url": "https://drive.google.com/file/d/18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j/view",
+    "previewUrl": "https://drive.google.com/file/d/18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j",
+    "driveId": "18O1W2V5m4HCPwKojUUPNGh11w4P9Lo7j",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-935",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Oswal",
+    "title": "Question Bank",
+    "fullFileName": "Question Bank.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "Practice / CFQ",
+    "url": "https://drive.google.com/file/d/1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN/view",
+    "previewUrl": "https://drive.google.com/file/d/1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN",
+    "driveId": "1Ffm0Aom1f6Ge3HgAaHhyvt-TApMxXfdN",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-936",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Oswal",
+    "title": "Specimen Question Paper",
+    "fullFileName": "Specimen Question Paper.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "PYQ / Specimen",
+    "url": "https://drive.google.com/file/d/1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw/view",
+    "previewUrl": "https://drive.google.com/file/d/1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw/preview",
+    "downloadUrl": "https://drive.google.com/uc?export=download&id=1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw",
+    "driveId": "1AxnG1Pm92xB106T0vdc_7vht7sNWR1Sw",
+    "streams": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "isc-937",
+    "subject": "Accounts",
+    "category": "Miscellaneous / Together With",
+    "title": "Sample Papers",
+    "fullFileName": "Sample Papers.pdf",
+    "rawPath": "Accounts/text",
+    "fileType": "PDF",
+    "tag": "PYQ / Specimen",
+    "url": "https://drive.google.com/file/d/1LTJ2q4aWximmBzUTvKknKUYikspIwVi1/view",
     "previewUrl": "https://drive.google.com/file/d/1LTJ2q4aWximmBzUTvKknKUYikspIwVi1/preview",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1LTJ2q4aWximmBzUTvKknKUYikspIwVi1",
     "driveId": "1LTJ2q4aWximmBzUTvKknKUYikspIwVi1",
@@ -646,15 +629,15 @@ window.__FALLBACK_NOTES_DATA__ = [
     ]
   },
   {
-    "id": "isc-905",
+    "id": "isc-938",
     "subject": "Accounts",
-    "category": "Chapter Notes",
-    "title": "34",
-    "fullFileName": "34",
+    "category": "Miscellaneous",
+    "title": "Unpacking-Directed-Writing",
+    "fullFileName": "Unpacking-Directed-Writing.pdf",
     "rawPath": "Accounts/text",
     "fileType": "PDF",
     "tag": "Study Notes",
-    "url": "Unpacking-Directed-Writing.pdf|https://drive.google.com/file/d/1uR3j4kGz5S0wOTbdYWCX_Rlk_IJwFgS1/view",
+    "url": "https://drive.google.com/file/d/1uR3j4kGz5S0wOTbdYWCX_Rlk_IJwFgS1/view",
     "previewUrl": "https://drive.google.com/file/d/1uR3j4kGz5S0wOTbdYWCX_Rlk_IJwFgS1/preview",
     "downloadUrl": "https://drive.google.com/uc?export=download&id=1uR3j4kGz5S0wOTbdYWCX_Rlk_IJwFgS1",
     "driveId": "1uR3j4kGz5S0wOTbdYWCX_Rlk_IJwFgS1",
