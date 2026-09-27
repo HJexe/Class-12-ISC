@@ -119,7 +119,11 @@ app.get(['/favicon-for-light.svg', '/favicon-for-dark.svg'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'favicon.svg'));
 });
 
-// SEO routes
+// SEO & AdSense routes
+app.get('/ads.txt', (_req, res) => {
+  res.type('text/plain').sendFile(path.join(__dirname, 'ads.txt'));
+});
+
 app.get('/robots.txt', (_req, res) => {
   res.type('text/plain').sendFile(path.join(__dirname, 'robots.txt'));
 });
