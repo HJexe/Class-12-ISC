@@ -1,6 +1,12 @@
 # robots.txt for ISC.exe 2.0 / Class 12 ISC Resource Hub
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://isc-exe.vercel.app/sitemap.xml
+Sitemap: https://class12isc.dpdns.org/sitemap.xml
