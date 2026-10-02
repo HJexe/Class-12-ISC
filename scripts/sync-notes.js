@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-const SUBJECT_STREAMS = {
+export const SUBJECT_STREAMS = {
   'Accounts': ['Commerce'],
   'Biology': ['Science'],
   'Business Studies': ['Commerce'],
@@ -20,11 +20,14 @@ const SUBJECT_STREAMS = {
   'Physics': ['Science'],
   'Psychology': ['Humanities'],
   'Sociology': ['Humanities'],
-  'History': ['Humanities', 'All Streams']
+  'History': ['Humanities', 'All Streams'],
+  'Political Science': ['Humanities'],
+  'Biotechnology': ['Science'],
+  'Environmental Science': ['Science', 'Humanities', 'Commerce']
 };
 
-// Standard raw file order
-const RAW_FILES = [
+// Standard raw file order baseline
+const DEFAULT_RAW_FILES = [
   'Accounts/Worksheets/text',
   'Accounts/text',
   'Biology/text',
@@ -47,14 +50,117 @@ const RAW_FILES = [
   'History/text'
 ];
 
+export function discoverRawFiles() {
+  const discovered = new Set(DEFAULT_RAW_FILES);
+  const filesJsonPath = path.join(rootDir, 'files.json');
+
+  if (fs.existsSync(filesJsonPath)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(filesJsonPath, 'utf8'));
+      if (Array.isArray(parsed)) {
+        parsed.forEach(rel => {
+          if (typeof rel === 'string' && (rel.endsWith('/text') || rel.endsWith('/text.'))) {
+            discovered.add(rel);
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Could not parse files.json:', e);
+    }
+  }
+
+  // Also scan subject directories for any new text index files
+  for (const subject of Object.keys(SUBJECT_STREAMS)) {
+    const subjDir = path.join(rootDir, subject);
+    if (!fs.existsSync(subjDir) || !fs.statSync(subjDir).isDirectory()) continue;
+
+    const walk = (dir) => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.name.startsWith('.')) continue;
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walk(full);
+        } else if (entry.name === 'text' || entry.name === 'text.') {
+          const rel = path.relative(rootDir, full).replace(/\\/g, '/');
+          discovered.add(rel);
+        }
+      }
+    };
+    try {
+      walk(subjDir);
+    } catch (e) {}
+  }
+
+  // Sort so subfolder text files come before root <Subject>/text (preserving specific categories first)
+  const list = Array.from(discovered).filter(rel => fs.existsSync(path.join(rootDir, rel)));
+  list.sort((a, b) => {
+    const subjA = a.split('/')[0];
+    const subjB = b.split('/')[0];
+    if (subjA !== subjB) return subjA.localeCompare(subjB);
+    const depthA = a.split('/').length;
+    const depthB = b.split('/').length;
+    if (depthA !== depthB) return depthB - depthA;
+    return a.localeCompare(b);
+  });
+
+  // Update files.json cleanly
+  try {
+    const sortedForFilesJson = [...list].sort((a, b) => a.localeCompare(b));
+    fs.writeFileSync(filesJsonPath, JSON.stringify(sortedForFilesJson, null, 2) + '\n', 'utf8');
+  } catch (e) {}
+
+  return list;
+}
+
+export function deriveNoteTag(category, title, fullFileName) {
+  let tag = 'Study Notes';
+  const checkText = `${category} ${title} ${fullFileName}`.toLowerCase();
+  if (checkText.includes('syllabus') || checkText.includes('pupil analysis')) {
+    tag = 'Official Syllabus';
+  } else if (
+    checkText.includes('cfq') ||
+    checkText.includes('worksheet') ||
+    checkText.includes('wkst') ||
+    checkText.includes('ws') ||
+    checkText.includes('practice') ||
+    checkText.includes('hots') ||
+    checkText.includes('mcq') ||
+    checkText.includes('question bank') ||
+    checkText.includes('qb')
+  ) {
+    tag = 'Practice / CFQ';
+  } else if (
+    checkText.includes('pyq') ||
+    checkText.includes('sample') ||
+    checkText.includes('spq') ||
+    checkText.includes('paper') ||
+    checkText.includes('prelim') ||
+    checkText.includes('10yrs') ||
+    checkText.includes('10 years') ||
+    checkText.includes('specimen')
+  ) {
+    tag = 'PYQ / Specimen';
+  } else if (
+    checkText.includes('quick') ||
+    checkText.includes('formula') ||
+    checkText.includes('cheat sheet') ||
+    checkText.includes('summary') ||
+    checkText.includes('booster')
+  ) {
+    tag = 'Quick Revision';
+  }
+  return tag;
+}
+
 export function buildNotesData() {
   console.log('🔄 Syncing study notes data from subject text files...');
 
-  // 1. Load existing notes to preserve existing IDs & bookmarks
   const jsonPath = path.join(rootDir, 'notes-data.json');
   const jsPath = path.join(rootDir, 'notes-data.js');
 
   const existingByUrl = new Map();
+  const existingByDriveId = new Map();
   let maxIdNum = 0;
 
   if (fs.existsSync(jsonPath)) {
@@ -63,6 +169,7 @@ export function buildNotesData() {
       if (Array.isArray(existing)) {
         existing.forEach(n => {
           if (n.url) existingByUrl.set(n.url.trim(), n);
+          if (n.driveId) existingByDriveId.set(n.driveId.trim(), n);
           if (n.id) {
             const match = n.id.match(/^isc-(\d+)$/);
             if (match) {
@@ -77,15 +184,14 @@ export function buildNotesData() {
     }
   }
 
+  const rawFilesList = discoverRawFiles();
   const allNotes = [];
   const assignedIds = new Set();
+  const seenSubjectDriveKey = new Set();
 
-  for (const rawRelPath of RAW_FILES) {
+  for (const rawRelPath of rawFilesList) {
     const fullTextPath = path.join(rootDir, rawRelPath);
-    if (!fs.existsSync(fullTextPath)) {
-      console.warn(`⚠️ Warning: Missing text file at ${rawRelPath}`);
-      continue;
-    }
+    if (!fs.existsSync(fullTextPath)) continue;
 
     const subject = rawRelPath.split('/')[0].trim();
     const streams = SUBJECT_STREAMS[subject] || ['Commerce'];
@@ -104,12 +210,20 @@ export function buildNotesData() {
       const trimmed = line.trim();
       if (!trimmed || !trimmed.includes('|')) continue;
 
-      const pipeIdx = trimmed.indexOf('|');
+      // Support both "Path/File.pdf|URL" and numbered "1| Path/File.pdf|URL"
+      const pipeIdx = trimmed.lastIndexOf('|');
       let filePathPart = trimmed.substring(0, pipeIdx).trim();
       const url = trimmed.substring(pipeIdx + 1).trim();
+      if (!url || !url.startsWith('http')) continue;
 
-      // Normalize: strip accidental leading slashes
-      filePathPart = filePathPart.replace(/^\/+/, '');
+      // Strip optional leading line number ("1| ") and leading slashes or "Root/"
+      filePathPart = filePathPart
+        .replace(/^\d+\s*\|\s*/, '')
+        .replace(/^\/+/, '')
+        .replace(/^Root\/+/i, '')
+        .trim();
+
+      if (!filePathPart) continue;
 
       // Extract Google Drive ID
       const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
@@ -117,13 +231,23 @@ export function buildNotesData() {
       const previewUrl = driveId ? `https://drive.google.com/file/d/${driveId}/preview` : url;
       const downloadUrl = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : url;
 
+      // Avoid duplicate entry within the same subject if listed in both a chapter subfolder text and root subject text
+      const dedupKey = `${subject}::${driveId || url}`;
+      if (seenSubjectDriveKey.has(dedupKey)) continue;
+      seenSubjectDriveKey.add(dedupKey);
+
       // Extract Category & FullFileName
       let category = defaultCategory;
       let fullFileName = filePathPart;
       if (filePathPart.includes('/')) {
-        const parts = filePathPart.split('/');
-        fullFileName = parts[parts.length - 1].trim();
-        category = parts.slice(0, -1).map(p => p.trim()).join(' / ');
+        const parts = filePathPart.split('/').map(p => p.trim()).filter(Boolean);
+        fullFileName = parts[parts.length - 1];
+        const folderParts = parts.slice(0, -1);
+        // Deduplicate consecutive identical folder names (e.g. "Company Accounts/Company Accounts")
+        const cleanFolders = folderParts.filter((folder, idx) => idx === 0 || folder.toLowerCase() !== folderParts[idx - 1].toLowerCase());
+        if (cleanFolders.length > 0) {
+          category = cleanFolders.join(' / ');
+        }
       }
 
       // Title & FileType
@@ -133,44 +257,10 @@ export function buildNotesData() {
       const title = extMatch ? fullFileName.substring(0, fullFileName.length - extMatch[0].length).trim() : fullFileName;
 
       // Tag derivation
-      let tag = 'Study Notes';
-      const checkText = `${category} ${title} ${fullFileName}`.toLowerCase();
-      if (checkText.includes('syllabus') || checkText.includes('pupil analysis')) {
-        tag = 'Official Syllabus';
-      } else if (
-        checkText.includes('cfq') ||
-        checkText.includes('worksheet') ||
-        checkText.includes('wkst') ||
-        checkText.includes('ws') ||
-        checkText.includes('practice') ||
-        checkText.includes('hots') ||
-        checkText.includes('mcq') ||
-        checkText.includes('question bank') ||
-        checkText.includes('qb')
-      ) {
-        tag = 'Practice / CFQ';
-      } else if (
-        checkText.includes('pyq') ||
-        checkText.includes('sample') ||
-        checkText.includes('spq') ||
-        checkText.includes('paper') ||
-        checkText.includes('prelim') ||
-        checkText.includes('10yrs') ||
-        checkText.includes('10 years') ||
-        checkText.includes('specimen')
-      ) {
-        tag = 'PYQ / Specimen';
-      } else if (
-        checkText.includes('quick') ||
-        checkText.includes('formula') ||
-        checkText.includes('cheat sheet') ||
-        checkText.includes('summary')
-      ) {
-        tag = 'Quick Revision';
-      }
+      let tag = deriveNoteTag(category, title, fullFileName);
 
       // Check if existing note can donate its ID & tag
-      const existing = existingByUrl.get(url);
+      const existing = existingByUrl.get(url) || (driveId ? existingByDriveId.get(driveId) : null);
       let id = '';
       if (existing && existing.id && !assignedIds.has(existing.id)) {
         id = existing.id;
@@ -199,7 +289,7 @@ export function buildNotesData() {
     }
   }
 
-// Write JSON
+  // Write JSON
   fs.writeFileSync(jsonPath, JSON.stringify(allNotes, null, 2), 'utf8');
 
   // Write JS Fallback
@@ -207,11 +297,9 @@ export function buildNotesData() {
   fs.writeFileSync(jsPath, jsContent, 'utf8');
 
   console.log(`✅ Successfully compiled ${allNotes.length} notes!`);
-  const econCount = allNotes.filter(n => n.subject === 'Economics').length;
-  console.log(`📊 Economics notes count: ${econCount}`);
 
-  // 2. Track & Sync Notifications Changelog
-  syncNotificationsHistory(allNotes, existingByUrl);
+  // Track & Sync Notifications Changelog
+  syncNotificationsHistory(allNotes, existingByUrl, existingByDriveId);
 
   return allNotes;
 }
@@ -229,7 +317,7 @@ function getGitCommitInfo() {
   };
 }
 
-function syncNotificationsHistory(allNotes, existingByUrl) {
+function syncNotificationsHistory(allNotes, existingByUrl, existingByDriveId) {
   const notifJsonPath = path.join(rootDir, 'notifications.json');
   const notifJsPath = path.join(rootDir, 'notifications.js');
 
@@ -246,7 +334,11 @@ function syncNotificationsHistory(allNotes, existingByUrl) {
   }
 
   // Find newly added notes compared to previous notes-data.json
-  const newlyAdded = allNotes.filter(n => !existingByUrl.has(n.url.trim()));
+  const newlyAdded = allNotes.filter(n => {
+    const hasUrl = existingByUrl.has(n.url.trim());
+    const hasDrive = n.driveId && existingByDriveId && existingByDriveId.has(n.driveId.trim());
+    return !hasUrl && !hasDrive;
+  });
   const gitInfo = getGitCommitInfo();
 
   if (newlyAdded.length > 0) {
@@ -285,130 +377,15 @@ function syncNotificationsHistory(allNotes, existingByUrl) {
       }))
     };
 
-    // Mark previous batches as not latest
     notifications.forEach(b => { b.isLatest = false; });
     notifications.unshift(newBatch);
   }
 
-  // If no history existed yet, generate seed batches using existing recent additions
-  if (notifications.length === 0) {
-    console.log('📦 Seeding initial notifications changelog...');
-
-    // Batch 1: 24 newly added Economics notes
-    const econNewCategories = [
-      'Banking', 'Elasticity Of Demand', 'Market Mechanism', 'Money',
-      'National Income', 'Producers Equilibrium', 'Public Debt', 'Public Finance',
-      'Supply', 'Theory of Consumer Behaviour', 'Theory of Income and Employment', 'Vatsal'
-    ];
-    const econNotes = allNotes.filter(n => n.subject === 'Economics' && econNewCategories.includes(n.category));
-
-    if (econNotes.length > 0) {
-      notifications.push({
-        id: 'update-econ-24',
-        timestamp: new Date().toISOString(),
-        isLatest: true,
-        commit: {
-          sha: '7f93a1c4b2',
-          shortSha: '7f93a1c',
-          branch: 'main',
-          message: 'feat(economics): added 24 new chapter notes, boosters, and sample materials'
-        },
-        title: '24 New Economics Chapter Notes & Boosters',
-        summary: 'Added 24 comprehensive study notes across Banking, Theory of Consumer Behaviour, Elasticity of Demand, Market Mechanism, Public Finance & National Income.',
-        addedCount: econNotes.length,
-        subjects: ['Economics'],
-        resources: econNotes.map(n => ({
-          id: n.id,
-          title: n.title,
-          subject: n.subject,
-          category: n.category,
-          streams: n.streams,
-          fileType: n.fileType,
-          tag: n.tag,
-          rawPath: n.rawPath,
-          url: n.url,
-          previewUrl: n.previewUrl,
-          downloadUrl: n.downloadUrl
-        }))
-      });
-    }
-
-    // Batch 2: Accounts worksheets & practice papers
-    const accountsNotes = allNotes.filter(n => n.subject === 'Accounts' && (n.category.includes('Worksheets') || n.category.includes('Practice') || n.category.includes('PYQ'))).slice(0, 16);
-    if (accountsNotes.length > 0) {
-      notifications.push({
-        id: 'update-accounts-worksheets',
-        timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-        isLatest: false,
-        commit: {
-          sha: '3c82d41a0b',
-          shortSha: '3c82d41',
-          branch: 'main',
-          message: 'feat(accounts): added chapter-wise worksheets and practice papers'
-        },
-        title: 'Accounts Worksheets & Practice Problems',
-        summary: 'Added 16 structured accounting worksheets, ledger practice sets, and past prelim questions.',
-        addedCount: accountsNotes.length,
-        subjects: ['Accounts'],
-        resources: accountsNotes.map(n => ({
-          id: n.id,
-          title: n.title,
-          subject: n.subject,
-          category: n.category,
-          streams: n.streams,
-          fileType: n.fileType,
-          tag: n.tag,
-          rawPath: n.rawPath,
-          url: n.url,
-          previewUrl: n.previewUrl,
-          downloadUrl: n.downloadUrl
-        }))
-      });
-    }
-
-    // Batch 3: Science revision notes
-    const csNotes = allNotes.filter(n => n.subject === 'Computer Science' && n.category.includes('Revision')).slice(0, 10);
-    if (csNotes.length > 0) {
-      notifications.push({
-        id: 'update-science-cs',
-        timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-        isLatest: false,
-        commit: {
-          sha: '1b99a53f88',
-          shortSha: '1b99a53',
-          branch: 'main',
-          message: 'feat(cs): high-yield Java revision notes and theory sheets'
-        },
-        title: 'Computer Science High-Yield Revision Sheets',
-        summary: 'Added 10 quick revision notes covering Java OOPs, recursion, arrays, and boolean logic.',
-        addedCount: csNotes.length,
-        subjects: ['Computer Science'],
-        resources: csNotes.map(n => ({
-          id: n.id,
-          title: n.title,
-          subject: n.subject,
-          category: n.category,
-          streams: n.streams,
-          fileType: n.fileType,
-          tag: n.tag,
-          rawPath: n.rawPath,
-          url: n.url,
-          previewUrl: n.previewUrl,
-          downloadUrl: n.downloadUrl
-        }))
-      });
-    }
-  }
-
-  // Keep up to 50 recent update batches
   if (notifications.length > 50) {
     notifications = notifications.slice(0, 50);
   }
 
-  // Write notifications.json
   fs.writeFileSync(notifJsonPath, JSON.stringify(notifications, null, 2), 'utf8');
-
-  // Write notifications.js for instant zero-server browser fallback
   const notifJsContent = `window.__NOTIFICATIONS_DATA__ = ${JSON.stringify(notifications, null, 2)};\n`;
   fs.writeFileSync(notifJsPath, notifJsContent, 'utf8');
 
