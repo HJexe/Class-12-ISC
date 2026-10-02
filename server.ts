@@ -119,13 +119,7 @@ app.get(['/favicon-for-light.svg', '/favicon-for-dark.svg'], (_req, res) => {
   res.sendFile(path.join(__dirname, 'favicon.svg'));
 });
 
-// SEO, AdSense & Service Worker routes
-app.get('/sw.js', (_req, res) => {
-  res.setHeader('Service-Worker-Allowed', '/');
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.type('application/javascript').sendFile(path.join(__dirname, 'sw.js'));
-});
-
+// SEO & AdSense routes
 app.get('/ads.txt', (_req, res) => {
   res.type('text/plain').sendFile(path.join(__dirname, 'ads.txt'));
 });
