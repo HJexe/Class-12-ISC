@@ -12,12 +12,12 @@
   const DEFAULT_ACCENT = '#3bff6c';
 
   const UI_THEMES = [
+    {name:'Route Map',      bg:'#111a17', bg2:'#17211d', surface:'#1c2923', surface2:'#23332b', border:'#304238', border2:'#405449'},
     {name:'Midnight Blue', bg:'#0f1318', bg2:'#131921', surface:'#1a2230', surface2:'#1f2938', border:'#253040', border2:'#2c3a4d'},
     {name:'Deep Navy',     bg:'#0b1120', bg2:'#0f172a', surface:'#162036', surface2:'#1c2a44', border:'#243454', border2:'#2d3f60'},
     {name:'Arctic Steel',  bg:'#0e1318', bg2:'#121a22', surface:'#1a2636', surface2:'#203040', border:'#28384e', border2:'#32445a'},
     {name:'Forest Night',  bg:'#0c1610', bg2:'#101e15', surface:'#172b1e', surface2:'#1e3526', border:'#264030', border2:'#2e4d38'},
-    {name:'Emerald Dark',  bg:'#0a1612', bg2:'#0e1c18', surface:'#152a22', surface2:'#1c342c', border:'#243e34', border2:'#2c4a3e'},
-    {name:'Pure White',    bg:'#f5f6f8', bg2:'#ebedf0', surface:'#ffffff', surface2:'#f8f9fa', border:'#dfe2e6', border2:'#c8cdd3', light:true, fg:'#141a24', fg2:'#4a5568', fg3:'#6b7a8d'}
+    {name:'Emerald Dark',  bg:'#0a1612', bg2:'#0e1c18', surface:'#152a22', surface2:'#1c342c', border:'#243e34', border2:'#2c4a3e'}
   ];
 
   const SOLID_PRESETS = [
@@ -28,6 +28,7 @@
 
   let pickerOpen = false;
   let currentUITheme = JSON.parse(localStorage.getItem(UI_THEME_KEY) || 'null');
+  if (currentUITheme?.light) currentUITheme = UI_THEMES[0];
   let currentHex = localStorage.getItem(STORE_KEY) || DEFAULT_ACCENT;
   let currentGrad = JSON.parse(localStorage.getItem(GRAD_KEY) || 'null');
 
@@ -58,6 +59,7 @@
 
   // ─── UI THEME ───
   function applyUITheme(theme, save = true) {
+    if (theme?.light) theme = UI_THEMES[0];
     currentUITheme = theme;
     window.ISCTheme.applyUITheme(theme, save);
     buildUIThemePresets(); 

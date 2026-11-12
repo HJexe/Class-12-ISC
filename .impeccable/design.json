@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-12T16:00:00Z",
+  "title": "Design System: ISC.exe",
+  "extensions": {
+    "colorMeta": {
+      "evergreen-ground": { "role": "neutral", "displayName": "Evergreen Ground", "canonical": "#111a17", "tonalRamp": ["#090d0b", "#101714", "#17211d", "#1e2a24", "#29372f", "#48564d", "#77847a", "#b5bdb6"] },
+      "evergreen-raised": { "role": "neutral", "displayName": "Evergreen Raised", "canonical": "#17211d", "tonalRamp": ["#0d120f", "#141c18", "#1c2722", "#25312b", "#303e36", "#4e5c53", "#7c8980", "#b8c0ba"] },
+      "evergreen-surface": { "role": "neutral", "displayName": "Evergreen Surface", "canonical": "#1c2923", "tonalRamp": ["#111713", "#19231e", "#222f29", "#2b3932", "#37463e", "#55635a", "#828f86", "#bdc5bf"] },
+      "evergreen-surface-high": { "role": "neutral", "displayName": "Evergreen Surface High", "canonical": "#23332b", "tonalRamp": ["#151b17", "#1e2b24", "#28382f", "#324238", "#3e4e44", "#5b6b61", "#87958b", "#c1c9c3"] },
+      "evergreen-line": { "role": "neutral", "displayName": "Evergreen Line", "canonical": "#304238", "tonalRamp": ["#1c2620", "#293830", "#35483d", "#405449", "#4b5f54", "#68796e", "#91a096", "#c6cec8"] },
+      "evergreen-line-strong": { "role": "neutral", "displayName": "Evergreen Line Strong", "canonical": "#405449", "tonalRamp": ["#25332b", "#34453b", "#405449", "#4b6054", "#566b5f", "#728579", "#99a79e", "#cbd2cd"] },
+      "ivory-text": { "role": "neutral", "displayName": "Soft Ivory", "canonical": "#e8eadf", "tonalRamp": ["#22231f", "#41423c", "#606159", "#7d7f76", "#999b92", "#b3b5ac", "#ced0c7", "#e8eadf"] },
+      "sage-muted": { "role": "neutral", "displayName": "Muted Sage", "canonical": "#aeb9ae", "tonalRamp": ["#202520", "#3c443d", "#59625a", "#747e75", "#8d988e", "#aeb9ae", "#c6cec6", "#e0e5df"] },
+      "sage-faint": { "role": "neutral", "displayName": "Faint Sage", "canonical": "#97a69a", "tonalRamp": ["#1d231e", "#384139", "#525e54", "#6d7a6f", "#849387", "#97a69a", "#bdc7bf", "#dfe5e0"] },
+      "route-gold": { "role": "primary", "displayName": "Route Gold", "canonical": "#d9b86e", "tonalRamp": ["#332a19", "#514225", "#705b32", "#8f7440", "#ad8d50", "#c3a35f", "#d9b86e", "#f1ddb0"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Landing page title and the most prominent message." },
+      "headline": { "displayName": "Section Headline", "purpose": "Section and resource-group headings." },
+      "body": { "displayName": "Body", "purpose": "Directory labels, descriptions, and supporting text." },
+      "label": { "displayName": "Compact Label", "purpose": "Navigation, counters, and secondary metadata." }
+    },
+    "shadows": [
+      { "name": "subject-menu", "value": "0 12px 28px rgba(0,0,0,.28)", "purpose": "Separate the open subject menu from directory rows." }
+    ],
+    "motion": [
+      { "name": "control-color", "value": "color .16s ease, background-color .16s ease", "purpose": "Quiet navigation and control state changes." },
+      { "name": "row-background", "value": "background-color .16s ease", "purpose": "Subtle directory and stream row hover feedback." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "900px" },
+      { "name": "phone", "value": "520px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main commit or open action, marked in route gold.",
+      "html": "<button class=\"ds-button-primary\">Open resource</button>",
+      "css": ".ds-button-primary { min-height: 44px; padding: 0 1.1rem; border: 1px solid var(--route-gold, #d9b86e); border-radius: 8px; background: var(--route-gold, #d9b86e); color: #1a211b; font: 600 0.9rem 'Plus Jakarta Sans', sans-serif; transition: color .16s ease, background-color .16s ease; } .ds-button-primary:hover { background: #e3c881; border-color: #e3c881; } .ds-button-primary:focus-visible { outline: 2px solid var(--route-gold, #d9b86e); outline-offset: 2px; } .ds-button-primary:active { background: #c8a85f; }"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A supporting viewer action on an evergreen surface.",
+      "html": "<button class=\"ds-button-secondary\">Download</button>",
+      "css": ".ds-button-secondary { min-height: 44px; padding: 0 1rem; border: 1px solid var(--route-line, #304238); border-radius: 8px; background: var(--route-bg-raised, #17211d); color: var(--route-text, #e8eadf); font: 500 0.85rem 'Plus Jakarta Sans', sans-serif; transition: color .16s ease, background-color .16s ease; } .ds-button-secondary:hover { background: var(--route-surface, #1c2923); border-color: #506454; } .ds-button-secondary:focus-visible { outline: 2px solid var(--route-gold, #d9b86e); outline-offset: 2px; } .ds-button-secondary:active { background: var(--route-bg, #111a17); }"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "refersTo": "nav-active",
+      "description": "Compact navigation with one gold active destination.",
+      "html": "<button class=\"ds-nav-item ds-nav-active\">Directory</button>",
+      "css": ".ds-nav-item { min-height: 40px; padding: 0 .8rem; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--route-muted, #aeb9ae); font: 500 .8rem 'Plus Jakarta Sans', sans-serif; transition: color .16s ease, background-color .16s ease; } .ds-nav-item:hover { color: var(--route-text, #e8eadf); background: var(--route-bg-raised, #17211d); border-color: var(--route-line, #304238); } .ds-nav-item:focus-visible { outline: 2px solid var(--route-gold, #d9b86e); outline-offset: 2px; } .ds-nav-active { color: #1a211b; background: var(--route-gold, #d9b86e); border-color: var(--route-gold, #d9b86e); font-weight: 600; } .ds-nav-active:hover { color: #1a211b; background: #e3c881; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "The directory search field, sized for comfortable phone use.",
+      "html": "<input class=\"ds-search\" type=\"search\" placeholder=\"Search subjects and notes\" aria-label=\"Search subjects and notes\">",
+      "css": ".ds-search { width: 100%; height: 44px; padding: 0 .85rem; border: 1px solid var(--route-line, #304238); border-radius: 8px; background: var(--route-bg, #111a17); color: var(--route-text, #e8eadf); font: 400 .9rem 'Plus Jakarta Sans', sans-serif; } .ds-search::placeholder { color: #9aa89c; opacity: 1; } .ds-search:focus-visible { border-color: var(--route-gold, #d9b86e); outline: 2px solid rgba(217,184,110,.16); outline-offset: 1px; }"
+    },
+    {
+      "name": "Directory Row",
+      "kind": "custom",
+      "refersTo": "tree-row-selected",
+      "description": "A scan-friendly folder or note row with a clear selected state.",
+      "html": "<button class=\"ds-tree-row ds-tree-selected\"><span>Chapter 4 notes.pdf</span><span class=\"ds-tree-badge\">PDF</span></button>",
+      "css": ".ds-tree-row { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: .55rem .7rem; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #d5ddd4; text-align: left; font: 400 .88rem 'Plus Jakarta Sans', sans-serif; transition: background-color .16s ease; } .ds-tree-row:hover { color: var(--route-text, #e8eadf); background: #1a2720; } .ds-tree-row:focus-visible { outline: 2px solid var(--route-gold, #d9b86e); outline-offset: 2px; } .ds-tree-selected { color: var(--route-text, #e8eadf); background: #28352b; border-color: var(--route-gold, #d9b86e); } .ds-tree-badge { color: var(--route-muted, #aeb9ae); font-size: .72rem; }"
+    },
+    {
+      "name": "Information Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A quiet raised surface for supporting information or submissions.",
+      "html": "<section class=\"ds-card\"><strong>Study resources</strong><p>Browse notes by stream, subject, and topic.</p></section>",
+      "css": ".ds-card { padding: 16px; border: 1px solid var(--route-line, #304238); border-radius: 12px; background: var(--route-bg-raised, #17211d); color: var(--route-text, #e8eadf); font: 400 .9rem/1.6 'Plus Jakarta Sans', sans-serif; } .ds-card strong { font-weight: 600; } .ds-card p { margin: .35rem 0 0; color: var(--route-muted, #aeb9ae); }"
+    },
+    {
+      "name": "Mobile Pane Tab",
+      "kind": "nav",
+      "refersTo": "nav-active",
+      "description": "Switches between directory and document preview on phones.",
+      "html": "<button class=\"ds-mobile-tab ds-mobile-tab-active\">Document Preview</button>",
+      "css": ".ds-mobile-tab { min-height: 44px; padding: 0 .8rem; border: 1px solid var(--route-line, #304238); border-radius: 8px; background: var(--route-bg-raised, #17211d); color: var(--route-muted, #aeb9ae); font: 500 .82rem 'Plus Jakarta Sans', sans-serif; } .ds-mobile-tab:hover { color: var(--route-text, #e8eadf); } .ds-mobile-tab:focus-visible { outline: 2px solid var(--route-gold, #d9b86e); outline-offset: 2px; } .ds-mobile-tab-active { border-color: var(--route-gold, #d9b86e); background: var(--route-gold, #d9b86e); color: #1a211b; font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Revision Route Map",
+    "overview": "ISC.exe should feel like a quiet, dependable route through a large study collection. The evergreen ground and raised surfaces keep attention on the subject and resource rows; soft ivory carries the content, while a single warm-gold mark makes the current route or primary action easy to find. The interface is precise and calm, with measured rows and clear alignment rather than a hero-first or control-panel mood.\n\nUse the existing identity and product language. Keep the directory useful and content-led across desktop and phone layouts. Dark is the default and only visual mode; theme choices may shift the dark hue, but must remain dark.",
+    "keyCharacteristics": [
+      "Dark evergreen foundation with raised, distinct reading surfaces.",
+      "Warm gold identifies the active route, selection, focus, and primary action.",
+      "Terse hierarchy, aligned rows, and restrained surface decoration.",
+      "Responsive directory and document preview flow."
+    ],
+    "rules": [
+      { "name": "The One Gold Marker Rule", "body": "Keep route gold focused on active, selected, focused, or primary elements; use sage and surface shifts for ordinary hierarchy.", "section": "colors" },
+      { "name": "The Dark-Only Rule", "body": "All defaults and user-selectable UI themes stay dark. Never introduce a white or light mode.", "section": "colors" },
+      { "name": "The Plain Case Rule", "body": "Prefer sentence case and normal tracking for labels. Avoid turning routine navigation or metadata into widely tracked all-caps decoration.", "section": "typography" },
+      { "name": "The Flat-At-Rest Rule", "body": "Resting navigation, buttons, and content rows use tonal and border differences rather than glow or floating shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the default and every selectable UI palette dark.",
+      "Do use gold for active routes, selected items, focus, and primary actions.",
+      "Do preserve clear row alignment and the existing directory-to-preview flow at every viewport.",
+      "Do keep main phone controls at least 44px high."
+    ],
+    "donts": [
+      "Don't add a white or light mode.",
+      "Don't use neon glow, glass blur, gradient text, or floating shadows as the default surface treatment.",
+      "Don't use the gold accent as a broad background; its signal depends on selective use.",
+      "Don't alter the product name, logo, study content, or existing resource actions as part of visual styling."
+    ]
+  }
+}

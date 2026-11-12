@@ -59,6 +59,13 @@
   function generatePaletteFromHue(baseHex) {
     let [r, g, b] = hexToRgb(baseHex);
 
+    // Keep custom backgrounds within the dark-only palette while retaining their hue.
+    if (luminance(r, g, b) > 0.12) {
+      const scale = 30 / Math.max(r, g, b);
+      r *= scale; g *= scale; b *= scale;
+      baseHex = rgbToHex(r, g, b);
+    }
+
     // Bump absolute black so surfaces/borders are still visible
     if (r < 6 && g < 6 && b < 6) {
       r = 6; g = 6; b = 6;
@@ -68,23 +75,6 @@
     const lum = luminance(r, g, b);
     const clamp = v => Math.min(255, Math.max(0, Math.round(v)));
     const toHex = (nr, ng, nb) => `#${clamp(nr).toString(16).padStart(2,'0')}${clamp(ng).toString(16).padStart(2,'0')}${clamp(nb).toString(16).padStart(2,'0')}`;
-
-    // Light mode derivation
-    if (lum > 0.65) {
-      return {
-        name: 'Custom',
-        bg: baseHex,
-        bg2: toHex(r * 0.96, g * 0.96, b * 0.96),
-        surface: '#ffffff',
-        surface2: toHex(r * 0.98, g * 0.98, b * 0.98),
-        border: toHex(r * 0.85, g * 0.85, b * 0.85),
-        border2: toHex(r * 0.75, g * 0.75, b * 0.75),
-        light: true,
-        fg: '#141a24',
-        fg2: '#4a5568',
-        fg3: '#6b7a8d'
-      };
-    }
 
     // Dark mode derivation 
     const bump = (val, factor, flat) => val * factor + flat;
@@ -105,6 +95,13 @@
 
   function applyUITheme(theme, save = true) {
     if (!theme) return;
+    // Migrate old saved light themes into a dark palette with a related hue.
+    if (theme.light || luminance(...hexToRgb(theme.bg || '#111a17')) > 0.12) {
+      const dark = generatePaletteFromHue(theme.bg || '#111a17');
+      theme = { ...dark, name: theme.name === 'Custom' ? 'Custom' : (theme.name || dark.name) };
+    } else {
+      theme = { ...theme, light: false };
+    }
     const root = document.documentElement;
     
     root.style.setProperty('--bg', theme.bg);
@@ -114,17 +111,10 @@
     root.style.setProperty('--border', theme.border);
     root.style.setProperty('--border2', theme.border2);
 
-    if (theme.light) {
-      root.style.setProperty('--fg', theme.fg);
-      root.style.setProperty('--fg2', theme.fg2);
-      root.style.setProperty('--fg3', theme.fg3);
-      document.body.classList.add('light-mode');
-    } else {
-      root.style.setProperty('--fg', theme.fg || '#e8edf5');
-      root.style.setProperty('--fg2', theme.fg2 || '#8b9cb5');
-      root.style.setProperty('--fg3', theme.fg3 || '#4e6078');
-      document.body.classList.remove('light-mode');
-    }
+    root.style.setProperty('--fg', theme.fg || '#e8edf5');
+    root.style.setProperty('--fg2', theme.fg2 || '#8b9cb5');
+    root.style.setProperty('--fg3', theme.fg3 || '#4e6078');
+    document.body.classList.remove('light-mode');
 
     if (save) localStorage.setItem('isc-ui-theme', JSON.stringify(theme));
     document.dispatchEvent(new CustomEvent('isc-ui-theme-changed', { detail: theme }));
@@ -217,7 +207,7 @@
     // 1. Load UI Theme
     const savedUITheme = localStorage.getItem('isc-ui-theme');
     if (savedUITheme) {
-      try { applyUITheme(JSON.parse(savedUITheme), false); } catch (e) {}
+      try { applyUITheme(JSON.parse(savedUITheme), true); } catch (e) {}
     }
 
     // 2. Load Accent/Gradient
