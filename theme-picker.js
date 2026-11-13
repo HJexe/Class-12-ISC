@@ -12,7 +12,7 @@
   const DEFAULT_ACCENT = '#3bff6c';
 
   const UI_THEMES = [
-    {name:'Route Map',      bg:'#111a17', bg2:'#17211d', surface:'#1c2923', surface2:'#23332b', border:'#304238', border2:'#405449'},
+    {name:'Obsidian Contrast', bg:'#080b11', bg2:'#111724', surface:'#182133', surface2:'#212c42', border:'#2a3750', border2:'#475c82'},
     {name:'Midnight Blue', bg:'#0f1318', bg2:'#131921', surface:'#1a2230', surface2:'#1f2938', border:'#253040', border2:'#2c3a4d'},
     {name:'Deep Navy',     bg:'#0b1120', bg2:'#0f172a', surface:'#162036', surface2:'#1c2a44', border:'#243454', border2:'#2d3f60'},
     {name:'Arctic Steel',  bg:'#0e1318', bg2:'#121a22', surface:'#1a2636', surface2:'#203040', border:'#28384e', border2:'#32445a'},

@@ -87,17 +87,17 @@
       border: toHex(bump(r, 1.80, 24), bump(g, 1.80, 24), bump(b, 1.80, 24)),
       border2: toHex(bump(r, 2.05, 32), bump(g, 2.05, 32), bump(b, 2.05, 32)),
       light: false,
-      fg: '#e8edf5',
-      fg2: '#8b9cb5',
-      fg3: '#4e6078'
+      fg: '#f8fafc',
+      fg2: '#cbd5e1',
+      fg3: '#94a3b8'
     };
   }
 
   function applyUITheme(theme, save = true) {
     if (!theme) return;
     // Migrate old saved light themes into a dark palette with a related hue.
-    if (theme.light || luminance(...hexToRgb(theme.bg || '#111a17')) > 0.12) {
-      const dark = generatePaletteFromHue(theme.bg || '#111a17');
+    if (theme.light || luminance(...hexToRgb(theme.bg || '#080b11')) > 0.12) {
+      const dark = generatePaletteFromHue(theme.bg || '#080b11');
       theme = { ...dark, name: theme.name === 'Custom' ? 'Custom' : (theme.name || dark.name) };
     } else {
       theme = { ...theme, light: false };
@@ -111,9 +111,9 @@
     root.style.setProperty('--border', theme.border);
     root.style.setProperty('--border2', theme.border2);
 
-    root.style.setProperty('--fg', theme.fg || '#e8edf5');
-    root.style.setProperty('--fg2', theme.fg2 || '#8b9cb5');
-    root.style.setProperty('--fg3', theme.fg3 || '#4e6078');
+    root.style.setProperty('--fg', theme.fg || '#f8fafc');
+    root.style.setProperty('--fg2', theme.fg2 || '#cbd5e1');
+    root.style.setProperty('--fg3', theme.fg3 || '#94a3b8');
     document.body.classList.remove('light-mode');
 
     if (save) localStorage.setItem('isc-ui-theme', JSON.stringify(theme));
