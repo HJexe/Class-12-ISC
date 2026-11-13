@@ -3024,116 +3024,205 @@ body::before, .spotlight-wrapper, .spotlight-beam-ambient-left,
   display: inline-block;
   animation: supportHeartBeat 2.4s ease-in-out infinite;
 }
+@keyframes supportCardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 .support-modal-backdrop {
-  background: rgba(8, 13, 11, 0.82);
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(245, 158, 11, 0.16) 0%,
+    rgba(5, 8, 12, 0.92) 60%,
+    rgba(2, 4, 7, 0.96) 100%
+  );
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 .support-modal-window {
-  width: min(420px, 92vw);
-  background: var(--route-bg-raised, #17211d);
-  border: 1px solid var(--route-line, #304238);
-  border-radius: 12px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  width: min(560px, 94vw);
+  background: #0c0f14;
+  border: 1px solid rgba(251, 191, 36, 0.52);
+  border-radius: 14px;
+  box-shadow:
+    0 36px 84px rgba(0, 0, 0, 0.8),
+    0 0 48px rgba(245, 158, 11, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   overflow: hidden;
   position: relative;
+  animation: supportCardReveal 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.support-modal-header {
-  padding: 0.95rem 1.15rem;
-  background: var(--route-surface, #1c2923);
-  border-bottom: 1px solid var(--route-line, #304238);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+.support-progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
 }
-.support-modal-title {
-  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--route-text, #e8eadf);
-  letter-spacing: -0.02em;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
+.support-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #fde68a);
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 0.1s linear;
 }
 .support-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 4;
   width: 32px;
   height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--route-muted, #aeb9ae);
+  border: 1px solid #2d3748;
+  background: #141923;
+  color: #f1f5f9;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-size: 0.9rem;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
 }
 .support-modal-close:hover {
-  background: var(--route-bg, #111a17);
-  border-color: var(--route-line, #304238);
-  color: var(--route-text, #e8eadf);
+  background: #1e2634;
+  border-color: #fbbf24;
+  color: #ffffff;
 }
-.support-modal-body {
-  padding: 1.15rem;
+.support-modal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(228px, 0.92fr);
+  align-items: stretch;
+}
+.support-editorial-col {
+  padding: 1.65rem 1.5rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  text-align: left;
+}
+.support-kicker {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fbbf24;
+  margin: 0 0 0.45rem;
+}
+.support-headline {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: clamp(1.38rem, 2.5vw, 1.66rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 0.65rem;
+  text-wrap: balance;
+}
+.support-message {
+  font-size: 0.96rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: #f1f5f9;
+  margin: 0;
+}
+.support-meta-footer {
+  padding-top: 0.85rem;
+  border-top: 1px solid #242b38;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.support-timer-status {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #fcd34d;
+  margin: 0;
+}
+.support-qr-stage {
+  background: #141923;
+  border-left: 1px solid #262e3d;
+  padding: 1.55rem 1.35rem 1.35rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.95rem;
+  justify-content: center;
+  gap: 0.75rem;
   text-align: center;
 }
-.support-message {
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: var(--route-text, #e8eadf);
-  margin: 0;
-}
-.support-qr-frame {
-  width: min(230px, 68vw);
-  aspect-ratio: 1 / 1;
+.support-qr-reticle {
+  position: relative;
+  padding: 10px;
   border-radius: 12px;
-  border: 1px solid var(--route-line, #304238);
-  background: #141414;
+  background: #0b0e14;
+  border: 1px solid #2d3748;
+}
+.support-qr-corner {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-color: #fbbf24;
+  border-style: solid;
+  pointer-events: none;
+}
+.support-qr-corner.tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; border-top-left-radius: 4px; }
+.support-qr-corner.tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; border-top-right-radius: 4px; }
+.support-qr-corner.bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; border-bottom-left-radius: 4px; }
+.support-qr-corner.br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; border-bottom-right-radius: 4px; }
+.support-qr-frame {
+  width: 176px;
+  height: 176px;
+  border-radius: 8px;
   overflow: hidden;
-  padding: 0.35rem;
+  background: #141414;
 }
 .support-qr-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 8px;
   display: block;
 }
 .support-upi-plain {
   font-family: var(--font-mono, monospace);
   font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--route-text, #e8eadf);
+  font-weight: 700;
+  color: #ffffff;
   letter-spacing: 0.01em;
   margin: 0;
   user-select: all;
 }
-.support-timer-status {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--route-muted, #aeb9ae);
-  margin: 0;
+.support-upi-caption {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  margin: -0.35rem 0 0;
 }
-.support-progress-track {
-  width: 100%;
-  height: 3px;
-  background: var(--route-bg, #111a17);
-  position: relative;
-  overflow: hidden;
-}
-.support-progress-bar {
-  height: 100%;
-  width: 100%;
-  background: var(--route-gold, #d9b86e);
-  transition: width 0.1s linear;
+@media (max-width: 600px) {
+  .support-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .support-editorial-col {
+    padding: 1.25rem 1.15rem 1rem;
+    gap: 0.9rem;
+  }
+  .support-qr-stage {
+    border-left: 0;
+    border-top: 1px solid #262e3d;
+    padding: 1.15rem;
+  }
+  .support-qr-frame {
+    width: min(176px, 56vw);
+    height: min(176px, 56vw);
+  }
 }
 </style>
 </head>
@@ -3716,36 +3805,48 @@ body::before, .spotlight-wrapper, .spotlight-beam-ambient-left,
   <!-- 6. SUPPORT ME POPUP MODAL -->
   <div class="og-modal-backdrop support-modal-backdrop" id="supportModal">
     <div class="og-modal-window support-modal-window" id="supportModalWindow" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
-      <div class="support-modal-header">
-        <div class="support-modal-title" id="supportModalTitle">
-          <span>Support ISC.exe ❤️</span>
-        </div>
-        <button class="support-modal-close" id="supportModalCloseBtn" onclick="closeSupportModal(true)" aria-label="Close support popup" title="Close (ESC)">✕</button>
-      </div>
-
-      <div class="support-modal-body">
-        <p class="support-message">
-          Pls consider supporting this project which keeps me going and maintaining new notes ❤️💖🤍
-        </p>
-
-        <div class="support-qr-frame">
-          <img
-            src="/public/assets/aistudio/upi_qr_only.png"
-            alt="UPI QR Scanner"
-            class="support-qr-img"
-            loading="lazy"
-          />
-        </div>
-
-        <p class="support-upi-plain" id="supportUpiIdText">hrishirajnagawade@fam</p>
-
-        <p class="support-timer-status" id="supportTimerStatus">
-          Closing in 6s
-        </p>
-      </div>
-
       <div class="support-progress-track" id="supportProgressTrack">
         <div class="support-progress-bar" id="supportProgressBar"></div>
+      </div>
+
+      <button class="support-modal-close" id="supportModalCloseBtn" onclick="closeSupportModal(true)" aria-label="Close support popup" title="Close (ESC)">✕</button>
+
+      <div class="support-modal-grid">
+        <div class="support-editorial-col">
+          <div>
+            <p class="support-kicker">Community supported · Class 12 ISC</p>
+            <h2 class="support-headline" id="supportModalTitle">Keep ISC Notes Going ❤️</h2>
+            <p class="support-message">
+              Pls consider supporting this project which keeps me going and maintaining new notes 💖🤍
+            </p>
+          </div>
+
+          <div class="support-meta-footer">
+            <p class="support-timer-status" id="supportTimerStatus">
+              Closing in 8s
+            </p>
+          </div>
+        </div>
+
+        <div class="support-qr-stage">
+          <div class="support-qr-reticle">
+            <span class="support-qr-corner tl" aria-hidden="true"></span>
+            <span class="support-qr-corner tr" aria-hidden="true"></span>
+            <span class="support-qr-corner bl" aria-hidden="true"></span>
+            <span class="support-qr-corner br" aria-hidden="true"></span>
+            <div class="support-qr-frame">
+              <img
+                src="/public/assets/aistudio/upi_qr_only.png"
+                alt="UPI QR Scanner"
+                class="support-qr-img"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <p class="support-upi-plain" id="supportUpiIdText">hrishirajnagawade@fam</p>
+          <p class="support-upi-caption">Scan with any UPI app</p>
+        </div>
       </div>
     </div>
   </div>
@@ -5356,10 +5457,10 @@ body::before, .spotlight-wrapper, .spotlight-beam-ambient-left,
       if (modal) modal.classList.remove('open');
     }
 
-    // ─── SUPPORT ME POPUP CONTROLLER (6s auto-dismiss + 1.5 minute cooldown) ───
+    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + 1.5 minute cooldown) ───
     const SUPPORT_AUTO_INITIAL_DELAY_MS = 2500;
     const SUPPORT_AUTO_REPEAT_INTERVAL_MS = 90000; // 1.5 minutes
-    const SUPPORT_AUTO_DISMISS_MS = 6000;
+    const SUPPORT_AUTO_DISMISS_MS = 8000;
 
     const supportPopupState = {
       mode: 'manual',
@@ -5389,8 +5490,8 @@ body::before, .spotlight-wrapper, .spotlight-beam-ambient-left,
       }
 
       trackEl.style.display = 'block';
-      const pct = Math.max(0, Math.min(100, (supportPopupState.remainingMs / SUPPORT_AUTO_DISMISS_MS) * 100));
-      barEl.style.width = `${pct}%`;
+      const ratio = Math.max(0, Math.min(1, supportPopupState.remainingMs / SUPPORT_AUTO_DISMISS_MS));
+      barEl.style.transform = `scaleX(${ratio})`;
 
       const secs = Math.max(1, Math.ceil(supportPopupState.remainingMs / 1000));
       statusEl.textContent = `Closing in ${secs}s`;
