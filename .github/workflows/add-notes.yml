@@ -1,0 +1,91 @@
+name: Add Notes from Drive
+
+on:
+  workflow_dispatch:
+    inputs:
+      drive_links:
+        description: "Paste Google Drive folder URLs, file URLs, or Folder/File.pdf|URL lines (space or newline separated)"
+        required: true
+        type: string
+      subject:
+        description: "Target ISC Subject (or Auto-Detect from filenames/folders)"
+        required: true
+        default: "Auto-Detect"
+        type: choice
+        options:
+          - Auto-Detect
+          - Accounts
+          - Economics
+          - Commerce
+          - Business Studies
+          - Physics
+          - Chemistry
+          - Biology
+          - Maths
+          - Computer Science
+          - English
+          - History
+          - Geography
+          - Psychology
+          - Sociology
+          - Political Science
+          - Biotechnology
+          - Environmental Science
+      category:
+        description: "Optional chapter/subfolder name (e.g. Chapter 4 - Elasticity or Prelim Papers)"
+        required: false
+        default: ""
+        type: string
+      roman_sort:
+        description: "Sort chronologically using Roman numerals (I, II, IX, XII...)"
+        required: false
+        default: true
+        type: boolean
+      auto_cluster:
+        description: "Group files with matching prefixes into Title-Cased virtual subfolders"
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  ingest-notes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Ingest Drive links, sort, cluster, and rebuild notes catalog
+        env:
+          DRIVE_LINKS: ${{ inputs.drive_links }}
+          SUBJECT: ${{ inputs.subject }}
+          CATEGORY: ${{ inputs.category }}
+          ROMAN_SORT: ${{ inputs.roman_sort }}
+          AUTO_CLUSTER: ${{ inputs.auto_cluster }}
+          GOOGLE_DRIVE_API_KEY: ${{ secrets.GOOGLE_DRIVE_API_KEY }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_REF: ${{ github.ref_name }}
+          GITHUB_COMMIT_MESSAGE: "feat(notes): add ${{ inputs.subject }} resources via Drive workflow"
+        run: node scripts/ingest-drive.mjs
+
+      - name: Commit updated subject notes and catalog index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No new non-duplicate notes to commit."
+          else
+            git commit -m "feat(notes): ingest ${{ inputs.subject }} notes from Drive [skip ci]"
+            git push origin HEAD
+          fi
