@@ -753,7 +753,7 @@
         <div class="support-progress-bar" id="supportProgressBar"></div>
       </div>
 
-      <button class="support-modal-close" id="supportModalCloseBtn" onclick="closeSupportModal(true)" aria-label="Close support popup" title="Close (ESC)">✕</button>
+      <button class="support-modal-close" id="supportModalCloseBtn" onclick="closeSupportModal()" aria-label="Close support popup" title="Close (ESC)">✕</button>
 
       <div class="support-modal-grid">
         <div class="support-editorial-col">
@@ -939,9 +939,17 @@
       setupHotkeys();
       initNotifications();
       initSupportPopupScheduler();
-      window.addEventListener('hashchange', () => applyRoute(window.location.hash));
-      window.addEventListener('popstate', () => applyRoute(window.location.hash));
+      window.addEventListener('hashchange', () => {
+        applyRoute(window.location.hash);
+        notifyPageChanged();
+      });
+      window.addEventListener('popstate', () => {
+        applyRoute(window.location.hash);
+        notifyPageChanged();
+      });
       handleInitialHash();
+      supportPopupState.lastPageSignature = getCurrentPageSignature();
+      supportPopupState.isAppNavigationReady = true;
       window.addEventListener('resize', () => updateStreamGlider(false));
       setTimeout(() => updateStreamGlider(false), 100);
     }
@@ -1227,6 +1235,9 @@
       renderActiveView();
       previewFile(note.id, false);
       updateAppUrl(false);
+      if (!isRouteHandling) {
+        notifyPageChanged();
+      }
     }
 
     // View Navigation Handler
@@ -1262,6 +1273,9 @@
 
       if (updateUrl) {
         updateAppUrl(true);
+      }
+      if (!isRouteHandling) {
+        notifyPageChanged();
       }
     }
 
@@ -1389,6 +1403,7 @@
       renderActiveView();
       showToast(`Stream: ${streamName}`);
       updateAppUrl(true);
+      notifyPageChanged();
     }
 
     // Select Subject from Dropdown
@@ -1401,6 +1416,7 @@
       openSubfolderNodes.clear(); // All subfolders closed by default!
       renderActiveView();
       updateAppUrl(true);
+      notifyPageChanged();
     }
 
     // Toggle Subject Dropdown Menu
@@ -2013,6 +2029,7 @@
         navigateTo('explorer', false);
         renderActiveView();
         previewFile(note.id, true);
+        notifyPageChanged();
       }
     }
 
@@ -2420,24 +2437,71 @@
       if (modal) modal.classList.remove('open');
     }
 
-    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + 2.5 minute cooldown) ───
+    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + 3m cooldown + every page change) ───
     const SUPPORT_AUTO_INITIAL_DELAY_MS = 2500;
-    const SUPPORT_AUTO_REPEAT_INTERVAL_MS = 150000; // 2.5 minutes
+    const SUPPORT_AUTO_REPEAT_INTERVAL_MS = 180000; // 3 minutes
     const SUPPORT_AUTO_DISMISS_MS = 8000;
 
     const supportPopupState = {
       mode: 'manual',
+      firstAutoCompleted: false, // Cross button appears ONLY after the 1st automatic popup finishes
       remainingMs: SUPPORT_AUTO_DISMISS_MS,
       tickIntervalId: null,
-      repeatIntervalId: null,
-      initialTimeoutId: null
+      repeatTimeoutId: null,
+      initialTimeoutId: null,
+      pageChangeTimeoutId: null,
+      isAppNavigationReady: false,
+      lastPageSignature: ''
     };
+
+    function getCurrentPageSignature() {
+      if (currentView === 'landing') return 'landing';
+      return `explorer|${currentStream || ''}|${selectedSubject || ''}`;
+    }
+
+    function canDismissSupportModal() {
+      return supportPopupState.mode !== 'auto' || supportPopupState.firstAutoCompleted;
+    }
 
     function clearSupportTimers() {
       if (supportPopupState.tickIntervalId) {
         clearInterval(supportPopupState.tickIntervalId);
         supportPopupState.tickIntervalId = null;
       }
+    }
+
+    function scheduleNextSupportCooldown() {
+      if (supportPopupState.repeatTimeoutId) {
+        clearTimeout(supportPopupState.repeatTimeoutId);
+      }
+      supportPopupState.repeatTimeoutId = setTimeout(() => {
+        if (!document.hidden) {
+          openSupportModal('auto');
+        } else {
+          scheduleNextSupportCooldown();
+        }
+      }, SUPPORT_AUTO_REPEAT_INTERVAL_MS);
+    }
+
+    function notifyPageChanged() {
+      if (!supportPopupState.isAppNavigationReady) return;
+      const nextSig = getCurrentPageSignature();
+      if (nextSig === supportPopupState.lastPageSignature) return;
+      supportPopupState.lastPageSignature = nextSig;
+
+      // Cancel initial delay if the user already navigated to another page
+      if (supportPopupState.initialTimeoutId) {
+        clearTimeout(supportPopupState.initialTimeoutId);
+        supportPopupState.initialTimeoutId = null;
+      }
+      if (supportPopupState.pageChangeTimeoutId) {
+        clearTimeout(supportPopupState.pageChangeTimeoutId);
+      }
+
+      supportPopupState.pageChangeTimeoutId = setTimeout(() => {
+        supportPopupState.pageChangeTimeoutId = null;
+        openSupportModal('auto');
+      }, 180);
     }
 
     function updateSupportCountdownUi() {
@@ -2478,13 +2542,15 @@
 
       const closeBtn = document.getElementById('supportModalCloseBtn');
       if (closeBtn) {
-        closeBtn.style.display = supportPopupState.mode === 'auto' ? 'none' : 'inline-flex';
+        // 1st auto popup has NO cross; 2nd+ auto popups (after 1st is done) & manual popups show the cross
+        closeBtn.style.display = canDismissSupportModal() ? 'inline-flex' : 'none';
       }
 
       modal.classList.add('open');
       updateSupportCountdownUi();
 
       if (supportPopupState.mode === 'auto') {
+        scheduleNextSupportCooldown();
         supportPopupState.tickIntervalId = setInterval(() => {
           if (!modal.classList.contains('open')) {
             clearSupportTimers();
@@ -2492,6 +2558,9 @@
           }
           supportPopupState.remainingMs -= 100;
           if (supportPopupState.remainingMs <= 0) {
+            if (!supportPopupState.firstAutoCompleted) {
+              supportPopupState.firstAutoCompleted = true;
+            }
             closeSupportModal(true);
             return;
           }
@@ -2502,26 +2571,26 @@
 
     function closeSupportModal(force = false) {
       const modal = document.getElementById('supportModal');
-      if (!force && supportPopupState.mode === 'auto' && modal && modal.classList.contains('open')) {
+      if (!force && modal && modal.classList.contains('open') && !canDismissSupportModal()) {
         return;
       }
       clearSupportTimers();
       closeModal('supportModal');
+      if (supportPopupState.mode === 'auto') {
+        scheduleNextSupportCooldown();
+      }
     }
 
     function initSupportPopupScheduler() {
       if (supportPopupState.initialTimeoutId) clearTimeout(supportPopupState.initialTimeoutId);
-      if (supportPopupState.repeatIntervalId) clearInterval(supportPopupState.repeatIntervalId);
+      if (supportPopupState.repeatTimeoutId) clearTimeout(supportPopupState.repeatTimeoutId);
 
       supportPopupState.initialTimeoutId = setTimeout(() => {
+        supportPopupState.initialTimeoutId = null;
         openSupportModal('auto');
       }, SUPPORT_AUTO_INITIAL_DELAY_MS);
 
-      supportPopupState.repeatIntervalId = setInterval(() => {
-        if (!document.hidden) {
-          openSupportModal('auto');
-        }
-      }, SUPPORT_AUTO_REPEAT_INTERVAL_MS);
+      scheduleNextSupportCooldown();
     }
 
     function showToast(msg) {
@@ -2536,9 +2605,18 @@
 
     // Hotkeys setup (⌘K / Ctrl+K, Arrow Keys, F, R, S, Escape)
     function setupHotkeys() {
+      const supportEl = document.getElementById('supportModal');
+      if (supportEl) {
+        supportEl.addEventListener('click', (e) => {
+          if (e.target === supportEl && canDismissSupportModal()) {
+            closeSupportModal();
+          }
+        });
+      }
+
       window.addEventListener('keydown', (e) => {
-        const supportEl = document.getElementById('supportModal');
-        if (supportEl && supportEl.classList.contains('open') && supportPopupState.mode === 'auto') {
+        const activeSupportEl = document.getElementById('supportModal');
+        if (activeSupportEl && activeSupportEl.classList.contains('open') && !canDismissSupportModal()) {
           if (e.key === 'Escape' || ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K'))) {
             e.preventDefault();
           }
@@ -2571,7 +2649,7 @@
           closeSubjectDropdown();
           closeSupportModal();
           document.querySelectorAll('.og-modal-backdrop.open').forEach(m => {
-            if (m.id !== 'supportModal' || supportPopupState.mode !== 'auto') {
+            if (m.id !== 'supportModal' || canDismissSupportModal()) {
               m.classList.remove('open');
             }
           });
