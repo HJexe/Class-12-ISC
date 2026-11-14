@@ -1457,11 +1457,30 @@
       if (btn) btn.setAttribute('aria-expanded', 'false');
     }
 
+    // Split "Parent / Child" path into hierarchical folder segments (keeping u/<name> single-level)
+    function splitCategorySegments(catName) {
+      return String(catName || 'General Notes')
+        .split(' / ')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    // Expand folder and all ancestor parent folders in openSubfolderNodes
+    function expandCategoryHierarchy(subjectName, catName) {
+      if (!catName) return;
+      const subj = subjectName || selectedSubject || 'ALL';
+      const segments = splitCategorySegments(catName);
+      let accPath = '';
+      segments.forEach(seg => {
+        accPath = accPath ? `${accPath} / ${seg}` : seg;
+        openSubfolderNodes.add(`${subj}_${accPath}`);
+      });
+    }
+
     // Select Category (e.g. from breadcrumbs)
     function selectCategory(catName) {
       if (!catName) return;
-      const catKey = `${selectedSubject || 'ALL'}_${catName}`;
-      openSubfolderNodes.add(catKey);
+      expandCategoryHierarchy(selectedSubject, catName);
       renderActiveView();
     }
 
@@ -1482,8 +1501,129 @@
       clearSearch();
     }
 
+    // Folder order persistence & drag-and-drop state (Photoshop layers style)
+    const FOLDER_ORDER_STORAGE_KEY = 'isc_custom_folder_order_v1';
+    let suppressFolderClickUntil = 0;
+
+    function isPinnedTopCategory(cat) {
+      return String(cat || '').trim().toLowerCase() === 'u/remarkable_trash_356';
+    }
+
+    function getSavedFolderOrders() {
+      try {
+        const raw = localStorage.getItem(FOLDER_ORDER_STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === 'object' ? parsed : {};
+      } catch (err) {
+        return {};
+      }
+    }
+
+    function getSubjectFolderOrder(orderKey) {
+      const orders = getSavedFolderOrders();
+      const key = String(orderKey || 'ALL').trim();
+      return Array.isArray(orders[key]) ? orders[key] : null;
+    }
+
+    function hasAnyCustomOrderForSubject(subjectKey) {
+      const orders = getSavedFolderOrders();
+      const key = String(subjectKey || 'ALL').trim();
+      if (Array.isArray(orders[key]) && orders[key].length > 0) return true;
+      return Object.keys(orders).some(k => k.startsWith(`${key}::`) && Array.isArray(orders[k]) && orders[k].length > 0);
+    }
+
+    function saveSubjectFolderOrder(orderKey, orderedNames) {
+      try {
+        const orders = getSavedFolderOrders();
+        const key = String(orderKey || 'ALL').trim();
+        orders[key] = Array.isArray(orderedNames) ? orderedNames : [];
+        localStorage.setItem(FOLDER_ORDER_STORAGE_KEY, JSON.stringify(orders));
+      } catch (err) {}
+    }
+
+    function resetFolderOrder() {
+      try {
+        const orders = getSavedFolderOrders();
+        const key = String(selectedSubject || 'ALL').trim();
+        delete orders[key];
+        Object.keys(orders).forEach(k => {
+          if (k.startsWith(`${key}::`)) {
+            delete orders[k];
+          }
+        });
+        localStorage.setItem(FOLDER_ORDER_STORAGE_KEY, JSON.stringify(orders));
+      } catch (err) {}
+      const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+      renderSubjectNotes(searchVal);
+      if (typeof showToast === 'function') {
+        showToast('Folder order reset to default');
+      }
+    }
+
+    function sortCategoriesWithPreference(categories, orderKey) {
+      const defaultSorted = [...categories].sort((a, b) => {
+        const aPinned = isPinnedTopCategory(a);
+        const bPinned = isPinnedTopCategory(b);
+        if (aPinned && !bPinned) return -1;
+        if (!aPinned && bPinned) return 1;
+        return a.localeCompare(b);
+      });
+
+      const saved = getSubjectFolderOrder(orderKey);
+      if (!saved || saved.length === 0) {
+        return defaultSorted;
+      }
+
+      const availableSet = new Set(categories);
+      const ordered = [];
+      const seen = new Set();
+
+      // Place unseen pinned-top folder (u/Remarkable_Trash_356) at top unless already explicitly arranged
+      defaultSorted.forEach(cat => {
+        if (isPinnedTopCategory(cat) && !saved.includes(cat)) {
+          ordered.push(cat);
+          seen.add(cat);
+        }
+      });
+
+      // Apply user's custom drag order
+      saved.forEach(cat => {
+        if (availableSet.has(cat) && !seen.has(cat)) {
+          ordered.push(cat);
+          seen.add(cat);
+        }
+      });
+
+      // Append any remaining new folders alphabetically
+      defaultSorted.forEach(cat => {
+        if (!seen.has(cat)) {
+          ordered.push(cat);
+          seen.add(cat);
+        }
+      });
+
+      return ordered;
+    }
+
+    // Collect all folder keys across every nesting level for Expand All / Collapse All
+    function collectAllFolderKeysForNotes(notes, subjectName) {
+      const keys = new Set();
+      const subj = subjectName || selectedSubject || 'ALL';
+      notes.forEach(n => {
+        const segments = splitCategorySegments(n.category || 'General Notes');
+        let accPath = '';
+        segments.forEach(seg => {
+          accPath = accPath ? `${accPath} / ${seg}` : seg;
+          keys.add(`${subj}_${accPath}`);
+        });
+      });
+      return Array.from(keys);
+    }
+
     // Toggle a single subfolder node (open/closed)
     function toggleSubfolderNode(catKey) {
+      if (Date.now() < suppressFolderClickUntil) return;
       if (!catKey) return;
       if (openSubfolderNodes.has(catKey)) {
         openSubfolderNodes.delete(catKey);
@@ -1494,19 +1634,16 @@
       renderSubjectNotes(searchVal);
     }
 
-    // Toggle all subfolders open or closed
+    // Toggle all subfolders (all levels) open or closed
     function toggleAllSubfolders() {
       const subjectNotes = currentFilteredNotes || [];
-      const categories = [...new Set(subjectNotes.map(n => n.category || 'General Notes'))];
       const isSearching = Boolean(document.getElementById('sidebarSearchInput')?.value?.trim());
-      const allKeys = categories.map(c => `${selectedSubject || 'ALL'}_${c}`);
+      const allKeys = collectAllFolderKeysForNotes(subjectNotes, selectedSubject);
       
       const anyOpen = isSearching || allKeys.some(k => openSubfolderNodes.has(k));
       if (anyOpen) {
-        // Collapse all
         allKeys.forEach(k => openSubfolderNodes.delete(k));
       } else {
-        // Expand all
         allKeys.forEach(k => openSubfolderNodes.add(k));
       }
       const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
@@ -1618,105 +1755,387 @@
         return;
       }
 
-      // Group notes by Category / Subfolder
-      const categoryMap = {};
+      const subjectKey = (selectedSubject || 'ALL').trim();
+
+      // Build hierarchical folder tree from "Parent / Subfolder" categories
+      const rootChildrenMap = new Map();
       subjectNotes.forEach(note => {
-        const cat = note.category || 'General Notes';
-        if (!categoryMap[cat]) categoryMap[cat] = [];
-        categoryMap[cat].push(note);
+        const segments = splitCategorySegments(note.category || 'General Notes');
+        let currentMap = rootChildrenMap;
+        let accPath = '';
+        let leafNode = null;
+
+        segments.forEach(seg => {
+          accPath = accPath ? `${accPath} / ${seg}` : seg;
+          if (!currentMap.has(seg)) {
+            currentMap.set(seg, {
+              name: seg,
+              fullPath: accPath,
+              catKey: `${subjectKey}_${accPath}`,
+              childrenMap: new Map(),
+              files: [],
+              totalCount: 0
+            });
+          }
+          leafNode = currentMap.get(seg);
+          currentMap = leafNode.childrenMap;
+        });
+
+        if (leafNode) {
+          leafNode.files.push(note);
+        }
       });
 
-      const categories = Object.keys(categoryMap).sort();
+      function finalizeTreeCounts(childrenMap) {
+        let sum = 0;
+        childrenMap.forEach(node => {
+          const childCount = finalizeTreeCounts(node.childrenMap);
+          node.totalCount = node.files.length + childCount;
+          sum += node.totalCount;
+        });
+        return sum;
+      }
+      finalizeTreeCounts(rootChildrenMap);
 
-      // Determine if any folders are currently open
-      const anyOpen = isSearching || categories.some(cat => {
-        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
-        return openSubfolderNodes.has(catKey);
-      });
+      const orderedRootNames = sortCategoriesWithPreference(Array.from(rootChildrenMap.keys()), subjectKey);
+      const hasCustomOrder = hasAnyCustomOrderForSubject(subjectKey);
+      const allFolderKeys = collectAllFolderKeysForNotes(subjectNotes, subjectKey);
+      const anyOpen = isSearching || allFolderKeys.some(k => openSubfolderNodes.has(k));
 
       let html = `
         <div class="folders-toolbar">
           <div class="folders-toolbar-info">
             <span class="folders-toolbar-label">Explorer</span>
-            <span class="folders-toolbar-count">${categories.length} folders • ${subjectNotes.length} files</span>
+            <span class="folders-toolbar-count">${orderedRootNames.length} folders • ${subjectNotes.length} files</span>
           </div>
-          <button 
-            type="button" 
-            class="folders-toolbar-toggle-btn" 
-            onclick="toggleAllSubfolders()" 
-            id="foldersToggleAllBtn"
-            title="${anyOpen ? 'Collapse all folders' : 'Expand all folders'}"
-          >
-            <span>${anyOpen ? '▲ Collapse All' : '▼ Expand All'}</span>
-          </button>
-        </div>
-        <div class="file-tree-container">
-      `;
-
-      categories.forEach(cat => {
-        const notes = categoryMap[cat];
-        const catKey = `${selectedSubject || 'ALL'}_${cat}`;
-        // By default, subfolders are CLOSED unless opened by user or search query is active
-        const isOpen = isSearching || openSubfolderNodes.has(catKey);
-        const safeId = catKey.replace(/[^a-zA-Z0-9_-]/g, '_');
-
-        html += `
-          <div class="tree-folder-node clean-folder-section ${isOpen ? 'open' : 'closed'}">
+          <div class="folders-toolbar-actions">
+            ${hasCustomOrder && !isSearching ? `
+              <button
+                type="button"
+                class="folders-toolbar-reset-btn"
+                onclick="resetFolderOrder()"
+                title="Reset custom folder order back to default"
+              >
+                Reset
+              </button>
+            ` : ''}
             <button 
               type="button" 
-              class="tree-folder-row clean-folder-header ${isOpen ? 'open' : ''}" 
-              onclick="toggleSubfolderNode('${escapeAttr(catKey)}')"
-              aria-expanded="${isOpen ? 'true' : 'false'}"
-              title="Click to ${isOpen ? 'collapse' : 'expand'} ${escapeAttr(cat)}"
+              class="folders-toolbar-toggle-btn" 
+              onclick="toggleAllSubfolders()" 
+              id="foldersToggleAllBtn"
+              title="${anyOpen ? 'Collapse all folders' : 'Expand all folders'}"
             >
-              <div class="tree-folder-left clean-folder-header-left">
-                <svg class="tree-chevron ${isOpen ? 'open' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-                ${isOpen 
-                  ? `<svg class="tree-folder-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-6h13.5l-2.5 10H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.69.9H18a2 2 0 0 1 2 2v2"></path></svg>`
-                  : `<svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>`
-                }
-                <span class="tree-folder-title folder-name">${escapeHtml(cat)}</span>
-              </div>
-              <span class="tree-folder-badge folder-count">${notes.length}</span>
+              <span>${anyOpen ? '▲ Collapse All' : '▼ Expand All'}</span>
             </button>
-            <div class="tree-children-wrap clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
+          </div>
+        </div>
+        <div class="file-tree-container" id="fileTreeContainer">
+      `;
+
+      function renderFileItemHtml(note) {
+        const isSelected = activeFile && activeFile.id === note.id;
+        const fileExt = (note.fileType || 'PDF').toLowerCase();
+        const extClass = (fileExt === 'doc' || fileExt === 'docx') ? 'doc' : (fileExt === 'pdf' ? 'pdf' : 'other');
+        const displayTitle = note.title || 'Untitled Note';
+
+        return `
+          <div 
+            class="tree-file-row clean-note-card ${isSelected ? 'selected' : ''}" 
+            data-note-id="${escapeAttr(note.id)}"
+            onclick="previewFile('${note.id}')"
+            title="${escapeAttr(displayTitle)}"
+          >
+            <div class="tree-file-left clean-note-left">
+              <svg class="tree-file-icon ${extClass}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span class="tree-file-title clean-note-title">${escapeHtml(displayTitle)}</span>
+            </div>
+            <span class="tree-ext-badge ${extClass}">.${fileExt}</span>
+          </div>
         `;
+      }
 
-        notes.forEach(note => {
-          const isSelected = activeFile && activeFile.id === note.id;
-          const fileExt = (note.fileType || 'PDF').toLowerCase();
-          const extClass = (fileExt === 'doc' || fileExt === 'docx') ? 'doc' : (fileExt === 'pdf' ? 'pdf' : 'other');
-          const displayTitle = note.title || 'Untitled Note';
+      let hasAnyReorderableLevel = false;
 
-          html += `
+      function renderFolderLevelHtml(childrenMap, parentOrderKey) {
+        const names = sortCategoriesWithPreference(Array.from(childrenMap.keys()), parentOrderKey);
+        const canReorderLevel = !isSearching && names.length > 1;
+        if (canReorderLevel) hasAnyReorderableLevel = true;
+
+        let levelHtml = '';
+        names.forEach(name => {
+          const node = childrenMap.get(name);
+          const isOpen = isSearching || openSubfolderNodes.has(node.catKey);
+          const safeId = node.catKey.replace(/[^a-zA-Z0-9_-]/g, '_');
+
+          levelHtml += `
             <div 
-              class="tree-file-row clean-note-card ${isSelected ? 'selected' : ''}" 
-              data-note-id="${escapeAttr(note.id)}"
-              onclick="previewFile('${note.id}')"
-              title="${escapeAttr(displayTitle)}"
+              class="tree-folder-node clean-folder-section ${isOpen ? 'open' : 'closed'}" 
+              data-category="${escapeAttr(node.name)}"
+              data-parent-key="${escapeAttr(parentOrderKey)}"
+              data-folder-key="${escapeAttr(node.catKey)}"
             >
-              <div class="tree-file-left clean-note-left">
-                <svg class="tree-file-icon ${extClass}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                </svg>
-                <span class="tree-file-title clean-note-title">${escapeHtml(displayTitle)}</span>
+              <div 
+                role="button"
+                tabindex="0"
+                class="tree-folder-row clean-folder-header ${isOpen ? 'open' : ''}" 
+                data-category="${escapeAttr(node.name)}"
+                data-parent-key="${escapeAttr(parentOrderKey)}"
+                ${canReorderLevel ? 'draggable="true"' : ''}
+                onclick="toggleSubfolderNode('${escapeAttr(node.catKey)}')"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSubfolderNode('${escapeAttr(node.catKey)}');}"
+                aria-expanded="${isOpen ? 'true' : 'false'}"
+                title="${canReorderLevel ? `Click to ${isOpen ? 'collapse' : 'expand'} • Drag to reorder` : `Click to ${isOpen ? 'collapse' : 'expand'} ${escapeAttr(node.name)}`}"
+              >
+                <div class="tree-folder-left clean-folder-header-left">
+                  <svg class="tree-chevron ${isOpen ? 'open' : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                  ${isOpen 
+                    ? `<svg class="tree-folder-icon open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 14 1.5-6h13.5l-2.5 10H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.69.9H18a2 2 0 0 1 2 2v2"></path></svg>`
+                    : `<svg class="tree-folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg>`
+                  }
+                  <span class="tree-folder-title folder-name">${escapeHtml(node.name)}</span>
+                </div>
+                <div class="tree-folder-right">
+                  ${canReorderLevel ? `
+                    <svg class="tree-drag-grip" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                      <circle cx="5.5" cy="3.5" r="1.15"></circle>
+                      <circle cx="10.5" cy="3.5" r="1.15"></circle>
+                      <circle cx="5.5" cy="8" r="1.15"></circle>
+                      <circle cx="10.5" cy="8" r="1.15"></circle>
+                      <circle cx="5.5" cy="12.5" r="1.15"></circle>
+                      <circle cx="10.5" cy="12.5" r="1.15"></circle>
+                    </svg>
+                  ` : ''}
+                  <span class="tree-folder-badge folder-count">${node.totalCount}</span>
+                </div>
               </div>
-              <span class="tree-ext-badge ${extClass}">.${fileExt}</span>
+              <div class="tree-children-wrap clean-notes-list ${isOpen ? '' : 'collapsed'}" id="folderList_${safeId}">
+          `;
+
+          if (node.childrenMap.size > 0) {
+            levelHtml += renderFolderLevelHtml(node.childrenMap, `${subjectKey}::${node.fullPath}`);
+          }
+          node.files.forEach(note => {
+            levelHtml += renderFileItemHtml(note);
+          });
+
+          levelHtml += `
+              </div>
             </div>
           `;
         });
+        return levelHtml;
+      }
 
-        html += `
-            </div>
-          </div>
-        `;
-      });
-
+      html += renderFolderLevelHtml(rootChildrenMap, subjectKey);
       html += `</div>`;
       container.innerHTML = html;
+
+      if (hasAnyReorderableLevel) {
+        const treeEl = document.getElementById('fileTreeContainer');
+        if (treeEl) {
+          wireFolderDragAndDrop(treeEl);
+        }
+      }
+    }
+
+    // Wire Photoshop-layer style folder drag-and-drop scoped per sibling level (Desktop HTML5 DnD + Mobile Touch Grip)
+    function wireFolderDragAndDrop(treeEl) {
+      let draggedName = null;
+      let draggedParentKey = null;
+      let draggedNode = null;
+      let activeDropName = null;
+      let activeDropPos = null; // 'above' | 'below'
+
+      function clearDropIndicators() {
+        treeEl.querySelectorAll('.tree-folder-node.drag-over-above, .tree-folder-node.drag-over-below').forEach(node => {
+          node.classList.remove('drag-over-above', 'drag-over-below');
+        });
+      }
+
+      function getSiblingNodes(parentKey) {
+        return Array.from(treeEl.querySelectorAll('.tree-folder-node')).filter(n => n.dataset.parentKey === parentKey);
+      }
+
+      function applyOrderDrop(parentKey, sourceName, targetName, dropPos) {
+        if (!parentKey || !sourceName || !targetName || sourceName === targetName) return;
+        const siblingNames = getSiblingNodes(parentKey).map(n => n.dataset.category).filter(Boolean);
+        const withoutDragged = siblingNames.filter(c => c !== sourceName);
+        let insertIdx = withoutDragged.indexOf(targetName);
+        if (insertIdx === -1) return;
+        if (dropPos === 'below') insertIdx += 1;
+        withoutDragged.splice(insertIdx, 0, sourceName);
+        saveSubjectFolderOrder(parentKey, withoutDragged);
+        const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
+        renderSubjectNotes(searchVal);
+      }
+
+      function updateDropTargetFromY(clientY) {
+        if (!draggedParentKey) return;
+        const nodes = getSiblingNodes(draggedParentKey);
+        let matchedNode = null;
+        let matchedPos = null;
+
+        for (const node of nodes) {
+          const rect = node.getBoundingClientRect();
+          if (clientY >= rect.top && clientY <= rect.bottom) {
+            matchedNode = node;
+            matchedPos = clientY < rect.top + rect.height / 2 ? 'above' : 'below';
+            break;
+          }
+        }
+
+        // Edge case: pointer slightly above first sibling or below last sibling
+        if (!matchedNode && nodes.length > 0) {
+          const firstRect = nodes[0].getBoundingClientRect();
+          const lastRect = nodes[nodes.length - 1].getBoundingClientRect();
+          if (clientY < firstRect.top) {
+            matchedNode = nodes[0];
+            matchedPos = 'above';
+          } else if (clientY > lastRect.bottom) {
+            matchedNode = nodes[nodes.length - 1];
+            matchedPos = 'below';
+          }
+        }
+
+        clearDropIndicators();
+
+        if (!matchedNode || matchedNode.dataset.category === draggedName) {
+          activeDropName = null;
+          activeDropPos = null;
+          return;
+        }
+
+        activeDropName = matchedNode.dataset.category;
+        activeDropPos = matchedPos;
+        matchedNode.classList.add(matchedPos === 'above' ? 'drag-over-above' : 'drag-over-below');
+      }
+
+      treeEl.addEventListener('dragstart', (e) => {
+        const row = e.target.closest('.tree-folder-row[draggable="true"]');
+        if (!row) return;
+        const node = row.closest('.tree-folder-node');
+        if (!node) return;
+        e.stopPropagation();
+
+        draggedName = row.dataset.category || node.dataset.category;
+        draggedParentKey = row.dataset.parentKey || node.dataset.parentKey;
+        draggedNode = node;
+        suppressFolderClickUntil = Date.now() + 400;
+
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', draggedName || '');
+        }
+
+        requestAnimationFrame(() => {
+          if (draggedNode) draggedNode.classList.add('dragging');
+        });
+      });
+
+      treeEl.addEventListener('dragover', (e) => {
+        if (!draggedName) return;
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+        updateDropTargetFromY(e.clientY);
+      });
+
+      treeEl.addEventListener('dragleave', (e) => {
+        if (!draggedName) return;
+        if (!treeEl.contains(e.relatedTarget)) {
+          clearDropIndicators();
+          activeDropName = null;
+          activeDropPos = null;
+        }
+      });
+
+      treeEl.addEventListener('drop', (e) => {
+        if (!draggedName) return;
+        e.preventDefault();
+        updateDropTargetFromY(e.clientY);
+        const parentKey = draggedParentKey;
+        const sourceCat = draggedName;
+        const targetCat = activeDropName;
+        const pos = activeDropPos;
+
+        clearDropIndicators();
+        if (draggedNode) draggedNode.classList.remove('dragging');
+        draggedName = null;
+        draggedParentKey = null;
+        draggedNode = null;
+        activeDropName = null;
+        activeDropPos = null;
+        suppressFolderClickUntil = Date.now() + 250;
+
+        if (parentKey && sourceCat && targetCat && pos) {
+          applyOrderDrop(parentKey, sourceCat, targetCat, pos);
+        }
+      });
+
+      treeEl.addEventListener('dragend', () => {
+        clearDropIndicators();
+        if (draggedNode) draggedNode.classList.remove('dragging');
+        draggedName = null;
+        draggedParentKey = null;
+        draggedNode = null;
+        activeDropName = null;
+        activeDropPos = null;
+        suppressFolderClickUntil = Date.now() + 250;
+      });
+
+      // Touch drag fallback on mobile via the 6-dot grip handle
+      let touchDragging = false;
+      treeEl.addEventListener('touchstart', (e) => {
+        const grip = e.target.closest('.tree-drag-grip');
+        if (!grip || e.touches.length !== 1) return;
+        const row = grip.closest('.tree-folder-row[draggable="true"]');
+        const node = grip.closest('.tree-folder-node');
+        if (!row || !node) return;
+        e.preventDefault();
+        e.stopPropagation();
+        touchDragging = true;
+        draggedName = node.dataset.category;
+        draggedParentKey = node.dataset.parentKey;
+        draggedNode = node;
+        node.classList.add('dragging');
+        suppressFolderClickUntil = Date.now() + 500;
+      }, { passive: false });
+
+      treeEl.addEventListener('touchmove', (e) => {
+        if (!touchDragging || !draggedName || e.touches.length !== 1) return;
+        e.preventDefault();
+        updateDropTargetFromY(e.touches[0].clientY);
+      }, { passive: false });
+
+      const finishTouchDrag = () => {
+        if (!touchDragging) return;
+        touchDragging = false;
+        const parentKey = draggedParentKey;
+        const sourceCat = draggedName;
+        const targetCat = activeDropName;
+        const pos = activeDropPos;
+
+        clearDropIndicators();
+        if (draggedNode) draggedNode.classList.remove('dragging');
+        draggedName = null;
+        draggedParentKey = null;
+        draggedNode = null;
+        activeDropName = null;
+        activeDropPos = null;
+        suppressFolderClickUntil = Date.now() + 250;
+
+        if (parentKey && sourceCat && targetCat && pos) {
+          applyOrderDrop(parentKey, sourceCat, targetCat, pos);
+        }
+      };
+
+      treeEl.addEventListener('touchend', finishTouchDrag);
+      treeEl.addEventListener('touchcancel', finishTouchDrag);
     }
 
     // Search Handler
@@ -1852,10 +2271,9 @@
       // Update Prev / Next button states
       updateViewerDocCounter();
 
-      // Auto-expand folder for current note and update active styling
+      // Auto-expand folder and ancestor parent folders for current note and update active styling
       if (note.category) {
-        const catKey = `${note.subject || selectedSubject || 'ALL'}_${note.category}`;
-        openSubfolderNodes.add(catKey);
+        expandCategoryHierarchy(note.subject || selectedSubject || 'ALL', note.category);
         const searchVal = document.getElementById('sidebarSearchInput')?.value || '';
         renderSubjectNotes(searchVal);
       }
@@ -2743,6 +3161,7 @@
     window.toggleAllSubfolders = toggleAllSubfolders;
     window.toggleSubjectNode = toggleSubjectNode;
     window.toggleSubfolderNode = toggleSubfolderNode;
+    window.resetFolderOrder = resetFolderOrder;
     window.previewFile = previewFile;
     window.navigateNote = navigateNote;
     window.openSpotlightSearch = openSpotlightSearch;

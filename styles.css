@@ -1124,7 +1124,15 @@ html, body {
   color: var(--route-muted);
 }
 
-.folders-toolbar-toggle-btn {
+.folders-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.folders-toolbar-toggle-btn,
+.folders-toolbar-reset-btn {
   background: transparent;
   border: 1px solid var(--route-line);
   border-radius: 6px;
@@ -1132,14 +1140,68 @@ html, body {
   color: var(--route-muted);
   font-size: 0.72rem;
   font-family: var(--font-sans);
+  white-space: nowrap;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.folders-toolbar-toggle-btn:hover { color: var(--route-text); border-color: var(--route-line-strong); }
+.folders-toolbar-toggle-btn:hover,
+.folders-toolbar-reset-btn:hover {
+  color: var(--route-text);
+  border-color: var(--route-line-strong);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.folders-toolbar-reset-btn {
+  color: var(--route-faint);
+}
+
+.folders-toolbar-reset-btn:hover {
+  color: var(--route-gold);
+  border-color: rgba(251, 191, 36, 0.35);
+}
 
 .file-tree-container { display: flex; flex-direction: column; gap: 2px; width: 100%; }
-.tree-folder-node { display: flex; flex-direction: column; width: 100%; }
+
+.tree-folder-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+
+.tree-folder-node.dragging {
+  opacity: 0.36;
+}
+
+.tree-folder-node.dragging .tree-folder-row {
+  background: var(--route-surface);
+  border-color: var(--route-line-strong);
+}
+
+/* Photoshop-layer style insertion indicator bar (top or bottom edge) */
+.tree-folder-node.drag-over-above::before,
+.tree-folder-node.drag-over-below::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background: var(--route-gold);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--route-gold-glow);
+  pointer-events: none;
+  z-index: 12;
+}
+
+.tree-folder-node.drag-over-above::before {
+  top: -2px;
+}
+
+.tree-folder-node.drag-over-below::after {
+  bottom: -2px;
+}
 
 .tree-folder-row {
   width: 100%;
@@ -1156,7 +1218,12 @@ html, body {
   font-family: inherit;
   color: var(--route-text);
   text-align: left;
-  transition: background-color 0.15s ease;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.tree-folder-row[draggable="true"] {
+  -webkit-user-drag: element;
 }
 
 .tree-folder-row:hover { background: var(--route-surface); }
@@ -1167,6 +1234,39 @@ html, body {
   gap: 0.5rem;
   min-width: 0;
   flex: 1;
+}
+
+.tree-folder-right {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.tree-drag-grip {
+  width: 14px;
+  height: 14px;
+  color: var(--route-faint);
+  opacity: 0.25;
+  flex-shrink: 0;
+  cursor: grab;
+  touch-action: none;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.tree-folder-row:hover .tree-drag-grip {
+  opacity: 0.78;
+}
+
+.tree-drag-grip:hover {
+  opacity: 1;
+  color: var(--route-gold);
+}
+
+.tree-folder-node.dragging .tree-drag-grip {
+  cursor: grabbing;
+  color: var(--route-gold);
+  opacity: 1;
 }
 
 .tree-chevron {
@@ -1206,6 +1306,16 @@ html, body {
   padding-left: 0.65rem;
   border-left: 1px solid var(--route-line);
   margin-bottom: 0.25rem;
+}
+
+.tree-children-wrap > .tree-folder-node > .tree-folder-row {
+  min-height: 34px;
+  padding: 0.34rem 0.5rem;
+}
+
+.tree-children-wrap > .tree-folder-node > .tree-folder-row .tree-folder-title {
+  font-size: 0.81rem;
+  color: #e2e8f0;
 }
 
 .tree-children-wrap.collapsed { display: none; }
