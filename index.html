@@ -2437,9 +2437,10 @@
       if (modal) modal.classList.remove('open');
     }
 
-    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + 3m cooldown + every page change) ───
+    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + random 4–5m cooldown + every page change) ───
     const SUPPORT_AUTO_INITIAL_DELAY_MS = 2500;
-    const SUPPORT_AUTO_REPEAT_INTERVAL_MS = 180000; // 3 minutes
+    const SUPPORT_AUTO_COOLDOWN_MIN_MS = 240000; // 4 minutes
+    const SUPPORT_AUTO_COOLDOWN_MAX_MS = 300000; // 5 minutes
     const SUPPORT_AUTO_DISMISS_MS = 8000;
 
     const supportPopupState = {
@@ -2453,6 +2454,12 @@
       isAppNavigationReady: false,
       lastPageSignature: ''
     };
+
+    function getRandomSupportCooldownMs() {
+      return SUPPORT_AUTO_COOLDOWN_MIN_MS + Math.floor(
+        Math.random() * (SUPPORT_AUTO_COOLDOWN_MAX_MS - SUPPORT_AUTO_COOLDOWN_MIN_MS + 1)
+      );
+    }
 
     function getCurrentPageSignature() {
       if (currentView === 'landing') return 'landing';
@@ -2474,13 +2481,14 @@
       if (supportPopupState.repeatTimeoutId) {
         clearTimeout(supportPopupState.repeatTimeoutId);
       }
+      const nextCooldownMs = getRandomSupportCooldownMs();
       supportPopupState.repeatTimeoutId = setTimeout(() => {
         if (!document.hidden) {
           openSupportModal('auto');
         } else {
           scheduleNextSupportCooldown();
         }
-      }, SUPPORT_AUTO_REPEAT_INTERVAL_MS);
+      }, nextCooldownMs);
     }
 
     function notifyPageChanged() {
