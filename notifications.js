@@ -1,8 +1,147 @@
 window.__NOTIFICATIONS_DATA__ = [
   {
+    "id": "push-1794647973236",
+    "timestamp": "2026-11-14T09:19:33.236Z",
+    "isLatest": true,
+    "commit": {
+      "sha": "push-latest",
+      "shortSha": "push",
+      "branch": "main",
+      "message": "Update study resources index"
+    },
+    "title": "8 New Resources Added",
+    "summary": "Indexed 8 new resource(s) across: Chemistry (8)",
+    "addedCount": 8,
+    "subjects": [
+      "Chemistry"
+    ],
+    "resources": [
+      {
+        "id": "isc-972",
+        "title": "08 The d and f block elements",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1vfMuZVu9w4ho6gDQ7luv2UWEZ4mxp6xN/view",
+        "previewUrl": "https://drive.google.com/file/d/1vfMuZVu9w4ho6gDQ7luv2UWEZ4mxp6xN/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1vfMuZVu9w4ho6gDQ7luv2UWEZ4mxp6xN"
+      },
+      {
+        "id": "isc-973",
+        "title": "2 Solutions",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1TBXDl5bnF9PdUXm59dtMlw8Fykyq8CMN/view",
+        "previewUrl": "https://drive.google.com/file/d/1TBXDl5bnF9PdUXm59dtMlw8Fykyq8CMN/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1TBXDl5bnF9PdUXm59dtMlw8Fykyq8CMN"
+      },
+      {
+        "id": "isc-974",
+        "title": "3 Electrochemistry New",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1uVTfjpN0sjIr54ry7tPh5ZUN_MndKUfm/view",
+        "previewUrl": "https://drive.google.com/file/d/1uVTfjpN0sjIr54ry7tPh5ZUN_MndKUfm/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1uVTfjpN0sjIr54ry7tPh5ZUN_MndKUfm"
+      },
+      {
+        "id": "isc-975",
+        "title": "4 Chemical Kinetics New",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1C2cs0z6mLWvvfQ4aAp0pGbR0jzFc55lS/view",
+        "previewUrl": "https://drive.google.com/file/d/1C2cs0z6mLWvvfQ4aAp0pGbR0jzFc55lS/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1C2cs0z6mLWvvfQ4aAp0pGbR0jzFc55lS"
+      },
+      {
+        "id": "isc-976",
+        "title": "Co-ordination Compounds",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1ZhQaMAXyRw1i2U3xbjtf5hnedCysm-OF/view",
+        "previewUrl": "https://drive.google.com/file/d/1ZhQaMAXyRw1i2U3xbjtf5hnedCysm-OF/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZhQaMAXyRw1i2U3xbjtf5hnedCysm-OF"
+      },
+      {
+        "id": "isc-977",
+        "title": "D & F Questions",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1y-UYdUWkNegf9xTjoEmTNzPCl-fgarqa/view",
+        "previewUrl": "https://drive.google.com/file/d/1y-UYdUWkNegf9xTjoEmTNzPCl-fgarqa/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1y-UYdUWkNegf9xTjoEmTNzPCl-fgarqa"
+      },
+      {
+        "id": "isc-978",
+        "title": "d and f-block elements",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1WT8W069bQfBbnAf7p-9gcUepsiIJsehh/view",
+        "previewUrl": "https://drive.google.com/file/d/1WT8W069bQfBbnAf7p-9gcUepsiIJsehh/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1WT8W069bQfBbnAf7p-9gcUepsiIJsehh"
+      },
+      {
+        "id": "isc-979",
+        "title": "KMnO4 & K2Cr207",
+        "subject": "Chemistry",
+        "category": "u/Remarkable_Trash_356",
+        "streams": [
+          "Science"
+        ],
+        "fileType": "PDF",
+        "tag": "Study Notes",
+        "rawPath": "Chemistry/text.",
+        "url": "https://drive.google.com/file/d/1eQ3P21EH6YzeZHe0owB1gRlC465ubgFM/view",
+        "previewUrl": "https://drive.google.com/file/d/1eQ3P21EH6YzeZHe0owB1gRlC465ubgFM/preview",
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1eQ3P21EH6YzeZHe0owB1gRlC465ubgFM"
+      }
+    ]
+  },
+  {
     "id": "push-1789468172532",
     "timestamp": "2026-09-15T10:29:32.532Z",
-    "isLatest": true,
+    "isLatest": false,
     "commit": {
       "sha": "d1bde7002c776e9138f19539ef1a1c9c922584be",
       "shortSha": "d1bde70",

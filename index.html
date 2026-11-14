@@ -658,6 +658,22 @@
           <div>Loading Google Drive Preview...</div>
         </div>
         <iframe id="previewIframe" src="" allow="autoplay; fullscreen" loading="lazy" onload="if(typeof onIframeLoaded==='function')onIframeLoaded()"></iframe>
+
+        <!-- Floating Bottom-Right Credit Bubble (auto-hides after 6s for u/Remarkable_Trash_356 PDFs) -->
+        <aside class="contributor-credit-bubble" id="creditBubble" role="status" aria-live="polite" aria-label="Notes contributor credit">
+          <div class="credit-bubble-body">
+            <div class="credit-bubble-copy">
+              <span class="credit-bubble-kicker">Community notes · r/ISC</span>
+              <span class="credit-bubble-text">
+                Shared by <a class="credit-bubble-handle" id="creditBubbleHandle" href="https://www.reddit.com/user/Remarkable_Trash_356/" target="_blank" rel="noopener noreferrer">u/Remarkable_Trash_356</a>
+              </span>
+            </div>
+            <button class="credit-bubble-close" onclick="hideCreditBubble()" type="button" aria-label="Dismiss credit notice" title="Dismiss">✕</button>
+          </div>
+          <div class="credit-bubble-progress">
+            <div class="credit-bubble-progress-bar" id="creditBubbleProgressBar"></div>
+          </div>
+        </aside>
       </div>
     </section>
   </div>
@@ -939,16 +955,9 @@
       setupHotkeys();
       initNotifications();
       initSupportPopupScheduler();
-      window.addEventListener('hashchange', () => {
-        applyRoute(window.location.hash);
-        notifyPageChanged();
-      });
-      window.addEventListener('popstate', () => {
-        applyRoute(window.location.hash);
-        notifyPageChanged();
-      });
+      window.addEventListener('hashchange', () => applyRoute(window.location.hash));
+      window.addEventListener('popstate', () => applyRoute(window.location.hash));
       handleInitialHash();
-      supportPopupState.lastPageSignature = getCurrentPageSignature();
       supportPopupState.isAppNavigationReady = true;
       window.addEventListener('resize', () => updateStreamGlider(false));
       setTimeout(() => updateStreamGlider(false), 100);
@@ -1235,13 +1244,11 @@
       renderActiveView();
       previewFile(note.id, false);
       updateAppUrl(false);
-      if (!isRouteHandling) {
-        notifyPageChanged();
-      }
     }
 
     // View Navigation Handler
     function navigateTo(view, updateUrl = true) {
+      const previousView = currentView;
       currentView = view;
       const landingEl = document.getElementById('viewLanding');
       const explorerEl = document.getElementById('viewExplorer');
@@ -1269,13 +1276,16 @@
         if (navBtnLanding) navBtnLanding.classList.add('active');
         if (navBtnNotes) navBtnNotes.classList.remove('active');
         activeFile = null;
+        hideCreditBubble();
       }
 
       if (updateUrl) {
         updateAppUrl(true);
       }
-      if (!isRouteHandling) {
-        notifyPageChanged();
+
+      // Trigger UPI popup only when switching from Home -> Directory (never on subject/stream changes)
+      if (previousView === 'landing' && view === 'explorer') {
+        notifyHomeToDirectoryTransition();
       }
     }
 
@@ -1403,7 +1413,6 @@
       renderActiveView();
       showToast(`Stream: ${streamName}`);
       updateAppUrl(true);
-      notifyPageChanged();
     }
 
     // Select Subject from Dropdown
@@ -1416,7 +1425,6 @@
       openSubfolderNodes.clear(); // All subfolders closed by default!
       renderActiveView();
       updateAppUrl(true);
-      notifyPageChanged();
     }
 
     // Toggle Subject Dropdown Menu
@@ -1858,6 +1866,13 @@
 
       const activeTree = document.querySelector(`.tree-file-row[data-note-id="${CSS.escape(note.id)}"]`);
       if (activeTree) activeTree.classList.add('selected');
+
+      // Show 6-second bottom-right credit bubble only for u/Remarkable_Trash_356 Chemistry notes
+      if ((note.category || '').toLowerCase().startsWith('u/remarkable_trash_356')) {
+        showCreditBubble('u/Remarkable_Trash_356');
+      } else {
+        hideCreditBubble();
+      }
     }
 
     // Navigate to Prev (-1) or Next (+1) document in current list
@@ -2029,7 +2044,6 @@
         navigateTo('explorer', false);
         renderActiveView();
         previewFile(note.id, true);
-        notifyPageChanged();
       }
     }
 
@@ -2437,7 +2451,7 @@
       if (modal) modal.classList.remove('open');
     }
 
-    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + random 4–5m cooldown + every page change) ───
+    // ─── SUPPORT ME POPUP CONTROLLER (8s auto-dismiss + random 4–5m cooldown + Home->Directory) ───
     const SUPPORT_AUTO_INITIAL_DELAY_MS = 2500;
     const SUPPORT_AUTO_COOLDOWN_MIN_MS = 240000; // 4 minutes
     const SUPPORT_AUTO_COOLDOWN_MAX_MS = 300000; // 5 minutes
@@ -2451,19 +2465,13 @@
       repeatTimeoutId: null,
       initialTimeoutId: null,
       pageChangeTimeoutId: null,
-      isAppNavigationReady: false,
-      lastPageSignature: ''
+      isAppNavigationReady: false
     };
 
     function getRandomSupportCooldownMs() {
       return SUPPORT_AUTO_COOLDOWN_MIN_MS + Math.floor(
         Math.random() * (SUPPORT_AUTO_COOLDOWN_MAX_MS - SUPPORT_AUTO_COOLDOWN_MIN_MS + 1)
       );
-    }
-
-    function getCurrentPageSignature() {
-      if (currentView === 'landing') return 'landing';
-      return `explorer|${currentStream || ''}|${selectedSubject || ''}`;
     }
 
     function canDismissSupportModal() {
@@ -2491,13 +2499,10 @@
       }, nextCooldownMs);
     }
 
-    function notifyPageChanged() {
+    function notifyHomeToDirectoryTransition() {
       if (!supportPopupState.isAppNavigationReady) return;
-      const nextSig = getCurrentPageSignature();
-      if (nextSig === supportPopupState.lastPageSignature) return;
-      supportPopupState.lastPageSignature = nextSig;
 
-      // Cancel initial delay if the user already navigated to another page
+      // Cancel pending initial delay if the user already navigated from Home to Directory
       if (supportPopupState.initialTimeoutId) {
         clearTimeout(supportPopupState.initialTimeoutId);
         supportPopupState.initialTimeoutId = null;
@@ -2599,6 +2604,47 @@
       }, SUPPORT_AUTO_INITIAL_DELAY_MS);
 
       scheduleNextSupportCooldown();
+    }
+
+    let creditBubbleTimeoutId = null;
+
+    function showCreditBubble(handleText = 'u/Remarkable_Trash_356') {
+      const bubble = document.getElementById('creditBubble');
+      const handleEl = document.getElementById('creditBubbleHandle');
+      const bar = document.getElementById('creditBubbleProgressBar');
+      if (!bubble) return;
+
+      if (handleEl) {
+        handleEl.textContent = handleText;
+        handleEl.href = `https://www.reddit.com/user/${encodeURIComponent(handleText.replace(/^u\//i, ''))}/`;
+      }
+
+      if (creditBubbleTimeoutId) {
+        clearTimeout(creditBubbleTimeoutId);
+        creditBubbleTimeoutId = null;
+      }
+
+      if (bar) {
+        bar.classList.remove('running');
+        void bar.offsetWidth; // restart 6s animation cleanly
+        bar.classList.add('running');
+      }
+
+      bubble.classList.add('show');
+      creditBubbleTimeoutId = setTimeout(() => {
+        hideCreditBubble();
+      }, 6000);
+    }
+
+    function hideCreditBubble() {
+      if (creditBubbleTimeoutId) {
+        clearTimeout(creditBubbleTimeoutId);
+        creditBubbleTimeoutId = null;
+      }
+      const bubble = document.getElementById('creditBubble');
+      const bar = document.getElementById('creditBubbleProgressBar');
+      if (bubble) bubble.classList.remove('show');
+      if (bar) bar.classList.remove('running');
     }
 
     function showToast(msg) {
@@ -2718,6 +2764,8 @@
     window.clearNotifSearch = clearNotifSearch;
     window.openNoteFromNotification = openNoteFromNotification;
     window.onIframeLoaded = onIframeLoaded;
+    window.showCreditBubble = showCreditBubble;
+    window.hideCreditBubble = hideCreditBubble;
     window.escapeHtml = escapeHtml;
     window.escapeAttr = escapeAttr;
 

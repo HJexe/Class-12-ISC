@@ -243,8 +243,18 @@ export function buildNotesData() {
         const parts = filePathPart.split('/').map(p => p.trim()).filter(Boolean);
         fullFileName = parts[parts.length - 1];
         const folderParts = parts.slice(0, -1);
+        // Preserve Reddit-style 'u/<username>' prefix as a single subfolder segment
+        const normalizedFolders = [];
+        for (let i = 0; i < folderParts.length; i++) {
+          if (folderParts[i].toLowerCase() === 'u' && i + 1 < folderParts.length) {
+            normalizedFolders.push(`u/${folderParts[i + 1]}`);
+            i++;
+          } else {
+            normalizedFolders.push(folderParts[i]);
+          }
+        }
         // Deduplicate consecutive identical folder names (e.g. "Company Accounts/Company Accounts")
-        const cleanFolders = folderParts.filter((folder, idx) => idx === 0 || folder.toLowerCase() !== folderParts[idx - 1].toLowerCase());
+        const cleanFolders = normalizedFolders.filter((folder, idx) => idx === 0 || folder.toLowerCase() !== normalizedFolders[idx - 1].toLowerCase());
         if (cleanFolders.length > 0) {
           category = cleanFolders.join(' / ');
         }
